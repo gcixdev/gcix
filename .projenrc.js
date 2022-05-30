@@ -11,6 +11,11 @@ const project = new cdk.JsiiProject({
     'GitLab CI multi language Library (x)',
   docgen: true,
   github: false,
+  jestOptions: {
+    jestConfig: {
+      setupFiles: ["./test/setupfiles/dotenv.ts"],
+    },
+  },
   bundledDeps: [
     'js-yaml', // Used to render the pipeline
     '@types/js-yaml',
