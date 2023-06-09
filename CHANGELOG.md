@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning].
 
 ## [Unreleased]
 
+### Added
+
 - initial release
 - Added `base` module with `IBase` interface
 - Added `image` module with class `Image`, interfaces for `IImage` and `ImageProps`
