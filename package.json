@@ -59,19 +59,20 @@
   },
   "dependencies": {
     "@types/js-yaml": "*",
-    "js-yaml": "^4.1.0"
+    "@types/node": "*",
+    "js-yaml": "^4.1.0",
+    "node": "*"
   },
   "bundledDependencies": [
     "@types/js-yaml",
-    "js-yaml"
+    "@types/node",
+    "js-yaml",
+    "node"
   ],
   "main": "lib/index.js",
   "license": "Apache-2.0",
   "version": "0.0.0",
   "jest": {
-    "setupFiles": [
-      "./test/setupfiles/dotenv.ts"
-    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
       "<rootDir>/(test|src)/**/?(*.)+(spec|test).ts?(x)"

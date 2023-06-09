@@ -94,7 +94,15 @@
       "type": "bundled"
     },
     {
+      "name": "@types/node",
+      "type": "bundled"
+    },
+    {
       "name": "js-yaml",
+      "type": "bundled"
+    },
+    {
+      "name": "node",
       "type": "bundled"
     }
   ],
