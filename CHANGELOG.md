@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning].
 ## [Unreleased]
 
 - initial release
+- Added `base` module with `IBase` interface
+- Added `image` module with class `Image`, interfaces for `IImage` and `ImageProps`
+- Added `image` tests
 
 <!-- Links -->
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
