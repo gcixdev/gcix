@@ -2,7 +2,8 @@ const { cdk } = require('projen');
 
 const gcixProject = new cdk.JsiiProject({
   authorEmail: 'daniel@vonessen.eu',
-  authorName: 'Daniel von Eßen',
+  authorName: 'Daniel von Essen',
+  copyrightOwner: 'Daniel von Essen',
   defaultReleaseBranch: 'main',
   name: 'gcix',
   repositoryUrl: 'https://gitlab.com/dvonessen/gcix.git',
@@ -11,9 +12,14 @@ const gcixProject = new cdk.JsiiProject({
   docgen: true,
   github: false,
   bundledDeps: [
-    'js-yaml', // Used to render the pipeline
-    '@types/js-yaml',
+    'js-yaml',
   ],
+  devDeps: [
+    '@types/js-yaml',
+    '@types/node',
+    '@types/jest',
+  ],
+  docsDirectory: 'public',
 });
 
 gcixProject.synth();
