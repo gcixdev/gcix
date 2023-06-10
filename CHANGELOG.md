@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning].
 - Added `image` module with class `Image`, interfaces for `IImage` and `ImageProps`
 - Added `image` tests
 - Changed some `projen` related settings
+- Moved `unittest` into subfolder of tests
 
 <!-- Links -->
 [keep a changelog]: https://keepachangelog.com/en/1.0.0/
