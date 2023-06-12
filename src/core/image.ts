@@ -1,5 +1,6 @@
 import { IBase } from './base';
-/**This module represents the Gitlab CI [Image](https://docs.gitlab.com/ee/ci/yaml/#image) keyword.
+/**
+ * This module represents the Gitlab CI [Image](https://docs.gitlab.com/ee/ci/yaml/#image) keyword.
  * Use `Image` to specify a Docker image to use for the `gcip.core.job.Job`.
  *
  * Objects of this class are not meant to be altered. This is because Image
@@ -12,25 +13,26 @@ import { IBase } from './base';
  * just the place you are using the altered image (copy).
 */
 
-type RenderedImage = {
-  [key: string]: string | string[];
-};
+export interface RenderedImage {
+  readonly name: string;
+  readonly entrypoint?: string[];
+}
 
 export interface ImageProps {
   /**
    * @description The fully qualified image name. Could include
    * repository and tag as usual.
    */
-  name: string;
+  readonly name: string;
   /**
    * @description Container image tag in registrie to use.
    */
-  tag?: string;
+  readonly tag?: string;
   /**
    * @description
    * Overwrites the containers entrypoint.
    */
-  entrypoint?: string[];
+  readonly entrypoint?: string[];
 }
 
 export interface IImage {
@@ -40,7 +42,7 @@ export interface IImage {
      * @description Returns a copy of that image with altered tag.
       * You can still use the original Image object with its original tag.
      */
-  with_tag(tag: string): Image;
+  withTag(tag: string): Image;
   /**
      *
      * @param entrypoint
@@ -48,9 +50,16 @@ export interface IImage {
      * You can still use the original Image object with its original entrypoint.
      */
   withEntrypoint(entrypoint: string[]): Image;
+  /**
+   *
+   * @param image Another instance of the `Image` class
+   * @description compares the return of the `this.render()` method and
+   * the `image.render()` method.
+   */
+  isEqual(image: Image): boolean;
 }
 
-export class Image implements IBase, IImage, ImageProps {
+export class Image implements IImage, IBase {
   name: string;
   tag?: string | undefined;
   entrypoint?: string[] | undefined;
@@ -61,7 +70,7 @@ export class Image implements IBase, IImage, ImageProps {
     this.entrypoint = props.entrypoint;
   }
 
-  with_tag(tag: string): Image {
+  withTag(tag: string): Image {
     const copy = { ...this };
     copy.tag = tag;
     return copy;
@@ -73,21 +82,15 @@ export class Image implements IBase, IImage, ImageProps {
     return copy;
   }
 
-  render(): RenderedImage {
-    const rendered: RenderedImage = {};
-    rendered.name = this.name + (this.tag || '') ;
-    if (this.entrypoint) {
-      rendered.entrypoint = this.entrypoint;
-    }
-    return rendered;
+  render(): any {
+    const renderedImage: RenderedImage = {
+      name: this.name + (this.tag || ''),
+      entrypoint: this.entrypoint,
+    };
+    return renderedImage;
   }
-  /**
-   *
-   * @param image Another instance of the `Image` class
-   * @description compares the return of the `this.render()` method and
-   * the `image.render()` method.
-   */
-  equals(image: Image): boolean {
+
+  isEqual(image: Image): boolean {
     return this.render() === image.render();
   }
 }
