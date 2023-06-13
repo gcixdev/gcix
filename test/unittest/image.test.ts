@@ -7,10 +7,8 @@ describe('image', () => {
     });
     expect(image.name).toBe('alpine:3');
     expect(image.entrypoint).toBe(undefined);
-    console.log(image.render());
     expect(image.render()).toMatchObject({
       name: 'alpine:3',
-
     });
   });
   test('image class with entrypoint', () => {
