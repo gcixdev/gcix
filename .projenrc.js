@@ -15,6 +15,7 @@ const gcixProject = new cdk.JsiiProject({
     'js-yaml',
   ],
   devDeps: [
+    'sanitize-filename',
     '@types/js-yaml',
     '@types/node',
     '@types/jest',
