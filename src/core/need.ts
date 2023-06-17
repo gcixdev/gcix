@@ -45,14 +45,16 @@
 import { IBase } from './base';
 import { PredefinedVariables } from './variables';
 
-//         rendered_need: Dict[str, Union[str, bool]] = {}
+/**
+ * @internal
+ */
 export interface RenderedNeed {
-  needs: {
-    job: string;
-    artifacts: boolean;
-    project: string;
-    ref: string;
-    pipeline: string;
+  readonly needs: {
+    readonly job: string;
+    readonly artifacts: boolean;
+    readonly project: string;
+    readonly ref: string;
+    readonly pipeline: string;
   };
 }
 
