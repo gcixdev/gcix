@@ -214,8 +214,14 @@ export class Artifacts implements IArtifacts {
       });
     }
 
-    if (this.when && ![WhenStatement.ALWAYS, WhenStatement.ONFAILURE, WhenStatement.ONSUCCESS].includes(this.when)) {
-      throw Error(`${this.when} not allowed. Only possible values are \`on_success\`, \`on_failure\` or \`always\``);
+    const allowedWhenStatements = [
+      WhenStatement.ALWAYS,
+      WhenStatement.ONFAILURE,
+      WhenStatement.ONSUCCESS,
+    ];
+
+    if (this.when && !allowedWhenStatements.includes(this.when)) {
+      throw Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
     }
   }
 
