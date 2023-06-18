@@ -19,8 +19,6 @@ import { IBase } from './base';
  * ```
  */
 
-type Variables = {[key: string]: string};
-
 /**
  * @internal
  */

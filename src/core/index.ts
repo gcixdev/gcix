@@ -7,3 +7,4 @@ export * from './cache';
 export * from './include';
 
 export type OrderedSet = Map<string, undefined>
+export type Variables = {[key: string]: string};
