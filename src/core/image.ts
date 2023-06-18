@@ -50,13 +50,6 @@ export interface IImage {
      * You can still use the original Image object with its original entrypoint.
      */
   withEntrypoint(entrypoint: string[]): Image;
-  /**
-   *
-   * @param image Another instance of the `Image` class
-   * @description compares the return of the `this.render()` method and
-   * the `image.render()` method.
-   */
-  isEqual(image: Image): boolean;
 }
 
 export class Image implements IImage, IBase {
@@ -90,7 +83,7 @@ export class Image implements IImage, IBase {
     return renderedImage;
   }
 
-  isEqual(image: Image): boolean {
-    return this.render() === image.render();
+  isEqual(comparable: IBase): comparable is Image {
+    return this.render() === comparable.render();
   }
 }

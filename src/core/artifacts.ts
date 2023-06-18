@@ -260,13 +260,7 @@ export class Artifacts implements IArtifacts {
     return rendered;
   }
 
-  /**
-   * isEqual checks if `this` artifact is equal to given artifact
-   *
-   * @param artifact An arbitrary artifact to compare
-   * @returns boolean
-   */
-  public isEqual(artifact: Artifacts) {
-    return this.render() === artifact.render();
+  isEqual(comparable: IBase): boolean {
+    return this.render() === comparable.render();
   }
 }

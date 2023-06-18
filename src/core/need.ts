@@ -156,12 +156,7 @@ export class Need implements INeed {
     };
   }
 
-  /**
-   * Compares the rendered output of this object and the given need object.
-   * @param need
-   * @returns true if the given `Need` object is equal to this object.
-   */
-  isEqual(need: Need): boolean {
-    return this.render() === need.render();
+  isEqual(comparable: IBase): comparable is Need {
+    return this.render() === comparable.render();
   }
 }

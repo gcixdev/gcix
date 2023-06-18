@@ -133,13 +133,7 @@ export class CacheKey implements ICacheKey {
     return rendered;
   }
 
-  /**
-   * isEqual checks if `this` object is equal to given object
-   *
-   * @param comparable An arbitrary object to compare to.
-   * @returns boolean
-   */
-  isEqual(comparable: CacheKey): boolean {
+  isEqual(comparable: IBase): comparable is CacheKey {
     return this.render() === comparable.render();
   }
 }
@@ -259,13 +253,7 @@ export class Cache implements ICache {
     return rendered;
   }
 
-  /**
-   * isEqual checks if `this` object is equal to given object
-   *
-   * @param comparable An arbitrary object to compare to.
-   * @returns boolean
-   */
-  isEqual(comparable: Cache): boolean {
+  isEqual(comparable: IBase): comparable is Cache {
     return this.render() === comparable.render();
   }
 }

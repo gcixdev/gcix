@@ -24,7 +24,7 @@ type Variables = {[key: string]: string};
 /**
  * @internal
  */
-interface RenderedRule {
+export interface RenderedRule {
   readonly rules: {
     readonly if?: string;
     readonly changes?: string[];
@@ -113,12 +113,6 @@ export interface IRule extends IBase {
      *
      */
   never(): Rule;
-  /**
-   * Compares the given object of equality of the referenced object.
-   * @param rule Any object of type `Rule`
-   * @returns boolean
-   */
-  isEqual(rule: Rule): boolean;
 };
 
 export class Rule implements IRule {
@@ -173,7 +167,7 @@ export class Rule implements IRule {
     return ruleCopy;
   }
 
-  isEqual(rule: Rule): boolean {
-    return this.render() === rule.render();
+  isEqual(comparable: IBase): comparable is Rule {
+    return this.render() === comparable.render();
   }
 }
