@@ -35,13 +35,13 @@ import { IBase, PredefinedVariables, WhenStatement } from '.';
  */
 export enum CachePolicy {
   /**
-     * The default behavior of a caching job is to download the files at the start of execution, and to
-     * re-upload them at the end. Any changes made by the job are persisted for future runs.
-     */
+   * The default behavior of a caching job is to download the files at the start of execution, and to
+   * re-upload them at the end. Any changes made by the job are persisted for future runs.
+   */
   PULLPUSH = 'pull-push',
   /**
-     * If you know the job does not alter the cached files, you can skip the upload step by setting this policy in the job specification.
-     */
+   * If you know the job does not alter the cached files, you can skip the upload step by setting this policy in the job specification.
+   */
   PULL = 'pull'
 }
 
@@ -49,33 +49,35 @@ export enum CachePolicy {
  * @internal
  */
 export interface RenderedCacheKey {
-
+  key?: string;
+  files?: string[];
+  prefix?: string;
 }
 
 export interface CacheKeyProps {
   /**
-     * @description The key is the unique id of the cache. `gcip.job.Job`s
-     * referencing caches with the same key are sharing the cache contents.
-     * Mutually exclusive with `files`
-     * @default gcip.core.variables.PredefinedVariables.CI_COMMIT_REF_SLUG
-     */
+   * @description The key is the unique id of the cache. `gcip.job.Job`s
+   * referencing caches with the same key are sharing the cache contents.
+   * Mutually exclusive with `files`
+   * @default gcip.core.variables.PredefinedVariables.CI_COMMIT_REF_SLUG
+   */
   readonly key?: string;
   /**
-     * @description A set of files is another way to define a caches unique id.
-     * Jobs referencing caches with the same set of files are sharing the cache
-     * contents.
-     *
-     * The [cache:key:files](https://docs.gitlab.com/ee/ci/yaml/#cachekeyfiles)
-     * keyword extends the cache:key functionality by making it easier to reuse
-     * some caches, and rebuild them less often, which speeds up subsequent
-     * pipeline runs. Mutually exclusive with `keys`. Defaults to None.
-     */
+   * @description A set of files is another way to define a caches unique id.
+   * Jobs referencing caches with the same set of files are sharing the cache
+   * contents.
+   *
+   * The [cache:key:files](https://docs.gitlab.com/ee/ci/yaml/#cachekeyfiles)
+   * keyword extends the cache:key functionality by making it easier to reuse
+   * some caches, and rebuild them less often, which speeds up subsequent
+   * pipeline runs. Mutually exclusive with `keys`. Defaults to None.
+   */
   readonly files?: string[];
   /**
-     * @description prefixed given `files` to allow creation of caches
-     * for branches.
-     */
-  prefix?: string;
+   * @description prefixed given `files` to allow creation of caches
+   * for branches.
+   */
+  readonly prefix?: string;
 
 }
 
@@ -84,16 +86,13 @@ export interface ICacheKey extends IBase {
 }
 
 /** This class represents the [cache:key](https://docs.gitlab.com/ee/ci/yaml/#cachekey) keyword.
-
-    Gitlab CI documentation: _"The key keyword defines the affinity of caching between jobs. You can have a single cache for
-    all jobs, cache per-job, cache per-branch, or any other way that fits your workflow."_
-
-
-    Raises:
-        ValueError: If both `key` and `files` are provided.
-        ValueError: If both `key` and `prefix` are provided.
-        ValueError: If `prefix` but not `files` is provided.
-        ValueError: If `key` is only made out of dots '.'.
+ *
+ * Gitlab CI documentation: _"The key keyword defines the affinity of caching
+ * between jobs. You can have a single cache for all jobs, cache per-job,
+ * cache per-branch, or any other way that fits your workflow."_
+ *
+ * @throws Error if both `key` and `files` are provided.
+ * @throws Error if `prefix` but not `files` is provided.
 */
 export class CacheKey implements ICacheKey {
   key?: string;
@@ -115,8 +114,10 @@ export class CacheKey implements ICacheKey {
       this.key = PredefinedVariables.CI_COMMIT_REF_SLUG;
     }
     if (this.key) {
-      //Forward slash and dot aren't allowed for cache key,
-      //therefore replacing both by '_' and '-'.
+      /**
+       * Forward slash and dot aren't allowed for cache key,
+       * therefore replacing both by '_' and '-'.
+       */
       this.key = this.key.replace(/\//gm, '_').replace(/\./gm, '-');
     }
   }
@@ -156,17 +157,17 @@ export interface CacheProps {
    * @description  Use the [paths directive](https://docs.gitlab.com/ee/ci/yaml/#cachepaths)
    * to choose which files or directories to cache.
    */
-  paths: string[];
+  readonly paths: string[];
   /**
    * @description The key keyword defines the affinity of caching between jobs.
    * @default to `CacheKey` with default arguments.
    */
-  cacheKey?: CacheKey;
+  readonly cacheKey?: CacheKey;
   /**
    * Set the [untracked keyword](https://docs.gitlab.com/ee/ci/yaml/#cacheuntracked)
    * to `True` to cache all files that are untracked in your Git repository.
    */
-  untracked?: boolean;
+  readonly untracked?: boolean;
   /**
    * @description [This keyword](https://docs.gitlab.com/ee/ci/yaml/#cachewhen)
    * defines when to save the cache, depending on job status.
@@ -174,12 +175,12 @@ export interface CacheProps {
    * `gcip.core.rule.WhenStatement.ON_FAILURE`,
    * `gcip.core.rule.WhenStatement.ALWAYS`.
    */
-  when?: WhenStatement;
+  readonly when?: WhenStatement;
   /**
    * @description The `CachePolicy` determines if a Job can modify the cache
    * or read him only.
    */
-  policy?: CachePolicy;
+  readonly policy?: CachePolicy;
 }
 
 export interface ICache extends IBase {
