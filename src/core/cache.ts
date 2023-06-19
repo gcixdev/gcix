@@ -105,9 +105,9 @@ export class CacheKey implements ICacheKey {
     this.prefix = props.prefix;
 
     if (this.key && this.files) {
-      throw Error('Parameters key and files are mutually exclusive.');
+      throw new Error('Parameters key and files are mutually exclusive.');
     } else if (this.prefix && !this.files) {
-      throw Error('Parameter \'prefix\' can only be used together with \'files\'.');
+      throw new Error('Parameter \'prefix\' can only be used together with \'files\'.');
     }
 
     if (!this.files && !this.key) {
@@ -233,7 +233,7 @@ export class Cache implements ICache {
       ];
 
       if (this.when && !allowedWhenStatements.includes(this.when)) {
-        throw Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
+        throw new Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
       }
     });
   }

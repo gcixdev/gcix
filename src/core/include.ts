@@ -164,7 +164,7 @@ export class IncludeRemote extends Include<RenderedIncludeRemote> implements IIn
   constructor(props: IncludeRemoteProps) {
     super();
     if (!validURL(props.remote)) {
-      throw Error(`\`remote\` is not a valid URL: ${props.remote}`);
+      throw new Error(`\`remote\` is not a valid URL: ${props.remote}`);
     }
     this.rendered = {
       remote: props.remote,

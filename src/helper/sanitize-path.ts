@@ -16,7 +16,7 @@ export function sanitizePath(path: string): string {
     path = path.replace(PredefinedVariables.CI_PROJECT_DIR, '.');
   }
   if (path.startsWith('/')) {
-    throw Error(`Path ${path} not relative to ${PredefinedVariables.CI_PROJECT_DIR}.`);
+    throw new Error(`Path ${path} not relative to ${PredefinedVariables.CI_PROJECT_DIR}.`);
   }
   return path;
 }

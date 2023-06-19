@@ -221,7 +221,7 @@ export class Artifacts implements IArtifacts {
     ];
 
     if (this.when && !allowedWhenStatements.includes(this.when)) {
-      throw Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
+      throw new Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
     }
   }
 
@@ -260,7 +260,7 @@ export class Artifacts implements IArtifacts {
     return rendered;
   }
 
-  isEqual(comparable: IBase): boolean {
+  isEqual(comparable: IBase): comparable is Artifacts {
     return this.render() === comparable.render();
   }
 }
