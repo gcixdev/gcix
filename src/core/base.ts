@@ -11,6 +11,5 @@ export interface IBase {
    * @param comparable An arbitrary object to compare to.
    * @returns boolean
    */
-  isEqual(comparable: IBase): boolean;
-
+  isEqual(comparable: IBase): comparable is IBase;
 }
