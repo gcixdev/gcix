@@ -23,4 +23,9 @@ const gcixProject = new cdk.JsiiProject({
   docsDirectory: 'public',
 });
 
+gcixProject.vscode.settings.addSettings({
+  'editor.tabSize': 2,
+},
+);
+
 gcixProject.synth();
