@@ -1,9 +1,9 @@
 {
   "name": "gcix",
-  "description": "GitLab CI multi language Library (x)",
+  "description": "GitLab CI X Library (X stands for multilanguage)",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/dvonessen/gcix.git"
+    "url": "https://gitlab.com/gcix/gcix.git"
   },
   "scripts": {
     "build": "npx projen build",
