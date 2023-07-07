@@ -55,9 +55,7 @@ import { validURL } from '../helper';
  * which is not very handy. This could be implemented much better in future.
  */
 
-export interface IInclude extends IBase {
-
-}
+export interface IInclude extends IBase {}
 
 /**
  * This is just an abstract superclass.
@@ -70,7 +68,7 @@ export interface IInclude extends IBase {
  * * `IncludeTemplate`
  * * `IncludeArtifact`
  */
-export class Include<T> implements IInclude {
+export class Include implements IInclude {
   rendered: any;
   constructor() {
     this.rendered = undefined;
@@ -78,7 +76,7 @@ export class Include<T> implements IInclude {
   render(): any {
     return this.rendered;
   }
-  isEqual(comparable: IBase): comparable is Include<T> {
+  isEqual(comparable: IBase): comparable is Include {
     return this.render() === comparable.render();
   }
 }
@@ -100,7 +98,7 @@ export interface IIncludeLocal extends IInclude {}
  * This module represents the Gitlab CI
  * [include:local](https://docs.gitlab.com/ee/ci/yaml/#includelocal) keyword.
  */
-export class IncludeLocal extends Include<RenderedIncludeLocal> implements IInclude {
+export class IncludeLocal extends Include implements IIncludeLocal {
   constructor(props: IncludeLocalProps) {
     super();
     this.rendered = { local: props.local };
@@ -133,7 +131,7 @@ export interface IIncludeFile extends IInclude {}
  * This module represents the Gitlab CI
  * [include:file](https://docs.gitlab.com/ee/ci/yaml/#includefile) keyword.
  */
-export class IncludeFile extends Include<RenderedIncludeFile> implements IIncludeFile {
+export class IncludeFile extends Include implements IIncludeFile {
   constructor(props: IncludeFileProps) {
     super();
     this.rendered = {
@@ -160,7 +158,7 @@ export interface IIncludeRemote extends IInclude {}
  * [include:remote](https://docs.gitlab.com/ee/ci/yaml/#includeremote) keyword.
  * @throws Error if `remote` is not a valid URL.
  */
-export class IncludeRemote extends Include<RenderedIncludeRemote> implements IIncludeRemote {
+export class IncludeRemote extends Include implements IIncludeRemote {
   constructor(props: IncludeRemoteProps) {
     super();
     if (!validURL(props.remote)) {
@@ -187,7 +185,7 @@ export interface IIncludeTemplate extends IInclude {}
  * @description This class represents the Gitlab CI
  * [include:template](https://docs.gitlab.com/ee/ci/yaml/#includetemplate) keyword.
  */
-export class IncludeTemplate extends Include<RenderedIncludeTemplate> implements IIncludeTemplate {
+export class IncludeTemplate extends Include implements IIncludeTemplate {
   constructor(props: IncludeTemplateProps) {
     super();
     this.rendered = { template: props.template };
@@ -215,7 +213,7 @@ export interface IIncludeArtifact extends IInclude {}
  * with `IncludeArtifact` to run
  * [a child pipeline with a generated configuration file from a previous job](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger-child-pipeline-with-generated-configuration-file):
  */
-export class IncludeArtifact extends Include<RenderedIncludeArtifact> implements IIncludeArtifact {
+export class IncludeArtifact extends Include implements IIncludeArtifact {
 
   constructor(props: IncludeArtifactProps) {
     super();
