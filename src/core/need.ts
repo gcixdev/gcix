@@ -49,13 +49,11 @@ import { PredefinedVariables } from './variables';
  * @internal
  */
 export interface RenderedNeed {
-  readonly needs: {
-    readonly job: string;
-    readonly artifacts: boolean;
-    readonly project: string;
-    readonly ref: string;
-    readonly pipeline: string;
-  };
+  readonly job: string;
+  readonly artifacts: boolean;
+  readonly project: string;
+  readonly ref: string;
+  readonly pipeline: string;
 }
 
 export interface NeedProps {
@@ -70,12 +68,12 @@ export interface NeedProps {
    * its project name here.
    * @default undefined
    */
-  readonly project: string;
+  readonly project?: string;
   /**
    * @description Branch of the remote project to depend on.
    * @default undefined
    */
-  readonly ref: string;
+  readonly ref?: string;
   /**
    * @description When `$CI_PIPELINE_ID` of another pipeline is provided,
    * then artifacts from this pipeline are downloaded.
@@ -83,12 +81,12 @@ export interface NeedProps {
    * upstream pipeline is mirrored.
    * @default undefined which requires `job` to be set.
    */
-  readonly pipeline: string;
+  readonly pipeline?: string;
   /**
    * @description Download artifacts from the `job` to depend on.
    * @default true
    */
-  readonly artifacts: boolean;
+  readonly artifacts?: boolean;
 }
 
 export interface INeed extends IBase{
@@ -107,10 +105,10 @@ export interface INeed extends IBase{
  */
 export class Need implements INeed {
   job: string | undefined;
-  project: string;
-  ref: string;
-  pipeline: string;
-  artifacts: boolean;
+  project: string | undefined;
+  ref: string | undefined;
+  pipeline: string | undefined;
+  artifacts: boolean | undefined;
 
   constructor(props: NeedProps) {
     if (!props.job && !props.pipeline) {
@@ -146,13 +144,11 @@ export class Need implements INeed {
    */
   render(): any {
     return {
-      needs: {
-        job: this.job,
-        artifacts: this.artifacts,
-        project: this.project,
-        ref: this.ref,
-        pipeline: this.pipeline,
-      },
+      job: this.job,
+      artifacts: this.artifacts,
+      project: this.project,
+      ref: this.ref,
+      pipeline: this.pipeline,
     };
   }
 
