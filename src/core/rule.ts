@@ -24,14 +24,12 @@ import { IBase } from './base';
  * @internal
  */
 export interface RenderedRule {
-  readonly rules: {
-    readonly if?: string;
-    readonly changes?: string[];
-    readonly exists?: string[];
-    readonly variables?: {[key: string]: string};
-    readonly when?: WhenStatement;
-    readonly allow_failure?: boolean;
-  };
+  readonly if?: string;
+  readonly changes?: string[];
+  readonly exists?: string[];
+  readonly variables?: {[key: string]: string};
+  readonly when?: WhenStatement;
+  readonly allow_failure?: boolean;
 };
 
 /**
@@ -137,14 +135,12 @@ export class Rule implements IRule {
    */
   render(): any {
     const renderedRule: RenderedRule = {
-      rules: {
-        if: this.ifStatement,
-        changes: this.changes,
-        exists: this.exists,
-        variables: this.variables,
-        when: this.when,
-        allow_failure: this.allowFailure,
-      },
+      if: this.ifStatement,
+      changes: this.changes,
+      exists: this.exists,
+      variables: this.variables,
+      when: this.when,
+      allow_failure: this.allowFailure,
     };
 
     return renderedRule;
