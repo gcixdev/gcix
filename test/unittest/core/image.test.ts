@@ -1,4 +1,4 @@
-import { Image } from '../../src/core/image';
+import { Image } from '../../../src/core/image';
 
 describe('image', () => {
   test('image class only with image', () => {
