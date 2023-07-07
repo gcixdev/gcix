@@ -13,25 +13,22 @@
  * ```
  */
 
-import { IBase, OrderedSet } from '.';
-import { WhenStatement } from './rule';
+import { IBase, OrderedStringSet, WhenStatement } from '.';
 import { sanitizePath } from '../helper';
 
 /**
  * @internal
  */
 export interface RenderdArtifacts {
-  readonly artifacts: {
-    readonly paths: string[];
-    readonly excludes: string[];
-    readonly expire_in?: string;
-    readonly expose_as?: string;
-    readonly name?: string;
-    readonly public?: boolean;
-    readonly untracked?: boolean;
-    readonly when?: WhenStatement;
-    readonly reports?: ArtifactsReportPaths;
-  };
+  readonly paths: string[];
+  readonly excludes: string[];
+  readonly expire_in?: string;
+  readonly expose_as?: string;
+  readonly name?: string;
+  readonly public?: boolean;
+  readonly untracked?: boolean;
+  readonly when?: WhenStatement;
+  readonly reports?: ArtifactsReport;
 }
 /**
  * This class represents the [artifacts:reports](https://docs.gitlab.com/ee/ci/yaml/#artifactsreports) types.
@@ -123,8 +120,6 @@ export enum ArtifactsReport {
   TERRAFORM = 'terraform',
 }
 
-type ArtifactsReportPaths = {readonly [key in keyof typeof ArtifactsReport]: string}
-
 export interface ArtifactsProps {
   /**
    * Paths relative to project directory `$CI_PROJECT_DIR`, found files
@@ -156,7 +151,7 @@ export interface ArtifactsProps {
    * Reports must be a valid dictionary, the key represents a ArtifactsReport
    * and the value must be a valid relativ file path to the reports file.
    */
-  readonly reports?: ArtifactsReportPaths;
+  readonly reports?: ArtifactsReport;
   /**
    * If true adds all untracked file to artifacts archive.
    */
@@ -167,7 +162,7 @@ export interface ArtifactsProps {
   readonly when?: WhenStatement;
 }
 
-export interface IArtifacts extends IBase{
+export interface IArtifacts extends IBase {
   addPaths(paths: string[]): void;
   addExcludes(excludes: string[]): void;
 }
@@ -184,18 +179,19 @@ export interface IArtifacts extends IBase{
  * @raises Error if when is not `on_success`, `on_failure` or `always`.
  */
 export class Artifacts implements IArtifacts {
-  paths: OrderedSet;
-  excludes: OrderedSet;
+  paths: OrderedStringSet;
+  excludes: OrderedStringSet;
   expireIn: string | undefined;
   exposeAs: string | undefined;
   name: string | undefined;
   public: boolean | undefined;
   untracked: boolean | undefined;
   when: WhenStatement | undefined;
-  reports: ArtifactsReportPaths | undefined;
+  reports: ArtifactsReport | undefined;
+
   constructor(props: ArtifactsProps) {
-    this.paths = new Map();
-    this.excludes = new Map();
+    this.paths = new OrderedStringSet();
+    this.excludes = new OrderedStringSet();
     this.expireIn = props.expireIn;
     this.exposeAs = props.exposeAs;
     this.name = props.name;
@@ -205,12 +201,12 @@ export class Artifacts implements IArtifacts {
     this.when = props.when;
 
     props.paths.forEach((element) => {
-      this.paths.set(sanitizePath(element), undefined);
+      this.paths.add(sanitizePath(element));
     });
 
     if (props.excludes) {
       props.excludes.forEach((element) => {
-        this.excludes.set(sanitizePath(element), undefined);
+        this.excludes.add(sanitizePath(element));
       });
     }
 
@@ -221,19 +217,21 @@ export class Artifacts implements IArtifacts {
     ];
 
     if (this.when && !allowedWhenStatements.includes(this.when)) {
-      throw new Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
+      throw new Error(
+        `${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`,
+      );
     }
   }
 
   public addPaths(paths: string[]) {
     paths.forEach((element) => {
-      this.paths.set(element, undefined);
-    } );
-  };
+      this.paths.add(element);
+    });
+  }
 
   public addExcludes(excludes: string[]) {
     excludes.forEach((element) => {
-      this.excludes.set(element, undefined);
+      this.excludes.add(element);
     });
   }
 
@@ -245,17 +243,15 @@ export class Artifacts implements IArtifacts {
       return {};
     }
     const rendered: RenderdArtifacts = {
-      artifacts: {
-        name: this.name,
-        paths: Array.from(this.paths.keys()),
-        excludes: Array.from(this.excludes.keys()),
-        expire_in: this.expireIn,
-        expose_as: this.exposeAs,
-        public: this.public,
-        reports: this.reports,
-        untracked: this.untracked,
-        when: this.when,
-      },
+      name: this.name,
+      paths: this.paths.values,
+      excludes: this.excludes.values,
+      expire_in: this.expireIn,
+      expose_as: this.exposeAs,
+      public: this.public,
+      reports: this.reports,
+      untracked: this.untracked,
+      when: this.when,
     };
     return rendered;
   }
