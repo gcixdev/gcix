@@ -143,13 +143,11 @@ export class CacheKey implements ICacheKey {
  * @internal
  */
 export interface RenderedCache {
-  cache: {
-    paths: string[];
-    when: string;
-    untracked: boolean;
-    policy: string;
-    key: CacheKey;
-  };
+  paths: string[];
+  when: string;
+  untracked: boolean;
+  policy: string;
+  key: CacheKey;
 }
 
 export interface CacheProps {
@@ -243,13 +241,11 @@ export class Cache implements ICache {
    */
   render(): any {
     const rendered = {
-      cache: {
-        paths: this.paths,
-        when: this.when,
-        untracked: this.untracked,
-        policy: this.policy,
-        key: this.cacheKey.render(),
-      },
+      paths: this.paths,
+      when: this.when,
+      untracked: this.untracked,
+      policy: this.policy,
+      key: this.cacheKey.render(),
     };
     return rendered;
   }
