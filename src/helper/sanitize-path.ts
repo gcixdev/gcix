@@ -11,7 +11,7 @@ import { PredefinedVariables } from '../core';
  * @returns Sanitized path
  */
 export function sanitizePath(path: string): string {
-  path = path.normalize(path);
+  path = path.normalize();
   if (path.startsWith(PredefinedVariables.CI_PROJECT_DIR)) {
     path = path.replace(PredefinedVariables.CI_PROJECT_DIR, '.');
   }
