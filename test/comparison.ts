@@ -7,10 +7,15 @@ export function check(output: Object, callerExpect: jest.Expect): void {
   // Convert output object into yaml
   const yamlOutput = yaml.dump(output, { sortKeys: true, flowLevel: -1 });
 
+  const testPath = callerExpect.getState().testPath;
+  const currentTestName = callerExpect.getState().currentTestName;
+  if (!testPath || !currentTestName) {
+    throw new Error('There is no `testPath` or `currentTestName` on `callerExpect.getState()` property');
+  }
   // Path to your YAML file
-  const testDirPath = path.parse(callerExpect.getState().testPath).dir;
-  const testFilename = path.parse(callerExpect.getState().testPath).name;
-  const testName = sanitize(callerExpect.getState().currentTestName);
+  const testDirPath = path.parse(testPath).dir;
+  const testFilename = path.parse(testPath).name;
+  const testName = sanitize(currentTestName).replace(/ /g, '_');
 
   const compareFilePath = `${testDirPath}/comparison_files/${testFilename}_${testName}.yaml`;
 
@@ -29,10 +34,10 @@ export function check(output: Object, callerExpect: jest.Expect): void {
   } else {
     try {
       expect(yamlOutput).toBe(fs.readFileSync(compareFilePath, 'utf-8'));
-    } catch (error) {
-      if (error.code == 'ENOENT') {
+    } catch (error: any) {
+      if (error.code === 'ENOENT') {
         console.error(
-          `Comparison file not found.
+          `Comparison file '${compareFilePath}' not found.
           Create it by executing:
           UPDATE_TEST_OUTPUT=true TODO ${testFilename}
         `);
