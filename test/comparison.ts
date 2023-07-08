@@ -5,7 +5,7 @@ import sanitize from 'sanitize-filename';
 
 export function check(output: Object, callerExpect: jest.Expect): void {
   // Convert output object into yaml
-  const yamlOutput = yaml.dump(output, { sortKeys: false, flowLevel: -1 });
+  const yamlOutput = yaml.dump(output, { sortKeys: false, flowLevel: -1, noArrayIndent: true });
 
   const testPath = callerExpect.getState().testPath;
   const currentTestName = callerExpect.getState().currentTestName;
@@ -17,7 +17,7 @@ export function check(output: Object, callerExpect: jest.Expect): void {
   const testFilename = path.parse(testPath).name;
   const testName = sanitize(currentTestName).replace(/ /g, '_');
 
-  const compareFilePath = `${testDirPath}/comparison_files/${testFilename}_${testName}.yaml`;
+  const compareFilePath = `${testDirPath}/comparison_files/${testFilename}/${testName}.yaml`;
 
   if (process.env.UPDATE_TEST_OUTPUT) {
     if (!fs.existsSync(path.dirname(compareFilePath))) {
