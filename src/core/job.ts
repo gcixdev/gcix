@@ -86,6 +86,7 @@
 
 import { Cache, IBase, Image, Need, Rule, Variables, Artifacts, OrderedStringSet, IncludeLocal, IncludeFile, IncludeRemote, IncludeTemplate, IncludeArtifact } from '.';
 import { JobCollection } from './job-collection';
+import { deepcopy } from '../helper';
 
 export interface RenderedJob {}
 
@@ -93,7 +94,7 @@ export interface JobProps {
   /**
    * @description The [script(s)](https://docs.gitlab.com/ee/ci/yaml/README.html#script) to be executed.
    */
-  readonly scripts: string | string[];
+  readonly scripts: string[];
   /**
    * @description The name of the job. In opposite to `stage` only the name
    * is set and not the stage of the job. If `name` is set, than the jobs
@@ -156,6 +157,10 @@ export interface JobProps {
 }
 
 export interface IJobBase extends IBase {
+  /**
+   * Getter method to receive added tags.
+   */
+  tags: string[];
   /**
    * @description Adds one or more [variables](https://docs.gitlab.com/ee/ci/yaml/README.html#variables), to the job.
    */
@@ -276,17 +281,17 @@ export interface IJob extends IJobBase {
 export class Job implements IJob {
   name: string;
   stage: string;
-  original?: Job | undefined;
+  original?: Job;
   scripts: string[];
   allowFailure: string | number | boolean | number[];
-  image: Image | undefined;
-  tags: OrderedStringSet;
-  rules: Rule[] | undefined;
-  cache: Cache | undefined;
-  variables: Variables | undefined;
-  artifacts: Artifacts | undefined;
-  dependencies: (Need | Job | JobCollection)[] | undefined;
-  needs: (Need | Job | JobCollection)[] | undefined;
+  image?: Image;
+  orderedTags: OrderedStringSet;
+  rules?: Rule[];
+  cache?: Cache;
+  variables?: Variables;
+  artifacts?: Artifacts;
+  dependencies?: (Need | Job | JobCollection)[];
+  needs?: (Need | Job | JobCollection)[];
   parents: (Job | JobCollection)[];
   constructor(props: JobProps) {
     if (props.stage && props.name) {
@@ -304,25 +309,18 @@ export class Job implements IJob {
     }
     this.name = this.name.replace(/_/gm, '-');
     this.stage = this.stage.replace(/-/gm, '_');
-
-    if (typeof props.scripts === 'string') {
-      this.scripts = [props.scripts];
-    } else if (Array.isArray(props.scripts)) {
-      this.scripts = props.scripts;
-    } else {
-      throw TypeError('`script` parameter must be of type string or array of strings');
-    }
-
+    this.scripts = props.scripts;
+    this.cache = props.cache;
     /**
     * internally self._allow_failure is set to a special value 'untouched' indicating this value is untouched by the user.
     * This is because the user can set the value from outside to True, False or None, indicating the value should not be rendered.
     * 'untouched' allows for sequences to determine, if this value should be initialized or not.
     */
     this.allowFailure = props.allowFailure ?? 'untouched';
-    this.tags = new OrderedStringSet();
-    this.needs = [];
+    this.orderedTags = new OrderedStringSet();
 
     props.tags && this.addTags(props.tags);
+    props.artifacts && this.assignArtifacts(props.artifacts);
     props.image ? this.assignImage(props.image) : this.image = undefined;
     props.rules ? this.appendRules(props.rules) : this.rules = undefined;
     props.dependencies ? this.addDependencies(props.dependencies) : this.dependencies = undefined;
@@ -332,13 +330,19 @@ export class Job implements IJob {
     this.parents = [];
 
 
-    //  /**
-    //   * Onnly set if you get a `copy` of this job
-    //   */
+    /**
+     * Only set if you get a `copy` of this job
+     */
     this.original = undefined;
   }
+  get tags() {
+    return this.orderedTags.values;
+  }
+
   copy(): Job {
-    throw new Error('Method not implemented.');
+    const jobCopy = deepcopy(this);
+    jobCopy.original = this;
+    return jobCopy;
   }
 
   // @ts-ignore
@@ -404,7 +408,7 @@ export class Job implements IJob {
     return this;
   }
   addNeeds(needs: (Need | Job | JobCollection)[]): Job {
-    if (this.needs instanceof Array) {
+    if (this.needs instanceof Array && this.needs.length > 0) {
       this.needs = [...this.needs, ...needs];
     } else {
       this.needs = needs;
@@ -432,19 +436,19 @@ export class Job implements IJob {
   }
   addTags(tags: string[]): Job {
     for (const tag of tags) {
-      this.tags.add(tag);
+      this.orderedTags.add(tag);
     }
     return this;
   }
   assignTags(tags: string[]) {
-    this.tags = new OrderedStringSet(tags);
+    this.orderedTags = new OrderedStringSet(tags);
     return this;
   }
   extendName(name: string) {
     this.name = `${name.replace(/_/gm, '-')}-${this.name}`;
   }
   extendStageValue(stage: string) {
-    this.stage = `${this.stage}_${stage.replace(/-/gc, '_')}`;
+    this.stage = `${this.stage}_${stage.replace(/-/g, '_')}`;
   }
   extendStage(stage: string) {
     this.extendName(stage);
@@ -508,7 +512,7 @@ export class Job implements IJob {
         } else if (need instanceof Need) {
           renderedNeeds.push(need.render() as Need);
         } else {
-          throw new Error(`Need '${need}' if of type '${typeof need}'`);
+          throw new Error(`Need '${need}' is of type '${typeof need}'`);
         }
       }
 
@@ -559,8 +563,8 @@ export class Job implements IJob {
       }
     }
 
-    if (this.tags.size > 0) {
-      renderedJob.tags = this.tags.values;
+    if (this.orderedTags.size > 0) {
+      renderedJob.tags = this.orderedTags.values;
     }
 
     return renderedJob;
@@ -616,78 +620,6 @@ export interface TriggerJobProps {
   readonly strategy?: TriggerStrategy;
 }
 
-/**
- * This class represents the [trigger](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger)
- * job.
- *
- * Jobs with trigger can only use a
- * [limited set of keywords](https://docs.gitlab.com/ee/ci/multi_project_pipelines.html#limitations).
- * For example, you can’t run commands with `script`.
- *
- *  Simple example:
- * ```python
- * trigger_job = TriggerJob(
- *     stage="trigger-other-job",
- *     project="myteam/other-project",
- *     branch="main",
- *     strategy=TriggerStrategy.DEPEND,
- * )
- * trigger_job.append_rules(rules.on_tags().never(), rules.on_main())
- * ```
- *
- * @throws Error if both `project` and `includes` are given.
- * @throws Error when the limit of three child pipelines is exceeded. See
- * https://docs.gitlab.com/ee/ci/parent_child_pipelines.html for more
- * information.
- */
-export class TriggerJob extends Job {
-  includes: Array<IncludeLocal | IncludeFile | IncludeRemote | IncludeTemplate | IncludeArtifact>;
-  project: string | undefined;
-  branch: string | undefined;
-  strategy: TriggerStrategy | undefined;
-
-  constructor(props: TriggerJobProps) {
-    if (props.includes && props.project) {
-      throw new Error("You cannot specify 'include' and 'project' together. Either 'include' or 'project' is possible.");
-    }
-    if (!props.includes && !props.project) {
-      throw Error("Neither 'includes' nor 'project' is given.");
-    }
-    super({ name: props.name, stage: props.stage, scripts: ['none'] });
-    this.includes = props.includes || [];
-    this.project = props.project;
-    this.branch = props.branch;
-    this.strategy = props.strategy;
-
-    if (this.includes.length > 3 ) {
-      throw new Error(`The length of 'includes' is limited to three."
-      "See https://docs.gitlab.com/ee/ci/parent_child_pipelines.html for more information.`);
-    }
-  }
-
-  /**
-   * @returns RenderedTriggerJob
-   */
-  render(): any {
-    const renderedSuperJob: any = super.render();
-
-    // remove unsupported keywords from TriggerJob
-    delete renderedSuperJob.scripts;
-    delete renderedSuperJob.image;
-    delete renderedSuperJob.tags;
-    delete renderedSuperJob.artifacts;
-    delete renderedSuperJob.cache;
-
-    const renderedTriggerJob: RenderedTriggerJob = {
-      include: this.includes.map(include => include.render()),
-      project: this.project,
-      branch: this.branch,
-      strategy: this.strategy,
-    };
-
-    return { trigger: renderedTriggerJob, ...renderedSuperJob };
-  }
-}
 
 export interface IPagesJob {
   /**
@@ -753,8 +685,8 @@ export class PagesJob extends Job implements IPagesJob {
       stage: 'pages',
       name: 'pages',
       scripts: ['echo "Publishing Gitlab Pages"'],
+      artifacts: new Artifacts({ paths: ['public'] }),
     });
-    super.artifacts?.addPaths(['public']);
     super.assignImage('busybox:latest');
   }
   assignStage(stage: string): PagesJob {

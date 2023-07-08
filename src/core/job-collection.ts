@@ -37,6 +37,18 @@ export interface ChildDict {
 
 export interface IJobCollectionBase extends IBase {
   /**
+   * Getter method to receive array of added tags.
+   */
+  tags: string[];
+  /**
+   * Getter method to receive tagsForInitialization string array.
+   */
+  tagsForInitialization: string[];
+  /**
+   * Getter method to receive tagsForOverride string array.
+   */
+  tagsForOverride: string[];
+  /**
    * @description Adds one or more [variables](https://docs.gitlab.com/ee/ci/yaml/README.html#variables), to the job.
    */
   addVariables(variables: Variables): JobCollection;
@@ -101,9 +113,9 @@ export interface IJobCollection extends IJobCollectionBase {
   artifacts?: Artifacts;
   artifactsForInitialization?: Artifacts;
   artifactsForReplacement?: Artifacts;
-  tags: OrderedStringSet;
-  tagsForInitialization: OrderedStringSet;
-  tagsForOverride: OrderedStringSet;
+  orderedTags: OrderedStringSet;
+  orderedTagsForInitialization: OrderedStringSet;
+  orderedTagsForOverride: OrderedStringSet;
   rulesToAppend: Rule[];
   rulesToPrepend: Rule[];
   rulesForInitialization: Rule[];
@@ -154,13 +166,13 @@ export interface IJobCollection extends IJobCollectionBase {
   * Adding a child creates a copy of that child. You should provide a name or stage
   * when adding children, to make them different from other places where they will be used.
   *
-  * @param jobs_or_sequences One or more jobs or sequences to be added to this sequence.
+  * @param jobsOrJobCollections One or more jobs or sequences to be added to this sequence.
   * @param stage Adds a stages component to all children added. Defaults to None.
   * @param name Adds a name component to all children added. Defaults to None.
   *
   * @returns JobCollection of the modified `JobCollection` object.
   */
-  addChildren(jobs_or_sequences: Array<Job | JobCollection>, stage?: string, name?: string): JobCollection;
+  addChildren(jobsOrJobCollections: Array<Job | JobCollection>, stage?: string, name?: string): JobCollection;
   /**
    * Calling `gcip.core.job.Job.add_variables()` to all jobs within this
    * sequence that haven't been added variables before.
@@ -299,9 +311,9 @@ export class JobCollection implements IJobCollection {
   artifacts?: Artifacts;
   artifactsForInitialization?: Artifacts;
   artifactsForReplacement?: Artifacts;
-  tags: OrderedStringSet = new OrderedStringSet();
-  tagsForInitialization: OrderedStringSet = new OrderedStringSet();
-  tagsForOverride: OrderedStringSet = new OrderedStringSet();
+  orderedTags: OrderedStringSet = new OrderedStringSet();
+  orderedTagsForInitialization: OrderedStringSet = new OrderedStringSet();
+  orderedTagsForOverride: OrderedStringSet = new OrderedStringSet();
   rulesToAppend: Rule[] = [];
   rulesToPrepend: Rule[] = [];
   rulesForInitialization: Rule[] = [];
@@ -318,7 +330,16 @@ export class JobCollection implements IJobCollection {
   imageForInitialization?: Image | string;
   imageForReplacement?: Image | string;
 
-  constructor() {
+  constructor() {}
+
+  get tags() {
+    return this.orderedTags.values;
+  }
+  get tagsForInitialization() {
+    return this.orderedTagsForInitialization.values;
+  }
+  get tagsForOverride() {
+    return this.orderedTagsForOverride.values;
   }
 
   initializeAllowFailure(allowFailure: string | number | boolean | number[]): JobCollection {
@@ -362,19 +383,19 @@ export class JobCollection implements IJobCollection {
    */
   addTags(tags: string[]): JobCollection {
     for (const tag of tags) {
-      this.tags.add(tag);
+      this.orderedTags.add(tag);
     }
     return this;
   }
   initializeTags(tags: string[]): JobCollection {
     for (const tag of tags) {
-      this.tagsForInitialization.add(tag);
+      this.orderedTagsForInitialization.add(tag);
     }
     return this;
   }
   overrideTags(tags: string[]): JobCollection {
     for (const tag of tags) {
-      this.tagsForOverride.add(tag);
+      this.orderedTagsForOverride.add(tag);
     }
     return this;
   }
@@ -434,9 +455,9 @@ export class JobCollection implements IJobCollection {
     this.imageForReplacement = image;
     return this;
   }
-  addChildren(jobs_or_sequences: (Job | JobCollection)[], stage?: string | undefined, name?: string | undefined): JobCollection {
-    for (const child of jobs_or_sequences) {
-      this.addChildren([this]);
+  addChildren(jobsOrJobCollections: (Job | JobCollection)[], stage?: string | undefined, name?: string | undefined): JobCollection {
+    for (const child of jobsOrJobCollections) {
+      this.addParent(this);
       this.children.push({ child: child, stage: stage, name: name });
     }
     return this;
@@ -522,13 +543,13 @@ export class JobCollection implements IJobCollection {
     if (allJobs.length) {
       const firstJob = allJobs[0];
       if (!firstJob.needs && this.needsForInitialization) {
-        firstJob.assignNeeds([deepcopy(this.needsForInitialization)]);
+        firstJob.assignNeeds(deepcopy(this.needsForInitialization));
       }
       if (this.needsForReplacement) {
-        firstJob.assignNeeds([deepcopy(this.needsForReplacement)]);
+        firstJob.assignNeeds(deepcopy(this.needsForReplacement));
       }
       if (this.needs) {
-        firstJob.addNeeds([deepcopy(this.needs)]);
+        firstJob.addNeeds(deepcopy(this.needs));
       }
       for (const job of allJobs.slice(1)) {
         if (job.stage === firstJob.stage) {
@@ -547,7 +568,7 @@ export class JobCollection implements IJobCollection {
 
     for (const job of allJobs) {
       if (this.imageForInitialization && !job.image) {
-        job.assignImage(deepcopy(this.tagsForInitialization));
+        job.assignImage(deepcopy(this.imageForInitialization));
       }
       if (this.imageForReplacement) {
         job.assignImage(deepcopy(this.imageForReplacement));
@@ -570,7 +591,9 @@ export class JobCollection implements IJobCollection {
       if (this.cacheForInitialization && !job.cache) {
         job.cache = deepcopy(this.cacheForInitialization);
       }
-      job.assignCache(deepcopy(this.cache));
+      if (this.cache) {
+        job.assignCache(deepcopy(this.cache));
+      }
 
       if (this.artifactsForInitialization && (!job.artifacts?.paths && !job.artifacts?.reports)) {
         job.artifacts = deepcopy(this.artifactsForInitialization);
@@ -578,7 +601,9 @@ export class JobCollection implements IJobCollection {
       if (this.artifactsForReplacement) {
         job.artifacts = deepcopy(this.artifactsForReplacement);
       }
-      job.assignArtifacts(deepcopy(this.artifacts));
+      if (this.artifacts) {
+        job.assignArtifacts(deepcopy(this.artifacts));
+      }
 
       if (this.dependenciesForInitialization && this.dependencies) {
         job.assignDependencies(deepcopy(this.dependenciesForInitialization));
@@ -590,13 +615,13 @@ export class JobCollection implements IJobCollection {
         job.addDependencies(deepcopy(this.dependencies));
       }
 
-      if (this.tagsForInitialization && !job.tags) {
-        job.tags = deepcopy(this.tagsForInitialization);
+      if (this.orderedTagsForInitialization && !job.orderedTags) {
+        job.orderedTags = deepcopy(this.orderedTagsForInitialization);
       }
-      if (this.tagsForInitialization) {
-        job.tags = deepcopy(this.tagsForInitialization);
+      if (this.orderedTagsForInitialization) {
+        job.orderedTags = deepcopy(this.orderedTagsForInitialization);
       }
-      job.addTags(deepcopy(this.tags));
+      job.addTags(deepcopy(this.orderedTags.values));
 
       if (this.rulesForInitialization && !job.rules) {
         job.rules = deepcopy(this.rulesForInitialization);
