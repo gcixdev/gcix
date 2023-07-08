@@ -13,7 +13,7 @@
  * ```
  */
 
-import { IBase, OrderedStringSet, WhenStatement } from '.';
+import { IBase, OrderedStringSet, PredefinedVariables, WhenStatement } from '.';
 import { sanitizePath } from '../helper';
 
 /**
@@ -21,7 +21,7 @@ import { sanitizePath } from '../helper';
  */
 export interface RenderdArtifacts {
   readonly paths: string[];
-  readonly excludes: string[];
+  readonly excludes?: string[];
   readonly expire_in?: string;
   readonly expose_as?: string;
   readonly name?: string;
@@ -196,7 +196,7 @@ export class Artifacts implements IArtifacts {
     this.orderedExcludes = new OrderedStringSet();
     this.expireIn = props.expireIn;
     this.exposeAs = props.exposeAs;
-    this.name = props.name;
+    this.name = props.name ? props.name : `${PredefinedVariables.CI_JOB_NAME}-${PredefinedVariables.CI_COMMIT_REF_SLUG}`;
     this.public = props.public;
     this.reports = props.reports;
     this.untracked = props.untracked;
@@ -254,7 +254,7 @@ export class Artifacts implements IArtifacts {
     const rendered: RenderdArtifacts = {
       name: this.name,
       paths: this.orderedPaths.values,
-      excludes: this.orderedExcludes.values,
+      excludes: this.orderedExcludes.values.length ? this.orderedExcludes.values : undefined,
       expire_in: this.expireIn,
       expose_as: this.exposeAs,
       public: this.public,

@@ -240,13 +240,19 @@ export class Cache implements ICache {
    * @returns RenderedCache
    */
   render(): any {
-    const rendered = {
+    const rendered: any = {
       paths: this.paths,
       when: this.when,
       untracked: this.untracked,
       policy: this.policy,
-      key: this.cacheKey.render(),
     };
+
+    const renderedCacheKey = this.cacheKey.render();
+    if (renderedCacheKey.key) {
+      rendered.key = renderedCacheKey.key;
+    } else {
+      rendered.key = renderedCacheKey;
+    }
     return rendered;
   }
 
