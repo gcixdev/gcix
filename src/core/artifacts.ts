@@ -163,6 +163,8 @@ export interface ArtifactsProps {
 }
 
 export interface IArtifacts extends IBase {
+  readonly paths: string[];
+  readonly excludes: string[];
   addPaths(paths: string[]): void;
   addExcludes(excludes: string[]): void;
 }
@@ -179,8 +181,8 @@ export interface IArtifacts extends IBase {
  * @raises Error if when is not `on_success`, `on_failure` or `always`.
  */
 export class Artifacts implements IArtifacts {
-  paths: OrderedStringSet;
-  excludes: OrderedStringSet;
+  orderedPaths: OrderedStringSet;
+  orderedExcludes: OrderedStringSet;
   expireIn: string | undefined;
   exposeAs: string | undefined;
   name: string | undefined;
@@ -190,8 +192,8 @@ export class Artifacts implements IArtifacts {
   reports: ArtifactsReport | undefined;
 
   constructor(props: ArtifactsProps) {
-    this.paths = new OrderedStringSet();
-    this.excludes = new OrderedStringSet();
+    this.orderedPaths = new OrderedStringSet();
+    this.orderedExcludes = new OrderedStringSet();
     this.expireIn = props.expireIn;
     this.exposeAs = props.exposeAs;
     this.name = props.name;
@@ -201,12 +203,12 @@ export class Artifacts implements IArtifacts {
     this.when = props.when;
 
     props.paths.forEach((element) => {
-      this.paths.add(sanitizePath(element));
+      this.orderedPaths.add(sanitizePath(element));
     });
 
     if (props.excludes) {
       props.excludes.forEach((element) => {
-        this.excludes.add(sanitizePath(element));
+        this.orderedExcludes.add(sanitizePath(element));
       });
     }
 
@@ -223,15 +225,22 @@ export class Artifacts implements IArtifacts {
     }
   }
 
+  get paths() {
+    return this.orderedPaths.values;
+  }
+  get excludes() {
+    return this.orderedExcludes.values;
+  }
+
   public addPaths(paths: string[]) {
     paths.forEach((element) => {
-      this.paths.add(element);
+      this.orderedPaths.add(element);
     });
   }
 
   public addExcludes(excludes: string[]) {
     excludes.forEach((element) => {
-      this.excludes.add(element);
+      this.orderedExcludes.add(element);
     });
   }
 
@@ -239,13 +248,13 @@ export class Artifacts implements IArtifacts {
    * @returns RenderdArtifacts
    */
   render(): any {
-    if (!this.paths && !this.reports) {
+    if (!this.orderedPaths && !this.reports) {
       return {};
     }
     const rendered: RenderdArtifacts = {
       name: this.name,
-      paths: this.paths.values,
-      excludes: this.excludes.values,
+      paths: this.orderedPaths.values,
+      excludes: this.orderedExcludes.values,
       expire_in: this.expireIn,
       expose_as: this.exposeAs,
       public: this.public,
