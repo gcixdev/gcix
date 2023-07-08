@@ -20,7 +20,7 @@
 
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
-import { Include, Service, Job, JobCollection, OrderedStringSet } from '.';
+import { Include, Service, JobCollection, AddChildrenProps, OrderedStringSet } from '.';
 
 
 export interface PipelineProps {
@@ -94,8 +94,8 @@ export class Pipeline extends JobCollection implements IPipeline {
     }
     return this;
   }
-  addChildren(jobsOrJobCollections: (JobCollection | Job)[], stage?: string | undefined, name?: string | undefined): JobCollection {
-    super.addChildren(jobsOrJobCollections=jobsOrJobCollections, stage=stage, name=name);
+  addChildren(props: AddChildrenProps): JobCollection {
+    super.addChildren(props);
     return this;
   }
   render() {
@@ -126,7 +126,7 @@ export class Pipeline extends JobCollection implements IPipeline {
     return pipeline;
   }
   write_yaml(filename: string = 'generated-config.yml'): void {
-    const yamlContent = yaml.dump(this.render(), { sortKeys: false, flowLevel: -1 });
+    const yamlContent = yaml.dump(this.render(), { sortKeys: false, flowLevel: -1, noArrayIndent: true });
     fs.writeFileSync(filename, yamlContent, 'utf8');
   }
 }

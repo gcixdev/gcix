@@ -35,6 +35,13 @@ export interface ChildDict {
   readonly name?: string;
 }
 
+
+export interface AddChildrenProps {
+  jobsOrJobCollections: (Job | JobCollection)[];
+  stage?: string;
+  name?: string;
+}
+
 export interface IJobCollectionBase extends IBase {
   /**
    * Getter method to receive array of added tags.
@@ -172,7 +179,7 @@ export interface IJobCollection extends IJobCollectionBase {
   *
   * @returns JobCollection of the modified `JobCollection` object.
   */
-  addChildren(jobsOrJobCollections: Array<Job | JobCollection>, stage?: string, name?: string): JobCollection;
+  addChildren(props: AddChildrenProps): JobCollection;
   /**
    * Calling `gcip.core.job.Job.add_variables()` to all jobs within this
    * sequence that haven't been added variables before.
@@ -455,10 +462,10 @@ export class JobCollection implements IJobCollection {
     this.imageForReplacement = image;
     return this;
   }
-  addChildren(jobsOrJobCollections: (Job | JobCollection)[], stage?: string | undefined, name?: string | undefined): JobCollection {
-    for (const child of jobsOrJobCollections) {
+  addChildren(props: AddChildrenProps): JobCollection {
+    for (const child of props.jobsOrJobCollections) {
       this.addParent(this);
-      this.children.push({ child: child, stage: stage, name: name });
+      this.children.push({ child: child, stage: props.stage, name: props.name });
     }
     return this;
   }
