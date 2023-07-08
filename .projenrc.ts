@@ -28,6 +28,13 @@ const gcixProject = new cdk.JsiiProject({
     module: 'gcix',
   },
   vscode: true,
+  jestOptions: {
+    jestConfig: {
+      setupFiles: [
+        './test/set-env-vars.ts',
+      ],
+    },
+  },
 });
 gcixProject.vscode?.settings.addSettings({
   'editor.tabSize': 2,
