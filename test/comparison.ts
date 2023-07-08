@@ -5,7 +5,7 @@ import sanitize from 'sanitize-filename';
 
 export function check(output: Object, callerExpect: jest.Expect): void {
   // Convert output object into yaml
-  const yamlOutput = yaml.dump(output, { sortKeys: true, flowLevel: -1 });
+  const yamlOutput = yaml.dump(output, { sortKeys: false, flowLevel: -1 });
 
   const testPath = callerExpect.getState().testPath;
   const currentTestName = callerExpect.getState().currentTestName;
