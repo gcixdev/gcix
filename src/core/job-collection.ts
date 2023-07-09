@@ -112,9 +112,9 @@ export interface IJobCollection extends IJobCollectionBase {
   children: ChildDict[];
   allowFailureForInitialization?: string | number | boolean | number[];
   allowFailureForReplacement?: string | number | boolean | number[];
-  variables: Variables;
-  variablesForInitialization: Variables;
-  variablesForReplacement: Variables;
+  variables?: Variables;
+  variablesForInitialization?: Variables;
+  variablesForReplacement?: Variables;
   cache?: Cache;
   cacheForInitialization?: Cache;
   artifacts?: Artifacts;
@@ -123,19 +123,19 @@ export interface IJobCollection extends IJobCollectionBase {
   orderedTags: OrderedStringSet;
   orderedTagsForInitialization: OrderedStringSet;
   orderedTagsForOverride: OrderedStringSet;
-  rulesToAppend: Rule[];
-  rulesToPrepend: Rule[];
-  rulesForInitialization: Rule[];
-  rulesForReplacement: Rule[];
-  rulesForOverride: Rule[];
-  dependencies: (Job | JobCollection | Need)[];
-  dependenciesForInitialization: (Job | JobCollection | Need)[];
-  dependenciesForReplacement: (Job | JobCollection | Need)[];
-  needs: (Need | Job | JobCollection)[];
-  needsForInitialization: (Need | Job | JobCollection)[];
-  needsForReplacement: (Need | Job | JobCollection)[];
-  scriptsToPrepend: string[];
-  scriptsToAppend: string[];
+  rulesToAppend?: Rule[];
+  rulesToPrepend?: Rule[];
+  rulesForInitialization?: Rule[];
+  rulesForReplacement?: Rule[];
+  rulesForOverride?: Rule[];
+  dependencies?: (Job | JobCollection | Need)[];
+  dependenciesForInitialization?: (Job | JobCollection | Need)[];
+  dependenciesForReplacement?: (Job | JobCollection | Need)[];
+  needs?: (Need | Job | JobCollection)[];
+  needsForInitialization?: (Need | Job | JobCollection)[];
+  needsForReplacement?: (Need | Job | JobCollection)[];
+  scriptsToPrepend?: string[];
+  scriptsToAppend?: string[];
   imageForInitialization?: Image | string;
   imageForReplacement?: Image | string;
   /**
@@ -310,9 +310,9 @@ export class JobCollection implements IJobCollection {
   children: ChildDict[] = [];
   allowFailureForInitialization?: string | number | boolean | number[];
   allowFailureForReplacement?: string | number | boolean | number[];
-  variables: Variables = {};
-  variablesForInitialization: Variables = {};
-  variablesForReplacement: Variables = {};
+  variables?: Variables;
+  variablesForInitialization?: Variables;
+  variablesForReplacement?: Variables;
   cache?: Cache;
   cacheForInitialization?: Cache;
   artifacts?: Artifacts;
@@ -321,19 +321,19 @@ export class JobCollection implements IJobCollection {
   orderedTags: OrderedStringSet = new OrderedStringSet();
   orderedTagsForInitialization: OrderedStringSet = new OrderedStringSet();
   orderedTagsForOverride: OrderedStringSet = new OrderedStringSet();
-  rulesToAppend: Rule[] = [];
-  rulesToPrepend: Rule[] = [];
-  rulesForInitialization: Rule[] = [];
-  rulesForReplacement: Rule[] = [];
-  rulesForOverride: Rule[] = [];
-  dependencies: (Job | JobCollection | Need)[] = [];
-  dependenciesForInitialization: (Job | JobCollection | Need)[] = [];
-  dependenciesForReplacement: (Job | JobCollection | Need)[] = [];
-  needs: (Need | Job | JobCollection)[] = [];
-  needsForInitialization: (Need | Job | JobCollection)[] = [];
-  needsForReplacement: (Need | Job | JobCollection)[] = [];
-  scriptsToPrepend: string[] = [];
-  scriptsToAppend: string[] = [];
+  rulesToAppend?: Rule[];
+  rulesToPrepend?: Rule[];
+  rulesForInitialization?: Rule[];
+  rulesForReplacement?: Rule[];
+  rulesForOverride?: Rule[];
+  dependencies?: (Job | JobCollection | Need)[];
+  dependenciesForInitialization?: (Job | JobCollection | Need)[];
+  dependenciesForReplacement?: (Job | JobCollection | Need)[];
+  needs?: (Need | Job | JobCollection)[];
+  needsForInitialization?: (Need | Job | JobCollection)[];
+  needsForReplacement?: (Need | Job | JobCollection)[];
+  scriptsToPrepend?: string[] = [];
+  scriptsToAppend?: string[] = [];
   imageForInitialization?: Image | string;
   imageForReplacement?: Image | string;
 
@@ -407,23 +407,43 @@ export class JobCollection implements IJobCollection {
     return this;
   }
   appendRules(rules: Rule[]): JobCollection {
-    this.rulesToAppend = [...this.rulesToAppend, ...rules];
+    if (this.rulesToAppend) {
+      this.rulesToAppend = [...this.rulesToAppend, ...rules];
+    } else {
+      this.rulesToAppend = rules;
+    }
     return this;
   }
   prependRules(rules: Rule[]): JobCollection {
-    this.rulesToPrepend = [...rules, ...this.rulesToPrepend];
+    if (this.rulesToPrepend) {
+      this.rulesToPrepend = [...rules, ...this.rulesToPrepend];
+    } else {
+      this.rulesToPrepend = rules;
+    }
     return this;
   }
   initializeRules(rules: Rule[]): JobCollection {
-    this.rulesForInitialization = [...this.rulesForInitialization, ...rules];
+    if (this.rulesForInitialization) {
+      this.rulesForInitialization = [...this.rulesForInitialization, ...rules];
+    } else {
+      this.rulesForInitialization = rules;
+    }
     return this;
   }
   overrideRules(rules: Rule[]): JobCollection {
-    this.rulesForOverride = [...this.rulesForOverride, ...rules];
+    if (this.rulesForOverride) {
+      this.rulesForOverride = [...this.rulesForOverride, ...rules];
+    } else {
+      this.rulesForOverride = rules;
+    }
     return this;
   }
   addDependencies(dependencies: (Job | JobCollection | Need)[]): JobCollection {
-    this.dependencies = [...this.dependencies, ...dependencies];
+    if (this.dependencies) {
+      this.dependencies = [...this.dependencies, ...dependencies];
+    } else {
+      this.dependencies = dependencies;
+    }
     return this;
   }
   initializeDependencies(dependencies: (Job | JobCollection | Need)[]): JobCollection {
@@ -435,7 +455,11 @@ export class JobCollection implements IJobCollection {
     return this;
   }
   addNeeds(needs: (Job | JobCollection | Need)[]): JobCollection {
-    this.needs = [...this.needs, ...needs];
+    if (this.needs) {
+      this.needs = [...this.needs, ...needs];
+    } else {
+      this.needs = needs;
+    }
     return this;
   }
   initializeNeeds(needs: (Job | JobCollection | Need)[]): JobCollection {
@@ -447,11 +471,15 @@ export class JobCollection implements IJobCollection {
     return this;
   }
   prependScripts(scripts: string[]): JobCollection {
-    this.scriptsToPrepend = [...scripts, ...this.scriptsToPrepend];
+    if (this.scriptsToPrepend) {
+      this.scriptsToPrepend = [...scripts, ...this.scriptsToPrepend];
+    }
     return this;
   }
   appendScripts(scripts: string[]): JobCollection {
-    this.scriptsToAppend = [...this.scriptsToAppend, ...scripts];
+    if (this.scriptsToAppend) {
+      this.scriptsToAppend = [...this.scriptsToAppend, ...scripts];
+    }
     return this;
   }
   initializeImage(image: string | Image): JobCollection {
@@ -593,7 +621,9 @@ export class JobCollection implements IJobCollection {
       if (this.variablesForReplacement) {
         job.variables = deepcopy(this.variablesForReplacement);
       }
-      job.addVariables(deepcopy(this.variables));
+      if (this.variables) {
+        job.addVariables(deepcopy(this.variables));
+      }
 
       if (this.cacheForInitialization && !job.cache) {
         job.cache = deepcopy(this.cacheForInitialization);
@@ -636,9 +666,12 @@ export class JobCollection implements IJobCollection {
       if (this.rulesForReplacement) {
         job.rules = deepcopy(this.rulesForReplacement);
       }
-      job.appendRules(deepcopy(this.rulesToAppend));
-      job.prependRules(deepcopy(this.rulesToPrepend));
-
+      if (this.rulesToAppend) {
+        job.appendRules(deepcopy(this.rulesToAppend));
+      }
+      if (this.rulesToAppend) {
+        job.prependRules(deepcopy(this.rulesToPrepend));
+      }
       job.appendScripts(deepcopy(this.scriptsToAppend));
       job.prependScripts(deepcopy(this.scriptsToPrepend));
     }

@@ -1,0 +1,12 @@
+stages:
+- pages
+pages:
+  image:
+    name: busybox:latest
+  stage: pages
+  script:
+  - echo 'Publishing Gitlab Pages'
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - public

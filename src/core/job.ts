@@ -683,10 +683,10 @@ export class PagesJob extends Job implements IPagesJob {
   constructor() {
     super({
       stage: 'pages',
-      name: 'pages',
-      scripts: ['echo "Publishing Gitlab Pages"'],
+      scripts: ["echo 'Publishing Gitlab Pages'"],
       artifacts: new Artifacts({ paths: ['public'] }),
     });
+    this.name = 'pages';
     super.assignImage('busybox:latest');
   }
   assignStage(stage: string): PagesJob {

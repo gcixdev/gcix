@@ -1,4 +1,4 @@
-import { Job, Artifacts, Rule, Cache, WhenStatement, PredefinedVariables } from '../../../src';
+import { Job, Artifacts, Rule, Cache, PagesJob, WhenStatement, PredefinedVariables, Pipeline } from '../../../src';
 import { check } from '../../comparison';
 
 let rule: Rule;
@@ -96,4 +96,10 @@ test('job exceptions', () => {
   expect(() => {
     new Job({ scripts: ['Neither name nor stage'] });
   }).toThrow('At least one of the parameters `name` or `stage` have to be set.');
+});
+
+test('pages job', ()=> {
+  const pipeline = new Pipeline({});
+  pipeline.addChildren({ jobsOrJobCollections: [new PagesJob()] });
+  check(pipeline.render(), expect);
 });

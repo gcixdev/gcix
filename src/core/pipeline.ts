@@ -103,10 +103,10 @@ export class Pipeline extends JobCollection implements IPipeline {
     const jobCopies = this.populatedJobs;
     const pipeline: any = {};
 
-    if (this.includes) {
+    if (this.includes.length) {
       pipeline.include = this.includes.map(include => include.render());
     }
-    if (this.service) {
+    if (this.service.length) {
       pipeline.services = this.service.map(service => service.render());
     }
 
@@ -126,7 +126,7 @@ export class Pipeline extends JobCollection implements IPipeline {
     return pipeline;
   }
   write_yaml(filename: string = 'generated-config.yml'): void {
-    const yamlContent = yaml.dump(this.render(), { sortKeys: false, flowLevel: -1, noArrayIndent: true });
+    const yamlContent = yaml.dump(this.render(), { sortKeys: false, flowLevel: -1, noArrayIndent: true, quotingType: "'" });
     fs.writeFileSync(filename, yamlContent, 'utf8');
   }
 }
