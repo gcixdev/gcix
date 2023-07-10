@@ -12,6 +12,7 @@ const gcixProject = new cdk.JsiiProject({
   repositoryUrl: 'https://gitlab.com/gcix/gcix.git',
   docgen: true,
   github: false,
+  minNodeVersion: '18.0.0',
   bundledDeps: [
     'js-yaml',
   ],
@@ -19,7 +20,6 @@ const gcixProject = new cdk.JsiiProject({
     'sanitize-filename',
     'ts-node',
     '@types/js-yaml',
-    '@types/node',
     '@types/jest',
   ],
   docsDirectory: 'public',
