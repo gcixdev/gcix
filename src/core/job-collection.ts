@@ -526,7 +526,7 @@ export class JobCollection implements IJobCollection {
     // third combine all instance names of this sequences
     // with all instance names of the child
     let return_values: OrderedStringSet = new OrderedStringSet();
-    if (ownInstanceNames) {
+    if (ownInstanceNames.values.length) {
       for (const childInstanceName of childInstanceNames) {
         for (const instanceName of ownInstanceNames) {
           if (childInstanceName && instanceName) {
