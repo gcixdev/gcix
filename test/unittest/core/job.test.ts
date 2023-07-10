@@ -1,4 +1,4 @@
-import { Job, Artifacts, Rule, Cache, PagesJob, WhenStatement, PredefinedVariables, Pipeline, JobCollection } from '../../../src';
+import { Job, Artifacts, Rule, Cache, PagesJob, WhenStatement, PredefinedVariables, Pipeline, JobCollection, Image } from '../../../src';
 import { check } from '../../comparison';
 
 let rule: Rule;
@@ -125,4 +125,34 @@ test('complex dependencies', ()=>{
   pipeline.addChildren({ jobsOrJobCollections: [job1, job2, seq3, job6] });
 
   check(pipeline.render(), expect);
+});
+
+describe('image', () => {
+  let pipeline: Pipeline;
+  let testJob: Job;
+  beforeEach(() => {
+    pipeline = new Pipeline();
+    testJob = new Job({ stage: 'testjob', scripts: ['foobar'] });
+  });
+  test('init set image', () => {
+    pipeline.initializeImage('unwanted-image');
+    testJob.assignImage('keep-this-image');
+    pipeline.addChildren({ jobsOrJobCollections: [testJob] });
+    check(pipeline.render(), expect);
+  });
+  test('init unset image', () => {
+    pipeline.initializeImage('foobar');
+    pipeline.addChildren({ jobsOrJobCollections: [testJob] });
+    check(pipeline.render(), expect);
+  });
+  test('override image', () => {
+    pipeline.overrideImage('wanted-image');
+    testJob.assignImage('replace-this-image');
+    pipeline.addChildren({ jobsOrJobCollections: [testJob] });
+    check(pipeline.render(), expect);
+  });
+  test('job with image object', () => {
+    pipeline.addChildren({ jobsOrJobCollections: [testJob.assignImage(new Image({ name: 'awsome/image:123' }))] });
+    check(pipeline.render(), expect);
+  });
 });
