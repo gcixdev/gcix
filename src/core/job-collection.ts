@@ -35,7 +35,6 @@ export interface ChildDict {
   readonly name?: string;
 }
 
-
 export interface AddChildrenProps {
   jobsOrJobCollections: (Job | JobCollection)[];
   stage?: string;
@@ -492,7 +491,7 @@ export class JobCollection implements IJobCollection {
   }
   addChildren(props: AddChildrenProps): JobCollection {
     for (const child of props.jobsOrJobCollections) {
-      this.addParent(this);
+      child.addParent(this);
       this.children.push({ child: child, stage: props.stage, name: props.name });
     }
     return this;
