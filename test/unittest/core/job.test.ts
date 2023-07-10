@@ -1,4 +1,4 @@
-import { Job, Artifacts, Rule, Cache, PagesJob, WhenStatement, PredefinedVariables, Pipeline } from '../../../src';
+import { Job, Artifacts, Rule, Cache, PagesJob, WhenStatement, PredefinedVariables, Pipeline, JobCollection } from '../../../src';
 import { check } from '../../comparison';
 
 let rule: Rule;
@@ -101,5 +101,28 @@ test('job exceptions', () => {
 test('pages job', ()=> {
   const pipeline = new Pipeline({});
   pipeline.addChildren({ jobsOrJobCollections: [new PagesJob()] });
+  check(pipeline.render(), expect);
+});
+
+test('complex dependencies', ()=>{
+  const job1 = new Job({ name: 'job1', scripts: ['date'] });
+  const job2 = new Job({ name: 'job2', scripts: ['date'] });
+  job2.addDependencies([job1]);
+
+  const job3 = new Job({ name: 'job3', scripts: ['date'] });
+  const job4 = new Job({ name: 'job4', scripts: ['date'] });
+  const collection1 = new JobCollection().addChildren({ jobsOrJobCollections: [job3, job4], stage: 'sequence', name: 'in' });
+  const job5 = new Job({ name: 'job5', scripts: ['date'] });
+  job5.addDependencies([collection1]);
+
+  const seq2 = new JobCollection().addChildren({ jobsOrJobCollections: [collection1] });
+  const seq3 = new JobCollection().addChildren({ jobsOrJobCollections: [seq2, job5], name: 'bar' } );
+
+  const job6 = new Job({ name: 'job6', scripts: ['date'] });
+  job6.addDependencies([job1, job2, job3, job4, job5, seq3]);
+
+  const pipeline = new Pipeline();
+  pipeline.addChildren({ jobsOrJobCollections: [job1, job2, seq3, job6] });
+
   check(pipeline.render(), expect);
 });

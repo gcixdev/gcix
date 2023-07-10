@@ -1,0 +1,38 @@
+stages:
+- test
+- test_sequence
+job1:
+  stage: test
+  script:
+  - date
+job2:
+  dependencies:
+  - job1
+  stage: test
+  script:
+  - date
+bar-in-sequence-job3:
+  stage: test_sequence
+  script:
+  - date
+bar-in-sequence-job4:
+  stage: test_sequence
+  script:
+  - date
+bar-job5:
+  dependencies:
+  - bar-in-sequence-job3
+  - bar-in-sequence-job4
+  stage: test
+  script:
+  - date
+job6:
+  dependencies:
+  - bar-in-sequence-job3
+  - bar-in-sequence-job4
+  - bar-job5
+  - job1
+  - job2
+  stage: test
+  script:
+  - date
