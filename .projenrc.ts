@@ -15,10 +15,12 @@ const gcixProject = new cdk.JsiiProject({
   minNodeVersion: '18.0.0',
   bundledDeps: [
     'js-yaml',
+    'lodash',
   ],
   devDeps: [
     'sanitize-filename',
     'ts-node',
+    '@types/lodash',
     '@types/js-yaml',
     '@types/jest',
   ],
