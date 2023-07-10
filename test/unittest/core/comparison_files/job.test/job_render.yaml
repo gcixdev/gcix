@@ -5,7 +5,7 @@ needs: []
 stage: fixture_stage
 script:
 - date
-- 'echo "You are running on branch: $my_awsome_feature_branch"'
+- 'echo "You are running on branch: my_awsome_feature_branch"'
 variables:
   ENV_VAR: Hello
   CUSTOM: World

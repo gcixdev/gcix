@@ -40,7 +40,7 @@ beforeEach(() => {
   job = new Job({
     scripts: [
       'date',
-      `echo "You are running on branch: $${PredefinedVariables.CI_COMMIT_REF_NAME}"`,
+      `echo "You are running on branch: ${PredefinedVariables.CI_COMMIT_REF_NAME}"`,
     ],
     stage: 'fixture_stage',
     name: 'job_name',
