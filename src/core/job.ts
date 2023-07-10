@@ -477,7 +477,7 @@ export class Job implements IJob {
     }
 
     if (this.dependencies) {
-      const dependency_jobs: Array<Job> = [];
+      const dependency_jobs: Job[] = [];
       for (const dependency of this.dependencies) {
         if (dependency instanceof Job) {
           dependency_jobs.push(dependency);
