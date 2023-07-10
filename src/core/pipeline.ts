@@ -126,7 +126,7 @@ export class Pipeline extends JobCollection implements IPipeline {
     return pipeline;
   }
   write_yaml(filename: string = 'generated-config.yml'): void {
-    const yamlContent = yaml.dump(this.render(), { sortKeys: false, flowLevel: -1, noArrayIndent: true, quotingType: "'" });
+    const yamlContent = yaml.dump(this.render(), { sortKeys: false, flowLevel: -1, noArrayIndent: true });
     fs.writeFileSync(filename, yamlContent, 'utf8');
   }
 }
