@@ -43,7 +43,7 @@ export function check(output: Object, callerExpect: jest.Expect): void {
         `);
         throw error;
       } else {
-
+        throw error;
       }
     }
   }
