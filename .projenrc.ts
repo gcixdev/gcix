@@ -20,6 +20,8 @@ const gcixProject = new cdk.JsiiProject({
   devDeps: [
     'sanitize-filename',
     'ts-node',
+    'tmp',
+    '@types/tmp',
     '@types/lodash',
     '@types/js-yaml',
     '@types/jest',

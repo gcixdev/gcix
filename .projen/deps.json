@@ -18,6 +18,10 @@
       "type": "build"
     },
     {
+      "name": "@types/tmp",
+      "type": "build"
+    },
+    {
       "name": "@typescript-eslint/eslint-plugin",
       "version": "^5",
       "type": "build"
@@ -91,6 +95,10 @@
     {
       "name": "standard-version",
       "version": "^9",
+      "type": "build"
+    },
+    {
+      "name": "tmp",
       "type": "build"
     },
     {
