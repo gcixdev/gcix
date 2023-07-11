@@ -160,6 +160,6 @@ export class Rule implements IRule {
   }
 
   isEqual(comparable: IBase): comparable is Rule {
-    return this.render() === comparable.render();
+    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
   }
 }
