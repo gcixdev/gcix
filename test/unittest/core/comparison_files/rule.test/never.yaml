@@ -1,0 +1,18 @@
+stages:
+- test
+foo:
+  stage: test
+  script:
+  - foo
+  rules:
+  - if: new
+    when: on_success
+    allow_failure: false
+bar:
+  stage: test
+  script:
+  - bar
+  rules:
+  - if: new
+    when: never
+    allow_failure: false

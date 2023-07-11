@@ -1,0 +1,17 @@
+stages:
+- test
+foo:
+  stage: test
+  script:
+  - foo
+  rules:
+  - if: 'true'
+    changes:
+    - file1
+    - file2
+    exists:
+    - file3
+    variables:
+      MY: value
+    when: on_failure
+    allow_failure: true

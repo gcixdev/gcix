@@ -1,92 +1,103 @@
-import { Rule, WhenStatement } from '../../src/core/rule';
-import { ComparisonCheck } from '../comparison';
+import { Rule, WhenStatement, Pipeline, Job, JobCollection } from '../../../src';
+import { check } from '../../comparison';
 
-test('test rule arguments', () => {
-  const rule = new Rule(
-    {
+let pipeline: Pipeline;
+let jobFoo: Job;
+let jobBar: Job;
+beforeEach(() => {
+  pipeline = new Pipeline();
+  jobFoo = new Job({ name: 'foo', scripts: ['foo'] });
+  jobBar = new Job({ name: 'bar', scripts: ['bar'] });
+});
+
+test('arguments', () => {
+  jobFoo.appendRules([
+    new Rule({
       ifStatement: 'true',
       when: WhenStatement.ONFAILURE,
       allowFailure: true,
-      changes: ['changed_file_1', 'changed_file_2'],
-      exists: ['file_exists'],
+      changes: ['file1', 'file2'],
+      exists: ['file3'],
       variables: {
         MY: 'value',
-        GCIX: 'so_cool',
       },
-    },
-  );
-  ComparisonCheck(rule.render(), expect);
+    }),
+  ]);
+  pipeline.addChildren({ jobsOrJobCollections: [jobFoo] });
+  check(pipeline.render(), expect);
 });
 
-// def test_rule_arguments(pipeline, job_foo):
-//     job_foo.append_rules(
-//         Rule(
-//             if_statement="true",
-//             when=WhenStatement.ON_FAILURE,
-//             allow_failure=True,
-//             changes=["file1", "file2"],
-//             exists=["file3"],
-//             variables={"MY": "value"},
-//         )
-//     )
-//     conftest.check(pipeline.render())
+test('rule order', () => {
+  const collection = new JobCollection();
+  collection.prependRules([new Rule({ ifStatement: '1' })]);
+  collection.appendRules([new Rule({ ifStatement: '2' })]);
 
+  const job = new Job({ stage: 'testjob', scripts: ['foo'] });
+  collection.addChildren({ jobsOrJobCollections: [job] });
 
-// def test_on_success(pipeline, job_foo):
-//     job_foo.append_rules(rules.on_success())
+  job.appendRules([new Rule({ ifStatement: 'a' }), new Rule({ ifStatement: 'b' })]);
+  job.prependRules([new Rule({ ifStatement: 'c' }), new Rule({ ifStatement: 'd' })]);
 
-//     conftest.check(pipeline.render())
+  collection.appendRules([new Rule({ ifStatement: '3' })]);
+  collection.prependRules([new Rule({ ifStatement: '4' })]);
 
+  job.appendRules([new Rule({ ifStatement: 'e' }), new Rule({ ifStatement: 'f' })]);
+  job.prependRules([new Rule({ ifStatement: 'g' }), new Rule({ ifStatement: 'h' })]);
 
-// def test_rule_order(pipeline):
-//     sequence = Sequence()
-//     sequence.prepend_rules(Rule(if_statement="1"))
-//     sequence.append_rules(Rule(if_statement="2"))
+  collection.appendRules([new Rule({ ifStatement: '5' })]);
+  collection.prependRules([new Rule({ ifStatement: '6' })]);
 
-//     job = Job(stage="testjob", script="foo")
-//     sequence.add_children(job)
+  pipeline.addChildren({ jobsOrJobCollections: [collection] });
 
-//     job.append_rules(Rule(if_statement="a"), Rule(if_statement="b"))
-//     job.prepend_rules(Rule(if_statement="c"), Rule(if_statement="d"))
+  check(pipeline.render(), expect);
 
-//     sequence.append_rules(Rule(if_statement="3"))
-//     sequence.prepend_rules(Rule(if_statement="4"))
+});
 
-//     job.append_rules(Rule(if_statement="e"), Rule(if_statement="f"))
-//     job.prepend_rules(Rule(if_statement="g"), Rule(if_statement="h"))
+test('init empty rules', ()=> {
+  pipeline.addChildren({ jobsOrJobCollections: [jobFoo] });
+  pipeline.initializeRules([new Rule({ ifStatement: 'foo' }), new Rule({ ifStatement: 'bar' })]);
+  check(pipeline.render(), expect);
+});
 
-//     sequence.append_rules(Rule(if_statement="5"))
-//     sequence.prepend_rules(Rule(if_statement="6"))
+test('init non empty rules', ()=> {
+  pipeline.addChildren({ jobsOrJobCollections: [jobFoo] });
+  pipeline.initializeRules([new Rule({ ifStatement: 'foo' }), new Rule({ ifStatement: 'bar' })]);
+  jobFoo.appendRules([new Rule({ ifStatement: 'keep' }), new Rule({ ifStatement: 'those' }), new Rule({ ifStatement: 'rules' })]);
+  check(pipeline.render(), expect);
+});
 
-//     pipeline.add_children(sequence)
+test('override rules', ()=> {
+  pipeline.addChildren({ jobsOrJobCollections: [jobFoo] });
+  pipeline.overrideRules([new Rule({ ifStatement: 'new' }), new Rule({ ifStatement: 'values' })]);
+  jobFoo.appendRules([new Rule({ ifStatement: 'replace' }), new Rule({ ifStatement: 'those' }), new Rule({ ifStatement: 'rules' })]);
+  check(pipeline.render(), expect);
+});
 
-//     conftest.check(pipeline.render())
+test('never', ()=> {
+  pipeline.addChildren({ jobsOrJobCollections: [jobFoo, jobBar] });
+  const rule = new Rule({ ifStatement: 'new' });
+  const ruleNever = rule.never();
 
+  jobFoo.appendRules([rule]);
+  jobBar.appendRules([ruleNever]);
 
-// def test_init_empty_rules(pipeline, job_foo):
-//     pipeline.initialize_rules(Rule(if_statement="foo"), Rule(if_statement="bar"))
-//     conftest.check(pipeline.render())
+  expect(rule.when).toBe(WhenStatement.ONSUCCESS);
+  expect(ruleNever.when).toBe(WhenStatement.NEVER);
+  check(pipeline.render(), expect);
+});
 
+test('variables', () => {
+  pipeline.addChildren({ jobsOrJobCollections: [jobFoo] });
+  const rule = new Rule({ ifStatement: 'true' });
+  rule.addVariables({ TEST: 'works', FOO: 'bar' });
+  jobFoo.appendRules([rule]);
+  check(pipeline.render(), expect);
+});
 
-// def test_init_non_empty_rules(pipeline, job_foo):
-//     pipeline.initialize_rules(Rule(if_statement="foo"), Rule(if_statement="bar"))
-//     job_foo.append_rules(Rule(if_statement="keep"), Rule(if_statement="those"), Rule(if_statement="rules"))
-//     conftest.check(pipeline.render())
-
-
-// def test_override_rules(pipeline, job_foo):
-//     pipeline.override_rules(Rule(if_statement="new"), Rule(if_statement="values"))
-//     job_foo.append_rules(Rule(if_statement="replace"), Rule(if_statement="those"), Rule(if_statement="rules"))
-//     conftest.check(pipeline.render())
-
-
-// def test_never(pipeline, job_foo, job_bar):
-//     rule = Rule(if_statement="new")
-//     rule_never = rule.never()
-
-//     job_foo.append_rules(rule)
-//     job_bar.append_rules(rule_never)
-
-//     assert rule._when == WhenStatement.ON_SUCCESS
-//     assert rule_never._when == WhenStatement.NEVER
-//     conftest.check(pipeline.render())
+test('equality', ()=>{
+  const ruleToCompareTo = new Rule({ ifStatement: 'true', allowFailure: false, changes: ['file1', 'file2'], exists: ['exists1'], when: WhenStatement.MANUAL, variables: { FOO: 'bar', BAZ: 'soos' } });
+  const ruleEqualsAsCompareTo = new Rule({ ifStatement: 'true', allowFailure: false, changes: ['file1', 'file2'], exists: ['exists1'], when: WhenStatement.MANUAL, variables: { FOO: 'bar', BAZ: 'soos' } });
+  const ruleNotEqualsAsCompareTo = new Rule({ ifStatement: 'false', allowFailure: false, changes: ['file1', 'file2'], exists: ['exists1'], when: WhenStatement.MANUAL, variables: { FOO: 'bar', BAZ: 'soos' } });
+  expect(ruleToCompareTo.isEqual(ruleEqualsAsCompareTo)).toBe(true);
+  expect(ruleToCompareTo.isEqual(ruleNotEqualsAsCompareTo)).toBe(false);
+});
