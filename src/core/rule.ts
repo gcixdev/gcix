@@ -117,7 +117,7 @@ export class Rule implements IRule {
   allowFailure?: boolean | undefined;
   changes?: string[] | undefined;
   exists?: string[] | undefined;
-  variables?: { [key: string]: string };
+  variables: { [key: string]: string };
   when?: WhenStatement | undefined;
 
   constructor(props: RuleProps) {
@@ -125,7 +125,7 @@ export class Rule implements IRule {
     this.allowFailure = props.allowFailure ?? false;
     this.changes = props.changes;
     this.exists = props.exists;
-    this.variables = props.variables;
+    this.variables = props.variables ?? {};
     this.when = props.when ?? WhenStatement.ONSUCCESS;
   }
 
@@ -138,7 +138,7 @@ export class Rule implements IRule {
       if: this.ifStatement,
       changes: this.changes,
       exists: this.exists,
-      variables: this.variables,
+      variables: Object.keys(this.variables).length ? this.variables : undefined,
       when: this.when,
       allow_failure: this.allowFailure,
     };
@@ -147,12 +147,8 @@ export class Rule implements IRule {
   }
 
   addVariables(variables: Variables): Rule {
-    /**
-     * @TODO check if there is a better way to tell the compiler
-     * that `this.variabels` is never null (!)
-     */
     Object.entries(variables).forEach(([key, value]) => {
-      this.variables![key] = value;
+      this.variables[key] = value;
     });
     return this;
   }
