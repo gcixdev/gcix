@@ -126,7 +126,6 @@ export interface IJobCollection extends IJobCollectionBase {
   rulesToPrepend?: Rule[];
   rulesForInitialization?: Rule[];
   rulesForReplacement?: Rule[];
-  rulesForOverride?: Rule[];
   dependencies?: (Job | JobCollection | Need)[];
   dependenciesForInitialization?: (Job | JobCollection | Need)[];
   dependenciesForReplacement?: (Job | JobCollection | Need)[];
@@ -324,7 +323,6 @@ export class JobCollection implements IJobCollection {
   rulesToPrepend?: Rule[];
   rulesForInitialization?: Rule[];
   rulesForReplacement?: Rule[];
-  rulesForOverride?: Rule[];
   dependencies?: (Job | JobCollection | Need)[];
   dependenciesForInitialization?: (Job | JobCollection | Need)[];
   dependenciesForReplacement?: (Job | JobCollection | Need)[];
@@ -430,10 +428,10 @@ export class JobCollection implements IJobCollection {
     return this;
   }
   overrideRules(rules: Rule[]): JobCollection {
-    if (this.rulesForOverride) {
-      this.rulesForOverride = [...this.rulesForOverride, ...rules];
+    if (this.rulesForReplacement) {
+      this.rulesForReplacement = [...this.rulesForReplacement, ...rules];
     } else {
-      this.rulesForOverride = rules;
+      this.rulesForReplacement = rules;
     }
     return this;
   }
