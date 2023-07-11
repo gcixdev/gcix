@@ -85,6 +85,6 @@ export class Image implements IImage, IBase {
   }
 
   isEqual(comparable: IBase): comparable is Image {
-    return this.render() === comparable.render();
+    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
   }
 }
