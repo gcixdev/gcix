@@ -1,4 +1,5 @@
 import { IBase } from './base';
+import { deepcopy } from '../helper';
 /**
  * This module represents the Gitlab CI [Image](https://docs.gitlab.com/ee/ci/yaml/#image) keyword.
  * Use `Image` to specify a Docker image to use for the `gcip.core.job.Job`.
@@ -64,13 +65,13 @@ export class Image implements IImage, IBase {
   }
 
   withTag(tag: string): Image {
-    const copy = { ...this };
+    const copy = deepcopy(this);
     copy.tag = tag;
     return copy;
   }
 
   withEntrypoint(entrypoint: string[]): Image {
-    const copy = { ...this };
+    const copy = deepcopy(this);
     copy.entrypoint = entrypoint;
     return copy;
   }
