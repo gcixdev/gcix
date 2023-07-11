@@ -117,9 +117,10 @@ export class Pipeline extends JobCollection implements IPipeline {
 
     for (const job of jobCopies) {
       if (job.name in pipeline) {
-        throw new Error(`Two jobs have the same name '${job.name}' when
-        rendering the pipeline.\n Please fix this by providing a different
-        name and/or stage when adding those jobs to their sequences/pipeline.`);
+        throw new Error(`Two jobs have the same name '${job.name}' when` +
+        ' rendering the pipeline.\n' +
+        'Please fix this by providing a different name and/or stage when ' +
+        'adding those jobs to their sequences/pipeline.');
       }
       pipeline[job.name] = job.render();
     }
