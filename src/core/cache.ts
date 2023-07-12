@@ -221,8 +221,8 @@ export class Cache implements ICache {
       path = path.replace(PredefinedVariables.CI_PROJECT_DIR, '');
       if (!path.startsWith('./')) {
         path = './' + path;
-        this.paths.push(path);
       };
+      this.paths.push(path);
 
       const allowedWhenStatements = [
         WhenStatement.ALWAYS,
