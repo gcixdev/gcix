@@ -213,17 +213,17 @@ export class Cache implements ICache {
     this.policy = props.policy;
 
     /**
-   * Remove project path prefix from paths given.
-   * Prepend ./ to path to clearify that cache paths
-   * are relative to CI_PROJECT_PATH
-   */
-    props.paths.forEach((path) => {
+     * Remove project path prefix from paths given.
+     * Prepend ./ to path to clearify that cache paths
+     * are relative to CI_PROJECT_PATH
+     */
+    for (let path of props.paths) {
       path = path.replace(PredefinedVariables.CI_PROJECT_DIR, '');
       if (!path.startsWith('./')) {
         path = './' + path;
       };
       this.paths.push(path);
-    });
+    }
 
     const allowedWhenStatements = [
       WhenStatement.ALWAYS,
