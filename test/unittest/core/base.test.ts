@@ -32,8 +32,8 @@ test('iterating over ordered string set', () => {
   const initValues = ['foo', 'bar', 'baz', 'hello', 'world'];
   const orderedStringSet = new OrderedStringSet(initValues);
 
-  for (let [key, value] of initValues.entries()) {
-    expect(initValues[key]).toBe(value);
+  for (const value of orderedStringSet) {
+    expect(initValues.includes(value)).toBeTruthy();
   }
 
 });
