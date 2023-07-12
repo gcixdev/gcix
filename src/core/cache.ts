@@ -135,7 +135,7 @@ export class CacheKey implements ICacheKey {
   }
 
   isEqual(comparable: IBase): comparable is CacheKey {
-    return this.render() === comparable.render();
+    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
   }
 }
 
@@ -256,6 +256,6 @@ export class Cache implements ICache {
   }
 
   isEqual(comparable: IBase): comparable is Cache {
-    return this.render() === comparable.render();
+    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
   }
 }
