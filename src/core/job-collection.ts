@@ -36,24 +36,24 @@ export interface ChildDict {
 }
 
 export interface AddChildrenProps {
-  jobsOrJobCollections: (Job | JobCollection)[];
-  stage?: string;
-  name?: string;
+  readonly jobsOrJobCollections: (Job | JobCollection)[];
+  readonly stage?: string;
+  readonly name?: string;
 }
 
 export interface IJobCollectionBase extends IBase {
   /**
    * Getter method to receive array of added tags.
    */
-  tags: string[];
+  readonly tags: string[];
   /**
    * Getter method to receive tagsForInitialization string array.
    */
-  tagsForInitialization: string[];
+  readonly tagsForInitialization: string[];
   /**
    * Getter method to receive tagsForOverride string array.
    */
-  tagsForOverride: string[];
+  readonly tagsForOverride: string[];
   /**
    * @description Adds one or more [variables](https://docs.gitlab.com/ee/ci/yaml/README.html#variables), to the job.
    */
@@ -170,10 +170,6 @@ export interface IJobCollection extends IJobCollectionBase {
   *
   * Adding a child creates a copy of that child. You should provide a name or stage
   * when adding children, to make them different from other places where they will be used.
-  *
-  * @param jobsOrJobCollections One or more jobs or sequences to be added to this sequence.
-  * @param stage Adds a stages component to all children added. Defaults to None.
-  * @param name Adds a name component to all children added. Defaults to None.
   *
   * @returns JobCollection of the modified `JobCollection` object.
   */

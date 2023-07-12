@@ -31,7 +31,7 @@ export interface PipelineProps {
    *
    * @param include
    */
-  includes?: Include[];
+  readonly includes?: Include[];
 }
 export interface IPipeline {
   readonly service: Service[];
@@ -68,8 +68,8 @@ export interface IPipeline {
 }
 
 export class Pipeline extends JobCollection implements IPipeline {
-  service: Service[] = [];
-  includes: Include[] = [];
+  readonly service: Service[] = [];
+  readonly includes: Include[] = [];
   /**
    * A Pipeline is the uppermost container of `gcip.core.job.Job`s and `gcip.core.sequence.Sequence`s.
    *

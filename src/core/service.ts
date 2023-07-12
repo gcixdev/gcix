@@ -11,7 +11,7 @@ import { IBase } from './base';
  * Currently this module is an unfinished prototype.
  */
 export interface ServiceProps {
-  name: string;
+  readonly name: string;
 };
 
 export interface IService extends IBase {
@@ -23,7 +23,7 @@ export class Service implements IService {
   constructor(props: ServiceProps) {
     this.name = props.name;
   }
-  render() {
+  render(): any {
     return this.name;
   }
   isEqual(comparable: IBase): comparable is IBase {

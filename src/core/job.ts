@@ -160,7 +160,7 @@ export interface IJobBase extends IBase {
   /**
    * Getter method to receive added tags.
    */
-  tags: string[];
+  readonly tags: string[];
   /**
    * @description Adds one or more [variables](https://docs.gitlab.com/ee/ci/yaml/README.html#variables), to the job.
    */
