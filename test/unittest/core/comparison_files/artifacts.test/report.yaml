@@ -1,0 +1,3 @@
+name: ci_job_name-my-awsome-feature-branch
+reports:
+  coverage_report: cov.xml

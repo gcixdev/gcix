@@ -1,0 +1,11 @@
+name: Custom Artifact
+paths:
+- a/b/c/d
+- foo/bar/baz.txt
+excludes:
+- '*.log'
+expire_in: 1 month
+expose_as: Artifact 1
+public: false
+untracked: true
+when: on_success

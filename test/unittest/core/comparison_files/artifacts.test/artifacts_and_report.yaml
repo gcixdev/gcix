@@ -1,0 +1,7 @@
+name: ci_job_name-my-awsome-feature-branch
+paths:
+- foo/bar/baz
+excludes:
+- foo/bar/baz/**
+reports:
+  codequality: code_quality.xml
