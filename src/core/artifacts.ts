@@ -211,6 +211,6 @@ export class Artifacts implements IArtifacts {
   }
 
   isEqual(comparable: IBase): comparable is Artifacts {
-    return this.render() === comparable.render();
+    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
   }
 }
