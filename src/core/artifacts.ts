@@ -46,11 +46,11 @@ export interface ArtifactsReport {
    * https://docs.gitlab.com/ee/ci/yaml/artifacts_reports.html
    * ArtifactsReport type to use.
    */
-  reportType: ArtifactsReportType;
+  readonly reportType: ArtifactsReportType;
   /**
    * Relative path withing the project, where to find the generated report file
    */
-  file: string;
+  readonly file: string;
 }
 
 export interface ArtifactsProps {
@@ -123,13 +123,13 @@ export interface IArtifacts extends IBase {
 export class Artifacts implements IArtifacts {
   orderedPaths: OrderedStringSet;
   orderedExcludes: OrderedStringSet;
-  expireIn: string | undefined;
-  exposeAs: string | undefined;
-  name: string | undefined;
-  public: boolean | undefined;
-  untracked: boolean | undefined;
-  when: WhenStatement | undefined;
-  reports?: ArtifactsReport[];
+  readonly expireIn: string | undefined;
+  readonly exposeAs: string | undefined;
+  readonly name: string | undefined;
+  readonly public: boolean | undefined;
+  readonly untracked: boolean | undefined;
+  readonly when: WhenStatement | undefined;
+  readonly reports?: ArtifactsReport[];
 
   constructor(props: ArtifactsProps) {
     this.orderedPaths = new OrderedStringSet();
