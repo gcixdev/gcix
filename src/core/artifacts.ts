@@ -20,7 +20,7 @@ import { sanitizePath } from '../helper';
  * @internal
  */
 export interface RenderdArtifacts {
-  readonly paths: string[];
+  readonly paths?: string[];
   readonly excludes?: string[];
   readonly expire_in?: string;
   readonly expose_as?: string;
@@ -58,7 +58,7 @@ export interface ArtifactsProps {
    * Paths relative to project directory `$CI_PROJECT_DIR`, found files
    * will be used to create the artifacts.
    */
-  readonly paths: string[];
+  readonly paths?: string[];
   /**
    * Paths that prevent files from being added to an artifacts archive.
    */
@@ -135,9 +135,11 @@ export class Artifacts implements IArtifacts {
     this.untracked = props.untracked;
     this.when = props.when;
 
-    props.paths.forEach((element) => {
-      this.orderedPaths.add(sanitizePath(element));
-    });
+    if (props.paths) {
+      props.paths.forEach((element) => {
+        this.orderedPaths.add(sanitizePath(element));
+      });
+    }
 
     if (props.excludes) {
       props.excludes.forEach((element) => {
@@ -186,7 +188,7 @@ export class Artifacts implements IArtifacts {
     }
     const rendered: RenderdArtifacts = {
       name: this.name,
-      paths: this.orderedPaths.values,
+      paths: this.orderedPaths.values.length ? this.orderedPaths.values : undefined,
       excludes: this.orderedExcludes.values.length ? this.orderedExcludes.values : undefined,
       expire_in: this.expireIn,
       expose_as: this.exposeAs,
