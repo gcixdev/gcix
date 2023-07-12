@@ -223,17 +223,16 @@ export class Cache implements ICache {
         path = './' + path;
       };
       this.paths.push(path);
-
-      const allowedWhenStatements = [
-        WhenStatement.ALWAYS,
-        WhenStatement.ONFAILURE,
-        WhenStatement.ONSUCCESS,
-      ];
-
-      if (this.when && !allowedWhenStatements.includes(this.when)) {
-        throw new Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
-      }
     });
+
+    const allowedWhenStatements = [
+      WhenStatement.ALWAYS,
+      WhenStatement.ONFAILURE,
+      WhenStatement.ONSUCCESS,
+    ];
+    if (this.when && !allowedWhenStatements.includes(this.when)) {
+      throw new Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
+    }
   }
 
   /**
