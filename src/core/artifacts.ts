@@ -28,96 +28,29 @@ export interface RenderdArtifacts {
   readonly public?: boolean;
   readonly untracked?: boolean;
   readonly when?: WhenStatement;
-  readonly reports?: ArtifactsReport;
+  readonly reports?: {[key: string]: string};
 }
+
 /**
- * This class represents the [artifacts:reports](https://docs.gitlab.com/ee/ci/yaml/#artifactsreports) types.
+ * This interface represents the [artifacts:reports](https://docs.gitlab.com/ee/ci/yaml/#artifactsreports) types.
  */
-export enum ArtifactsReport {
-  /**
-   The api_fuzzing report collects API Fuzzing bugs as artifacts.
-   */
-  API_FUZZING = 'api_fuzzing',
+export type ArtifactsReportType = 'accessibility' | 'api_fuzzing' |
+'browser_performance' | 'coverage_report' | 'codequality' |
+'container_scanning' | 'coverage_fuzzing' | 'cyclonedx' | 'dast' |
+'dependency_scanning' | 'dotenv' | 'junit' | 'license_scanning' |
+'load_performance' | 'metrics' | 'requirements' | 'sast' |
+'secret_detection' | 'terraform';
 
+export interface ArtifactsReport {
   /**
-   * The cobertura report collects Cobertura coverage XML files.
+   * https://docs.gitlab.com/ee/ci/yaml/artifacts_reports.html
+   * ArtifactsReport type to use.
    */
-  COBERTURA = 'cobertura',
-
+  reportType: ArtifactsReportType;
   /**
-   * The codequality report collects Code Quality issues as artifacts.
+   * Relative path withing the project, where to find the generated report file
    */
-  CODEQUALITY = 'codequality',
-
-  /**
-   * The container_scanning report collects Container Scanning vulnerabilities as artifacts.
-   */
-  CONTAINER_SCANNING = 'container_scanning',
-
-  /**
-   * The coverage_fuzzing report collects coverage fuzzing bugs as artifacts.
-   */
-  COVERAGE_FUZZING = 'coverage_fuzzing',
-
-  /**
-   * The dast report collects DAST vulnerabilities as artifacts.
-   */
-  DAST = 'dast',
-
-  /**
-   * The dependency_scanning report collects Dependency Scanning vulnerabilities as artifacts.
-   */
-  DEPENDENCY_SCANNING = 'dependency_scanning',
-
-  /**
-   * The dotenv report collects a set of environment variables as artifacts.
-   */
-  DOTENV = 'dotenv',
-
-  /**
-   * The junit report collects JUnit report format XML files as artifacts.
-   */
-  JUNIT = 'junit',
-
-  /**
-   * The license_scanning report collects Licenses as artifacts.
-   */
-  LICENSE_SCANNING = 'license_scanning',
-
-  /**
-   * The load_performance report collects Load Performance Testing metrics as artifacts.
-   */
-  LOAD_PERFORMANCE = 'load_performance',
-
-  /**
-   * The metrics report collects Metrics as artifacts.
-   */
-  METRICS = 'metrics',
-
-  /**
-   * The performance report collects Browser Performance Testing metrics as artifacts.
-   */
-  PERFORMANCE = 'performance',
-
-  /**
-   * The requirements report collects requirements.json files as artifacts.
-   */
-  REQUIREMENTS = 'requirements',
-
-  /**
-   * The sast report collects SAST vulnerabilities as artifacts.
-   */
-  SAST = 'sast',
-
-  /**
-   * The secret-detection report collects detected secrets as artifacts.
-   */
-  SECRET_DETECTION = 'secret_detection',
-
-  /**
-   * The terraform report obtains a Terraform tfplan.json file.
-   */
-  TERRAFORM = 'terraform',
+  file: string;
 }
 
 export interface ArtifactsProps {
@@ -151,7 +84,7 @@ export interface ArtifactsProps {
    * Reports must be a valid dictionary, the key represents a ArtifactsReport
    * and the value must be a valid relativ file path to the reports file.
    */
-  readonly reports?: ArtifactsReport;
+  readonly reports?: ArtifactsReport[];
   /**
    * If true adds all untracked file to artifacts archive.
    */
@@ -189,7 +122,7 @@ export class Artifacts implements IArtifacts {
   public: boolean | undefined;
   untracked: boolean | undefined;
   when: WhenStatement | undefined;
-  reports: ArtifactsReport | undefined;
+  reports?: ArtifactsReport[];
 
   constructor(props: ArtifactsProps) {
     this.orderedPaths = new OrderedStringSet();
@@ -258,7 +191,10 @@ export class Artifacts implements IArtifacts {
       expire_in: this.expireIn,
       expose_as: this.exposeAs,
       public: this.public,
-      reports: this.reports,
+      reports: this.reports ? this.reports.reduce((acc: {[key: string]: string}, item) => {
+        acc[item.reportType] = item.file;
+        return acc;
+      }, {}) : undefined,
       untracked: this.untracked,
       when: this.when,
     };
