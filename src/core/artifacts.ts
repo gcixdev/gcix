@@ -190,7 +190,7 @@ export class Artifacts implements IArtifacts {
    * @returns RenderdArtifacts
    */
   render(): any {
-    if (!this.orderedPaths && !this.reports) {
+    if (!this.orderedPaths.size && !this.reports) {
       return {};
     }
     const rendered: RenderdArtifacts = {
