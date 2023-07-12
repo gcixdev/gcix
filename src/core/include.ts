@@ -77,7 +77,7 @@ export class Include implements IInclude {
     return this.rendered;
   }
   isEqual(comparable: IBase): comparable is Include {
-    return this.render() === comparable.render();
+    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
   }
 }
 
