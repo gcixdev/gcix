@@ -249,8 +249,6 @@ export class Cache implements ICache {
     const renderedCacheKey = this.cacheKey.render();
     if (renderedCacheKey.key) {
       rendered.key = renderedCacheKey.key;
-    } else {
-      rendered.key = renderedCacheKey;
     }
     return rendered;
   }
