@@ -98,6 +98,13 @@ export interface ArtifactsProps {
 export interface IArtifacts extends IBase {
   readonly paths: string[];
   readonly excludes: string[];
+  readonly expireIn?: string;
+  readonly exposeAs?: string;
+  readonly name?: string;
+  readonly public?: boolean;
+  readonly untracked?: boolean;
+  readonly when?: WhenStatement;
+  readonly reports?: ArtifactsReport[];
   addPaths(paths: string[]): void;
   addExcludes(excludes: string[]): void;
 }
