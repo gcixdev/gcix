@@ -628,7 +628,7 @@ export class JobCollection implements IJobCollection {
         job.assignArtifacts(deepcopy(this.artifacts));
       }
 
-      if (this.dependenciesForInitialization && this.dependencies) {
+      if (this.dependenciesForInitialization && !job.dependencies) {
         job.assignDependencies(deepcopy(this.dependenciesForInitialization));
       }
       if (this.dependenciesForReplacement) {
