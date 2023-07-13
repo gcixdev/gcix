@@ -575,7 +575,7 @@ export class JobCollection implements IJobCollection {
       for (const job of allJobs.slice(1)) {
         if (job.stage === firstJob.stage) {
           if (this.needsForInitialization && !job.needs) {
-            job.assignNeeds([deepcopy(this.needsForInitialization)]);
+            job.assignNeeds(deepcopy(this.needsForInitialization));
           }
           if (this.needsForReplacement) {
             job.assignNeeds(deepcopy(this.needsForReplacement));
