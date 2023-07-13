@@ -51,10 +51,6 @@ export interface IJobCollectionBase extends IBase {
    */
   readonly tagsForInitialization: string[];
   /**
-   * Getter method to receive tagsForOverride string array.
-   */
-  readonly tagsForOverride: string[];
-  /**
    * @description Adds one or more [variables](https://docs.gitlab.com/ee/ci/yaml/README.html#variables), to the job.
    */
   addVariables(variables: Variables): JobCollection;
@@ -121,7 +117,7 @@ export interface IJobCollection extends IJobCollectionBase {
   artifactsForReplacement?: Artifacts;
   orderedTags: OrderedStringSet;
   orderedTagsForInitialization: OrderedStringSet;
-  orderedTagsForOverride: OrderedStringSet;
+  orderedTagsForReplacement: OrderedStringSet;
   rulesToAppend?: Rule[];
   rulesToPrepend?: Rule[];
   rulesForInitialization?: Rule[];
@@ -314,7 +310,7 @@ export class JobCollection implements IJobCollection {
   artifactsForReplacement?: Artifacts;
   orderedTags: OrderedStringSet = new OrderedStringSet();
   orderedTagsForInitialization: OrderedStringSet = new OrderedStringSet();
-  orderedTagsForOverride: OrderedStringSet = new OrderedStringSet();
+  orderedTagsForReplacement: OrderedStringSet = new OrderedStringSet();
   rulesToAppend?: Rule[];
   rulesToPrepend?: Rule[];
   rulesForInitialization?: Rule[];
@@ -337,9 +333,6 @@ export class JobCollection implements IJobCollection {
   }
   get tagsForInitialization() {
     return this.orderedTagsForInitialization.values;
-  }
-  get tagsForOverride() {
-    return this.orderedTagsForOverride.values;
   }
 
   initializeAllowFailure(allowFailure: string | number | boolean | number[]): JobCollection {
@@ -395,7 +388,7 @@ export class JobCollection implements IJobCollection {
   }
   overrideTags(tags: string[]): JobCollection {
     for (const tag of tags) {
-      this.orderedTagsForOverride.add(tag);
+      this.orderedTagsForReplacement.add(tag);
     }
     return this;
   }
@@ -645,10 +638,10 @@ export class JobCollection implements IJobCollection {
         job.addDependencies(deepcopy(this.dependencies));
       }
 
-      if (this.orderedTagsForInitialization && !job.orderedTags) {
+      if (this.orderedTagsForInitialization.size && !job.orderedTags.size) {
         job.orderedTags = deepcopy(this.orderedTagsForInitialization);
       }
-      if (this.orderedTagsForInitialization) {
+      if (this.orderedTagsForReplacement.size) {
         job.orderedTags = deepcopy(this.orderedTagsForInitialization);
       }
       job.addTags(deepcopy(this.orderedTags.values));
