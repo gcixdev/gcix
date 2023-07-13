@@ -43,14 +43,6 @@ export interface AddChildrenProps {
 
 export interface IJobCollectionBase extends IBase {
   /**
-   * Getter method to receive array of added tags.
-   */
-  readonly tags: string[];
-  /**
-   * Getter method to receive tagsForInitialization string array.
-   */
-  readonly tagsForInitialization: string[];
-  /**
    * @description Adds one or more [variables](https://docs.gitlab.com/ee/ci/yaml/README.html#variables), to the job.
    */
   addVariables(variables: Variables): JobCollection;
@@ -327,13 +319,6 @@ export class JobCollection implements IJobCollection {
   imageForReplacement?: Image | string;
 
   constructor() {}
-
-  get tags() {
-    return this.orderedTags.values;
-  }
-  get tagsForInitialization() {
-    return this.orderedTagsForInitialization.values;
-  }
 
   initializeAllowFailure(allowFailure: string | number | boolean | number[]): JobCollection {
     this.allowFailureForInitialization = allowFailure;
