@@ -97,8 +97,8 @@ export interface IJobCollectionBase extends IBase {
 export interface IJobCollection extends IJobCollectionBase {
   parents: (Job | JobCollection)[];
   children: ChildDict[];
-  allowFailureForInitialization?: string | number | boolean | number[];
-  allowFailureForReplacement?: string | number | boolean | number[];
+  allowFailureForInitialization?: string | boolean | number[];
+  allowFailureForReplacement?: string | boolean | number[];
   variables?: Variables;
   variablesForInitialization?: Variables;
   variablesForReplacement?: Variables;
@@ -266,7 +266,7 @@ export interface IJobCollection extends IJobCollectionBase {
    * @param allowFailure ???
    * @returns the modified `JobCollection` object.
    */
-  initializeAllowFailure(allowFailure: boolean | string | number | number[]): JobCollection;
+  initializeAllowFailure(allowFailure: boolean | number[]): JobCollection;
   /**
    * Calling `gcip.core.job.Job.set_allow_failure()` to all jobs within this
    * sequence overriding any previous set value.
@@ -274,7 +274,7 @@ export interface IJobCollection extends IJobCollectionBase {
    * @param allowFailure ???
    * @returns the modified `JobCollection` object.
    */
-  overrideAllowFailure(allowFailure: boolean | string | number | number[]): JobCollection;
+  overrideAllowFailure(allowFailure: boolean | number[]): JobCollection;
   /**
    *
    * @param parent
@@ -290,8 +290,8 @@ export interface IJobCollection extends IJobCollectionBase {
 export class JobCollection implements IJobCollection {
   parents: (Job | JobCollection)[] = [];
   children: ChildDict[] = [];
-  allowFailureForInitialization?: string | number | boolean | number[];
-  allowFailureForReplacement?: string | number | boolean | number[];
+  allowFailureForInitialization?: string | boolean | number[];
+  allowFailureForReplacement?: string | boolean | number[];
   variables?: Variables;
   variablesForInitialization?: Variables;
   variablesForReplacement?: Variables;
@@ -320,11 +320,11 @@ export class JobCollection implements IJobCollection {
 
   constructor() {}
 
-  initializeAllowFailure(allowFailure: string | number | boolean | number[]): JobCollection {
+  initializeAllowFailure(allowFailure: boolean | number[]): JobCollection {
     this.allowFailureForInitialization = allowFailure;
     return this;
   }
-  overrideAllowFailure(allowFailure: string | number | boolean | number[]): JobCollection {
+  overrideAllowFailure(allowFailure: boolean | number[]): JobCollection {
     this.allowFailureForReplacement = allowFailure;
     return this;
   }

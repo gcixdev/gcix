@@ -118,7 +118,7 @@ export interface JobProps {
   /**
    * @description The [allow_failure](https://docs.gitlab.com/ee/ci/yaml/#allow_failure) keyword of the Job.
    */
-  readonly allowFailure?: boolean | string | number | number[];
+  readonly allowFailure?: boolean | number[];
   /**
    * @description
    * @TODO add description
@@ -246,7 +246,7 @@ export interface IJob extends IJobBase {
   /**
    * @description Sets `allow_failure` for this job.
    */
-  assignAllowFailure(allowFailure: boolean | string | number | number[]): Job;
+  assignAllowFailure(allowFailure: boolean | number[]): Job;
   /**
    * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs name.
    * @param name to append to the current name.
@@ -283,7 +283,7 @@ export class Job implements IJob {
   stage: string;
   original?: Job;
   scripts: string[];
-  allowFailure: string | number | boolean | number[];
+  allowFailure: string | boolean | number[];
   image?: Image;
   orderedTags: OrderedStringSet;
   rules?: Rule[];
@@ -420,7 +420,7 @@ export class Job implements IJob {
     this.needs = needs;
     return this;
   }
-  assignAllowFailure(allowFailure: string | number | boolean | number[]): Job {
+  assignAllowFailure(allowFailure: boolean | number[]): Job {
     this.allowFailure = allowFailure;
     return this;
   }
