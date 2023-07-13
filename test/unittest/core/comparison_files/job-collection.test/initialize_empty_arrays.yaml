@@ -1,0 +1,38 @@
+stages:
+- test
+job1:
+  dependencies: []
+  needs: []
+  stage: test
+  script:
+  - date
+job2:
+  dependencies:
+  - job1
+  needs:
+  - job: job1
+    artifacts: true
+  stage: test
+  script:
+  - date
+job3:
+  dependencies: []
+  needs: []
+  stage: test
+  script:
+  - date
+job4:
+  dependencies:
+  - job1
+  needs:
+  - job: job1
+    artifacts: true
+  stage: test
+  script:
+  - date
+job5:
+  dependencies: []
+  needs: []
+  stage: test
+  script:
+  - date
