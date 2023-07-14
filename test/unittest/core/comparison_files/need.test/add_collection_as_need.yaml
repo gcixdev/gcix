@@ -1,0 +1,11 @@
+stages:
+- testjob
+testjob:
+  needs:
+  - job: A-last
+    artifacts: true
+  - job: B-last
+    artifacts: true
+  stage: testjob
+  script:
+  - foobar

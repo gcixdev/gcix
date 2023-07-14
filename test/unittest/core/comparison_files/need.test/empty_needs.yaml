@@ -1,0 +1,7 @@
+stages:
+- job1stage
+job1name-job1stage:
+  needs: []
+  stage: job1stage
+  script:
+  - date

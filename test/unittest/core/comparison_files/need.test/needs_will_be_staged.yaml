@@ -1,0 +1,31 @@
+stages:
+- first_abc_123_final
+- second_SSS_abc_123_final
+- target1_xyz_final
+- target2_TTT_xyz_final
+final-123-abc-first:
+  stage: first_abc_123_final
+  script:
+  - foobar
+final-123-abc-SSS-second:
+  stage: second_SSS_abc_123_final
+  script:
+  - foobar
+final-xyz-target1:
+  needs:
+  - job: final-123-abc-SSS-second
+    artifacts: true
+  - job: final-123-abc-first
+    artifacts: true
+  stage: target1_xyz_final
+  script:
+  - foobar
+final-xyz-TTT-target2:
+  needs:
+  - job: final-123-abc-SSS-second
+    artifacts: true
+  - job: final-123-abc-first
+    artifacts: true
+  stage: target2_TTT_xyz_final
+  script:
+  - foobar

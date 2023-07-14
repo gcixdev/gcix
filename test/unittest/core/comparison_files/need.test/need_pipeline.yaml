@@ -1,0 +1,17 @@
+stages:
+- test
+foo:
+  needs:
+  - job: test
+    artifacts: true
+    pipeline: '567890'
+  stage: test
+  script:
+  - foo
+bar:
+  needs:
+  - artifacts: true
+    pipeline: other/project
+  stage: test
+  script:
+  - bar

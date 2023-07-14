@@ -1,0 +1,14 @@
+stages:
+- job1_stage_seq1
+- job2_stage_seq1
+seq1-job-job1-stage:
+  stage: job1_stage_seq1
+  script:
+  - echo "I'm job1"
+seq1-job-job2-stage:
+  needs:
+  - job: seq1-job-job1-stage
+    artifacts: true
+  stage: job2_stage_seq1
+  script:
+  - echo "I'm job2"
