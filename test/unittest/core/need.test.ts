@@ -167,3 +167,18 @@ test('empty_needs', () => {
   pipeline.addChildren({ jobsOrJobCollections: [new Job({ scripts: ['date'], name: 'job1name', stage: 'job1stage' }).assignNeeds([])] });
   check(pipeline.render(), expect);
 });
+
+test('exceptions', () => {
+  expect(() => {new Need({ artifacts: true });}).toThrowError('At least one of `job` or `pipeline` must be set.');
+  expect(() => {new Need({ job: 'foo', ref: 'feature_branch' });}).toThrowError('`ref` parameter requires the `project` parameter.');
+  expect(() => {new Need({ project: 'gitlab/gitlab', pipeline: 'gcix/gcix' });}).toThrowError('Needs accepts either `project` or `pipeline` but not both.');
+});
+
+test('equality', () => {
+  const needToCompareTo = new Need({ job: 'compare', artifacts: false, project: 'gitlab/gitlab', ref: 'dev' });
+  const needEqualsToCompareTo = new Need({ job: 'compare', artifacts: false, project: 'gitlab/gitlab', ref: 'dev' });
+  const needNotEqualsToCompareTo = new Need({ artifacts: true, job: 'notEqualJob' });
+
+  expect(needToCompareTo.isEqual(needEqualsToCompareTo)).toBe(true);
+  expect(needToCompareTo.isEqual(needNotEqualsToCompareTo)).not.toBe(true);
+});
