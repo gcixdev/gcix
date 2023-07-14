@@ -170,3 +170,16 @@ describe('check methods', () => {
     check(pipeline.render(), expect);
   });
 });
+
+test('exceptions', () => {
+  const pipeline = new Pipeline();
+  const job1 = new Job({ scripts: ['script1'], name: 'job1' });
+  const job2 = new Job({ scripts: ['script2'], name: 'job2', stage: 'deploy' });
+  job1.addDependencies([job2]);
+  // @ts-ignore: Argument of type 'string' is not assignable to parameter of type '(JobCollection | Job | Need)[]'
+  job2.addDependencies('foobar');
+  pipeline.addChildren({ jobsOrJobCollections: [job1, job2] });
+  expect(() => {
+    pipeline.render();
+  }).toThrowError(/Dependency '.*' is of type .*/);
+});
