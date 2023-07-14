@@ -27,7 +27,6 @@ export class Service implements IService {
     return this.name;
   }
   isEqual(comparable: IBase): comparable is IBase {
-    return comparable.render() === this.render();
+    return JSON.stringify(comparable.render()) === JSON.stringify(this.render());
   }
-  ;
 };
