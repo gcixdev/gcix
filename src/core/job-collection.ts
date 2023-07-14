@@ -485,6 +485,8 @@ export class JobCollection implements IJobCollection {
         if (childStage) {
           if (childName) {
             childInstanceName = `${childName}-${childStage}`;
+          } else {
+            childInstanceName = childStage;
           }
         } else if (childName) {
           childInstanceName = childName;
