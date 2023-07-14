@@ -153,6 +153,6 @@ export class Need implements INeed {
   }
 
   isEqual(comparable: IBase): comparable is Need {
-    return this.render() === comparable.render();
+    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
   }
 }
