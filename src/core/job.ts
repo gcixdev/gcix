@@ -316,7 +316,7 @@ export class Job implements IJob {
     * This is because the user can set the value from outside to True, False or None, indicating the value should not be rendered.
     * 'untouched' allows for sequences to determine, if this value should be initialized or not.
     */
-    this.allowFailure = props.allowFailure ? props.allowFailure : 'untouched';
+    this.allowFailure = props.allowFailure ?? 'untouched';
     this.orderedTags = new OrderedStringSet();
 
     props.tags && this.addTags(props.tags);
@@ -473,7 +473,7 @@ export class Job implements IJob {
     if (typeof this.allowFailure === 'boolean') {
       renderedJob.allow_failure = this.allowFailure;
     } else if (Array.isArray(this.allowFailure)) {
-      renderedJob.allow_failure.exit_codes = this.allowFailure;
+      renderedJob.allow_failure = { exit_codes: this.allowFailure };
     }
 
     if (this.dependencies) {
