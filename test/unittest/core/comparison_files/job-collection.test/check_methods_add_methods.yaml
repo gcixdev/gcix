@@ -1,0 +1,71 @@
+stages:
+- test
+job1:
+  allow_failure: false
+  dependencies:
+  - job1
+  - job3
+  needs:
+  - job: job2
+    artifacts: true
+  - job: job3
+    artifacts: true
+  stage: test
+  script:
+  - echo job1
+  variables:
+    ANY: VARIABLE
+    TEST: 'true'
+  tags:
+  - tag1
+  - tag2
+  - init_tag
+  - init_tag_init
+job2:
+  dependencies:
+  - job1
+  - job3
+  needs:
+  - job: job2
+    artifacts: true
+  - job: job3
+    artifacts: true
+  stage: test
+  script:
+  - echo job2
+  variables:
+    ANY: VARIABLE
+    TEST: 'true'
+  cache:
+    paths:
+    - ./to_cache.txt
+    key: my-awsome-feature-branch
+  tags:
+  - init_tag
+  - init_tag_init
+job3:
+  dependencies:
+  - job1
+  - job3
+  needs:
+  - job: job2
+    artifacts: true
+  - job: job3
+    artifacts: true
+  stage: test
+  script:
+  - echo job3
+  variables:
+    ANY: VARIABLE
+    TEST: 'true'
+  rules:
+  - if: $FOO == "bar"
+    when: on_success
+    allow_failure: false
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - artifacts_file.txt
+  tags:
+  - init_tag
+  - init_tag_init

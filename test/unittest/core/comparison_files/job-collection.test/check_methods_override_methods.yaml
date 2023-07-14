@@ -1,0 +1,112 @@
+stages:
+- test
+job1:
+  image:
+    name: alpine:3
+  allow_failure:
+    exit_codes:
+    - 123
+    - 321
+  dependencies:
+  - job1
+  needs:
+  - job: job3
+    artifacts: true
+  stage: test
+  script:
+  - echo job1
+  variables:
+    OVER: ride1
+    RIDE: over1
+  rules:
+  - if: $DEBUG == "YES"
+    changes:
+    - foo.txt
+    - bar.txt
+    when: manual
+    allow_failure: true
+  - if: $CI
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+job2:
+  image:
+    name: alpine:3
+  allow_failure:
+    exit_codes:
+    - 123
+    - 321
+  dependencies:
+  - job1
+  needs:
+  - job: job3
+    artifacts: true
+  stage: test
+  script:
+  - echo job2
+  variables:
+    OVER: ride1
+    RIDE: over1
+  rules:
+  - if: $DEBUG == "YES"
+    changes:
+    - foo.txt
+    - bar.txt
+    when: manual
+    allow_failure: true
+  - if: $CI
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  cache:
+    paths:
+    - ./to_cache.txt
+    key: my-awsome-feature-branch
+job3:
+  image:
+    name: alpine:3
+  allow_failure:
+    exit_codes:
+    - 123
+    - 321
+  dependencies:
+  - job1
+  needs:
+  - job: job3
+    artifacts: true
+  stage: test
+  script:
+  - echo job3
+  variables:
+    OVER: ride1
+    RIDE: over1
+  rules:
+  - if: $DEBUG == "YES"
+    changes:
+    - foo.txt
+    - bar.txt
+    when: manual
+    allow_failure: true
+  - if: $CI
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - artifacts_file.txt

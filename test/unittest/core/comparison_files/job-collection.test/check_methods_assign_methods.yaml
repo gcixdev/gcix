@@ -1,0 +1,52 @@
+stages:
+- test
+job1:
+  allow_failure: false
+  stage: test
+  script:
+  - echo job1
+  cache:
+    paths:
+    - ./dir_to_be_cached/
+    key: new-key
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - i_did_overwrite_all_other_artifacts.txt
+    reports:
+      accessibility: accessibility.txt
+  tags:
+  - tag1
+  - tag2
+job2:
+  stage: test
+  script:
+  - echo job2
+  cache:
+    paths:
+    - ./dir_to_be_cached/
+    key: new-key
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - i_did_overwrite_all_other_artifacts.txt
+    reports:
+      accessibility: accessibility.txt
+job3:
+  stage: test
+  script:
+  - echo job3
+  rules:
+  - if: $FOO == "bar"
+    when: on_success
+    allow_failure: false
+  cache:
+    paths:
+    - ./dir_to_be_cached/
+    key: new-key
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - i_did_overwrite_all_other_artifacts.txt
+    reports:
+      accessibility: accessibility.txt

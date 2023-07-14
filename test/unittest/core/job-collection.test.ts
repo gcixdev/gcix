@@ -1,5 +1,4 @@
-
-import { Job, Pipeline, JobCollection, Rule, Cache, Image, Artifacts } from '../../../src';
+import { Job, Pipeline, JobCollection, Rule, Cache, Image, Artifacts, CacheKey, WhenStatement } from '../../../src';
 import { check } from '../../comparison';
 
 test('name population', () => {
@@ -105,4 +104,69 @@ test('initialize empty arrays', () => {
   pipeline.initializeDependencies([]);
   pipeline.initializeNeeds([]);
   check(pipeline.render(), expect);
+});
+
+describe('check methods', () => {
+  let pipeline: Pipeline;
+  let collection: JobCollection;
+  let job1: Job;
+  let job2: Job;
+  let job3: Job;
+  beforeEach(() => {
+    pipeline = new Pipeline();
+    collection = new JobCollection();
+    job1 = new Job({ name: 'job1', scripts: ['echo job1'], allowFailure: false, tags: ['tag1', 'tag2'] });
+    job2 = new Job({ name: 'job2', scripts: ['echo job2'], cache: new Cache({ paths: ['to_cache.txt'] }) });
+    job3 = new Job({ name: 'job3', scripts: ['echo job3'], rules: [new Rule({ ifStatement: '$FOO == "bar"' })], artifacts: new Artifacts({ paths: ['artifacts_file.txt'] }) });
+    collection.addChildren({ jobsOrJobCollections: [job1, job2, job3] });
+  });
+  test('initialize methods', () => {
+    collection.initializeAllowFailure([123]);
+    collection.initializeArtifacts(new Artifacts({ paths: ['foobar.artifacts.txt'] }));
+    collection.initializeCache(new Cache({ paths: ['./image'] }));
+    collection.initializeDependencies([job3]);
+    collection.initializeNeeds([job2]);
+    collection.initializeRules([new Rule({ ifStatement: 'false', variables: { FOO: 'BAR', SOOS: 'BAZ' } })]);
+    collection.initializeRules([new Rule({ ifStatement: 'true', variables: { ONE: 'one', TWO: 'two' } })]);
+    collection.initializeTags(['init_tag', 'init_tag_init', 'init_tag']);
+    collection.initializeVariables({ ANY: 'VARIABLE', TEST: 'true' });
+  });
+  test('add methods', () => {
+    collection.addDependencies([job3]);
+    collection.addDependencies([job1]);
+    collection.addNeeds([job2]);
+    collection.addNeeds([job3]);
+    collection.addTags(['init_tag', 'init_tag_init', 'init_tag']);
+    collection.addVariables({ ANY: 'VARIABLE', TEST: 'true' });
+  });
+  test('append methods', ()=> {
+    collection.appendRules([new Rule({ ifStatement: 'false', variables: { FOO: 'BAR', SOOS: 'BAZ' } })]);
+    collection.appendRules([new Rule({ ifStatement: 'true', variables: { ONE: 'one', TWO: 'two' } })]);
+    collection.appendScripts(["echo 'I am appended", 'cat some_file.txt']);
+    collection.appendScripts(["echo 'Second append", 'python script.py']);
+  });
+  test('prepend methods', () => {
+    collection.prependRules([new Rule({ ifStatement: 'false', variables: { FOO: 'BAR', SOOS: 'BAZ' } })]);
+    collection.prependRules([new Rule({ ifStatement: 'true', variables: { ONE: 'one', TWO: 'two' } })]);
+    collection.prependScripts(["echo 'I am prepended'", 'cat some_file.txt']);
+    collection.prependScripts(["echo 'Second prepend", 'python script.py']);
+  });
+  test('assign methods', ()=>{
+    collection.assignArtifacts(new Artifacts({ paths: ['i_did_overwrite_all_other_artifacts.txt'], reports: [{ reportType: 'accessibility', file: 'accessibility.txt' }] }));
+    collection.assignCache(new Cache({ paths: ['dir_to_be_cached/'], cacheKey: new CacheKey({ key: 'new-key' }) }));
+  });
+  test('override methods', () => {
+    collection.overrideAllowFailure([123, 321]);
+    collection.overrideDependencies([job1]);
+    collection.overrideImage('alpine:3');
+    collection.overrideNeeds([job3]);
+    collection.overrideRules([new Rule({ allowFailure: true, changes: ['foo.txt', 'bar.txt'], when: WhenStatement.MANUAL, ifStatement: '$DEBUG == "YES"' }), new Rule({ ifStatement: '$CI' })]);
+    collection.overrideRules([new Rule({ ifStatement: 'true', variables: { ONE: 'one', TWO: 'two' } })]);
+    collection.overrideTags(['override1', 'override2']);
+    collection.overrideVariables({ OVER: 'ride1', RIDE: 'over1' });
+  });
+  afterEach(() => {
+    pipeline.addChildren({ jobsOrJobCollections: [collection] });
+    check(pipeline.render(), expect);
+  });
 });

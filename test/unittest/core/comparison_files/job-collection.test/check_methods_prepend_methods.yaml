@@ -1,0 +1,80 @@
+stages:
+- test
+job1:
+  allow_failure: false
+  stage: test
+  script:
+  - echo 'Second prepend
+  - python script.py
+  - echo 'I am prepended'
+  - cat some_file.txt
+  - echo job1
+  rules:
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  tags:
+  - tag1
+  - tag2
+job2:
+  stage: test
+  script:
+  - echo 'Second prepend
+  - python script.py
+  - echo 'I am prepended'
+  - cat some_file.txt
+  - echo job2
+  rules:
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  cache:
+    paths:
+    - ./to_cache.txt
+    key: my-awsome-feature-branch
+job3:
+  stage: test
+  script:
+  - echo 'Second prepend
+  - python script.py
+  - echo 'I am prepended'
+  - cat some_file.txt
+  - echo job3
+  rules:
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  - if: $FOO == "bar"
+    when: on_success
+    allow_failure: false
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - artifacts_file.txt

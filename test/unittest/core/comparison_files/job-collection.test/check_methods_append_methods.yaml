@@ -1,0 +1,80 @@
+stages:
+- test
+job1:
+  allow_failure: false
+  stage: test
+  script:
+  - echo job1
+  - echo 'I am appended
+  - cat some_file.txt
+  - echo 'Second append
+  - python script.py
+  rules:
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  tags:
+  - tag1
+  - tag2
+job2:
+  stage: test
+  script:
+  - echo job2
+  - echo 'I am appended
+  - cat some_file.txt
+  - echo 'Second append
+  - python script.py
+  rules:
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  cache:
+    paths:
+    - ./to_cache.txt
+    key: my-awsome-feature-branch
+job3:
+  stage: test
+  script:
+  - echo job3
+  - echo 'I am appended
+  - cat some_file.txt
+  - echo 'Second append
+  - python script.py
+  rules:
+  - if: $FOO == "bar"
+    when: on_success
+    allow_failure: false
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - artifacts_file.txt

@@ -1,0 +1,108 @@
+stages:
+- test
+job1:
+  allow_failure: false
+  dependencies:
+  - job3
+  needs:
+  - job: job2
+    artifacts: true
+  stage: test
+  script:
+  - echo job1
+  variables:
+    ANY: VARIABLE
+    TEST: 'true'
+  rules:
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  cache:
+    paths:
+    - ./image
+    key: my-awsome-feature-branch
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - foobar.artifacts.txt
+  tags:
+  - tag1
+  - tag2
+job2:
+  allow_failure:
+    exit_codes:
+    - 123
+  dependencies:
+  - job3
+  needs:
+  - job: job2
+    artifacts: true
+  stage: test
+  script:
+  - echo job2
+  variables:
+    ANY: VARIABLE
+    TEST: 'true'
+  rules:
+  - if: 'false'
+    variables:
+      FOO: BAR
+      SOOS: BAZ
+    when: on_success
+    allow_failure: false
+  - if: 'true'
+    variables:
+      ONE: one
+      TWO: two
+    when: on_success
+    allow_failure: false
+  cache:
+    paths:
+    - ./to_cache.txt
+    key: my-awsome-feature-branch
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - foobar.artifacts.txt
+  tags:
+  - init_tag
+  - init_tag_init
+job3:
+  allow_failure:
+    exit_codes:
+    - 123
+  dependencies:
+  - job3
+  needs:
+  - job: job2
+    artifacts: true
+  stage: test
+  script:
+  - echo job3
+  variables:
+    ANY: VARIABLE
+    TEST: 'true'
+  rules:
+  - if: $FOO == "bar"
+    when: on_success
+    allow_failure: false
+  cache:
+    paths:
+    - ./image
+    key: my-awsome-feature-branch
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - artifacts_file.txt
+  tags:
+  - init_tag
+  - init_tag_init
