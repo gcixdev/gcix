@@ -34,7 +34,7 @@
  * @returns The value of the queried environment variable.
  */
 export function EnvProxy(key: string): string {
-  if (process.env.CI) {
+  if (process.env.CI === 'true') {
     return process.env[key]!;
   };
 
@@ -53,6 +53,7 @@ export function EnvProxy(key: string): string {
 /**
  * This class contains constants for [Gitlab CI predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
  */
+console.log(process.env.CI);
 export const PredefinedVariables = {
 
   /**
