@@ -640,7 +640,7 @@ export class JobCollection implements IJobCollection {
       if (this.rulesToAppend) {
         job.appendRules(deepcopy(this.rulesToAppend));
       }
-      if (this.rulesToAppend) {
+      if (this.rulesToPrepend) {
         job.prependRules(deepcopy(this.rulesToPrepend));
       }
       job.appendScripts(deepcopy(this.scriptsToAppend));
