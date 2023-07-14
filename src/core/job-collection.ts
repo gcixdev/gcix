@@ -566,7 +566,7 @@ export class JobCollection implements IJobCollection {
             job.assignNeeds(deepcopy(this.needsForReplacement));
           }
           if (this.needs) {
-            job.addNeeds([deepcopy(this.needs)]);
+            job.addNeeds(deepcopy(this.needs));
           }
         }
       }
