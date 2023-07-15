@@ -9,6 +9,8 @@ import {
   Pipeline,
   JobCollection,
   Image,
+  TriggerJob,
+  IncludeLocal,
 } from "../../../src";
 import { check } from "../../comparison";
 
@@ -198,4 +200,76 @@ describe("image", () => {
     });
     check(pipeline.render(), expect);
   });
+});
+
+/**
+ * Test Trigger Job
+ */
+test("include exceptions", () => {
+  expect(() => {
+    return new TriggerJob({
+      stage: "foobar",
+      project: "please/raise/execption",
+      includes: [new IncludeLocal({ local: "TestConfig.yml" })],
+    });
+  }).toThrowError(
+    "You cannot specify 'include' and 'project' together. Either 'include' or 'project' is possible.",
+  );
+  expect(() => {
+    return new TriggerJob({ stage: "foobar", branch: "Missing/Project" });
+  }).toThrowError("Neither 'includes' nor 'project' is given.");
+  expect(() => {
+    return new TriggerJob({
+      stage: "foobar",
+      includes: Array.from(
+        { length: 4 },
+        (_, i) => new IncludeLocal({ local: `Localfile_${i}.yml` }),
+      ),
+    });
+  }).toThrowError("The length of 'includes' is limited to three.");
+});
+
+test("parent child trigger", () => {
+  check(
+    new TriggerJob({
+      stage: "trigger-child",
+      includes: [new IncludeLocal({ local: "Test-File.yml" })],
+    }).render(),
+    expect,
+  );
+});
+
+test("multi project trigger", () => {
+  check(
+    new TriggerJob({
+      stage: "trigger-project",
+      project: "my/project",
+      branch: "staging",
+      strategy: "depend",
+    }).render(),
+    expect,
+  );
+});
+
+test("trigger job keywords", () => {
+  const triggerJob = new TriggerJob({ stage: "foobar", project: "my/project" });
+  //add supported keywords
+  triggerJob.addVariables({ USER: "Max Power", URL: "https://example.com" });
+  triggerJob.appendRules([
+    new Rule({ ifStatement: "$MY_VARIABLE_IS_PRESENT" }),
+  ]);
+
+  // add unsupported keywords
+  triggerJob.assignImage("docker/image:example");
+  triggerJob.prependScripts(["./before-script.sh"]);
+  triggerJob.appendScripts(["./after-script.sh"]);
+  triggerJob.addTags(["test", "europe"]);
+  triggerJob.assignArtifacts(
+    new Artifacts({ paths: ["binaries/", ".config"] }),
+  );
+
+  check(
+    new Pipeline().addChildren({ jobsOrJobCollections: [triggerJob] }).render(),
+    expect,
+  );
 });
