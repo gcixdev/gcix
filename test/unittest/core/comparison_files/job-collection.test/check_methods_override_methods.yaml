@@ -34,6 +34,9 @@ job1:
       TWO: two
     when: on_success
     allow_failure: false
+  tags:
+  - override1
+  - override2
 job2:
   image:
     name: alpine:3
@@ -72,6 +75,9 @@ job2:
     paths:
     - ./to_cache.txt
     key: my-awsome-feature-branch
+  tags:
+  - override1
+  - override2
 job3:
   image:
     name: alpine:3
@@ -110,3 +116,6 @@ job3:
     name: ci_job_name-my-awsome-feature-branch
     paths:
     - artifacts_file.txt
+  tags:
+  - override1
+  - override2

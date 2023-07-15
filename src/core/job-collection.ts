@@ -667,7 +667,7 @@ export class JobCollection implements IJobCollection {
         job.orderedTags = deepcopy(this.orderedTagsForInitialization);
       }
       if (this.orderedTagsForReplacement.size) {
-        job.orderedTags = deepcopy(this.orderedTagsForInitialization);
+        job.orderedTags = deepcopy(this.orderedTagsForReplacement);
       }
       job.addTags(deepcopy(this.orderedTags.values));
 
