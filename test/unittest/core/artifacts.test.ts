@@ -91,3 +91,7 @@ test('equality', () => {
   expect(artifactToCompareTo.isEqual(artifactEqualsToCompareTo)).toBe(true);
   expect(artifactToCompareTo.isEqual(artifactNotEqualsToCompareTo)).not.toBe(true);
 });
+
+test('exception if path starts with /', () => {
+  expect(() => {new Artifacts({ paths: ['/root/path/not/allowed.txt'] });}).toThrowError(/Path .* not relative to .*\./);
+});
