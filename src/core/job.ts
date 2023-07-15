@@ -599,12 +599,7 @@ export interface RenderedTriggerJob {}
  * This class represents the [trigger:strategy](https://docs.gitlab.com/ee/ci/yaml/README.html#linking-pipelines-with-triggerstrategy)
     keyword.
  */
-export enum TriggerStrategy {
-  /**
-   * Use this strategy to force the `TriggerJob` to wait for the downstream (multi-project or child) pipeline to complete.
-   */
-  DEPEND = "depend",
-}
+export type TriggerStrategy = "depend";
 
 export interface TriggerJobProps {
   /**
@@ -639,8 +634,128 @@ export interface TriggerJobProps {
    * @description Determines if the result of this pipeline depends on the
    * triggered downstream pipeline (use `TriggerStrategy.DEPEND`) or if just
    * "fire and forget" the downstream pipeline (use `None`).
+   *
+   * Use `depend` to force the `TriggerJob` to wait for the downstream
+   * (multi-project or child) pipeline to complete.
    */
   readonly strategy?: TriggerStrategy;
+}
+
+export interface ITriggerJob {
+  /**
+   * The full name of another Gitlab project to trigger
+   * (multi-project pipeline trigger). Mutually exclusive with `includes`.
+   */
+  project?: string;
+  /**
+   * The branch of `project` the pipeline should be triggered of.
+   */
+  branch?: string;
+  /**
+   * Include a pipeline to trigger (Parent-child pipeline trigger)
+   * Mutually exclusiv with `project`.
+   */
+  includes?: (
+    | IncludeLocal
+    | IncludeFile
+    | IncludeRemote
+    | IncludeTemplate
+    | IncludeArtifact
+  )[];
+  /**
+   * Determines if the result of this pipeline depends on the triggered
+   * downstream pipeline (use `TriggerStrategy.DEPEND`) or if just
+   * "fire and forget" the downstream pipeline (use `None`).
+   */
+  strategy?: TriggerStrategy;
+}
+
+/**
+ * This class represents the [trigger](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger) job.
+ *
+ * Jobs with trigger can only use a [limited set of keywords](https://docs.gitlab.com/ee/ci/multi_project_pipelines.html#limitations).
+ * For example, you can’t run commands with `script`.
+ *
+ * Simple example:
+ *
+ * ```python
+ * trigger_job = TriggerJob(
+ *     stage="trigger-other-job",
+ *     project="myteam/other-project",
+ *     branch="main",
+ *     strategy=TriggerStrategy.DEPEND,
+ * )
+ * trigger_job.append_rules(rules.on_tags().never(), rules.on_main())
+ * ```
+ *
+ * @throws Error if both `project` and `includes` are given.
+ * @throws Error if neither `project` nor `includes` are given.
+ * @throws Error when the limit of three child pipelines is exceeded.
+ * See https://docs.gitlab.com/ee/ci/parent_child_pipelines.html
+ * for more information.
+ */
+export class TriggerJob extends Job implements ITriggerJob {
+  project?: string | undefined;
+  branch?: string | undefined;
+  includes?: (
+    | IncludeLocal
+    | IncludeFile
+    | IncludeRemote
+    | IncludeTemplate
+    | IncludeArtifact
+  )[];
+  strategy?: TriggerStrategy;
+  constructor(props: TriggerJobProps) {
+    if (props.includes && props.project) {
+      throw new Error(
+        "You cannot specify 'include' and 'project' together. Either 'include' or 'project' is possible.",
+      );
+    }
+    if (!props.includes && !props.project) {
+      throw new Error("Neither 'includes' nor 'project' is given.");
+    }
+
+    super({ name: props.name, stage: props.stage, scripts: ["none"] });
+
+    this.project = props.project;
+    this.branch = props.branch;
+    this.strategy = props.strategy;
+
+    if (Array.isArray(props.includes)) {
+      if (props.includes.length > 3) {
+        throw new Error(
+          "The length of 'includes' is limited to three. " +
+            "See https://docs.gitlab.com/ee/ci/parent_child_pipelines.html for more information.",
+        );
+      }
+      this.includes = props.includes;
+    }
+  }
+
+  render(): any {
+    const renderedJob = super.render();
+
+    /**
+     * Remove unsupported keywords from rendered TriggerJob
+     */
+    delete renderedJob.script;
+    delete renderedJob.image;
+    delete renderedJob.image;
+    delete renderedJob.tags;
+    delete renderedJob.artifacts;
+    delete renderedJob.cache;
+
+    const trigger = {
+      trigger: {
+        include: this.includes?.map((include) => include.render()),
+        project: this.project,
+        branch: this.branch,
+        strategy: this.strategy,
+      },
+    };
+
+    return { ...trigger, ...renderedJob };
+  }
 }
 
 export interface IPagesJob {
