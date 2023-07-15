@@ -35,6 +35,8 @@ junit.xml
 /coverage/
 /dist/changelog.md
 /dist/version.txt
+!/.prettierignore
+!/.prettierrc.json
 !/.npmrc
 !/test/
 !/tsconfig.dev.json

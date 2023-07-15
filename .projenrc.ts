@@ -39,6 +39,7 @@ const gcixProject = new cdk.JsiiProject({
       ],
     },
   },
+  prettier: true,
 });
 gcixProject.vscode?.settings.addSettings({
   'editor.tabSize': 2,

@@ -29,8 +29,7 @@
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
     "projen": "npx projen",
-    "test:update": "UPDATE_TEST_OUTPUT=true npx projen test",
-    "foo": "echo BAR"
+    "test:update": "UPDATE_TEST_OUTPUT=true npx projen test"
   },
   "author": {
     "name": "Daniel von Essen",
@@ -46,9 +45,11 @@
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "eslint": "^8",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-node": "^0.3.7",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^5.0.0",
     "jest": "^29.6.1",
     "jest-junit": "^15",
     "jsii": "~5.0.0",
@@ -57,6 +58,7 @@
     "jsii-pacmak": "^1.84.0",
     "jsii-rosetta": "~5.0.0",
     "npm-check-updates": "^16",
+    "prettier": "^3.0.0",
     "projen": "^0.71.129",
     "sanitize-filename": "^1.6.3",
     "standard-version": "^9",
