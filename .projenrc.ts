@@ -44,4 +44,9 @@ gcixProject.vscode?.settings.addSettings({
   'editor.tabSize': 2,
 });
 
+/**
+ * Run test and update comparison files.
+ */
+gcixProject.addScripts({ 'test:update': 'UPDATE_TEST_OUTPUT=true npx projen test' });
+
 gcixProject.synth();

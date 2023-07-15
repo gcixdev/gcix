@@ -28,7 +28,9 @@
     "unbump": "npx projen unbump",
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
-    "projen": "npx projen"
+    "projen": "npx projen",
+    "test:update": "UPDATE_TEST_OUTPUT=true npx projen test",
+    "foo": "echo BAR"
   },
   "author": {
     "name": "Daniel von Essen",
