@@ -1,5 +1,5 @@
-import { IBase } from '.';
-import { validURL } from '../helper';
+import { IBase } from ".";
+import { validURL } from "../helper";
 
 /**
  * This module represents the Gitlab CI [Include](https://docs.gitlab.com/ee/ci/yaml/#include) keyword.
@@ -77,7 +77,9 @@ export class Include implements IInclude {
     return this.rendered;
   }
   isEqual(comparable: IBase): comparable is Include {
-    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
+    return (
+      JSON.stringify(this.render()) === JSON.stringify(comparable.render())
+    );
   }
 }
 
@@ -214,7 +216,6 @@ export interface IIncludeArtifact extends IInclude {}
  * [a child pipeline with a generated configuration file from a previous job](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger-child-pipeline-with-generated-configuration-file):
  */
 export class IncludeArtifact extends Include implements IIncludeArtifact {
-
   constructor(props: IncludeArtifactProps) {
     super();
     this.rendered = {

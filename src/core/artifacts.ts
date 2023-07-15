@@ -13,8 +13,8 @@
  * ```
  */
 
-import { IBase, OrderedStringSet, PredefinedVariables, WhenStatement } from '.';
-import { sanitizePath } from '../helper';
+import { IBase, OrderedStringSet, PredefinedVariables, WhenStatement } from ".";
+import { sanitizePath } from "../helper";
 
 /**
  * @internal
@@ -28,18 +28,32 @@ export interface RenderdArtifacts {
   readonly public?: boolean;
   readonly untracked?: boolean;
   readonly when?: WhenStatement;
-  readonly reports?: {[key: string]: string};
+  readonly reports?: { [key: string]: string };
 }
 
 /**
  * This interface represents the [artifacts:reports](https://docs.gitlab.com/ee/ci/yaml/#artifactsreports) types.
  */
-export type ArtifactsReportType = 'accessibility' | 'api_fuzzing' |
-'browser_performance' | 'coverage_report' | 'codequality' |
-'container_scanning' | 'coverage_fuzzing' | 'cyclonedx' | 'dast' |
-'dependency_scanning' | 'dotenv' | 'junit' | 'license_scanning' |
-'load_performance' | 'metrics' | 'requirements' | 'sast' |
-'secret_detection' | 'terraform';
+export type ArtifactsReportType =
+  | "accessibility"
+  | "api_fuzzing"
+  | "browser_performance"
+  | "coverage_report"
+  | "codequality"
+  | "container_scanning"
+  | "coverage_fuzzing"
+  | "cyclonedx"
+  | "dast"
+  | "dependency_scanning"
+  | "dotenv"
+  | "junit"
+  | "license_scanning"
+  | "load_performance"
+  | "metrics"
+  | "requirements"
+  | "sast"
+  | "secret_detection"
+  | "terraform";
 
 export interface ArtifactsReport {
   /**
@@ -136,7 +150,9 @@ export class Artifacts implements IArtifacts {
     this.orderedExcludes = new OrderedStringSet();
     this.expireIn = props.expireIn;
     this.exposeAs = props.exposeAs;
-    this.name = props.name ? props.name : `${PredefinedVariables.CI_JOB_NAME}-${PredefinedVariables.CI_COMMIT_REF_SLUG}`;
+    this.name = props.name
+      ? props.name
+      : `${PredefinedVariables.CI_JOB_NAME}-${PredefinedVariables.CI_COMMIT_REF_SLUG}`;
     this.public = props.public;
     this.reports = props.reports;
     this.untracked = props.untracked;
@@ -195,15 +211,21 @@ export class Artifacts implements IArtifacts {
     }
     const rendered: RenderdArtifacts = {
       name: this.name,
-      paths: this.orderedPaths.values.length ? this.orderedPaths.values : undefined,
-      excludes: this.orderedExcludes.values.length ? this.orderedExcludes.values : undefined,
+      paths: this.orderedPaths.values.length
+        ? this.orderedPaths.values
+        : undefined,
+      excludes: this.orderedExcludes.values.length
+        ? this.orderedExcludes.values
+        : undefined,
       expire_in: this.expireIn,
       expose_as: this.exposeAs,
       public: this.public,
-      reports: this.reports ? this.reports.reduce((acc: {[key: string]: string}, item) => {
-        acc[item.reportType] = item.file;
-        return acc;
-      }, {}) : undefined,
+      reports: this.reports
+        ? this.reports.reduce((acc: { [key: string]: string }, item) => {
+            acc[item.reportType] = item.file;
+            return acc;
+          }, {})
+        : undefined,
       untracked: this.untracked,
       when: this.when,
     };
@@ -211,6 +233,8 @@ export class Artifacts implements IArtifacts {
   }
 
   isEqual(comparable: IBase): comparable is Artifacts {
-    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
+    return (
+      JSON.stringify(this.render()) === JSON.stringify(comparable.render())
+    );
   }
 }

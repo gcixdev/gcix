@@ -1,4 +1,4 @@
-export type Variables = {[key: string]: string};
+export type Variables = { [key: string]: string };
 
 export interface IBase {
   /**
@@ -52,7 +52,6 @@ interface IOrderedStringSet {
   clear(): void;
 }
 
-
 export class OrderedStringSet implements IOrderedStringSet {
   private set: Set<string>;
   private array: string[];
@@ -73,7 +72,7 @@ export class OrderedStringSet implements IOrderedStringSet {
   }
 
   add(value: string | string[]): void {
-    if (typeof value === 'string' ) {
+    if (typeof value === "string") {
       if (!this.set.has(value)) {
         this.set.add(value);
         this.array.push(value);

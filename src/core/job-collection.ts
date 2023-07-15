@@ -26,8 +26,18 @@
  * and sequences" of the user documantation.
  */
 
-import { IBase, OrderedStringSet, Variables, Artifacts, Cache, Image, Job, Need, Rule } from '.';
-import { deepcopy } from '../helper';
+import {
+  IBase,
+  OrderedStringSet,
+  Variables,
+  Artifacts,
+  Cache,
+  Image,
+  Job,
+  Need,
+  Rule,
+} from ".";
+import { deepcopy } from "../helper";
 
 export interface ChildDict {
   readonly child: Job | JobCollection;
@@ -154,13 +164,13 @@ export interface IJobCollection extends IJobCollectionBase {
    */
   readonly nestedJobs: Job[];
   /**
-  * Add `gcip.core.job.Job`s or other `gcip.core.sequence.Sequence`s to this sequence.
-  *
-  * Adding a child creates a copy of that child. You should provide a name or stage
-  * when adding children, to make them different from other places where they will be used.
-  *
-  * @returns JobCollection of the modified `JobCollection` object.
-  */
+   * Add `gcip.core.job.Job`s or other `gcip.core.sequence.Sequence`s to this sequence.
+   *
+   * Adding a child creates a copy of that child. You should provide a name or stage
+   * when adding children, to make them different from other places where they will be used.
+   *
+   * @returns JobCollection of the modified `JobCollection` object.
+   */
   addChildren(props: AddChildrenProps): JobCollection;
   /**
    * Calling `gcip.core.job.Job.add_variables()` to all jobs within this
@@ -218,7 +228,9 @@ export interface IJobCollection extends IJobCollectionBase {
    * list and thus does not download artifacts by default.
    * @param dependencies ???
    */
-  initializeDependencies(dependencies: (Job | JobCollection | Need)[]): JobCollection;
+  initializeDependencies(
+    dependencies: (Job | JobCollection | Need)[],
+  ): JobCollection;
   /**
    * Calling `gcip.core.job.Job.set_dependencies()` to all jobs within the
    * first stage of this sequence and overriding any previously added
@@ -227,7 +239,9 @@ export interface IJobCollection extends IJobCollectionBase {
    * An empty parameter list means that jobs will get an empty dependency list and thus does not download artifacts.
    * @param dependencies ???
    */
-  overrideDependencies(dependencies: (Job | JobCollection | Need)[]): JobCollection;
+  overrideDependencies(
+    dependencies: (Job | JobCollection | Need)[],
+  ): JobCollection;
   /**
    * Calling `gcip.core.job.Job.set_needs()` to all jobs within the first
    * stage of this sequence that haven't been added needs before.
@@ -280,7 +294,6 @@ export interface IJobCollection extends IJobCollectionBase {
    * @param parent
    */
   addParent(parent: JobCollection): void;
-
 }
 
 /**
@@ -333,11 +346,17 @@ export class JobCollection implements IJobCollection {
     return this;
   }
   initializeVariables(variables: Variables): JobCollection {
-    this.variablesForInitialization = { ...this.variablesForInitialization, ...variables };
+    this.variablesForInitialization = {
+      ...this.variablesForInitialization,
+      ...variables,
+    };
     return this;
   }
   overrideVariables(variables: Variables): JobCollection {
-    this.variablesForReplacement = { ...this.variablesForReplacement, ...variables };
+    this.variablesForReplacement = {
+      ...this.variablesForReplacement,
+      ...variables,
+    };
     return this;
   }
   assignCache(cache: Cache): JobCollection {
@@ -417,11 +436,15 @@ export class JobCollection implements IJobCollection {
     }
     return this;
   }
-  initializeDependencies(dependencies: (Job | JobCollection | Need)[]): JobCollection {
+  initializeDependencies(
+    dependencies: (Job | JobCollection | Need)[],
+  ): JobCollection {
     this.dependenciesForInitialization = dependencies;
     return this;
   }
-  overrideDependencies(dependencies: (Job | JobCollection | Need)[]): JobCollection {
+  overrideDependencies(
+    dependencies: (Job | JobCollection | Need)[],
+  ): JobCollection {
     this.dependenciesForReplacement = dependencies;
     return this;
   }
@@ -464,7 +487,11 @@ export class JobCollection implements IJobCollection {
   addChildren(props: AddChildrenProps): JobCollection {
     for (const child of props.jobsOrJobCollections) {
       child.addParent(this);
-      this.children.push({ child: child, stage: props.stage, name: props.name });
+      this.children.push({
+        child: child,
+        stage: props.stage,
+        name: props.name,
+      });
     }
     return this;
   }
@@ -479,7 +506,7 @@ export class JobCollection implements IJobCollection {
     const childInstanceNames: OrderedStringSet = new OrderedStringSet();
     for (const item of this.children) {
       if (item.child === child) {
-        let childInstanceName: string = '';
+        let childInstanceName: string = "";
         let childName = item.name;
         let childStage = item.stage;
         if (childStage) {
@@ -491,7 +518,7 @@ export class JobCollection implements IJobCollection {
         } else if (childName) {
           childInstanceName = childName;
         } else {
-          childInstanceName = '';
+          childInstanceName = "";
         }
         childInstanceNames.add(childInstanceName);
       }
@@ -581,10 +608,17 @@ export class JobCollection implements IJobCollection {
       if (this.imageForReplacement) {
         job.assignImage(deepcopy(this.imageForReplacement));
       }
-      if (this.allowFailureForInitialization && this.allowFailureForInitialization !== 'untouched' && job.allowFailure === 'untouched') {
+      if (
+        this.allowFailureForInitialization &&
+        this.allowFailureForInitialization !== "untouched" &&
+        job.allowFailure === "untouched"
+      ) {
         job.allowFailure = this.allowFailureForInitialization;
       }
-      if (this.allowFailureForReplacement && this.allowFailureForReplacement !== 'untouched') {
+      if (
+        this.allowFailureForReplacement &&
+        this.allowFailureForReplacement !== "untouched"
+      ) {
         job.allowFailure = this.allowFailureForReplacement;
       }
 
@@ -605,7 +639,11 @@ export class JobCollection implements IJobCollection {
         job.assignCache(deepcopy(this.cache));
       }
 
-      if (this.artifactsForInitialization && (!job.artifacts?.paths && !job.artifacts?.reports)) {
+      if (
+        this.artifactsForInitialization &&
+        !job.artifacts?.paths &&
+        !job.artifacts?.reports
+      ) {
         job.artifacts = deepcopy(this.artifactsForInitialization);
       }
       if (this.artifactsForReplacement) {
@@ -664,7 +702,9 @@ export class JobCollection implements IJobCollection {
         if (job.original) {
           lastExecutedJobs.push(job.original);
         } else {
-          throw Error('`job.original` is undefined, bacause the `job` is not a copy of another job.');
+          throw Error(
+            "`job.original` is undefined, bacause the `job` is not a copy of another job.",
+          );
         }
       }
     }
@@ -679,7 +719,9 @@ export class JobCollection implements IJobCollection {
       } else if (child instanceof JobCollection) {
         allJobs.push(...child.nestedJobs);
       } else {
-        throw new Error(`Unexpected error. JobCollection child is of unknown type '${typeof child}'`);
+        throw new Error(
+          `Unexpected error. JobCollection child is of unknown type '${typeof child}'`,
+        );
       }
     }
     return allJobs;

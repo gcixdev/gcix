@@ -1,27 +1,32 @@
 /**
-  * The Pipeline is the root container for all `gcip.core.job.Job`s and
-  * `gcip.core.sequence.Sequence`s
-  *
-  * There are two options to create a pipeline and write its output.
-  * First, you can use the pipelines context manager.
-  * ```python
-  * with gcip.Pipeline as pipe:
-  *     pipe.add_children(gcip.Job(name="my-job", script="date"))
-  * ```
-  * The second method is just creating an object from `gcip.Pipeline`,
-  * but you are responsible for calling the `Pipeline.write_yaml()` method.
-  *
-  * ```python
-  * pipeline = gcip.Pipeline()
-  * pipeline.add_children(gcip.Job(name"my-job", script="date"))
-  * pipeline.write_yaml()  # Here you have to call `write_yaml()`
-  * ```
-  */
+ * The Pipeline is the root container for all `gcip.core.job.Job`s and
+ * `gcip.core.sequence.Sequence`s
+ *
+ * There are two options to create a pipeline and write its output.
+ * First, you can use the pipelines context manager.
+ * ```python
+ * with gcip.Pipeline as pipe:
+ *     pipe.add_children(gcip.Job(name="my-job", script="date"))
+ * ```
+ * The second method is just creating an object from `gcip.Pipeline`,
+ * but you are responsible for calling the `Pipeline.write_yaml()` method.
+ *
+ * ```python
+ * pipeline = gcip.Pipeline()
+ * pipeline.add_children(gcip.Job(name"my-job", script="date"))
+ * pipeline.write_yaml()  # Here you have to call `write_yaml()`
+ * ```
+ */
 
-import * as fs from 'fs';
-import * as yaml from 'js-yaml';
-import { Include, Service, JobCollection, AddChildrenProps, OrderedStringSet } from '.';
-
+import * as fs from "fs";
+import * as yaml from "js-yaml";
+import {
+  Include,
+  Service,
+  JobCollection,
+  AddChildrenProps,
+  OrderedStringSet,
+} from ".";
 
 export interface PipelineProps {
   /**
@@ -87,7 +92,6 @@ export class Pipeline extends JobCollection implements IPipeline {
     this.includes.push(include);
     return this;
   }
-  ;
   addServices(services: Service[]): Pipeline {
     for (const service of services) {
       this.service.push(service);
@@ -104,10 +108,10 @@ export class Pipeline extends JobCollection implements IPipeline {
     const pipeline: any = {};
 
     if (this.includes.length) {
-      pipeline.include = this.includes.map(include => include.render());
+      pipeline.include = this.includes.map((include) => include.render());
     }
     if (this.service.length) {
-      pipeline.services = this.service.map(service => service.render());
+      pipeline.services = this.service.map((service) => service.render());
     }
 
     for (const job of jobCopies) {
@@ -117,17 +121,24 @@ export class Pipeline extends JobCollection implements IPipeline {
 
     for (const job of jobCopies) {
       if (job.name in pipeline) {
-        throw new Error(`Two jobs have the same name '${job.name}' when` +
-        ' rendering the pipeline.\n' +
-        'Please fix this by providing a different name and/or stage when ' +
-        'adding those jobs to their sequences/pipeline.');
+        throw new Error(
+          `Two jobs have the same name '${job.name}' when` +
+            " rendering the pipeline.\n" +
+            "Please fix this by providing a different name and/or stage when " +
+            "adding those jobs to their sequences/pipeline.",
+        );
       }
       pipeline[job.name] = job.render();
     }
     return pipeline;
   }
-  writeYaml(filename: string = 'generated-config.yml'): void {
-    const yamlContent = yaml.dump(this.render(), { sortKeys: false, flowLevel: -1, noArrayIndent: true, noRefs: true });
-    fs.writeFileSync(filename, yamlContent, 'utf8');
+  writeYaml(filename: string = "generated-config.yml"): void {
+    const yamlContent = yaml.dump(this.render(), {
+      sortKeys: false,
+      flowLevel: -1,
+      noArrayIndent: true,
+      noRefs: true,
+    });
+    fs.writeFileSync(filename, yamlContent, "utf8");
   }
 }

@@ -1,4 +1,4 @@
-import { IBase } from './base';
+import { IBase } from "./base";
 
 /**
  * **ALPHA** This module represents the Gitlab CI
@@ -12,11 +12,11 @@ import { IBase } from './base';
  */
 export interface ServiceProps {
   readonly name: string;
-};
+}
 
 export interface IService extends IBase {
   readonly name: string;
-};
+}
 
 export class Service implements IService {
   readonly name: string;
@@ -27,6 +27,8 @@ export class Service implements IService {
     return this.name;
   }
   isEqual(comparable: IBase): comparable is IBase {
-    return JSON.stringify(comparable.render()) === JSON.stringify(this.render());
+    return (
+      JSON.stringify(comparable.render()) === JSON.stringify(this.render())
+    );
   }
-};
+}

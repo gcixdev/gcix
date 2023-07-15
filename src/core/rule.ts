@@ -1,7 +1,6 @@
-
-import { Variables } from '.';
-import { IBase } from './base';
-import { deepcopy } from '../helper';
+import { Variables } from ".";
+import { IBase } from "./base";
+import { deepcopy } from "../helper";
 /**
  * This module represents the Gitlab CI [rules](https://docs.gitlab.com/ee/ci/yaml/#rules) keyword.
  *
@@ -28,56 +27,56 @@ export interface RenderedRule {
   readonly if?: string;
   readonly changes?: string[];
   readonly exists?: string[];
-  readonly variables?: {[key: string]: string};
+  readonly variables?: { [key: string]: string };
   readonly when?: WhenStatement;
   readonly allow_failure?: boolean;
-};
+}
 
 /**
  * This enum holds different [when](https://docs.gitlab.com/ee/ci/yaml/#when) statements for `Rule`s.
  */
 export enum WhenStatement {
-  ALWAYS = 'always',
-  DELAYED = 'delayed',
-  MANUAL = 'manual',
-  NEVER = 'never',
-  ONFAILURE = 'on_failure',
-  ONSUCCESS = 'on_success',
+  ALWAYS = "always",
+  DELAYED = "delayed",
+  MANUAL = "manual",
+  NEVER = "never",
+  ONFAILURE = "on_failure",
+  ONSUCCESS = "on_success",
 }
 
 export interface RuleProps {
   /**
-     * @description The [rules:if clause](https://docs.gitlab.com/ee/ci/yaml/#when)
-     * which decides when a job to the pipeline.
-     */
+   * @description The [rules:if clause](https://docs.gitlab.com/ee/ci/yaml/#when)
+   * which decides when a job to the pipeline.
+   */
   readonly ifStatement?: string;
   /**
-     * @description The [when](https://docs.gitlab.com/ee/ci/yaml/#when) attribute which decides when to run a job.
-     * @default WhenStatement.ON_SUCCESS.
-     */
+   * @description The [when](https://docs.gitlab.com/ee/ci/yaml/#when) attribute which decides when to run a job.
+   * @default WhenStatement.ON_SUCCESS.
+   */
   readonly when?: WhenStatement;
   /**
-     * @description The [allow_failure](https://docs.gitlab.com/ee/ci/yaml/#allow_failure)
-     * attribute which let a job fail without impacting the rest of the CI suite.
-     * @default false
-     */
+   * @description The [allow_failure](https://docs.gitlab.com/ee/ci/yaml/#allow_failure)
+   * attribute which let a job fail without impacting the rest of the CI suite.
+   * @default false
+   */
   readonly allowFailure?: boolean;
   /**
-     * @description The [changes](https://docs.gitlab.com/ee/ci/yaml/#ruleschanges)
-     * attribute which adds a job to the pipeline by checking for changes on specific files
-     */
+   * @description The [changes](https://docs.gitlab.com/ee/ci/yaml/#ruleschanges)
+   * attribute which adds a job to the pipeline by checking for changes on specific files
+   */
   readonly changes?: string[];
   /**
-     * @description The [exists](https://docs.gitlab.com/ee/ci/yaml/#rulesexists)
-     * attribute which allows to run a job when a certain files exist in the repository
-     */
+   * @description The [exists](https://docs.gitlab.com/ee/ci/yaml/#rulesexists)
+   * attribute which allows to run a job when a certain files exist in the repository
+   */
   readonly exists?: string[];
   /**
-     * @description The [variables](https://docs.gitlab.com/ee/ci/yaml/#rulesvariables)
-     * attribute allows defining or overwriting variables when the conditions are met
-     */
-  readonly variables?: {[key: string]: string};
-};
+   * @description The [variables](https://docs.gitlab.com/ee/ci/yaml/#rulesvariables)
+   * attribute allows defining or overwriting variables when the conditions are met
+   */
+  readonly variables?: { [key: string]: string };
+}
 
 export interface IRule extends IBase {
   /**
@@ -89,29 +88,29 @@ export interface IRule extends IBase {
    * rule.addVariables({GREETING: "hello", LANGUAGE: "typescript"})
    * ```
    *
-    * @param variables Each variable would be provided as keyword argument:
-    * @returns `Rule`: The modified `Rule` object.
+   * @param variables Each variable would be provided as keyword argument:
+   * @returns `Rule`: The modified `Rule` object.
    */
   addVariables(variables: Variables): Rule;
   /**
-     * This method is intended to be used for predefined rules. For instance you have defined an
-     * often used rule `on_master` whose if statement checks if the pipeline is executed on branch
-     * `master`. Then you can either run a job, if on master...
-     *
-     * ```
-     * myJob.appendRules(onMaster)
-     * ```
-     *
-     * ... or do not run a job if on master...
-     *
-     * ```
-     * myJob.appendRules(onMaster.never())
-     * ```
-     * @returns A copy of this rule with the `when` attribute set to `WhenStatement.NEVER`
-     *
-     */
+   * This method is intended to be used for predefined rules. For instance you have defined an
+   * often used rule `on_master` whose if statement checks if the pipeline is executed on branch
+   * `master`. Then you can either run a job, if on master...
+   *
+   * ```
+   * myJob.appendRules(onMaster)
+   * ```
+   *
+   * ... or do not run a job if on master...
+   *
+   * ```
+   * myJob.appendRules(onMaster.never())
+   * ```
+   * @returns A copy of this rule with the `when` attribute set to `WhenStatement.NEVER`
+   *
+   */
   never(): Rule;
-};
+}
 
 export class Rule implements IRule {
   ifStatement?: string | undefined;
@@ -139,7 +138,9 @@ export class Rule implements IRule {
       if: this.ifStatement,
       changes: this.changes,
       exists: this.exists,
-      variables: Object.keys(this.variables).length ? this.variables : undefined,
+      variables: Object.keys(this.variables).length
+        ? this.variables
+        : undefined,
       when: this.when,
       allow_failure: this.allowFailure,
     };
@@ -160,6 +161,8 @@ export class Rule implements IRule {
   }
 
   isEqual(comparable: IBase): comparable is Rule {
-    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
+    return (
+      JSON.stringify(this.render()) === JSON.stringify(comparable.render())
+    );
   }
 }

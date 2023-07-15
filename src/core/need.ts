@@ -42,8 +42,8 @@
  * * [Mirror the status from upstream pipelines](https://docs.gitlab.com/ee/ci/yaml/README.html#complex-trigger-syntax-for-multi-project-pipelines)
  */
 
-import { IBase } from './base';
-import { PredefinedVariables } from './variables';
+import { IBase } from "./base";
+import { PredefinedVariables } from "./variables";
 
 /**
  * @internal
@@ -89,9 +89,7 @@ export interface NeedProps {
   readonly artifacts?: boolean;
 }
 
-export interface INeed extends IBase{
-
-}
+export interface INeed extends IBase {}
 
 /**
  * This class represents the Gitlab CI [needs](https://docs.gitlab.com/ee/ci/yaml/#needs) keyword.
@@ -112,13 +110,15 @@ export class Need implements INeed {
 
   constructor(props: NeedProps) {
     if (!props.job && !props.pipeline) {
-      throw new Error('At least one of `job` or `pipeline` must be set.');
+      throw new Error("At least one of `job` or `pipeline` must be set.");
     }
     if (props.ref && !props.project) {
-      throw new Error('`ref` parameter requires the `project` parameter.');
+      throw new Error("`ref` parameter requires the `project` parameter.");
     }
     if (props.project && props.pipeline) {
-      throw new Error('Needs accepts either `project` or `pipeline` but not both.');
+      throw new Error(
+        "Needs accepts either `project` or `pipeline` but not both.",
+      );
     }
 
     this.job = props.job;
@@ -135,7 +135,7 @@ export class Need implements INeed {
     }
 
     if (this.project && !this.ref) {
-      this.ref = 'main';
+      this.ref = "main";
     }
   }
 
@@ -153,6 +153,8 @@ export class Need implements INeed {
   }
 
   isEqual(comparable: IBase): comparable is Need {
-    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
+    return (
+      JSON.stringify(this.render()) === JSON.stringify(comparable.render())
+    );
   }
 }

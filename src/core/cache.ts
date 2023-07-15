@@ -27,7 +27,7 @@
  * ```
  */
 
-import { IBase, PredefinedVariables, WhenStatement } from '.';
+import { IBase, PredefinedVariables, WhenStatement } from ".";
 
 /**
  * This class represents the [cache:policy](https://docs.gitlab.com/ee/ci/yaml/#cachepolicy) keyword.
@@ -38,11 +38,11 @@ export enum CachePolicy {
    * The default behavior of a caching job is to download the files at the start of execution, and to
    * re-upload them at the end. Any changes made by the job are persisted for future runs.
    */
-  PULLPUSH = 'pull-push',
+  PULLPUSH = "pull-push",
   /**
    * If you know the job does not alter the cached files, you can skip the upload step by setting this policy in the job specification.
    */
-  PULL = 'pull'
+  PULL = "pull",
 }
 
 /**
@@ -78,12 +78,9 @@ export interface CacheKeyProps {
    * for branches.
    */
   readonly prefix?: string;
-
 }
 
-export interface ICacheKey extends IBase {
-
-}
+export interface ICacheKey extends IBase {}
 
 /** This class represents the [cache:key](https://docs.gitlab.com/ee/ci/yaml/#cachekey) keyword.
  *
@@ -93,7 +90,7 @@ export interface ICacheKey extends IBase {
  *
  * @throws Error if both `key` and `files` are provided.
  * @throws Error if `prefix` but not `files` is provided.
-*/
+ */
 export class CacheKey implements ICacheKey {
   key?: string;
   files?: string[];
@@ -105,9 +102,11 @@ export class CacheKey implements ICacheKey {
     this.prefix = props.prefix;
 
     if (this.key && this.files) {
-      throw new Error('Parameters key and files are mutually exclusive.');
+      throw new Error("Parameters key and files are mutually exclusive.");
     } else if (this.prefix && !this.files) {
-      throw new Error('Parameter \'prefix\' can only be used together with \'files\'.');
+      throw new Error(
+        "Parameter 'prefix' can only be used together with 'files'.",
+      );
     }
 
     if (!this.files && !this.key) {
@@ -118,7 +117,7 @@ export class CacheKey implements ICacheKey {
        * Forward slash and dot aren't allowed for cache key,
        * therefore replacing both by '_' and '-'.
        */
-      this.key = this.key.replace(/\//gm, '_').replace(/\./gm, '-');
+      this.key = this.key.replace(/\//gm, "_").replace(/\./gm, "-");
     }
   }
 
@@ -135,7 +134,9 @@ export class CacheKey implements ICacheKey {
   }
 
   isEqual(comparable: IBase): comparable is CacheKey {
-    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
+    return (
+      JSON.stringify(this.render()) === JSON.stringify(comparable.render())
+    );
   }
 }
 
@@ -181,9 +182,7 @@ export interface CacheProps {
   readonly policy?: CachePolicy;
 }
 
-export interface ICache extends IBase {
-
-}
+export interface ICache extends IBase {}
 
 /**
  * This class represents the [cache](https://docs.gitlab.com/ee/ci/yaml/#cache) keyword.
@@ -218,10 +217,10 @@ export class Cache implements ICache {
      * are relative to CI_PROJECT_PATH
      */
     for (let path of props.paths) {
-      path = path.replace(PredefinedVariables.CI_PROJECT_DIR, '');
-      if (!path.startsWith('./')) {
-        path = './' + path;
-      };
+      path = path.replace(PredefinedVariables.CI_PROJECT_DIR, "");
+      if (!path.startsWith("./")) {
+        path = "./" + path;
+      }
       this.paths.push(path);
     }
 
@@ -231,7 +230,9 @@ export class Cache implements ICache {
       WhenStatement.ONSUCCESS,
     ];
     if (this.when && !allowedWhenStatements.includes(this.when)) {
-      throw new Error(`${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`);
+      throw new Error(
+        `${this.when} is not allowed. Allowed when statements: ${allowedWhenStatements}`,
+      );
     }
   }
 
@@ -254,6 +255,8 @@ export class Cache implements ICache {
   }
 
   isEqual(comparable: IBase): comparable is Cache {
-    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
+    return (
+      JSON.stringify(this.render()) === JSON.stringify(comparable.render())
+    );
   }
 }

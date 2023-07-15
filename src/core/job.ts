@@ -84,9 +84,23 @@
  *   of a list of previous values, like `prepend_rules()`
  */
 
-import { Cache, IBase, Image, Need, Rule, Variables, Artifacts, OrderedStringSet, IncludeLocal, IncludeFile, IncludeRemote, IncludeTemplate, IncludeArtifact } from '.';
-import { JobCollection } from './job-collection';
-import { deepcopy } from '../helper';
+import {
+  Cache,
+  IBase,
+  Image,
+  Need,
+  Rule,
+  Variables,
+  Artifacts,
+  OrderedStringSet,
+  IncludeLocal,
+  IncludeFile,
+  IncludeRemote,
+  IncludeTemplate,
+  IncludeArtifact,
+} from ".";
+import { JobCollection } from "./job-collection";
+import { deepcopy } from "../helper";
 
 export interface RenderedJob {}
 
@@ -253,14 +267,14 @@ export interface IJob extends IJobBase {
    */
   extendName(name: string): void;
   /**
-     * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs stage.
-     * @param stage name to extend the stage.
-     */
+   * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs stage.
+   * @param stage name to extend the stage.
+   */
   extendStageValue(stage: string): void;
   /**
-     * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs name and stage.
-     * @param stage name to extend the stage and the name
-     */
+   * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs name and stage.
+   * @param stage name to extend the stage and the name
+   */
   extendStage(stage: string): void;
   /**
    * This method is called by `gcip.core.sequence.Sequence`s when the job is added to that sequence.
@@ -268,7 +282,7 @@ export interface IJob extends IJobBase {
    * The job needs to know its parents when `_get_all_instance_names()` is called.
    * @param parent any type of Job or JobCollection
    */
-  addParent(parent: Job | JobCollection ): void;
+  addParent(parent: Job | JobCollection): void;
   /**
    * Returns an independent, deep copy object of this job.
    */
@@ -303,32 +317,37 @@ export class Job implements IJob {
     } else if (props.name) {
       this.name = props.name;
       // default for unset stages is 'test' -> https://docs.gitlab.com/ee/ci/yaml/#stages
-      this.stage = 'test';
+      this.stage = "test";
     } else {
-      throw new Error('At least one of the parameters `name` or `stage` have to be set.');
+      throw new Error(
+        "At least one of the parameters `name` or `stage` have to be set.",
+      );
     }
-    this.name = this.name.replace(/_/gm, '-');
-    this.stage = this.stage.replace(/-/gm, '_');
+    this.name = this.name.replace(/_/gm, "-");
+    this.stage = this.stage.replace(/-/gm, "_");
     this.scripts = props.scripts;
     this.cache = props.cache;
     /**
-    * internally self._allow_failure is set to a special value 'untouched' indicating this value is untouched by the user.
-    * This is because the user can set the value from outside to True, False or None, indicating the value should not be rendered.
-    * 'untouched' allows for sequences to determine, if this value should be initialized or not.
-    */
-    this.allowFailure = props.allowFailure ?? 'untouched';
+     * internally self._allow_failure is set to a special value 'untouched' indicating this value is untouched by the user.
+     * This is because the user can set the value from outside to True, False or None, indicating the value should not be rendered.
+     * 'untouched' allows for sequences to determine, if this value should be initialized or not.
+     */
+    this.allowFailure = props.allowFailure ?? "untouched";
     this.orderedTags = new OrderedStringSet();
 
     props.tags && this.addTags(props.tags);
     props.artifacts && this.assignArtifacts(props.artifacts);
-    props.image ? this.assignImage(props.image) : this.image = undefined;
-    props.rules ? this.appendRules(props.rules) : this.rules = undefined;
-    props.dependencies ? this.addDependencies(props.dependencies) : this.dependencies = undefined;
-    props.needs ? this.addNeeds(props.needs) : this.needs = undefined;
-    props.variables ? this.addVariables(props.variables) : this.variables = undefined;
+    props.image ? this.assignImage(props.image) : (this.image = undefined);
+    props.rules ? this.appendRules(props.rules) : (this.rules = undefined);
+    props.dependencies
+      ? this.addDependencies(props.dependencies)
+      : (this.dependencies = undefined);
+    props.needs ? this.addNeeds(props.needs) : (this.needs = undefined);
+    props.variables
+      ? this.addVariables(props.variables)
+      : (this.variables = undefined);
 
     this.parents = [];
-
 
     /**
      * Only set if you get a `copy` of this job
@@ -414,7 +433,6 @@ export class Job implements IJob {
       this.needs = needs;
     }
     return this;
-
   }
   assignNeeds(needs: (Need | Job | JobCollection)[]): Job {
     this.needs = needs;
@@ -425,7 +443,7 @@ export class Job implements IJob {
     return this;
   }
   assignImage(image: string | Image): Job {
-    if (typeof image === 'string') {
+    if (typeof image === "string") {
       this.image = new Image({
         name: image,
       });
@@ -445,21 +463,20 @@ export class Job implements IJob {
     return this;
   }
   extendName(name: string) {
-    this.name = `${name.replace(/_/gm, '-')}-${this.name}`;
+    this.name = `${name.replace(/_/gm, "-")}-${this.name}`;
   }
   extendStageValue(stage: string) {
-    this.stage = `${this.stage}_${stage.replace(/-/g, '_')}`;
+    this.stage = `${this.stage}_${stage.replace(/-/g, "_")}`;
   }
   extendStage(stage: string) {
     this.extendName(stage);
     this.extendStageValue(stage);
   }
-  addParent(parent: Job | JobCollection ) {
+  addParent(parent: Job | JobCollection) {
     this.parents.push(parent);
   }
   isEqual(comparable: IBase): comparable is Job {
     return this.render() === comparable.render();
-
   }
   render(): any {
     const renderedJob: any = {};
@@ -470,7 +487,7 @@ export class Job implements IJob {
 
     // self._allow_failure should not be rendered when its value is None or
     // the internal special value 'untouched'
-    if (typeof this.allowFailure === 'boolean') {
+    if (typeof this.allowFailure === "boolean") {
       renderedJob.allow_failure = this.allowFailure;
     } else if (Array.isArray(this.allowFailure)) {
       renderedJob.allow_failure = { exit_codes: this.allowFailure };
@@ -486,7 +503,9 @@ export class Job implements IJob {
             dependency_jobs.push(job);
           }
         } else {
-          throw new Error(`Dependency '${dependency}' is of type ${typeof dependency}.`);
+          throw new Error(
+            `Dependency '${dependency}' is of type ${typeof dependency}.`,
+          );
         }
       }
 
@@ -574,9 +593,7 @@ export class Job implements IJob {
 /**
  * @internal
  */
-export interface RenderedTriggerJob {
-
-}
+export interface RenderedTriggerJob {}
 
 /**
  * This class represents the [trigger:strategy](https://docs.gitlab.com/ee/ci/yaml/README.html#linking-pipelines-with-triggerstrategy)
@@ -586,7 +603,7 @@ export enum TriggerStrategy {
   /**
    * Use this strategy to force the `TriggerJob` to wait for the downstream (multi-project or child) pipeline to complete.
    */
-  DEPEND = 'depend'
+  DEPEND = "depend",
 }
 
 export interface TriggerJobProps {
@@ -611,7 +628,13 @@ export interface TriggerJobProps {
    * @description Include a pipeline to trigger (Parent-child pipeline trigger)
    * Mutually exclusiv with `project`.
    */
-  readonly includes?: Array<IncludeLocal | IncludeFile | IncludeRemote | IncludeTemplate | IncludeArtifact>;
+  readonly includes?: Array<
+    | IncludeLocal
+    | IncludeFile
+    | IncludeRemote
+    | IncludeTemplate
+    | IncludeArtifact
+  >;
   /**
    * @description Determines if the result of this pipeline depends on the
    * triggered downstream pipeline (use `TriggerStrategy.DEPEND`) or if just
@@ -619,7 +642,6 @@ export interface TriggerJobProps {
    */
   readonly strategy?: TriggerStrategy;
 }
-
 
 export interface IPagesJob {
   /**
@@ -682,28 +704,30 @@ export interface IPagesJob {
 export class PagesJob extends Job implements IPagesJob {
   constructor() {
     super({
-      stage: 'pages',
+      stage: "pages",
       scripts: ["echo 'Publishing Gitlab Pages'"],
-      artifacts: new Artifacts({ paths: ['public'] }),
+      artifacts: new Artifacts({ paths: ["public"] }),
     });
-    this.name = 'pages';
-    super.assignImage('busybox:latest');
+    this.name = "pages";
+    super.assignImage("busybox:latest");
   }
   assignStage(stage: string): PagesJob {
     this.stage = stage;
     return this;
   }
   extendName(name: string): void {
-    console.log('Method `extendName` not callable on `PagesJob`: ' + name);
-    throw new Error('Method `extendName` not callable on `PagesJob`');
+    console.log("Method `extendName` not callable on `PagesJob`: " + name);
+    throw new Error("Method `extendName` not callable on `PagesJob`");
   }
   extendStage(name: string): void {
-    console.log('Method `extendStage` not callable on `PagesJob`: ' + name);
-    throw new Error('Method `extendStage` not callable on `PagesJob`');
+    console.log("Method `extendStage` not callable on `PagesJob`: " + name);
+    throw new Error("Method `extendStage` not callable on `PagesJob`");
   }
   extendStageValue(name: string): void {
-    console.log('Method `extendStageValue` not callable on `PagesJob`: ' + name);
-    throw new Error('Method `extendStageValue` not callable on `PagesJob`');
+    console.log(
+      "Method `extendStageValue` not callable on `PagesJob`: " + name,
+    );
+    throw new Error("Method `extendStageValue` not callable on `PagesJob`");
   }
 
   // @ts-ignore

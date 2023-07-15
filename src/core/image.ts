@@ -1,5 +1,5 @@
-import { IBase } from './base';
-import { deepcopy } from '../helper';
+import { IBase } from "./base";
+import { deepcopy } from "../helper";
 /**
  * This module represents the Gitlab CI [Image](https://docs.gitlab.com/ee/ci/yaml/#image) keyword.
  * Use `Image` to specify a Docker image to use for the `gcip.core.job.Job`.
@@ -12,7 +12,7 @@ import { deepcopy } from '../helper';
  * an Image object, which will return an altered copy of that image.
  * Thus you can re-use a centrally maintained Image object and modify it for
  * just the place you are using the altered image (copy).
-*/
+ */
 
 export interface RenderedImage {
   readonly name: string;
@@ -38,18 +38,18 @@ export interface ImageProps {
 
 export interface IImage {
   /**
-     *
-     * @param tag
-     * @description Returns a copy of that image with altered tag.
-      * You can still use the original Image object with its original tag.
-     */
+   *
+   * @param tag
+   * @description Returns a copy of that image with altered tag.
+   * You can still use the original Image object with its original tag.
+   */
   withTag(tag: string): Image;
   /**
-     *
-     * @param entrypoint
-     * @description Returns a copy of that image with altered entrypoint.
-     * You can still use the original Image object with its original entrypoint.
-     */
+   *
+   * @param entrypoint
+   * @description Returns a copy of that image with altered entrypoint.
+   * You can still use the original Image object with its original entrypoint.
+   */
   withEntrypoint(entrypoint: string[]): Image;
 }
 
@@ -78,13 +78,15 @@ export class Image implements IImage, IBase {
 
   render(): any {
     const renderedImage: RenderedImage = {
-      name: this.name + (this.tag || ''),
+      name: this.name + (this.tag || ""),
       entrypoint: this.entrypoint,
     };
     return renderedImage;
   }
 
   isEqual(comparable: IBase): comparable is Image {
-    return JSON.stringify(this.render()) === JSON.stringify(comparable.render());
+    return (
+      JSON.stringify(this.render()) === JSON.stringify(comparable.render())
+    );
   }
 }
