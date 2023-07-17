@@ -33,8 +33,13 @@
  * @returns The value of the queried environment variable.
  */
 export function EnvProxy(key: string): string {
-  if (process.env.CI === "true") {
-    return process.env[key]!;
+  if (process.env.CI && process.env.CI.toLowerCase() === "true") {
+    const envVar = process.env[key];
+    if (envVar) {
+      return envVar;
+    } else {
+      throw new Error(`Environment variable ${key} not exported.`);
+    }
   }
 
   // indicate that we are not running within a pipeline by
