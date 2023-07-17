@@ -7,6 +7,6 @@ process.env.CI_COMMIT_REF_NAME = "my_awsome_feature_branch";
 process.env.CI_COMMIT_TAG = "11.22.33";
 process.env.CI_PROJECT_DIR = "/path/to/project";
 process.env.CI_JOB_NAME = "ci_job_name";
-process.env.GITLAB_USER_EMAIL = "maxpower@gcip.net";
+process.env.GITLAB_USER_EMAIL = "maxpower@gcix.net";
 process.env.GITLAB_USER_NAME = "Max Power";
 process.env.CI_PROJECT_PATH_SLUG = "path-to-project";
