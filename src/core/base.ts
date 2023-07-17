@@ -3,12 +3,12 @@ export type Variables = { [key: string]: string };
 export interface IBase {
   /**
    * Returns a representation of any object which implements `IBase`.
-   * The rendered representation is used by the gcix to dump it
-   * in YAML format as part of the .gitlab-ci.yml pipeline.
+   * The rendered representation is used by the `gcix` to dump it
+   * in YAML format as part of the `.gitlab-ci.yml` pipeline.
    */
   render(): any;
   /**
-   * isEqual checks if `this` object is equal to given object
+   * `isEqual` checks if `this` object is equal to given object
    *
    * @param comparable An arbitrary object to compare to.
    * @returns boolean
@@ -52,6 +52,9 @@ interface IOrderedStringSet {
   clear(): void;
 }
 
+/**
+ * Represents an ordered set of strings.
+ */
 export class OrderedStringSet implements IOrderedStringSet {
   private set: Set<string>;
   private array: string[];
@@ -70,7 +73,10 @@ export class OrderedStringSet implements IOrderedStringSet {
       }
     }
   }
-
+  /**
+   * Adds a value or an array of values to the set.
+   * @param value The value(s) to add.
+   */
   add(value: string | string[]): void {
     if (typeof value === "string") {
       if (!this.set.has(value)) {
@@ -84,6 +90,10 @@ export class OrderedStringSet implements IOrderedStringSet {
     }
   }
 
+  /**
+   * Deletes a value from the set.
+   * @param value The value to delete.
+   */
   delete(value: string): void {
     if (this.set.has(value)) {
       this.set.delete(value);
@@ -91,18 +101,32 @@ export class OrderedStringSet implements IOrderedStringSet {
     }
   }
 
+  /**
+   * Checks if the set contains a specific value.
+   * @param value The value to check.
+   * @returns A boolean indicating if the set contains the value.
+   */
   has(value: string): boolean {
     return this.set.has(value);
   }
 
+  /**
+   * Returns an array of values in the set.
+   */
   get values(): string[] {
     return this.array;
   }
 
+  /**
+   * Returns the number of values in the set.
+   */
   get size(): number {
     return this.array.length;
   }
 
+  /**
+   * Clears the set, removing all values.
+   */
   clear(): void {
     this.set.clear();
     this.array = [];

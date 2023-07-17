@@ -10,7 +10,7 @@ import { deepcopy } from "../helper";
  * myJob.prependRules(
  *     new Rule({
  *         ifStatement='$CI_COMMIT_BRANCH == "master"',
- *         changes: ["Dockerfile", "gcip/**"],
+ *         changes: ["Dockerfile", "gcix/**"],
  *         exists: ["Dockerfile"],
  *         when=WhenStatement.ON_FAILURE,
  *         allowFailure: True,
@@ -33,7 +33,8 @@ export interface RenderedRule {
 }
 
 /**
- * This enum holds different [when](https://docs.gitlab.com/ee/ci/yaml/#when) statements for `Rule`s.
+ * This enum holds different [when](https://docs.gitlab.com/ee/ci/yaml/#when)
+ * statements for `Rule`s.
  */
 export enum WhenStatement {
   ALWAYS = "always",
@@ -51,7 +52,8 @@ export interface RuleProps {
    */
   readonly ifStatement?: string;
   /**
-   * @description The [when](https://docs.gitlab.com/ee/ci/yaml/#when) attribute which decides when to run a job.
+   * @description The [when](https://docs.gitlab.com/ee/ci/yaml/#when)
+   * attribute which decides when to run a job.
    * @default WhenStatement.ON_SUCCESS.
    */
   readonly when?: WhenStatement;

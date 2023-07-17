@@ -1,29 +1,37 @@
 /**
- * A Sequence collects multiple `gcip.core.job.Job`s and/or other `gcip.core.sequence.Sequence`s into a group.
+ * A JobCollection serves as a container for multiple `gcix.Job`s and/or other
+ * `gcix.JobCollection`s, allowing you to group them together.
  *
- * This concept is no official representation of a Gitlab CI keyword. But it is such a powerful
- * extension of the Gitlab CI core funtionality and an essential building block of the gcip, that
- * it is conained in the `gcip.core` module.
+ * While the concept of a JobCollection is not an official representation of a
+ * GitLab CI keyword, it is a powerful extension of the GitLab CI core
+ * functionality and a fundamental building block of the `gcix` module.
  *
- * A Sequence offers a mostly similar interface like `gcip.core.job.Job`s that allows to modify
- * all Jobs and child Sequences contained into that parent Sequence. For example: Instad of calling
- * `add_tag()` on a dozens of Jobs you can call `add_tag()` on the sequence that contain those Jobs.
- * The tag will then be applied to all Jobs in that Sequence and recursively to all Jobs within child
- * Sequenes of that Sequence.
+ * A JobCollection offers a similar interface to `gcix.Job`s, allowing you to
+ * modify all Jobs and child JobCollections contained within it. For example,
+ * instead of calling `addTags()` on individual Jobs, you can call `addTags()`
+ * on the JobCollection that contains those Jobs. This will apply the tags to
+ * all Jobs in the JobCollection and recursively to all Jobs within child
+ * JobCollections.
  *
- * Sequences must be added to a `gcip.core.pipeline.Pipeline`, either directly or as part of other Sequences.
- * That means Sequences are not meant to be a throw away configuration container for a bunch ob Jobs.
- * This is because adding a Job to a Sequence creates a copy of that Job, which will be inderectly added to
- * the `Pipeline` by that Sequence. Not adding that Sequence to a Pipeline means also not adding its Jobs
- * to the Pipeline. If other parts of the Pipeline have dependencies to those Jobs, they will be broken.
+ * It's important to note that JobCollections must be added to a
+ * `gcix.Pipeline`, either directly or as part of another JobCollection.
+ * JobCollections are not meant to be used as throwaway configuration
+ * containers for a group of Jobs. When you add a Job to a JobCollection, a
+ * copy of that Job is created and indirectly added to the Pipeline by the
+ * JobCollection. If you don't add the JobCollection to a Pipeline, its Jobs
+ * will not be added either. This can lead to broken dependencies if other
+ * parts of the Pipeline rely on those Jobs.
  *
- * As said before, adding a Job to a Sequence creates copies of that Job. To void conflicts between Jobs,
- * you should set `name` and/or `stage` when adding the job (or child sequence). The sequence will add
- * the `name`/`stage` to the ones of the Job, when rendering the pipeline. If you do not set those
- * identifiers, or you set equal name/stages for jobs and sequences, you provoke having two or more
- * jobs having the same name in the pipeline. The gcip will raise a ValueError, to avoid unexpected
- * pipeline behavior. You can read more information in the chapter "Stages allow reuse of jobs
- * and sequences" of the user documantation.
+ * To avoid conflicts between Jobs, it's recommended to set the name and/or
+ * stage when adding a Job (or child JobCollection) to a JobCollection.
+ * The JobCollection will incorporate the name and stage values into the ones
+ * of the Job when rendering the pipeline. If you don't set these identifiers
+ * or set the same name/stage for multiple jobs and JobCollections, it can
+ * result in multiple Jobs with the same name in the pipeline.
+ * The gcix module will raise an Error in such cases to prevent unexpected
+ * pipeline behavior. You can find more information in the
+ * "Stages allow reuse of jobs and JobCollections" chapter of the user
+ * documentation.
  */
 
 import {
@@ -99,7 +107,7 @@ export interface IJobCollectionBase extends IBase {
    * Return all instance names from the given child.
    *
    * That means all combinations of the childs name and stage within this
-   * sequence and all parent sequences.
+   * JobCollection and all parent JobCollection's.
    */
   getAllInstanceNames(child?: Job | JobCollection): OrderedStringSet;
 }
@@ -135,94 +143,99 @@ export interface IJobCollection extends IJobCollectionBase {
   imageForInitialization?: Image | string;
   imageForReplacement?: Image | string;
   /**
-   * Returns a list with populated copies of all nested jobs of this sequence.
+   * Returns a list with populated copies of all nested jobs of this
+   * JobCollection.
    *
    * Populated means, that all attributes of a Job which depends on its context
-   * are resolved to their final values. The context is primarily the sequence
-   * within the jobs resides but also dependencies to other jobs and sequences.
-   * Thus this sequence will apply its own configuration, like variables to add,
-   * tags to set, etc., to all its jobs and sequences.
+   * are resolved to their final values. The context is primarily the
+   * JobCollection within the jobs resides but also dependencies to other
+   * jobs and JobCollection's. Thus this JobCollection will apply its own
+   * configuration, like variables to add, tags to set, etc., to all its jobs
+   * and JobCollection's.
    *
    * Copies means what it says, that the returned job are not the same job
-   * objects, originally added to this sequence, but copies of them.
+   * objects, originally added to this JobCollection, but copies of them.
    *
-   * Nested means, that also jobs from sequences within this sequence,
-   * are returned, as well as jobs from sequences within sequences within
-   * this sequence and so on.
+   * Nested means, that also jobs from JobCollection's within this
+   * JobCollection, are returned, as well as jobs from JobCollection's within
+   * JobCollection's within this JobCollection and so on.
    */
   readonly populatedJobs: Job[];
   /**
-   * This property returns all Jobs from the last stage of this sequence.
+   * This property returns all Jobs from the last stage of this JobCollection.
    *
-   * This is typically be requested from a job which has setup this sequence
-   * as need, to determine all actual jobs of this sequence as need.
+   * This is typically be requested from a job which has setup this
+   * JobCollection as need, to determine all actual jobs of this JobCollection
+   * as need.
    */
   readonly lastJobsExecuted: Job[];
   /**
-   * @returns all jobs of this this sequences as well as jobs of
-   * sub-sequences recursively.
+   * @returns all jobs of this this JobCollection as well as jobs of
+   * sub-JobCollection recursively.
    */
   readonly nestedJobs: Job[];
   /**
-   * Add `gcip.core.job.Job`s or other `gcip.core.sequence.Sequence`s to this sequence.
+   * Add `gcix.Job`s or other `gcix.JobCollection`s to this JobCollection.
    *
-   * Adding a child creates a copy of that child. You should provide a name or stage
-   * when adding children, to make them different from other places where they will be used.
+   * Adding a child creates a copy of that child. You should provide a name or
+   * stage when adding children, to make them different from other places
+   * where they will be used.
    *
    * @returns JobCollection of the modified `JobCollection` object.
    */
   addChildren(props: AddChildrenProps): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.add_variables()` to all jobs within this
-   * sequence that haven't been added variables before.
+   * Calling `gcix.Job.addVariables({...})` to all jobs within this
+   * JobCollection that haven't been added variables before.
    * @param variables ???
    */
   initializeVariables(variables: Variables): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.add_variables()` to all jobs within this
-   * sequence and overriding any previously added variables to that jobs.
+   * Calling `gcix.Job.addVariables({...})` to all jobs within this
+   * JobCollection and overriding any previously added variables to that jobs.
    * @param variables ???
    */
   overrideVariables(variables: Variables): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_cache()` to all jobs within this sequence
+   * Calling `gcix.Job.assigneCache()` to all jobs within this JobCollection
    * that haven't been set the cache before.
    * @param cache ???
    */
   initializeCache(cache: Cache): JobCollection;
   /**
-   * Sets `gcip.core.job.Job.artifacts` to all jobs within this sequence that
+   * Sets `gcix.Job.artifacts` to all jobs within this JobCollection that
    * haven't been set the artifacs before.
    * @param artifacts ???
    */
   initializeArtifacts(artifacts: Artifacts): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.add_tags()` to all jobs within this sequence
+   * Calling `gcix.Job.addTags([...])` to all jobs within this JobCollection
    * that haven't been added tags before.
    * @param tags ???
    */
   initializeTags(tags: string[]): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.add_tags()` to all jobs within this sequence
+   * Calling `gcix.Job.addTags([...])` to all jobs within this JobCollection
    * and overriding any previously added tags to that jobs.
    * @param tags ???
    */
   overrideTags(tags: string[]): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.append_rules()` to all jobs within this
-   * sequence that haven't been added rules before.
+   * Calling `gcix.Job.append_rules()` to all jobs within this
+   * JobCollection that haven't been added rules before.
    * @param rules ???
    */
   initializeRules(rules: Rule[]): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.override_rules()` to all jobs within this
-   * sequence and overriding any previously added rules to that jobs.
+   * Calling `gcix.Job.overrideRules()` to all jobs within this
+   * JobCollection and overriding any previously added rules to that jobs.
    * @param rules ???
    */
   overrideRules(rules: Rule[]): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_dependencies()` to all jobs within the
-   * first stage of this sequence that haven't been added dependencies before.
+   * Calling `gcix.Job.assignDependencies()` to all jobs within the
+   * first stage of this JobCollection that haven't been added dependencies
+   * before.
    *
    * An empty parameter list means that jobs will get an empty dependency
    * list and thus does not download artifacts by default.
@@ -232,29 +245,30 @@ export interface IJobCollection extends IJobCollectionBase {
     dependencies: (Job | JobCollection | Need)[],
   ): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_dependencies()` to all jobs within the
-   * first stage of this sequence and overriding any previously added
+   * Calling `gcix.Job.assignDependencies()` to all jobs within the
+   * first stage of this JobCollection and overriding any previously added
    * dependencies to that jobs.
    *
-   * An empty parameter list means that jobs will get an empty dependency list and thus does not download artifacts.
+   * An empty parameter list means that jobs will get an empty dependency list
+   * and thus does not download artifacts.
    * @param dependencies ???
    */
   overrideDependencies(
     dependencies: (Job | JobCollection | Need)[],
   ): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_needs()` to all jobs within the first
-   * stage of this sequence that haven't been added needs before.
+   * Calling `gcix.Job.assignNeeds()` to all jobs within the first
+   * stage of this JobCollection that haven't been added needs before.
    *
    * An empty parameter list means that jobs will get an empty dependency
    * list and thus does not depend on other jobs by default.
-   *
    * @param needs ???
    */
   initializeNeeds(needs: Array<Need | Job | JobCollection>): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_needs()` to all jobs within the first stage
-   * of this sequence and overriding any previously added needs to that jobs.
+   * Calling `gcix.Job.assignNeeds()` to all jobs within the first stage
+   * of this JobCollection and overriding any previously added needs to that
+   * jobs.
    *
    * An empty parameter list means that jobs will get an empty dependency list
    * and thus does not depend on other jobs.
@@ -263,27 +277,27 @@ export interface IJobCollection extends IJobCollectionBase {
    */
   overrideNeeds(needs: Array<Need | Job | JobCollection>): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_image()` to all jobs within this sequence.
+   * Calling `gcix.Job.assignImage()` to all jobs within this JobCollection.
    * @param image ???
    */
   initializeImage(image: Image | string): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_image()` to all jobs within this sequence
+   * Calling `gcix.Job.assignImage()` to all jobs within this JobCollection
    * overriding any previous set value.
    * @param image ???
    */
   overrideImage(image: Image | string): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_allow_failure()` to all jobs within this
-   * sequence that haven't been set the allow_failure before.
+   * Calling `gcix.Job.assignAllowFailure()` to all jobs within this
+   * JobCollection that haven't been set the allowFailure before.
    *
    * @param allowFailure ???
    * @returns the modified `JobCollection` object.
    */
   initializeAllowFailure(allowFailure: boolean | number[]): JobCollection;
   /**
-   * Calling `gcip.core.job.Job.set_allow_failure()` to all jobs within this
-   * sequence overriding any previous set value.
+   * Calling `gcix.Job.assignAllowFailure()` to all jobs within this
+   * JobCollection overriding any previous set value.
    *
    * @param allowFailure ???
    * @returns the modified `JobCollection` object.
@@ -297,8 +311,8 @@ export interface IJobCollection extends IJobCollectionBase {
 }
 
 /**
- * A Sequence collects multiple `gcip.core.job.Job`s and/or other
- * `gcip.core.sequence.Sequence`s into a group.
+ * A JobCollection collects multiple `gcix.Job`s and/or other
+ * `gcix.JobCollection`s into a group.
  */
 export class JobCollection implements IJobCollection {
   parents: (Job | JobCollection)[] = [];
@@ -375,9 +389,6 @@ export class JobCollection implements IJobCollection {
     this.artifactsForInitialization = artifacts;
     return this;
   }
-  /**
-   * @description Calling `gcip.core.job.Job.add_tags()` to all jobs within this sequence.
-   */
   addTags(tags: string[]): JobCollection {
     for (const tag of tags) {
       this.orderedTags.add(tag);

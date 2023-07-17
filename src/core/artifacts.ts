@@ -3,13 +3,13 @@
  *
  * Simple example:
  *
- * ```
- * from gcip import Artifact, ArtifactReport
+ * ```ts
+ * import { Artifact, ArtifactReport } from gcix
  *
- * files = ["file1.txt", "file2.txt", "path/to/file3.txt"]
+ * const files = ["file1.txt", "file2.txt", "path/to/file3.txt"]
  *
- * job1 = Job(stage="buildit", script="build my app")
- * job1.artifacts.add_paths(files)
+ * const job1 = new Job({stage: "buildit", scripts: ["build my app"]})
+ * job1.addArtifacts(new Artifacts({paths: files}))
  * ```
  */
 
@@ -127,10 +127,10 @@ export interface IArtifacts extends IBase {
  * This class represents the [artifacts](https://docs.gitlab.com/ee/ci/yaml/#artifacts) keyword.
  *
  * Gitlab CI documentation: _"Use artifacts to specify a list of files and
- * directories that are attached to the `gcip.core.job.Job` when it succeeds,
- * fails, or always. [...] by default, `gcip.core.job.Job`s in later stages
+ * directories that are attached to the `gcix.Job` when it succeeds,
+ * fails, or always. [...] by default, `gcix.Job`s in later stages
  * automatically download all the artifacts created by jobs in earlier stages.
- * You can control artifact download behavior in jobs with dependencies."_
+ * You can control artifact download behavior in Job's with dependencies."_
  *
  * @raises Error if when is not `on_success`, `on_failure` or `always`.
  */

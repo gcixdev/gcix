@@ -4,43 +4,47 @@
  * Simple example:
  *
  * ```ts
- * from gcip import Job, Cache
+ * import { Job, Cache } from "gcix";
  *
- * job1 = Job(stage="buildit", script="build my app")
- * job1.set_cache(Cache(["file1.txt", "file2.txt", "path/to/file3.txt"]))
+ * job1 = new Job({stage="buildit", scripts=["build my app"]})
+ * job1.assignCache(new Cache({files: ["file1.txt", "file2.txt", "path/to/file3.txt"]}))
  * ```
  *
  * More complex example:
  *
  * ```ts
- * from gcip import Job, Cache, CacheKey, CachePolicy, WhenStatement
+ * import { Job, Cache, CacheKey, CachePolicy, WhenStatement } from "gcix"
  *
- * files = ["file1.txt", "file2.txt", "path/to/file3.txt"]
+ * const files = ["file1.txt", "file2.txt", "path/to/file3.txt"]
  *
- * job1 = Job(stage="buildit", script="build my app")
- * job1.set_cache(Cache(
- *     files,
- *     cache_key=CacheKey(files=files),
- *     when=WhenStatement.ALWAYS,
- *     policy=CachePolicy.PULL_PUSH)
- * )
+ * job1 = new Job({stage="buildit", scripts=["build my app"]})
+ * job1.assignCache(new Cache({
+ *     files: files,
+ *     cacheKey: new CacheKey({files: [files]}),
+ *     when: WhenStatement.ALWAYS,
+ *     policy: CachePolicy.PULLPUSH)
+ * });
  * ```
  */
 
 import { IBase, PredefinedVariables, WhenStatement } from ".";
 
 /**
- * This class represents the [cache:policy](https://docs.gitlab.com/ee/ci/yaml/#cachepolicy) keyword.
+ * This enum represents the [cache:policy](https://docs.gitlab.com/ee/ci/yaml/#cachepolicy) keyword.
  * The policy determines if a Job can modify the cache or read him only.
  */
 export enum CachePolicy {
   /**
-   * The default behavior of a caching job is to download the files at the start of execution, and to
-   * re-upload them at the end. Any changes made by the job are persisted for future runs.
+   * The default behavior of a caching job is to download the files at the
+   * start of execution and re-upload them at the end. This behavior ensures
+   * that any changes made by the job are persisted for future runs.
    */
   PULLPUSH = "pull-push",
   /**
-   * If you know the job does not alter the cached files, you can skip the upload step by setting this policy in the job specification.
+   * If you are certain that the job does not modify the cached files, you
+   * can specify this policy to skip the upload step. By setting this policy,
+   * the job will only download the cached files at the start of execution
+   * without re-uploading them at the end.
    */
   PULL = "pull",
 }
@@ -56,10 +60,10 @@ export interface RenderedCacheKey {
 
 export interface CacheKeyProps {
   /**
-   * @description The key is the unique id of the cache. `gcip.job.Job`s
+   * @description The key is the unique id of the cache. `gcix.Job`s
    * referencing caches with the same key are sharing the cache contents.
    * Mutually exclusive with `files`
-   * @default gcip.core.variables.PredefinedVariables.CI_COMMIT_REF_SLUG
+   * @default gcix.PredefinedVariables.CI_COMMIT_REF_SLUG
    */
   readonly key?: string;
   /**
@@ -70,7 +74,7 @@ export interface CacheKeyProps {
    * The [cache:key:files](https://docs.gitlab.com/ee/ci/yaml/#cachekeyfiles)
    * keyword extends the cache:key functionality by making it easier to reuse
    * some caches, and rebuild them less often, which speeds up subsequent
-   * pipeline runs. Mutually exclusive with `keys`. Defaults to None.
+   * pipeline runs. Mutually exclusive with `keys`.
    */
   readonly files?: string[];
   /**
@@ -170,9 +174,9 @@ export interface CacheProps {
   /**
    * @description [This keyword](https://docs.gitlab.com/ee/ci/yaml/#cachewhen)
    * defines when to save the cache, depending on job status.
-   * Possible values are `gcip.core.rule.WhenStatement.ON_SUCCESS`,
-   * `gcip.core.rule.WhenStatement.ON_FAILURE`,
-   * `gcip.core.rule.WhenStatement.ALWAYS`.
+   * Possible values are `gcix.WhenStatement.ON_SUCCESS`,
+   * `gcix.WhenStatement.ON_FAILURE`,
+   * `gcix.WhenStatement.ALWAYS`.
    */
   readonly when?: WhenStatement;
   /**
@@ -190,8 +194,8 @@ export interface ICache extends IBase {}
  * Gitlab CI documentation:
  *
  * _"Use cache to specify a list of files and directories to cache between
- * `gcip.core.job.Job`s. [...] Caching is shared between
- * `gcip.core.pipeline.Pipeline`s and `gcip.core.job.Job`s.
+ * `gcix.Job`s. [...] Caching is shared between
+ * `gcix.Pipeline`s and `gcix.Job`s.
  * Caches are restored before artifacts."_
  *
  * @throws `Error` for unsupported `when` values.

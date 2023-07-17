@@ -1,42 +1,49 @@
 /**
- * This module represents the Gitlab CI [needs](https://docs.gitlab.com/ee/ci/yaml/#needs) keyword.
+ * This module represents the Gitlab CI
+ * [needs](https://docs.gitlab.com/ee/ci/yaml/#needs) keyword.
  *
- * Needs are to create relationships between `gcip.core.job.Job`s and `gcip.core.sequence.Sequence`s, which will
- * then be executed as early as all preceding required jobs finished. This relationship ignores the common ordering by stages.
+ * Needs are to create relationships between `gcix.Job`s and
+ * `gcix.JobCollection`s, which will then be executed as early as all
+ * preceding  required jobs finished. This relationship ignores the common
+ * ordering by stages.
  *
- * You do not have to use the `Need` class, when simply linking`gcip.core.job.Job`s as well as `gcip.core.sequence.Sequence`s
- * together. When putting jobs and sequences into the `add_needs()` methods, they were translated into `Need`s internally:
+ * You do not have to use the `Need` class, when simply linking`gcix.Job`s as
+ * well as `gcix.JobCollection`s together. When putting jobs and sequences
+ * into the `addNeeds()` method, they were translated into `Need`s internally.
  *
- * ```
- * my_job = Job(stage="example", script="do-something.sh")
- * my_sequence = Sequence()
+ * ```ts
+ * const myJob = new Job({stage: "example", scripts: ["do-something.sh"]})
+ * const myCollection = new JobCollection()
  * ...
- * my_next_job = Job(stage="example", script="do-anything.sh")
- * my_next_job.add_needs(my_job, my_sequence)
+ * const myNextJob = new Job({stage: "example", scripts: ["do-anything.sh"]})
+ * myNextJob.addNeeds(myJob, myCollection)
  *
- * my_next_sequence = Sequence()
- * my_next_sequence.add_needs(my_job, my_sequence)
+ * const myNextSequence = new JobCollection()
+ * myNextSequence.addNeeds(myJob, myCollection)
  * ```
  *
- * In this example `my_next_job` and `my_next_sequence` start as soon as
+ * In this example `myNextJob` and `myNextCollection` starts as soon as
  *
- * * `my_job` has finished
- * * all jobs within the last stage of `my_sequence` have finished
+ * * `myJob` has finished
+ * * all jobs within the last stage of `myCollection` have finished
  *
- * That also mean that stages are ignored, as the `example` stage for example.
+ * That also means that stages are ignored, as the `example` stage for example.
  *
- * However you have to use the `Need` class directly when depending on other pipelines jobs or for further configuration of the need,
- * like not [downloading artifacts](https://docs.gitlab.com/ee/ci/yaml/#artifact-downloads-with-needs) from preceding jobs:
+ * However you have to use the `Need` class directly when depending on other
+ * pipelines jobs or for further configuration of the need, like not
+ * [downloading artifacts](https://docs.gitlab.com/ee/ci/yaml/#artifact-downloads-with-needs)
+ * from preceding jobs:
  *
+ * ```ts
+ * myJob.addNeeds([
+ *     new Need({job: "awesome-job", project: "master-pipeline"}),
+ *     new Need({job: myJob, artifacts: False}),
+ * ])
  * ```
- * my_job.add_needs(
- *     Need("awesome-job", project="master-pipeline"),
- *     Need(my_job, artifacts=False),
- *     )
- * ```
  *
- * You can use `Need` with the `pipeline` parameter, to either download artifacts from a parent pipeline or to
- * mirror the status from an upstream pipeline. Please refer to the official documentation for examples:
+ * You can use `Need` with the `pipeline` parameter, to either download
+ * artifacts from a parent pipeline or to mirror the status from an upstream
+ * pipeline. Please refer to the official documentation for examples:
  *
  * * [Artifact downloads to child pipelines](https://docs.gitlab.com/ee/ci/yaml/README.html#artifact-downloads-to-child-pipelines)
  * * [Mirror the status from upstream pipelines](https://docs.gitlab.com/ee/ci/yaml/README.html#complex-trigger-syntax-for-multi-project-pipelines)
@@ -92,9 +99,11 @@ export interface NeedProps {
 export interface INeed extends IBase {}
 
 /**
- * This class represents the Gitlab CI [needs](https://docs.gitlab.com/ee/ci/yaml/#needs) keyword.
+ * This class represents the Gitlab CI [needs](https://docs.gitlab.com/ee/ci/yaml/#needs)
+ * keyword.
  * The `needs` key-word adds a possibility to allow out-of-order Gitlab CI jobs.
- * A job which needed another job runs directly after the other job as finished successfully.
+ * A job which needed another job runs directly after the other job as finished
+ * successfully.
  *
  * @throws Error If neither `job` nor `pipeline` is set.
  * @throws Error If `ref` is set but `project` is missing.

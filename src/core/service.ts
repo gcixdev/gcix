@@ -1,7 +1,7 @@
 import { IBase } from "./base";
 
 /**
- * **ALPHA** This module represents the Gitlab CI
+ * @todo **ALPHA** This module represents the Gitlab CI
  * [Service](https://docs.gitlab.com/ee/ci/yaml/README.html#services) keyword.
  *
  * The services keyword defines a Docker image that runs during a job linked

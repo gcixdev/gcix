@@ -156,8 +156,8 @@ test("needs will be staged", () => {
 
 test("needs collection with stage only", () => {
   /**
-   * In a former version of gcip, adding jobs to a collection with providing `stage`
-   * leads to a need reference name with a `-` at the end:
+   * In a former version of gcip, adding jobs to a collection with providing
+   * `stage` leads to a need reference name with a `-` at the end:
    *
    * ```
    * job2-stage-job-seq1:

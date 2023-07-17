@@ -1,19 +1,20 @@
 /**
  * This module represents the Gitlab CI [Job](https://docs.gitlab.com/ee/ci/yaml/README.html#job-keywords)
  *
- * It contains the general `Job` class as well as a special `TriggerJob` class. The latter one is a subclass
- * of `Job` but has on the one hand reduced capabilities, on the other hand it has the additional functionality
- * to trigger other pipelines.
+ * It contains the general `Job` class as well as a special `TriggerJob` class.
+ * The latter one is a subclass of `Job` but has on the one hand reduced
+ * capabilities, on the other hand it has the additional functionality to
+ * trigger other pipelines.
  *
  * Here is a simple example how you define and use a `Job`:
  *
- * ```python
- * from gcip import Pipeline, Job
+ * ```ts
+ * import { Pipeline, Job } from "gcix"
  *
- * pipeline = Pipeline()
- * job = Job(stage="build", script="build my artefact")
- * pipeline.add_children(job, name="artifact")
- * pipeline.write_yaml()
+ * pipeline = new Pipeline()
+ * job = Job({stage="build", scripts=["build my artefact"]})
+ * pipeline.addChildren({jobsOrJobCollections: job, name="artifact"})
+ * pipeline.writeYaml()
  *
  * # stages:
  * #   - build
@@ -22,19 +23,19 @@
  * #   script: build my artifact
  * ```
  *
- * A `Job` has always a `script` and at least one of `stage` or `name`.
+ * A `Job` has always a `scripts` property and at least one of `stage` or `name`.
  * The `stage` will be used for the name of the stage of the job and the
  * job name itself, whereas `name` is only used for the job`s name. When adding
- * a job to a `gcip.core.pipeline.Pipeline` or a `gcip.core.sequence.Sequence`
- * you can and should define a `name` or `stage` too. This is how you
- * distinguish between two jobs of the same kind added to a pipeline:
+ * a job to a `gcix.Pipeline` or a `gcix.JobCollection` you can and should
+ * define a `name` or `stage` too. This is how you distinguish between two
+ * jobs of the same kind added to a pipeline:
  *
- * ```python
- * def create_build_job(artifact: str, job_name: str = "artifact", job_stage: str = "build") -> Job:
- *     return Job(name=job_name, stage=job_stage, script=f"build my {artifact}")
- *
- * pipeline.add_children(create_build_job("foo"), name="bar")
- * pipeline.add_children(create_build_job("john"), name="deere")
+ * ```ts
+ * function createBuildJob(artifact: string, jobName: string = "artifact", jobStage: string = "build"): Job {
+ *   return new Job({name: jobName, stage: jobStage, scripts: [`echo "build my ${artifact}."`] })
+ * }
+ * pipeline.addChildren({jobsOrJobCollections: [createBuildJob("foo")], name: "bar"})
+ * pipeline.addChildren({jobsOrJobCollections: [createBuildJob("john")], name: "deere"})
  *
  * # stages:
  * #   - build
@@ -49,12 +50,13 @@
  * Again `name` or `stage` decide whether to add the string to the
  * stage of a job or not:
  *
- * ```python
- * def create_build_job(job_name: str = "artifact", job_stage: str = "build", artifact: str) -> Job:
- *     return Job(name=job_name, stage=job_stage, script=f"build my {artifact}")
+ * ```ts
+ * function createBuildJob(jobName: string = "artifact", jobStage: string = "build", artifact: string): Job {
+ *   return new Job({name: jobName, stage: jobStage, scripts: [`echo "build my ${artifact}"`]})
+ * }
  *
- * pipeline.add_children(create_build_job("foo"), stage="bar")
- * pipeline.add_children(create_build_job("john"), stage="deere")
+ * pipeline.addChildren({jobsOrJobCollections: createBuildJob("foo"), stage: "bar"})
+ * pipeline.addChildren({jobsOrJobCollections: createBuildJob("john"), stage: "deere"})
  *
  * # stages:
  * #   - build_bar
@@ -67,21 +69,24 @@
  * #     script: build my john
  * ```
  *
- * This also decides whether to run the jobs in parralel or sequential. When using
- * `stage` and adding the string also to the jobs stage the stages for both jobs
- * differ. When using `name` only the name of the jobs differ but the name of the stage
- * remains the same.
+ * This also decides whether to run the jobs in parralel or sequential. When
+ * using `stage` and adding the string also to the jobs stage the stages for
+ * both jobs differ. When using `name` only the name of the jobs differ but
+ * the name of the stage remains the same.
  *
- * An `Job` object has a lot of methods for further configuration of typical Gitlab CI
- * [Job keywords]/https://docs.gitlab.com/ee/ci/yaml/README.html#job-keywords), like
- * configuring tags, rules, variables and so on. Methods with names staring with..
+ * A `Job` object has a lot of methods for further configuration of typical
+ * Gitlab CI [Job keywords]/https://docs.gitlab.com/ee/ci/yaml/README.html#job-keywords),
+ * like configuring tags, rules, variables and so on. Methods with names
+ * staring with.
  *
- * * **`set_*`** will initally set or overwrite any previous setting, like `set_image()`
- * * **`add_*`** will append a value to previous ones, like `add_tags()`
- * * **`append_*`** will do the same as `add_*`, but for values where order matters. So it
- *    explicitly adds a value to the end of a list of previous values, like `append_rules()`
- * * **`prepend_*`** is the counterpart to `append_*` and will add a value to the beginning
- *   of a list of previous values, like `prepend_rules()`
+ * * **`assign*()`** will initally assign or overwrite any previous setting,
+ * like `assignImage()`
+ * * **`add*()`** will append a value to previous ones, like `addTags()`
+ * * **`append*()`** will do the same as `add*`, but for values where order
+ * matters. So it explicitly adds a value to the end of a list of previous
+ * values, like `appendRules()`
+ * * **`prepend*()`** is the counterpart to `append*()` and will add a value to the beginning
+ * of a list of previous values, like `prependRules()`
  */
 
 import {
@@ -114,7 +119,7 @@ export interface JobProps {
    * is set and not the stage of the job. If `name` is set, than the jobs
    * stage has no value, which defaults to the 'test' stage.
    *
-   * Either `name` or `stage` must be set. Defaults to `None`.
+   * Either `name` or `stage` must be set.
    */
   readonly name?: string;
   /**
@@ -258,28 +263,30 @@ export interface IJob extends IJobBase {
    */
   assignNeeds(needs: (Need | Job | JobCollection)[]): Job;
   /**
-   * @description Sets `allow_failure` for this job.
+   * @description Sets `allowFailure` for this job.
    */
   assignAllowFailure(allowFailure: boolean | number[]): Job;
   /**
-   * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs name.
+   * This method is used by `gcix.JobCollection`s to populate the jobs name.
    * @param name to append to the current name.
    */
   extendName(name: string): void;
   /**
-   * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs stage.
+   * This method is used by `gcix.JobCollection`s to populate the jobs stage.
    * @param stage name to extend the stage.
    */
   extendStageValue(stage: string): void;
   /**
-   * This method is used by `gcip.core.sequence.Sequence`s to populate the jobs name and stage.
+   * This method is used by `gcix.JobCollection`s to populate the jobs name
+   * and stage.
    * @param stage name to extend the stage and the name
    */
   extendStage(stage: string): void;
   /**
-   * This method is called by `gcip.core.sequence.Sequence`s when the job is added to that sequence.
+   * This method is called by `gcix.JobCollection`s when the job is added
+   * to that JobCollection.
    *
-   * The job needs to know its parents when `_get_all_instance_names()` is called.
+   * The job needs to know its parents when `getAllInstanceNames()` is called.
    * @param parent any type of Job or JobCollection
    */
   addParent(parent: Job | JobCollection): void;
@@ -328,9 +335,12 @@ export class Job implements IJob {
     this.scripts = props.scripts;
     this.cache = props.cache;
     /**
-     * internally self._allow_failure is set to a special value 'untouched' indicating this value is untouched by the user.
-     * This is because the user can set the value from outside to True, False or None, indicating the value should not be rendered.
-     * 'untouched' allows for sequences to determine, if this value should be initialized or not.
+     * internally this.allowFailure is set to a special value **'untouched'**
+     * indicating this value is untouched by the user. This is because the
+     * user can set the value from outside to True, False or None, indicating
+     * the value should not be rendered.
+     * **'untouched'** allows for JobCollection's to determine, if this value
+     * should be initialized or not.
      */
     this.allowFailure = props.allowFailure ?? "untouched";
     this.orderedTags = new OrderedStringSet();
@@ -633,7 +643,7 @@ export interface TriggerJobProps {
   /**
    * @description Determines if the result of this pipeline depends on the
    * triggered downstream pipeline (use `TriggerStrategy.DEPEND`) or if just
-   * "fire and forget" the downstream pipeline (use `None`).
+   * "fire and forget" the downstream pipeline.
    *
    * Use `depend` to force the `TriggerJob` to wait for the downstream
    * (multi-project or child) pipeline to complete.
@@ -671,21 +681,23 @@ export interface ITriggerJob {
 }
 
 /**
- * This class represents the [trigger](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger) job.
+ * This class represents the
+ * [trigger](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger) job.
  *
- * Jobs with trigger can only use a [limited set of keywords](https://docs.gitlab.com/ee/ci/multi_project_pipelines.html#limitations).
+ * Jobs with trigger can only use a
+ * [limited set of keywords](https://docs.gitlab.com/ee/ci/multi_project_pipelines.html#limitations).
  * For example, you can’t run commands with `script`.
  *
  * Simple example:
  *
- * ```python
- * trigger_job = TriggerJob(
- *     stage="trigger-other-job",
- *     project="myteam/other-project",
- *     branch="main",
- *     strategy=TriggerStrategy.DEPEND,
- * )
- * trigger_job.append_rules(rules.on_tags().never(), rules.on_main())
+ * ```ts
+ * const triggerJob = new TriggerJob({
+ *     stage: "trigger-other-job",
+ *     project: "myteam/other-project",
+ *     branch: "main",
+ *     strategy: "depend",
+ * })
+ * triggerJob.appendRules(rules.onTags().never(), rules.onMain())
  * ```
  *
  * @throws Error if both `project` and `includes` are given.
@@ -790,7 +802,8 @@ export interface IPagesJob {
  * This job has the static name `pages` and the static artifacts path
  * `./public`. Both preconfigurations can't be altered and are required for
  * deploying Gitlab Pages properly. All methods which would typically alter the
- *  name, stage and artifacts of a job are overwritten with an empty implementation.
+ * name, stage and artifacts of a job are overwritten with an empty
+ * implementation.
  *
  * This job is only for deploying Gitlab Pages artifacts within the `./public`
  * artifacts path. To create the artifacts you have to run jobs, that generate
@@ -799,21 +812,21 @@ export interface IPagesJob {
  *
  * Because the name of the job can't be altered, this job may only exist once
  * in the generated pipeline output.
- * Typically you should add the PagesJob to the `gcip.core.pipeline.Pipeline`.
+ * Typically you should add the PagesJob to the `gcix.Pipeline`.
  *
  * The PagesJob is also preconfigured with the stage `pages` and the image
- * `alpine:latest`. To change the stage of this job, use the `set_stage()`
+ * `alpine:latest`. To change the stage of this job, use the `assignStage()`
  * method. Please mention to run this job in a stage after all jobs, that fill
  * the `public` artifacts path with content.
  *
  * Here a simple example how to use the GitlabPages job:
  *
- * ```
- * pipeline = Pipeline()
- * pipeline.add_children(
- *     Job(stage="deploy", script="./create-html.sh").add_artifacts_paths("public"),
- *     PagesJob(),
- * )
+ * ```typescript
+ * const pipeline = new Pipeline()
+ * pipeline.addChildren({
+ *     new Job({stage: "deploy", scripts: ["./create-html.sh"]).assingArtifacts(new Artifacts({paths: ["public"]})}),
+ *     new PagesJob(),
+ * })
  * ```
  */
 export class PagesJob extends Job implements IPagesJob {

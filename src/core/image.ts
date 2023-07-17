@@ -2,16 +2,22 @@ import { IBase } from "./base";
 import { deepcopy } from "../helper";
 /**
  * This module represents the Gitlab CI [Image](https://docs.gitlab.com/ee/ci/yaml/#image) keyword.
- * Use `Image` to specify a Docker image to use for the `gcip.core.job.Job`.
+ * Use `Image` to specify a Docker image to use for the `gcix.Job`.
  *
- * Objects of this class are not meant to be altered. This is because Image
- * objects are typically be defined at a central place and often re-used.
- * Altering the object at one place may lead to unpredictable changes at any
- * reference to that object. That is this class has no setter methods.
- * However you can use  the `.with_tag()` and `.with_entrypoint()` methods on
- * an Image object, which will return an altered copy of that image.
- * Thus you can re-use a centrally maintained Image object and modify it for
- * just the place you are using the altered image (copy).
+ * Instances of this class are intended to be immutable. Image objects are
+ * typically defined in a central location and often reused throughout the
+ * codebase. Modifying an Image object at one place may result in unexpected
+ * changes at any other reference to that object. Therefore, this class does
+ * not provide any setter methods to modify its properties directly.
+ *
+ * However, you can create an altered copy of an Image object using
+ * the .withTag() and .withEntrypoint() methods. These methods return a new
+ * Image object with the specified modifications, allowing you to reuse the
+ * original Image object while making specific changes for a particular use case.
+ *
+ * By following this approach, you can maintain a central repository of Image
+ * objects and easily create customized versions as needed, without affecting
+ * the original object or introducing unintended side effects.
  */
 
 export interface RenderedImage {

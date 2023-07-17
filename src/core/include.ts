@@ -5,53 +5,46 @@ import { validURL } from "../helper";
  * This module represents the Gitlab CI [Include](https://docs.gitlab.com/ee/ci/yaml/#include) keyword.
  *
  * Use include to include external YAML files in your CI/CD configuration.
- *
  * ----
- *
  * [include:local](https://docs.gitlab.com/ee/ci/yaml/#includelocal) example:
  *
  * ```
- * pipeline.add_include(IncludeLocal("/templates/.gitlab-ci-template.yml"))
+ * pipeline.addInclude(new IncludeLocal({local: "/templates/.gitlab-ci-template.yml"}))
  * ```
- *
  * ----
- *
  * [include:file](https://docs.gitlab.com/ee/ci/yaml/#includefile) example:
  *
  * ```
- * pipeline.add_include(IncludeFile(
+ * pipeline.addInclude(new IncludeFile({
  *         project="my-group/my-project",
  *         ref="master",
  *         file="/templates/.gitlab-ci-template.yml"
- *     ))
+ *     }))
  * ```
- *
  * ----
- *
  * [include:remote](https://docs.gitlab.com/ee/ci/yaml/#includeremote) example:
  *
  * ```
- * pipeline.add_include(IncludeRemote("https://gitlab.com/example-project/-/raw/master/.gitlab-ci.yml"))
+ * pipeline.addInclude(new IncludeRemote({
+ *          remote: "https://gitlab.com/example-project/-/raw/master/.gitlab-ci.yml"
+ *      }))
  * ```
- *
  * ----
- *
  * [include:template](https://docs.gitlab.com/ee/ci/yaml/#includetemplate) example:
  *
  * ```
- * pipeline.add_include(IncludeTemplate("Auto-DevOps.gitlab-ci.yml"))
+ * pipeline.addInclude(new IncludeTemplate({template: "Auto-DevOps.gitlab-ci.yml"}))
  * ```
- *
  * ----
- *
- * Special type of include: Use a `gcip.core.job.TriggerJob` with `IncludeArtifact` to run [a child pipeline with a generated
- * configuration file from a previous job](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger-child-pipeline-with-generated-configuration-file):
+ * Special type of include: Use a `gcix.TriggerJob` with `IncludeArtifact`
+ * to run [a child pipeline with a generated configuration file from a previous job](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger-child-pipeline-with-generated-configuration-file):
  *
  * ```
- * TriggerJob(includes=IncludeArtifact(job="generate-config", artifact="generated-config.yml"))
+ * new TriggerJob({includes=[IncludeArtifact(job="generate-config", artifact="generated-config.yml")]})
  * ```
  *
- * Note: The `IncludeArtifact` isn't implemented very well as it currently cannot handle `gcip.core.job.Job` objects. You need to know the jobs final name,
+ * @todo Note: The `IncludeArtifact` isn't implemented very well as it currently
+ * cannot handle `gcix.Job` objects. You need to know the jobs final name,
  * which is not very handy. This could be implemented much better in future.
  */
 
@@ -211,7 +204,7 @@ export interface IncludeArtifactProps {
 export interface IIncludeArtifact extends IInclude {}
 
 /**
- * @description A special type of include: Use a `gcip.core.job.TriggerJob`
+ * @description A special type of include: Use a `TriggerJob`
  * with `IncludeArtifact` to run
  * [a child pipeline with a generated configuration file from a previous job](https://docs.gitlab.com/ee/ci/yaml/README.html#trigger-child-pipeline-with-generated-configuration-file):
  */

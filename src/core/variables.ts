@@ -3,31 +3,34 @@
  */
 
 /**
- * This proxy delays the operating system query for environment variables until the value is requested.
+ * This proxy delays the operating system query for environment variables
+ * until the value is requested.
  *
- * This proxy is designed for requesting predefined environment variables that must
- * exist within a Gitlab CI pipeline execution. Create an object from this proxy
- * with the name of the Gitlab `CI_*` variable you want to query:
+ * This proxy is designed for requesting predefined environment variables that
+ * must exist within a Gitlab CI pipeline execution. Create an object from
+ * this proxy with the name of the Gitlab `CI_*` variable you want to query:
  * ```
- * CI_COMMIT_REF_SLUG = EnvProxy("CI_COMMIT_REF_SLUG")  # os.environ is not (!) called here
- * ```
- *
- * When using an object of this proxy in a statement it returns the value of the `CI_*`
- * variable requested or raises a `KeyError` if against our expectations the variable
- * is not available.
- *
- * ```
- * if CI_COMMIT_REF_SLUG == "foobar":  # <- os.environ is called here
+ * CI_COMMIT_REF_SLUG = EnvProxy("CI_COMMIT_REF_SLUG")  # process.env.CI_* is
+ * not! called here
  * ```
  *
- * The proxy has a different behavior when not being called within a Gitlab CI pipeline
- * execution. This is, when the environment variable `CI` is unset (from the official
- * Gitlab CI docs). Then the proxy does not raise a KeyError for `CI_*` variables, because
- * they naturally does not exist (or at least their existence is not guaranteed).
- * So if we are not running within a Gitlab CI pipeline, the proxy insteads returns the
- * dummy string `notRunningInAPipeline` for all `CI_*` variables. Except for the `CI`
- * variable itself, where an empty string is returned, indicating we are not running
- * within a pipeline.
+ * When using an object of this proxy in a statement it returns the value of
+ * the `CI_*` variable requested or throws an `Error` if against our
+ * expectations the variable is not available.
+ *
+ * ```
+ * if CI_COMMIT_REF_SLUG == "foobar":  # <- process.env.CI_* is called here
+ * ```
+ *
+ * The proxy has a different behavior when not being called within a Gitlab CI
+ * pipeline execution. This is, when the environment variable `CI` is
+ * unset (from the official Gitlab CI docs). Then the proxy does not raise a
+ * KeyError for `CI_*` variables, because they naturally does not exist
+ * (or at least their existence is not guaranteed). So if we are not running
+ * within a Gitlab CI pipeline, the proxy insteads returns the dummy string
+ * `notRunningInAPipeline` for all `CI_*` variables. Except for the `CI`
+ * variable itself, where an empty string is returned, indicating we are not
+ * running within a pipeline.
  *
  * @param key The name of the environment variable that should be queried on request.
  * @returns The value of the queried environment variable.
@@ -42,15 +45,19 @@ export function EnvProxy(key: string): string {
     }
   }
 
-  // indicate that we are not running within a pipeline by
-  // returning an empty string
+  /**
+   * indicate that we are not running within a pipeline by
+   * returning an empty string
+   */
   if (key === "CI") {
     return "";
   }
 
-  // in the case we are not running within a pipeline ($CI is empty)
-  // for all other variables we return a dummy value which
-  // explicitly describe this state
+  /**
+   * in the case we are not running within a pipeline ($CI is empty)
+   * for all other variables we return a dummy value which
+   * explicitly describe this state
+   */
   return process.env[key] ?? "notRunningInAPipeline";
 }
 
