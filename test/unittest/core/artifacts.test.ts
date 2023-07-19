@@ -41,12 +41,12 @@ test("artifacts and report", () => {
 
 /**
  * https://gitlab.com/dbsystel/gitlab-ci-python-library/-/issues/85
- * `PredefinedVariables.CI_PROJECT_DIR` was not properly shortened to '.'
- * when path only consists of `PredefinedVariables.CI_PROJECT_DIR`.
+ * `PredefinedVariables.ciProjectDir` was not properly shortened to '.'
+ * when path only consists of `PredefinedVariables.ciProjectDir`.
  */
 test("path is ci project dir", () => {
   expect(
-    new Artifacts({ paths: [PredefinedVariables.CI_PROJECT_DIR] }).paths[0],
+    new Artifacts({ paths: [PredefinedVariables.ciProjectDir] }).paths[0],
   ).toBe(".");
 });
 

@@ -136,7 +136,7 @@ export class Need implements INeed {
     this.pipeline = props.pipeline;
     this.artifacts = props.artifacts ?? true;
 
-    if (this.pipeline && this.pipeline === PredefinedVariables.CI_PIPELINE_ID) {
+    if (this.pipeline && this.pipeline === PredefinedVariables.ciPipelineId) {
       throw new Error(`The pipeline attribute does not accept the current
                         pipeline ($CI_PIPELINE_ID). To download artifacts
                         from a job in the current pipeline, use the basic

@@ -44,7 +44,7 @@ export function checkJobProperties(checkJob: Job) {
 
 beforeEach(() => {
   rule = new Rule({
-    ifStatement: `${PredefinedVariables.CI_COMMIT_REF_NAME} == main`,
+    ifStatement: `${PredefinedVariables.ciCommitRefName} == main`,
     when: WhenStatement.ALWAYS,
     allowFailure: true,
   });
@@ -52,7 +52,7 @@ beforeEach(() => {
   job = new Job({
     scripts: [
       "date",
-      `echo "You are running on branch: ${PredefinedVariables.CI_COMMIT_REF_NAME}"`,
+      `echo "You are running on branch: ${PredefinedVariables.ciCommitRefName}"`,
     ],
     stage: "fixture_stage",
     name: "job_name",
@@ -90,7 +90,7 @@ test("job modification", () => {
     name: "job_name",
   });
   testJob.appendScripts([
-    `echo "You are running on branch: $$${PredefinedVariables.CI_COMMIT_REF_NAME}"`,
+    `echo "You are running on branch: $$${PredefinedVariables.ciCommitRefName}"`,
   ]);
   testJob.assignImage("busybox");
   testJob.assignAllowFailure(true);

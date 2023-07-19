@@ -11,7 +11,7 @@ beforeEach(() => {
 
 test("empty string if env CI is set", () => {
   process.env.CI = "false";
-  expect(PredefinedVariables.CI).toBe("");
+  expect(PredefinedVariables.ci).toBe("");
 });
 
 test("init_empty_variables", () => {
@@ -44,8 +44,9 @@ test("override_variables", () => {
 
 test("predefined_variables_in_pipeline_env", () => {
   process.env.CI = "true";
-  expect(PredefinedVariables.CI).toBe("true");
-  expect(PredefinedVariables.CI_PROJECT_NAME).toBe("gitlab-ci-project");
+  expect(PredefinedVariables.ci).toBe("true");
+  expect(PredefinedVariables.ciProjectName).toBe("gitlab-ci-project");
+  expect(PredefinedVariables.ciCommitRefSlug).toBe("my-awsome-feature-branch");
 });
 
 test("predefined_variables_non_pipeline_env", () => {
@@ -53,24 +54,52 @@ test("predefined_variables_non_pipeline_env", () => {
   // If env var CI is not set all EnvProxy varaibles returning
   // notRunningInAPipeline except if they are initialised by
   // the calling scope
-  jest.replaceProperty(process, "env", { CHAT_CHANNEL: undefined });
-  expect(PredefinedVariables.CHAT_CHANNEL).toBe("notRunningInAPipeline");
-  jest.replaceProperty(process, "env", { CI_COMMIT_BRANCH: undefined });
-  expect(PredefinedVariables.CI_COMMIT_BRANCH).toBe("notRunningInAPipeline");
+  jest.replaceProperty(process, "env", { chatChannel: undefined });
+  expect(PredefinedVariables.chatChannel).toBe("notRunningInAPipeline");
+  jest.replaceProperty(process, "env", { ciCommitBranch: undefined });
+  expect(PredefinedVariables.ciCommitBranch).toBe("notRunningInAPipeline");
 });
 
 test("sensitive_variables_are_unresolved", () => {
-  expect(PredefinedVariables.CI_DEPENDENCY_PROXY_PASSWORD).toBe(
+  expect(PredefinedVariables.ciDependencyProxyPassword).toBe(
     "${CI_DEPENDENCY_PROXY_PASSWORD}",
   );
-  expect(PredefinedVariables.CI_DEPLOY_PASSWORD).toBe("${CI_DEPLOY_PASSWORD}");
-  expect(PredefinedVariables.CI_JOB_TOKEN).toBe("${CI_JOB_TOKEN}");
-  expect(PredefinedVariables.CI_JOB_JWT).toBe("${CI_JOB_JWT}");
-  expect(PredefinedVariables.CI_REGISTRY_PASSWORD).toBe(
+  expect(PredefinedVariables.ciDeployPassword).toBe("${CI_DEPLOY_PASSWORD}");
+  expect(PredefinedVariables.ciJobToken).toBe("${CI_JOB_TOKEN}");
+  expect(PredefinedVariables.ciJobJwt).toBe("${CI_JOB_JWT}");
+  expect(PredefinedVariables.ciRegistryPassword).toBe(
     "${CI_REGISTRY_PASSWORD}",
   );
-  expect(PredefinedVariables.CI_REPOSITORY_URL).toBe("${CI_REPOSITORY_URL}");
-  expect(PredefinedVariables.CI_RUNNER_SHORT_TOKEN).toBe(
+  expect(PredefinedVariables.ciRepositoryUrl).toBe("${CI_REPOSITORY_URL}");
+  expect(PredefinedVariables.ciRunnerShortToken).toBe(
     "${CI_RUNNER_SHORT_TOKEN}",
   );
+});
+
+describe("PredefinedVariables", () => {
+  const staticProperties = Object.getOwnPropertyNames(
+    PredefinedVariables,
+  ) as (keyof typeof PredefinedVariables)[];
+  const propertiesToExclude = [
+    "name",
+    "length",
+    "prototype",
+    "ciDependencyProxyPassword",
+    "ciDeployPassword",
+    "ciJobToken",
+    "ciJobJwt",
+    "ciRegistryPassword",
+    "ciRepositoryUrl",
+    "ciRunnerShortToken",
+    "ci",
+  ];
+  const filteredProperties = staticProperties.filter(
+    (propertyName) => !propertiesToExclude.includes(propertyName),
+  );
+
+  filteredProperties.forEach((propertyName) => {
+    test(`should test property ${propertyName}`, () => {
+      expect(PredefinedVariables[propertyName]).toBe("notRunningInAPipeline");
+    });
+  });
 });

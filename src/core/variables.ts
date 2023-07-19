@@ -71,7 +71,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.6
    * Available in GitLab Runner all
    */
-  static get CHAT_CHANNEL() {
+  static get chatChannel() {
     return EnvProxy("CHAT_CHANNEL");
   }
 
@@ -81,7 +81,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.6
    * Available in GitLab Runner all
    */
-  static get CHAT_INPUT() {
+  static get chatInput() {
     return EnvProxy("CHAT_INPUT");
   }
 
@@ -91,7 +91,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 0.4
    */
-  static get CI() {
+  static get ci() {
     return EnvProxy("CI");
   }
 
@@ -101,7 +101,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.7
    * Available in GitLab Runner all
    */
-  static get CI_API_V4_URL() {
+  static get ciApiV4Url() {
     return EnvProxy("CI_API_V4_URL");
   }
 
@@ -111,7 +111,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 11.10
    */
-  static get CI_BUILDS_DIR() {
+  static get ciBuildsDir() {
     return EnvProxy("CI_BUILDS_DIR");
   }
 
@@ -122,7 +122,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.2
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_BEFORE_SHA() {
+  static get ciCommitBeforeSha() {
     return EnvProxy("CI_COMMIT_BEFORE_SHA");
   }
 
@@ -133,7 +133,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.8
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_DESCRIPTION() {
+  static get ciCommitDescription() {
     return EnvProxy("CI_COMMIT_DESCRIPTION");
   }
 
@@ -143,7 +143,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.8
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_MESSAGE() {
+  static get ciCommitMessage() {
     return EnvProxy("CI_COMMIT_MESSAGE");
   }
 
@@ -153,7 +153,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_REF_NAME() {
+  static get ciCommitRefName() {
     return EnvProxy("CI_COMMIT_REF_NAME");
   }
 
@@ -163,7 +163,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.11
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_REF_PROTECTED() {
+  static get ciCommitRefProtected() {
     return EnvProxy("CI_COMMIT_REF_PROTECTED");
   }
 
@@ -175,7 +175,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_REF_SLUG() {
+  static get ciCommitRefSlug() {
     return EnvProxy("CI_COMMIT_REF_SLUG");
   }
 
@@ -185,7 +185,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_SHA() {
+  static get ciCommitSha() {
     return EnvProxy("CI_COMMIT_SHA");
   }
 
@@ -195,7 +195,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.7
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_SHORT_SHA() {
+  static get ciCommitShortSha() {
     return EnvProxy("CI_COMMIT_SHORT_SHA");
   }
 
@@ -207,7 +207,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.6
    * Available in GitLab Runner 0.5
    */
-  static get CI_COMMIT_BRANCH() {
+  static get ciCommitBranch() {
     return EnvProxy("CI_COMMIT_BRANCH");
   }
 
@@ -217,7 +217,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner 0.5
    */
-  static get CI_COMMIT_TAG() {
+  static get ciCommitTag() {
     return EnvProxy("CI_COMMIT_TAG");
   }
 
@@ -227,7 +227,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.8
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_TITLE() {
+  static get ciCommitTitle() {
     return EnvProxy("CI_COMMIT_TITLE");
   }
 
@@ -237,7 +237,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.4
    * Available in GitLab Runner all
    */
-  static get CI_COMMIT_TIMESTAMP() {
+  static get ciCommitTimestamp() {
     return EnvProxy("CI_COMMIT_TIMESTAMP");
   }
 
@@ -247,7 +247,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 11.10
    */
-  static get CI_CONCURRENT_ID() {
+  static get ciConcurrentId() {
     return EnvProxy("CI_CONCURRENT_ID");
   }
 
@@ -257,7 +257,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 11.10
    */
-  static get CI_CONCURRENT_PROJECT_ID() {
+  static get ciConcurrentProjectId() {
     return EnvProxy("CI_CONCURRENT_PROJECT_ID");
   }
 
@@ -267,7 +267,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.4
    * Available in GitLab Runner 0.5
    */
-  static get CI_CONFIG_PATH() {
+  static get ciConfigPath() {
     return EnvProxy("CI_CONFIG_PATH");
   }
 
@@ -277,7 +277,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 1.7
    */
-  static get CI_DEBUG_TRACE() {
+  static get ciDebugTrace() {
     return EnvProxy("CI_DEBUG_TRACE");
   }
 
@@ -287,7 +287,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.4
    * Available in GitLab Runner all
    */
-  static get CI_DEFAULT_BRANCH() {
+  static get ciDefaultBranch() {
     return EnvProxy("CI_DEFAULT_BRANCH");
   }
 
@@ -297,7 +297,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.7
    * Available in GitLab Runner all
    */
-  static get CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX() {
+  static get ciDependencyProxyGroupImagePrefix() {
     return EnvProxy("CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX");
   }
 
@@ -307,7 +307,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.7
    * Available in GitLab Runner all
    */
-  static get CI_DEPENDENCY_PROXY_SERVER() {
+  static get ciDependencyProxyServer() {
     return EnvProxy("CI_DEPENDENCY_PROXY_SERVER");
   }
 
@@ -321,7 +321,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.7
    * Available in GitLab Runner all
    */
-  static get CI_DEPENDENCY_PROXY_PASSWORD() {
+  static get ciDependencyProxyPassword() {
     return "${CI_DEPENDENCY_PROXY_PASSWORD}";
   }
 
@@ -331,7 +331,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.7
    * Available in GitLab Runner all
    */
-  static get CI_DEPENDENCY_PROXY_USER() {
+  static get ciDependencyProxyUser() {
     return EnvProxy("CI_DEPENDENCY_PROXY_USER");
   }
 
@@ -341,7 +341,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.2
    * Available in GitLab Runner all
    */
-  static get CI_DEPLOY_FREEZE() {
+  static get ciDeployFreeze() {
     return EnvProxy("CI_DEPLOY_FREEZE");
   }
 
@@ -356,7 +356,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.8
    * Available in GitLab Runner all
    */
-  static get CI_DEPLOY_PASSWORD() {
+  static get ciDeployPassword() {
     return "${CI_DEPLOY_PASSWORD}";
   }
 
@@ -367,7 +367,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.8
    * Available in GitLab Runner all
    */
-  static get CI_DEPLOY_USER() {
+  static get ciDeployUser() {
     return EnvProxy("CI_DEPLOY_USER");
   }
 
@@ -381,7 +381,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 10.1
    */
-  static get CI_DISPOSABLE_ENVIRONMENT() {
+  static get ciDisposableEnvironment() {
     return EnvProxy("CI_DISPOSABLE_ENVIRONMENT");
   }
 
@@ -392,7 +392,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.15
    * Available in GitLab Runner all
    */
-  static get CI_ENVIRONMENT_NAME() {
+  static get ciEnvironmentName() {
     return EnvProxy("CI_ENVIRONMENT_NAME");
   }
 
@@ -404,7 +404,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.15
    * Available in GitLab Runner all
    */
-  static get CI_ENVIRONMENT_SLUG() {
+  static get ciEnvironmentSlug() {
     return EnvProxy("CI_ENVIRONMENT_SLUG");
   }
 
@@ -415,7 +415,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.3
    * Available in GitLab Runner all
    */
-  static get CI_ENVIRONMENT_URL() {
+  static get ciEnvironmentUrl() {
     return EnvProxy("CI_ENVIRONMENT_URL");
   }
 
@@ -428,7 +428,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.3
    * Available in GitLab Runner all
    */
-  static get CI_EXTERNAL_PULL_REQUEST_IID() {
+  static get ciExternalPullRequestIid() {
     return EnvProxy("CI_EXTERNAL_PULL_REQUEST_IID");
   }
 
@@ -441,7 +441,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.3
    * Available in GitLab Runner all
    */
-  static get CI_EXTERNAL_PULL_REQUEST_SOURCE_REPOSITORY() {
+  static get ciExternalPullRequestSourceRepository() {
     return EnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_REPOSITORY");
   }
 
@@ -454,7 +454,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.3
    * Available in GitLab Runner all
    */
-  static get CI_EXTERNAL_PULL_REQUEST_TARGET_REPOSITORY() {
+  static get ciExternalPullRequestTargetRepository() {
     return EnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_REPOSITORY");
   }
 
@@ -466,7 +466,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.3
    * Available in GitLab Runner all
    */
-  static get CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME() {
+  static get ciExternalPullRequestSourceBranchName() {
     return EnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME");
   }
 
@@ -479,7 +479,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.3
    * Available in GitLab Runner all
    */
-  static get CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_SHA() {
+  static get ciExternalPullRequestSourceBranchSha() {
     return EnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_SHA");
   }
 
@@ -491,7 +491,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.3
    * Available in GitLab Runner all
    */
-  static get CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME() {
+  static get ciExternalPullRequestTargetBranchName() {
     return EnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME");
   }
 
@@ -504,7 +504,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.3
    * Available in GitLab Runner all
    */
-  static get CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_SHA() {
+  static get ciExternalPullRequestTargetBranchSha() {
     return EnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_SHA");
   }
 
@@ -516,7 +516,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.1
    * Available in GitLab Runner all
    */
-  static get CI_HAS_OPEN_REQUIREMENTS() {
+  static get ciHasOpenRequirements() {
     return EnvProxy("CI_HAS_OPEN_REQUIREMENTS");
   }
 
@@ -529,7 +529,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.8
    * Available in GitLab Runner all
    */
-  static get CI_OPEN_MERGE_REQUESTS() {
+  static get ciOpenMergeRequests() {
     return EnvProxy("CI_OPEN_MERGE_REQUESTS");
   }
 
@@ -539,7 +539,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner all
    */
-  static get CI_JOB_ID() {
+  static get ciJobId() {
     return EnvProxy("CI_JOB_ID");
   }
 
@@ -549,7 +549,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.9
    * Available in GitLab Runner 12.9
    */
-  static get CI_JOB_IMAGE() {
+  static get ciJobImage() {
     return EnvProxy("CI_JOB_IMAGE");
   }
 
@@ -559,7 +559,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.12
    * Available in GitLab Runner all
    */
-  static get CI_JOB_MANUAL() {
+  static get ciJobManual() {
     return EnvProxy("CI_JOB_MANUAL");
   }
 
@@ -569,7 +569,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner 0.5
    */
-  static get CI_JOB_NAME() {
+  static get ciJobName() {
     return EnvProxy("CI_JOB_NAME");
   }
 
@@ -579,7 +579,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner 0.5
    */
-  static get CI_JOB_STAGE() {
+  static get ciJobStage() {
     return EnvProxy("CI_JOB_STAGE");
   }
 
@@ -591,7 +591,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 13.5
    */
-  static get CI_JOB_STATUS() {
+  static get ciJobStatus() {
     return EnvProxy("CI_JOB_STATUS");
   }
 
@@ -606,7 +606,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner 1.2
    */
-  static get CI_JOB_TOKEN() {
+  static get ciJobToken() {
     return "${CI_JOB_TOKEN}";
   }
 
@@ -621,7 +621,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.10
    * Available in GitLab Runner all
    */
-  static get CI_JOB_JWT() {
+  static get ciJobJwt() {
     return "${CI_JOB_JWT}";
   }
 
@@ -631,7 +631,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.1
    * Available in GitLab Runner 0.5
    */
-  static get CI_JOB_URL() {
+  static get ciJobUrl() {
     return EnvProxy("CI_JOB_URL");
   }
 
@@ -644,7 +644,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.0
    * Available in GitLab Runner all
    */
-  static get CI_KUBERNETES_ACTIVE() {
+  static get ciKubernetesActive() {
     return EnvProxy("CI_KUBERNETES_ACTIVE");
   }
 
@@ -657,7 +657,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.9
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_ASSIGNEES() {
+  static get ciMergeRequestAssignees() {
     return EnvProxy("CI_MERGE_REQUEST_ASSIGNEES");
   }
 
@@ -669,7 +669,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_ID() {
+  static get ciMergeRequestId() {
     return EnvProxy("CI_MERGE_REQUEST_ID");
   }
 
@@ -681,7 +681,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_IID() {
+  static get ciMergeRequestIid() {
     return EnvProxy("CI_MERGE_REQUEST_IID");
   }
 
@@ -693,7 +693,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.9
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_LABELS() {
+  static get ciMergeRequestLabels() {
     return EnvProxy("CI_MERGE_REQUEST_LABELS");
   }
 
@@ -705,7 +705,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.9
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_MILESTONE() {
+  static get ciMergeRequestMilestone() {
     return EnvProxy("CI_MERGE_REQUEST_MILESTONE");
   }
 
@@ -717,7 +717,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_PROJECT_ID() {
+  static get ciMergeRequestProjectId() {
     return EnvProxy("CI_MERGE_REQUEST_PROJECT_ID");
   }
 
@@ -730,7 +730,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_PROJECT_PATH() {
+  static get ciMergeRequestProjectPath() {
     return EnvProxy("CI_MERGE_REQUEST_PROJECT_PATH");
   }
 
@@ -743,7 +743,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_PROJECT_URL() {
+  static get ciMergeRequestProjectUrl() {
     return EnvProxy("CI_MERGE_REQUEST_PROJECT_URL");
   }
 
@@ -755,7 +755,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_REF_PATH() {
+  static get ciMergeRequestRefPath() {
     return EnvProxy("CI_MERGE_REQUEST_REF_PATH");
   }
 
@@ -767,7 +767,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_SOURCE_BRANCH_NAME() {
+  static get ciMergeRequestSourceBranchName() {
     return EnvProxy("CI_MERGE_REQUEST_SOURCE_BRANCH_NAME");
   }
 
@@ -780,7 +780,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.9
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_SOURCE_BRANCH_SHA() {
+  static get ciMergeRequestSourceBranchSha() {
     return EnvProxy("CI_MERGE_REQUEST_SOURCE_BRANCH_SHA");
   }
 
@@ -792,7 +792,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_SOURCE_PROJECT_ID() {
+  static get ciMergeRequestSourceProjectId() {
     return EnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_ID");
   }
 
@@ -804,7 +804,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_SOURCE_PROJECT_PATH() {
+  static get ciMergeRequestSourceProjectPath() {
     return EnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_PATH");
   }
 
@@ -816,7 +816,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_SOURCE_PROJECT_URL() {
+  static get ciMergeRequestSourceProjectUrl() {
     return EnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_URL");
   }
 
@@ -828,7 +828,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.6
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_TARGET_BRANCH_NAME() {
+  static get ciMergeRequestTargetBranchName() {
     return EnvProxy("CI_MERGE_REQUEST_TARGET_BRANCH_NAME");
   }
 
@@ -841,7 +841,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.9
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_TARGET_BRANCH_SHA() {
+  static get ciMergeRequestTargetBranchSha() {
     return EnvProxy("CI_MERGE_REQUEST_TARGET_BRANCH_SHA");
   }
 
@@ -853,7 +853,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.9
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_TITLE() {
+  static get ciMergeRequestTitle() {
     return EnvProxy("CI_MERGE_REQUEST_TITLE");
   }
 
@@ -864,7 +864,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.3
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_EVENT_TYPE() {
+  static get ciMergeRequestEventType() {
     return EnvProxy("CI_MERGE_REQUEST_EVENT_TYPE");
   }
 
@@ -874,7 +874,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.7
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_DIFF_ID() {
+  static get ciMergeRequestDiffId() {
     return EnvProxy("CI_MERGE_REQUEST_DIFF_ID");
   }
 
@@ -884,7 +884,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.7
    * Available in GitLab Runner all
    */
-  static get CI_MERGE_REQUEST_DIFF_BASE_SHA() {
+  static get ciMergeRequestDiffBaseSha() {
     return EnvProxy("CI_MERGE_REQUEST_DIFF_BASE_SHA");
   }
 
@@ -894,7 +894,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.5
    * Available in GitLab Runner all
    */
-  static get CI_NODE_INDEX() {
+  static get ciNodeIndex() {
     return EnvProxy("CI_NODE_INDEX");
   }
 
@@ -904,7 +904,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.5
    * Available in GitLab Runner all
    */
-  static get CI_NODE_TOTAL() {
+  static get ciNodeTotal() {
     return EnvProxy("CI_NODE_TOTAL");
   }
 
@@ -914,7 +914,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.8
    * Available in GitLab Runner all
    */
-  static get CI_PAGES_DOMAIN() {
+  static get ciPagesDomain() {
     return EnvProxy("CI_PAGES_DOMAIN");
   }
 
@@ -924,7 +924,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.8
    * Available in GitLab Runner all
    */
-  static get CI_PAGES_URL() {
+  static get ciPagesUrl() {
     return EnvProxy("CI_PAGES_URL");
   }
 
@@ -935,7 +935,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner all
    */
-  static get CI_PIPELINE_ID() {
+  static get ciPipelineId() {
     return EnvProxy("CI_PIPELINE_ID");
   }
 
@@ -946,7 +946,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.0
    * Available in GitLab Runner all
    */
-  static get CI_PIPELINE_IID() {
+  static get ciPipelineIid() {
     return EnvProxy("CI_PIPELINE_IID");
   }
 
@@ -960,7 +960,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.0
    * Available in GitLab Runner all
    */
-  static get CI_PIPELINE_SOURCE() {
+  static get ciPipelineSource() {
     return EnvProxy("CI_PIPELINE_SOURCE");
   }
 
@@ -970,7 +970,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get CI_PIPELINE_TRIGGERED() {
+  static get ciPipelineTriggered() {
     return EnvProxy("CI_PIPELINE_TRIGGERED");
   }
 
@@ -980,7 +980,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.1
    * Available in GitLab Runner 0.5
    */
-  static get CI_PIPELINE_URL() {
+  static get ciPipelineUrl() {
     return EnvProxy("CI_PIPELINE_URL");
   }
 
@@ -990,7 +990,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.8
    * Available in GitLab Runner all
    */
-  static get CI_PROJECT_CONFIG_PATH() {
+  static get ciProjectConfigPath() {
     return EnvProxy("CI_PROJECT_CONFIG_PATH");
   }
 
@@ -1003,7 +1003,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get CI_PROJECT_DIR() {
+  static get ciProjectDir() {
     return EnvProxy("CI_PROJECT_DIR");
   }
 
@@ -1013,7 +1013,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get CI_PROJECT_ID() {
+  static get ciProjectId() {
     return EnvProxy("CI_PROJECT_ID");
   }
 
@@ -1025,7 +1025,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_PROJECT_NAME() {
+  static get ciProjectName() {
     return EnvProxy("CI_PROJECT_NAME");
   }
 
@@ -1035,7 +1035,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_PROJECT_NAMESPACE() {
+  static get ciProjectNamespace() {
     return EnvProxy("CI_PROJECT_NAMESPACE");
   }
 
@@ -1047,7 +1047,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.2
    * Available in GitLab Runner 0.5
    */
-  static get CI_PROJECT_ROOT_NAMESPACE() {
+  static get ciProjectRootNamespace() {
     return EnvProxy("CI_PROJECT_ROOT_NAMESPACE");
   }
 
@@ -1057,7 +1057,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_PROJECT_PATH() {
+  static get ciProjectPath() {
     return EnvProxy("CI_PROJECT_PATH");
   }
 
@@ -1067,7 +1067,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.3
    * Available in GitLab Runner all
    */
-  static get CI_PROJECT_PATH_SLUG() {
+  static get ciProjectPathSlug() {
     return EnvProxy("CI_PROJECT_PATH_SLUG");
   }
 
@@ -1077,7 +1077,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.3
    * Available in GitLab Runner all
    */
-  static get CI_PROJECT_REPOSITORY_LANGUAGES() {
+  static get ciProjectRepositoryLanguages() {
     return EnvProxy("CI_PROJECT_REPOSITORY_LANGUAGES");
   }
 
@@ -1087,7 +1087,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.4
    * Available in GitLab Runner all
    */
-  static get CI_PROJECT_TITLE() {
+  static get ciProjectTitle() {
     return EnvProxy("CI_PROJECT_TITLE");
   }
 
@@ -1097,7 +1097,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_PROJECT_URL() {
+  static get ciProjectUrl() {
     return EnvProxy("CI_PROJECT_URL");
   }
 
@@ -1107,7 +1107,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.3
    * Available in GitLab Runner all
    */
-  static get CI_PROJECT_VISIBILITY() {
+  static get ciProjectVisibility() {
     return EnvProxy("CI_PROJECT_VISIBILITY");
   }
 
@@ -1118,7 +1118,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_REGISTRY() {
+  static get ciRegistry() {
     return EnvProxy("CI_REGISTRY");
   }
 
@@ -1128,7 +1128,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_REGISTRY_IMAGE() {
+  static get ciRegistryImage() {
     return EnvProxy("CI_REGISTRY_IMAGE");
   }
 
@@ -1142,7 +1142,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner all
    */
-  static get CI_REGISTRY_PASSWORD() {
+  static get ciRegistryPassword() {
     return "${CI_REGISTRY_PASSWORD}";
   }
 
@@ -1152,7 +1152,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner all
    */
-  static get CI_REGISTRY_USER() {
+  static get ciRegistryUser() {
     return EnvProxy("CI_REGISTRY_USER");
   }
 
@@ -1166,7 +1166,7 @@ export class PredefinedVariables {
    * Added in GitLab 9.0
    * Available in GitLab Runner all
    */
-  static get CI_REPOSITORY_URL() {
+  static get ciRepositoryUrl() {
     return "${CI_REPOSITORY_URL}";
   }
 
@@ -1176,7 +1176,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_RUNNER_DESCRIPTION() {
+  static get ciRunnerDescription() {
     return EnvProxy("CI_RUNNER_DESCRIPTION");
   }
 
@@ -1186,7 +1186,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 10.6
    */
-  static get CI_RUNNER_EXECUTABLE_ARCH() {
+  static get ciRunnerExecutableArch() {
     return EnvProxy("CI_RUNNER_EXECUTABLE_ARCH");
   }
 
@@ -1196,7 +1196,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_RUNNER_ID() {
+  static get ciRunnerId() {
     return EnvProxy("CI_RUNNER_ID");
   }
 
@@ -1206,7 +1206,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 10.6
    */
-  static get CI_RUNNER_REVISION() {
+  static get ciRunnerRevision() {
     return EnvProxy("CI_RUNNER_REVISION");
   }
 
@@ -1220,7 +1220,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 12.3
    */
-  static get CI_RUNNER_SHORT_TOKEN() {
+  static get ciRunnerShortToken() {
     return "${CI_RUNNER_SHORT_TOKEN}";
   }
 
@@ -1230,7 +1230,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.10
    * Available in GitLab Runner 0.5
    */
-  static get CI_RUNNER_TAGS() {
+  static get ciRunnerTags() {
     return EnvProxy("CI_RUNNER_TAGS");
   }
 
@@ -1240,7 +1240,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 10.6
    */
-  static get CI_RUNNER_VERSION() {
+  static get ciRunnerVersion() {
     return EnvProxy("CI_RUNNER_VERSION");
   }
 
@@ -1250,7 +1250,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get CI_SERVER() {
+  static get ciServer() {
     return EnvProxy("CI_SERVER");
   }
 
@@ -1260,7 +1260,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.7
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_URL() {
+  static get ciServerUrl() {
     return EnvProxy("CI_SERVER_URL");
   }
 
@@ -1270,7 +1270,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.1
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_HOST() {
+  static get ciServerHost() {
     return EnvProxy("CI_SERVER_HOST");
   }
 
@@ -1280,7 +1280,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.8
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_PORT() {
+  static get ciServerPort() {
     return EnvProxy("CI_SERVER_PORT");
   }
 
@@ -1290,7 +1290,7 @@ export class PredefinedVariables {
    * Added in GitLab 12.8
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_PROTOCOL() {
+  static get ciServerProtocol() {
     return EnvProxy("CI_SERVER_PROTOCOL");
   }
 
@@ -1300,7 +1300,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_NAME() {
+  static get ciServerName() {
     return EnvProxy("CI_SERVER_NAME");
   }
 
@@ -1310,7 +1310,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_REVISION() {
+  static get ciServerRevision() {
     return EnvProxy("CI_SERVER_REVISION");
   }
 
@@ -1320,7 +1320,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_VERSION() {
+  static get ciServerVersion() {
     return EnvProxy("CI_SERVER_VERSION");
   }
 
@@ -1330,7 +1330,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.4
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_VERSION_MAJOR() {
+  static get ciServerVersionMajor() {
     return EnvProxy("CI_SERVER_VERSION_MAJOR");
   }
 
@@ -1340,7 +1340,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.4
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_VERSION_MINOR() {
+  static get ciServerVersionMinor() {
     return EnvProxy("CI_SERVER_VERSION_MINOR");
   }
 
@@ -1350,7 +1350,7 @@ export class PredefinedVariables {
    * Added in GitLab 11.4
    * Available in GitLab Runner all
    */
-  static get CI_SERVER_VERSION_PATCH() {
+  static get ciServerVersionPatch() {
     return EnvProxy("CI_SERVER_VERSION_PATCH");
   }
 
@@ -1363,7 +1363,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner 10.1
    */
-  static get CI_SHARED_ENVIRONMENT() {
+  static get ciSharedEnvironment() {
     return EnvProxy("CI_SHARED_ENVIRONMENT");
   }
 
@@ -1373,7 +1373,7 @@ export class PredefinedVariables {
    * Added in GitLab all
    * Available in GitLab Runner all
    */
-  static get GITLAB_CI() {
+  static get gitlabCi() {
     return EnvProxy("GITLAB_CI");
   }
 
@@ -1383,7 +1383,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.6
    * Available in GitLab Runner all
    */
-  static get GITLAB_FEATURES() {
+  static get gitlabFeatures() {
     return EnvProxy("GITLAB_FEATURES");
   }
 
@@ -1393,7 +1393,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.12
    * Available in GitLab Runner all
    */
-  static get GITLAB_USER_EMAIL() {
+  static get gitlabUserEmail() {
     return EnvProxy("GITLAB_USER_EMAIL");
   }
 
@@ -1403,7 +1403,7 @@ export class PredefinedVariables {
    * Added in GitLab 8.12
    * Available in GitLab Runner all
    */
-  static get GITLAB_USER_ID() {
+  static get gitlabUserId() {
     return EnvProxy("GITLAB_USER_ID");
   }
 
@@ -1413,7 +1413,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.0
    * Available in GitLab Runner all
    */
-  static get GITLAB_USER_LOGIN() {
+  static get gitlabUserLogin() {
     return EnvProxy("GITLAB_USER_LOGIN");
   }
 
@@ -1423,7 +1423,7 @@ export class PredefinedVariables {
    * Added in GitLab 10.0
    * Available in GitLab Runner all
    */
-  static get GITLAB_USER_NAME() {
+  static get gitlabUserName() {
     return EnvProxy("GITLAB_USER_NAME");
   }
 
@@ -1433,7 +1433,7 @@ export class PredefinedVariables {
    * Added in GitLab 13.9
    * Available in GitLab Runner all
    */
-  static get TRIGGER_PAYLOAD() {
+  static get triggerPayload() {
     return EnvProxy("TRIGGER_PAYLOAD");
   }
 }

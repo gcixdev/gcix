@@ -204,7 +204,7 @@ test("fail on pipeline is ci project id", () => {
   expect(() => {
     return new Need({
       job: "test",
-      pipeline: PredefinedVariables.CI_PIPELINE_ID,
+      pipeline: PredefinedVariables.ciPipelineId,
     });
   }).toThrowError(/The pipeline attribute does not accept the current/);
 });

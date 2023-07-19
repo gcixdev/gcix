@@ -87,7 +87,7 @@ export interface ArtifactsProps {
   readonly exposeAs?: string;
   /**
    * Name of the artifacts archive.
-   * Internally defaults to {PredefinedVariables.CI_JOB_NAME}-{PredefinedVariables.CI_COMMIT_REF_SLUG}.
+   * Internally defaults to {PredefinedVariables.ciJobName}-{PredefinedVariables.ciCommitRefSlug}.
    */
   readonly name?: string;
   /**
@@ -152,7 +152,7 @@ export class Artifacts implements IArtifacts {
     this.exposeAs = props.exposeAs;
     this.name = props.name
       ? props.name
-      : `${PredefinedVariables.CI_JOB_NAME}-${PredefinedVariables.CI_COMMIT_REF_SLUG}`;
+      : `${PredefinedVariables.ciJobName}-${PredefinedVariables.ciCommitRefSlug}`;
     this.public = props.public;
     this.reports = props.reports;
     this.untracked = props.untracked;

@@ -63,7 +63,7 @@ export interface CacheKeyProps {
    * @description The key is the unique id of the cache. `gcix.Job`s
    * referencing caches with the same key are sharing the cache contents.
    * Mutually exclusive with `files`
-   * @default gcix.PredefinedVariables.CI_COMMIT_REF_SLUG
+   * @default gcix.PredefinedVariables.ciCommitRefSlug
    */
   readonly key?: string;
   /**
@@ -114,7 +114,7 @@ export class CacheKey implements ICacheKey {
     }
 
     if (!this.files && !this.key) {
-      this.key = PredefinedVariables.CI_COMMIT_REF_SLUG;
+      this.key = PredefinedVariables.ciCommitRefSlug;
     }
     if (this.key) {
       /**
@@ -209,7 +209,7 @@ export class Cache implements ICache {
 
   constructor(props: CacheProps) {
     this.paths = [];
-    // Get default CacheKey = PredefinedVariables.CI_COMMIT_REF_SLUG
+    // Get default CacheKey = PredefinedVariables.ciCommitRefSlug
     this.cacheKey = props.cacheKey ?? new CacheKey({});
     this.untracked = props.untracked;
     this.when = props.when;
@@ -221,7 +221,7 @@ export class Cache implements ICache {
      * are relative to CI_PROJECT_PATH
      */
     for (let path of props.paths) {
-      path = path.replace(PredefinedVariables.CI_PROJECT_DIR, "");
+      path = path.replace(PredefinedVariables.ciProjectDir, "");
       if (!path.startsWith("./")) {
         path = "./" + path;
       }
