@@ -31,6 +31,7 @@ testCollection.addChildren({
   jobsOrJobCollections: [lintJob, testJob, compileJob, packageJob],
 });
 testCollection.initializeImage("node:18");
+testCollection.prependScripts(["npx projen install:ci"]);
 
 const npmPublish = new Job({
   scripts: ["npm publish dist/js/*"],
@@ -55,4 +56,5 @@ publishCollection.appendRules([
 pipeline.addChildren({
   jobsOrJobCollections: [testCollection, publishCollection],
 });
+
 pipeline.writeYaml();
