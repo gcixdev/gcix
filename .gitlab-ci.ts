@@ -33,6 +33,10 @@ testCollection.addChildren({
 testCollection.initializeImage("node:18");
 testCollection.prependScripts(["npx projen install:ci"]);
 
+pipeline.addChildren({
+  jobsOrJobCollections: [testCollection],
+});
+
 const npmPublish = new Job({
   scripts: ["npm publish dist/js/*"],
   image: "node:18",
@@ -49,12 +53,14 @@ const publishCollection = new JobCollection();
 publishCollection.addChildren({
   jobsOrJobCollections: [npmPublish, pypiPublish],
 });
-publishCollection.appendRules([
-  new Rule({ ifStatement: `${PredefinedVariables.ciCommitTag}` }),
-]);
 
-pipeline.addChildren({
-  jobsOrJobCollections: [testCollection, publishCollection],
-});
+/**
+ * Only add publishCollection if pipeline is running on a tag.
+ */
+if (PredefinedVariables.ciCommitTag) {
+  pipeline.addChildren({
+    jobsOrJobCollections: [publishCollection],
+  });
+}
 
 pipeline.writeYaml();
