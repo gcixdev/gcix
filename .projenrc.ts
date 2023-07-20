@@ -1,4 +1,5 @@
 import { cdk } from "projen";
+import { NpmAccess } from "projen/lib/javascript";
 import { ReleaseTrigger } from "projen/lib/release";
 
 const gcixProject = new cdk.JsiiProject({
@@ -8,7 +9,7 @@ const gcixProject = new cdk.JsiiProject({
   description: "GitLab CI X Library (X stands for multilanguage)",
   defaultReleaseBranch: "main",
   jsiiVersion: "~5.0.0",
-  name: "gcix",
+  name: "@gcix/gcix",
   projenrcTs: true,
   repositoryUrl: "https://gitlab.com/gcix/gcix.git",
   docgen: true,
@@ -25,6 +26,7 @@ const gcixProject = new cdk.JsiiProject({
     "@types/jest",
   ],
   docsDirectory: "public",
+  npmAccess: NpmAccess.PUBLIC,
   publishToPypi: {
     distName: "gcix",
     module: "gcix",
