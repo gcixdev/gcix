@@ -30,20 +30,29 @@ const compileJob = new Job({
     "npx projen post-compile",
   ],
   name: "jsii-compile",
-  stage: "build",
+  stage: "compile",
 });
 compileJob.assignArtifacts(
   new Artifacts({ paths: ["tsconfig.json", ".jsii", "lib", "API.md"] }),
 );
-const packageJob = new Job({
-  scripts: ["npx projen package-all"],
-  name: "package-all",
-  stage: "build",
+const packageJsJob = new Job({
+  scripts: ["npx projen package:js"],
+  name: "package-js",
+  stage: "package",
 });
-packageJob.addNeeds([compileJob]);
+packageJsJob.assignImage("node:18");
+packageJsJob.addNeeds([compileJob]);
+const pagackePythonJob = new Job({
+  scripts: ["npx projen package:python"],
+  name: "package-python",
+  stage: "package",
+});
+pagackePythonJob.assignImage("python:3");
+pagackePythonJob.addNeeds([compileJob]);
+
 const testCollection = new JobCollection();
 testCollection.addChildren({
-  jobsOrJobCollections: [lintJob, testJob, compileJob, packageJob],
+  jobsOrJobCollections: [lintJob, testJob, compileJob],
 });
 testCollection.initializeImage("node:18");
 testCollection.prependScripts(["npx projen install:ci"]);
