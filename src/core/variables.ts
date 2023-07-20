@@ -61,6 +61,10 @@ export function EnvProxy(key: string): string {
   return process.env[key] ?? "notRunningInAPipeline";
 }
 
+export function OptionalEnvProxy(key: string): string | undefined {
+  return process.env[key];
+}
+
 /**
  * This class contains constants for [Gitlab CI predefined variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html)
  */
@@ -208,7 +212,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner 0.5
    */
   static get ciCommitBranch() {
-    return EnvProxy("CI_COMMIT_BRANCH");
+    return OptionalEnvProxy("CI_COMMIT_BRANCH");
   }
 
   /**
@@ -218,7 +222,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner 0.5
    */
   static get ciCommitTag() {
-    return EnvProxy("CI_COMMIT_TAG");
+    return OptionalEnvProxy("CI_COMMIT_TAG");
   }
 
   /**
@@ -342,7 +346,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciDeployFreeze() {
-    return EnvProxy("CI_DEPLOY_FREEZE");
+    return OptionalEnvProxy("CI_DEPLOY_FREEZE");
   }
 
   /**
@@ -382,7 +386,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner 10.1
    */
   static get ciDisposableEnvironment() {
-    return EnvProxy("CI_DISPOSABLE_ENVIRONMENT");
+    return OptionalEnvProxy("CI_DISPOSABLE_ENVIRONMENT");
   }
 
   /**
@@ -393,7 +397,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciEnvironmentName() {
-    return EnvProxy("CI_ENVIRONMENT_NAME");
+    return OptionalEnvProxy("CI_ENVIRONMENT_NAME");
   }
 
   /**
@@ -405,7 +409,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciEnvironmentSlug() {
-    return EnvProxy("CI_ENVIRONMENT_SLUG");
+    return OptionalEnvProxy("CI_ENVIRONMENT_SLUG");
   }
 
   /**
@@ -416,7 +420,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciEnvironmentUrl() {
-    return EnvProxy("CI_ENVIRONMENT_URL");
+    return OptionalEnvProxy("CI_ENVIRONMENT_URL");
   }
 
   /**
@@ -429,7 +433,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciExternalPullRequestIid() {
-    return EnvProxy("CI_EXTERNAL_PULL_REQUEST_IID");
+    return OptionalEnvProxy("CI_EXTERNAL_PULL_REQUEST_IID");
   }
 
   /**
@@ -442,7 +446,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciExternalPullRequestSourceRepository() {
-    return EnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_REPOSITORY");
+    return OptionalEnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_REPOSITORY");
   }
 
   /**
@@ -455,7 +459,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciExternalPullRequestTargetRepository() {
-    return EnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_REPOSITORY");
+    return OptionalEnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_REPOSITORY");
   }
 
   /**
@@ -467,7 +471,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciExternalPullRequestSourceBranchName() {
-    return EnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME");
+    return OptionalEnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_NAME");
   }
 
   /**
@@ -480,7 +484,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciExternalPullRequestSourceBranchSha() {
-    return EnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_SHA");
+    return OptionalEnvProxy("CI_EXTERNAL_PULL_REQUEST_SOURCE_BRANCH_SHA");
   }
 
   /**
@@ -492,7 +496,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciExternalPullRequestTargetBranchName() {
-    return EnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME");
+    return OptionalEnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_NAME");
   }
 
   /**
@@ -505,7 +509,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciExternalPullRequestTargetBranchSha() {
-    return EnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_SHA");
+    return OptionalEnvProxy("CI_EXTERNAL_PULL_REQUEST_TARGET_BRANCH_SHA");
   }
 
   /**
@@ -517,7 +521,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciHasOpenRequirements() {
-    return EnvProxy("CI_HAS_OPEN_REQUIREMENTS");
+    return OptionalEnvProxy("CI_HAS_OPEN_REQUIREMENTS");
   }
 
   /**
@@ -530,7 +534,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciOpenMergeRequests() {
-    return EnvProxy("CI_OPEN_MERGE_REQUESTS");
+    return OptionalEnvProxy("CI_OPEN_MERGE_REQUESTS");
   }
 
   /**
@@ -645,7 +649,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciKubernetesActive() {
-    return EnvProxy("CI_KUBERNETES_ACTIVE");
+    return OptionalEnvProxy("CI_KUBERNETES_ACTIVE");
   }
 
   /**
@@ -658,7 +662,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestAssignees() {
-    return EnvProxy("CI_MERGE_REQUEST_ASSIGNEES");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_ASSIGNEES");
   }
 
   /**
@@ -670,7 +674,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestId() {
-    return EnvProxy("CI_MERGE_REQUEST_ID");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_ID");
   }
 
   /**
@@ -682,7 +686,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestIid() {
-    return EnvProxy("CI_MERGE_REQUEST_IID");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_IID");
   }
 
   /**
@@ -694,7 +698,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestLabels() {
-    return EnvProxy("CI_MERGE_REQUEST_LABELS");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_LABELS");
   }
 
   /**
@@ -706,7 +710,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestMilestone() {
-    return EnvProxy("CI_MERGE_REQUEST_MILESTONE");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_MILESTONE");
   }
 
   /**
@@ -718,7 +722,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestProjectId() {
-    return EnvProxy("CI_MERGE_REQUEST_PROJECT_ID");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_PROJECT_ID");
   }
 
   /**
@@ -731,7 +735,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestProjectPath() {
-    return EnvProxy("CI_MERGE_REQUEST_PROJECT_PATH");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_PROJECT_PATH");
   }
 
   /**
@@ -744,7 +748,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestProjectUrl() {
-    return EnvProxy("CI_MERGE_REQUEST_PROJECT_URL");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_PROJECT_URL");
   }
 
   /**
@@ -756,7 +760,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestRefPath() {
-    return EnvProxy("CI_MERGE_REQUEST_REF_PATH");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_REF_PATH");
   }
 
   /**
@@ -768,7 +772,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestSourceBranchName() {
-    return EnvProxy("CI_MERGE_REQUEST_SOURCE_BRANCH_NAME");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_SOURCE_BRANCH_NAME");
   }
 
   /**
@@ -781,7 +785,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestSourceBranchSha() {
-    return EnvProxy("CI_MERGE_REQUEST_SOURCE_BRANCH_SHA");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_SOURCE_BRANCH_SHA");
   }
 
   /**
@@ -793,7 +797,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestSourceProjectId() {
-    return EnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_ID");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_ID");
   }
 
   /**
@@ -805,7 +809,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestSourceProjectPath() {
-    return EnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_PATH");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_PATH");
   }
 
   /**
@@ -817,7 +821,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestSourceProjectUrl() {
-    return EnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_URL");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_SOURCE_PROJECT_URL");
   }
 
   /**
@@ -854,7 +858,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestTitle() {
-    return EnvProxy("CI_MERGE_REQUEST_TITLE");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_TITLE");
   }
 
   /**
@@ -865,7 +869,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestEventType() {
-    return EnvProxy("CI_MERGE_REQUEST_EVENT_TYPE");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_EVENT_TYPE");
   }
 
   /**
@@ -875,7 +879,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestDiffId() {
-    return EnvProxy("CI_MERGE_REQUEST_DIFF_ID");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_DIFF_ID");
   }
 
   /**
@@ -885,7 +889,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciMergeRequestDiffBaseSha() {
-    return EnvProxy("CI_MERGE_REQUEST_DIFF_BASE_SHA");
+    return OptionalEnvProxy("CI_MERGE_REQUEST_DIFF_BASE_SHA");
   }
 
   /**
@@ -895,7 +899,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciNodeIndex() {
-    return EnvProxy("CI_NODE_INDEX");
+    return OptionalEnvProxy("CI_NODE_INDEX");
   }
 
   /**
@@ -1119,7 +1123,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner 0.5
    */
   static get ciRegistry() {
-    return EnvProxy("CI_REGISTRY");
+    return OptionalEnvProxy("CI_REGISTRY");
   }
 
   /**
@@ -1129,7 +1133,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner 0.5
    */
   static get ciRegistryImage() {
-    return EnvProxy("CI_REGISTRY_IMAGE");
+    return OptionalEnvProxy("CI_REGISTRY_IMAGE");
   }
 
   /**
@@ -1153,7 +1157,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get ciRegistryUser() {
-    return EnvProxy("CI_REGISTRY_USER");
+    return OptionalEnvProxy("CI_REGISTRY_USER");
   }
 
   /**
@@ -1364,7 +1368,7 @@ export class PredefinedVariables {
    * Available in GitLab Runner 10.1
    */
   static get ciSharedEnvironment() {
-    return EnvProxy("CI_SHARED_ENVIRONMENT");
+    return OptionalEnvProxy("CI_SHARED_ENVIRONMENT");
   }
 
   /**
@@ -1434,6 +1438,6 @@ export class PredefinedVariables {
    * Available in GitLab Runner all
    */
   static get triggerPayload() {
-    return EnvProxy("TRIGGER_PAYLOAD");
+    return OptionalEnvProxy("TRIGGER_PAYLOAD");
   }
 }
