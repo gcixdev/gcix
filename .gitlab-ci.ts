@@ -3,7 +3,6 @@ import {
   JobCollection,
   Job,
   PredefinedVariables,
-  Rule,
   Artifacts,
 } from "./src";
 
@@ -24,23 +23,19 @@ testJob.assignArtifacts(
     reports: [{ reportType: "junit", file: "test-reports/junit.xml" }],
   }),
 );
-const compileJob = new Job({
+const packageJob = new Job({
   scripts: [
     "npx projen pre-compile",
     "npx projen compile",
     "npx projen post-compile",
+    "npx projen package-all",
   ],
-  name: "jsii-compile",
-  stage: "build",
-});
-const packageJob = new Job({
-  scripts: ["npx projen package-all"],
   name: "package-all",
   stage: "build",
 });
 const testCollection = new JobCollection();
 testCollection.addChildren({
-  jobsOrJobCollections: [lintJob, testJob, compileJob, packageJob],
+  jobsOrJobCollections: [lintJob, testJob, packageJob],
 });
 testCollection.initializeImage("node:18");
 testCollection.prependScripts(["npx projen install:ci"]);
