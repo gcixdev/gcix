@@ -3,7 +3,6 @@ import {
   JobCollection,
   Job,
   PredefinedVariables,
-  Rule,
   Artifacts,
 } from "./src";
 
@@ -33,11 +32,15 @@ const compileJob = new Job({
   name: "jsii-compile",
   stage: "build",
 });
+compileJob.assignArtifacts(
+  new Artifacts({ paths: ["tsconfig.json", ".jsii", "lib", "API.md"] }),
+);
 const packageJob = new Job({
   scripts: ["npx projen package-all"],
   name: "package-all",
   stage: "build",
 });
+packageJob.addNeeds([compileJob]);
 const testCollection = new JobCollection();
 testCollection.addChildren({
   jobsOrJobCollections: [lintJob, testJob, compileJob, packageJob],
