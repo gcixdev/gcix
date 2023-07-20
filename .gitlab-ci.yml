@@ -1,0 +1,19 @@
+---
+generate-pipeline:
+  stage: build
+  image: node:18
+  script:
+    - npx ts-node .gitlab-ci.ts
+  artifacts:
+    paths:
+      - generated-config.yml
+
+run-pipeline:
+  stage: deploy
+  needs:
+    - generate-pipeline
+  trigger:
+    include:
+      - artifact: generated-config.yml
+        job: generate-pipeline
+    strategy: depend

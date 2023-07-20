@@ -30,7 +30,8 @@
     "upgrade": "npx projen upgrade",
     "watch": "npx projen watch",
     "projen": "npx projen",
-    "test:update": "UPDATE_TEST_OUTPUT=true npx projen test"
+    "test:update": "UPDATE_TEST_OUTPUT=true npx projen test",
+    "gcix:gen": "npx ts-node .gitlab-ci.ts"
   },
   "author": {
     "name": "Daniel von Essen",

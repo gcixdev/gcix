@@ -39,6 +39,22 @@ const gcixProject = new cdk.JsiiProject({
   },
   releaseTrigger: ReleaseTrigger.manual(),
   prettier: true,
+  eslintOptions: {
+    dirs: ["src"],
+    ignorePatterns: [
+      "*.js",
+      "*.d.ts",
+      "node_modules/",
+      "*.generated.ts",
+      "coverage",
+      "!.gitlab-ci.ts",
+    ],
+  },
+  tsconfig: {
+    compilerOptions: {},
+    include: [".gitlab-ci.ts"],
+  },
+  gitignore: ["generated-config.yml"],
 });
 gcixProject.vscode?.settings.addSettings({
   "editor.tabSize": 2,
@@ -50,6 +66,10 @@ gcixProject.vscode?.settings.addSettings({
 gcixProject.addScripts({
   "test:update": "UPDATE_TEST_OUTPUT=true npx projen test",
 });
+/**
+ * Generate pipeline from .gitlab-ci.ts
+ */
+gcixProject.addScripts({ "gcix:gen": "npx ts-node .gitlab-ci.ts" });
 gcixProject.synth();
 
 // const documentationProject = new python.PythonProject({

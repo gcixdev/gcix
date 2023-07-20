@@ -42,6 +42,7 @@
     "node_modules/",
     "*.generated.ts",
     "coverage",
+    "!.gitlab-ci.ts",
     "!.projenrc.ts",
     "!projenrc/**/*.ts"
   ],
