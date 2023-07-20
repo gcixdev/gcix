@@ -1,4 +1,11 @@
-import { Pipeline, JobCollection, Job, PredefinedVariables, Rule } from "./src";
+import {
+  Pipeline,
+  JobCollection,
+  Job,
+  PredefinedVariables,
+  Rule,
+  Artifacts,
+} from "./src";
 
 const pipeline = new Pipeline();
 
@@ -12,6 +19,11 @@ const testJob = new Job({
   name: "test-jest",
   stage: "test",
 });
+testJob.assignArtifacts(
+  new Artifacts({
+    reports: [{ reportType: "junit", file: "test-reports/junit.xml" }],
+  }),
+);
 const compileJob = new Job({
   scripts: [
     "npx projen pre-compile",
