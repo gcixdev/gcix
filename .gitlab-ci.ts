@@ -62,6 +62,7 @@ const packageCollection = new JobCollection();
 packageCollection.addChildren({
   jobsOrJobCollections: [packageJsJob, packagePythonJob],
 });
+packageCollection.prependScripts(["npx projen install:ci"]);
 
 pipeline.addChildren({
   jobsOrJobCollections: [testCollection, packageCollection],
