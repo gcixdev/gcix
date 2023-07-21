@@ -8,6 +8,7 @@ const gcixProject = new cdk.JsiiProject({
   authorAddress: "daniel@vonessen.eu",
   description: "GitLab CI X Library (X stands for multilanguage)",
   defaultReleaseBranch: "main",
+  prerelease: "pre",
   jsiiVersion: "~5.0.0",
   name: "@gcix/gcix",
   projenrcTs: true,
