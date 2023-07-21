@@ -44,7 +44,7 @@ const packageJob = new Job({
   scripts: [
     "apt update && apt install -y python3-pip",
     "npx projen install:ci",
-    "npx projen package:all",
+    "npx projen package-all",
   ],
   image: "node:18",
   artifacts: new Artifacts({ paths: ["dist/"] }),
