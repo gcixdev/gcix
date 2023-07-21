@@ -35,20 +35,6 @@ const compileJob = new Job({
 compileJob.assignArtifacts(
   new Artifacts({ paths: ["tsconfig.json", ".jsii", "lib", "API.md"] }),
 );
-const packageJsJob = new Job({
-  scripts: ["npx projen package:js"],
-  name: "package-js",
-  stage: "package",
-});
-packageJsJob.assignImage("node:18");
-packageJsJob.addNeeds([compileJob]);
-const pagackePythonJob = new Job({
-  scripts: ["npx projen package:python"],
-  name: "package-python",
-  stage: "package",
-});
-pagackePythonJob.assignImage("python:3");
-pagackePythonJob.addNeeds([compileJob]);
 
 const testCollection = new JobCollection();
 testCollection.addChildren({
@@ -57,8 +43,28 @@ testCollection.addChildren({
 testCollection.initializeImage("node:18");
 testCollection.prependScripts(["npx projen install:ci"]);
 
+const packageJsJob = new Job({
+  scripts: ["npx projen package:js"],
+  name: "package-js",
+  stage: "package",
+});
+packageJsJob.assignImage("node:18");
+packageJsJob.addNeeds([compileJob]);
+const packagePythonJob = new Job({
+  scripts: ["npx projen package:python"],
+  name: "package-python",
+  stage: "package",
+});
+packagePythonJob.assignImage("python:3");
+packagePythonJob.addNeeds([compileJob]);
+
+const packageCollection = new JobCollection();
+packageCollection.addChildren({
+  jobsOrJobCollections: [packageJsJob, packagePythonJob],
+});
+
 pipeline.addChildren({
-  jobsOrJobCollections: [testCollection],
+  jobsOrJobCollections: [testCollection, packageCollection],
 });
 
 const npmPublish = new Job({
