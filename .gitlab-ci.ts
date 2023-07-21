@@ -94,4 +94,5 @@ if (PredefinedVariables.ciCommitTag) {
   });
 }
 
+pipeline.addTags(["gcix"]);
 pipeline.writeYaml();

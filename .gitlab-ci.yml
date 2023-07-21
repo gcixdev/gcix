@@ -8,6 +8,8 @@ generate-pipeline:
   artifacts:
     paths:
       - generated-config.yml
+  tags:
+    - gcix
 
 run-pipeline:
   stage: deploy
