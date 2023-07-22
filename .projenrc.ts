@@ -64,33 +64,9 @@ gcixProject.vscode?.settings.addSettings({
 /**
  * Run test and update comparison files.
  */
-gcixProject.addScripts({
-  "test:update": "UPDATE_TEST_OUTPUT=true npx projen test",
+gcixProject.addTask("test:update", {
+  exec: "npx projen test",
+  env: { UPDATE_TEST_OUTPUT: "true" },
 });
-/**
- * Generate pipeline from .gitlab-ci.ts
- */
-gcixProject.addScripts({ "gcix:gen": "npx ts-node .gitlab-ci.ts" });
+
 gcixProject.synth();
-
-// const documentationProject = new python.PythonProject({
-//   authorEmail: "daniel@vonessen.eu",
-//   authorName: "Daniel von Essen",
-//   description: "GitLab CI X Library (X stands for multilanguage)",
-//   moduleName: "undefined",
-//   name: "undefined",
-//   version: "0.0.0",
-//   poetry: false,
-//   github: false,
-//   pytest: false,
-//   parent: gcixProject,
-//   outdir: "mkdocs",
-//   deps: ["mkdocs-material"],
-//   readme: {
-//     contents: "undefined",
-//     filename: "",
-//   },
-//   sample: false,
-// });
-
-// documentationProject.synth();

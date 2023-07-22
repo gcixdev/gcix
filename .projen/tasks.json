@@ -267,6 +267,17 @@
         }
       ]
     },
+    "test:update": {
+      "name": "test:update",
+      "env": {
+        "UPDATE_TEST_OUTPUT": "true"
+      },
+      "steps": [
+        {
+          "exec": "npx projen test"
+        }
+      ]
+    },
     "test:watch": {
       "name": "test:watch",
       "description": "Run jest in watch mode",
