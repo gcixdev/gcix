@@ -1,0 +1,77 @@
+site_name: Gitlab CI X Library Documentation
+repo_url: https://gitlab.com/gcix/gcix
+repo_name: gcix/gcix
+edit_uri: edit/main/docs/
+site_dir: public/
+
+theme:
+  name: material
+  icon:
+    edit: material/pencil
+    view: material/eye
+  features:
+    - content.code.copy
+    - content.action.edit
+    - content.action.view
+    - content.tabs.link
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+plugins:
+  - literate-nav:
+      tab_length: 2
+  - search:
+      lang:
+        - en
+        - de
+  - macros
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - git-authors:
+      show_contribution: true
+      show_line_count: true
+      show_email_address: true
+      count_empty_lines: true
+      fallback_to_empty: false
+      sort_authors_by: contribution
+      authorship_threshold_percent: 10
+markdown_extensions:
+  - abbr
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - md_in_html
+  - pymdownx.tabbed:
+      alternate_style: true
