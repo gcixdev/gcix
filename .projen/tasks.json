@@ -130,6 +130,15 @@
         }
       ]
     },
+    "gcix:gen": {
+      "name": "gcix:gen",
+      "description": "Execute .gitlab-ci.ts and generate 'generated-config.yml'",
+      "steps": [
+        {
+          "exec": "npx ts-node .gitlab-ci.ts"
+        }
+      ]
+    },
     "install": {
       "name": "install",
       "description": "Install project dependencies and update lockfile (non-frozen)",

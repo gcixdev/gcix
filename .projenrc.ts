@@ -68,5 +68,11 @@ gcixProject.addTask("test:update", {
   exec: "npx projen test",
   env: { UPDATE_TEST_OUTPUT: "true" },
 });
-
+/**
+ * Generate pipeline from .gitlab-ci.ts
+ */
+gcixProject.addTask("gcix:gen", {
+  exec: "npx ts-node .gitlab-ci.ts",
+  description: "Execute .gitlab-ci.ts and generate 'generated-config.yml'",
+});
 gcixProject.synth();
