@@ -1,5 +1,6 @@
 import { cdk } from "projen";
 import { NpmAccess } from "projen/lib/javascript";
+import { RequirementsFile, Venv } from "projen/lib/python";
 import { ReleaseTrigger } from "projen/lib/release";
 
 const gcixProject = new cdk.JsiiProject({
@@ -172,4 +173,43 @@ gcixProject.addTask("ci:publish-all", {
     { exec: "twine upload dist/python/*" },
   ],
 });
+gcixProject.synth();
+
+/**
+ * Create virtualenv, requirements file to allow building and writing
+ * documentation with mkdocs for material.
+ */
+const pythonVenv = new Venv(gcixProject, { pythonExec: "python3.11" });
+pythonVenv.setupEnvironment();
+
+const pythonReqirements = new RequirementsFile(
+  gcixProject,
+  "requirements.txt",
+  {},
+);
+pythonReqirements.addPackages(
+  "mkdocs-material@9.*",
+  "mkdocs-macros-plugin",
+  "mkdocs-git-revision-date-localized-plugin",
+  "mkdocs-git-authors-plugin",
+  "mkdocs-literate-nav",
+);
+
+gcixProject.addTask("docs:dependencies", {
+  exec: "source .env/bin/activate && pip3 install -r requirements.txt",
+  description: "Install all requirements to build the documentation.",
+});
+gcixProject.addTask("docs:serve", {
+  exec: "mkdocs serve",
+  description:
+    "Start mkdocs in serve mode to allow writing local documentation.",
+});
+/**
+ * docgen with jsii
+ */
+gcixProject.addTask("docs:api", {
+  description: "Generate api documentation with jsii-docgen",
+  exec: "npx jsii-docgen -l typescript -l python --readme false --split-by-submodule true --output ./docs/api/",
+});
+gcixProject.addGitIgnore("docs/api/api.*.md");
 gcixProject.synth();
