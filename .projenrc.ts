@@ -38,7 +38,7 @@ const gcixProject = new cdk.JsiiProject({
       setupFiles: ["./test/set-env-vars.ts"],
     },
   },
-  releaseTrigger: ReleaseTrigger.manual(),
+  releaseTrigger: ReleaseTrigger.manual({ gitPushCommand: "" }),
   prettier: true,
   eslintOptions: {
     dirs: ["src"],
