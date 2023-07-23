@@ -8,6 +8,9 @@
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
+    "ci:package": "npx projen ci:package",
+    "ci:publish-npmjs": "npx projen ci:publish-npmjs",
+    "ci:publish-pypi": "npx projen ci:publish-pypi",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
     "compile": "npx projen compile",

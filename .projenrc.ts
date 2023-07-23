@@ -85,6 +85,7 @@ gcixProject.addTask("release:common", {
     { spawn: "bump" },
     { spawn: "pre-compile" },
     { spawn: "compile" },
+    { spawn: "compile" },
     { spawn: "package" },
     { spawn: "unbump" },
     { spawn: "publish:git" },
@@ -101,5 +102,32 @@ gcixProject.addTask("release:tag", {
     RELEASE: "true",
   },
   steps: [{ spawn: "release:common" }],
+});
+gcixProject.addTask("ci:package", {
+  description: `Task which will install dependencies from lock, write the
+    CI_COMMIT_TAG in package.json, spawns pre-compile, compile and package`,
+  requiredEnv: ["CI"],
+  steps: [
+    { exec: "apt update && apt install -y python3-pip python3-venv jq" },
+    { spawn: "install:ci" },
+    { exec: "scripts/update_package_json_version.sh" },
+    { spawn: "pre-compile" },
+    { spawn: "compile" },
+    { spawn: "package-all" },
+  ],
+});
+gcixProject.addTask("ci:publish-pypi", {
+  description: "Publish produced artifact to PyPi repository.",
+  requiredEnv: ["CI", "CI_COMMIT_TAG", "TWINE_USERNAME", "TWINE_PASSWORD"],
+  steps: [
+    { exec: "apt update && apt install -y python3-pip" },
+    { exec: "pip install twine" },
+    { exec: "twine upload dist/python/*" },
+  ],
+});
+gcixProject.addTask("ci:publish-npmjs", {
+  description: "Publish produced artifact to npm registry.",
+  requiredEnv: ["CI", "CI_COMMIT_TAG", "NPM_TOKEN"],
+  exec: "npm publish dist/js/*",
 });
 gcixProject.synth();

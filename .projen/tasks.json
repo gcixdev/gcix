@@ -41,6 +41,68 @@
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
+    "ci:package": {
+      "name": "ci:package",
+      "description": "Task which will install dependencies from lock, write the\n    CI_COMMIT_TAG in package.json, spawns pre-compile, compile and package",
+      "requiredEnv": [
+        "CI"
+      ],
+      "steps": [
+        {
+          "exec": "apt update && apt install -y python3-pip python3-venv jq"
+        },
+        {
+          "spawn": "install:ci"
+        },
+        {
+          "exec": "scripts/update_package_json_version.sh"
+        },
+        {
+          "spawn": "pre-compile"
+        },
+        {
+          "spawn": "compile"
+        },
+        {
+          "spawn": "package-all"
+        }
+      ]
+    },
+    "ci:publish-npmjs": {
+      "name": "ci:publish-npmjs",
+      "description": "Publish produced artifact to npm registry.",
+      "requiredEnv": [
+        "CI",
+        "CI_COMMIT_TAG",
+        "NPM_TOKEN"
+      ],
+      "steps": [
+        {
+          "exec": "npm publish dist/js/*"
+        }
+      ]
+    },
+    "ci:publish-pypi": {
+      "name": "ci:publish-pypi",
+      "description": "Publish produced artifact to PyPi repository.",
+      "requiredEnv": [
+        "CI",
+        "CI_COMMIT_TAG",
+        "TWINE_USERNAME",
+        "TWINE_PASSWORD"
+      ],
+      "steps": [
+        {
+          "exec": "apt update && apt install -y python3-pip"
+        },
+        {
+          "exec": "pip install twine"
+        },
+        {
+          "exec": "twine upload dist/python/*"
+        }
+      ]
+    },
     "clobber": {
       "name": "clobber",
       "description": "hard resets to HEAD of origin and cleans the local repo",
@@ -276,6 +338,9 @@
         },
         {
           "spawn": "compile"
+        },
+        {
+          "spawn": "test"
         },
         {
           "spawn": "package"

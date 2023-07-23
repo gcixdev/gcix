@@ -21,34 +21,19 @@ const testJob = new Job({
   name: "test-jest",
   stage: "test",
 });
-const compileJob = new Job({
-  scripts: [
-    "npx projen pre-compile",
-    "npx projen compile",
-    "npx projen post-compile",
-  ],
-  artifacts: new Artifacts({
-    paths: ["tsconfig.json", ".jsii", "lib", "API.md"],
-  }),
-  name: "jsii-compile",
-  stage: "compile",
-});
 const testCollection = new JobCollection();
 testCollection.addChildren({
-  jobsOrJobCollections: [lintJob, testJob, compileJob],
+  jobsOrJobCollections: [lintJob, testJob],
 });
 testCollection.initializeImage("node:18");
 testCollection.prependScripts(["npx projen install:ci"]);
 
 const packageJob = new Job({
-  scripts: [
-    "apt update && apt install -y python3-pip python3-venv",
-    "npx projen install:ci",
-    "npx projen package-all",
-  ],
+  scripts: ["npx projen ci:package"],
   image: "node:18",
-  artifacts: new Artifacts({ paths: ["dist/"] }),
-  needs: [compileJob],
+  artifacts: new Artifacts({
+    paths: ["lib", ".jsii", "tsconfig.json", "dist/"],
+  }),
   name: "package-all",
   stage: "package",
 });
@@ -64,15 +49,15 @@ if (PredefinedVariables.ciCommitTag) {
   pipeline.addChildren({
     jobsOrJobCollections: [
       new Job({
-        scripts: ["npm publish dist/js/*"],
+        scripts: ["npx projen ci:publish-npmjs"],
         name: "npm",
         stage: "publish",
-      }),
+      }).addNeeds([packageJob]),
       new Job({
-        scripts: ["pip install twine", "twine upload dist/python/*"],
+        scripts: ["npx projen ci:publish-pypi"],
         name: "pypi",
         stage: "publish",
-      }),
+      }).addNeeds([packageJob]),
     ],
   });
 }
