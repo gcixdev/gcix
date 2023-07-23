@@ -8,7 +8,6 @@ const gcixProject = new cdk.JsiiProject({
   authorAddress: "daniel@vonessen.eu",
   description: "GitLab CI X Library (X stands for multilanguage)",
   defaultReleaseBranch: "main",
-  prerelease: "pre",
   jsiiVersion: "~5.0.0",
   name: "@gcix/gcix",
   projenrcTs: true,
@@ -74,5 +73,32 @@ gcixProject.addTask("test:update", {
 gcixProject.addTask("gcix:gen", {
   exec: "npx ts-node .gitlab-ci.ts",
   description: "Execute .gitlab-ci.ts and generate 'generated-config.yml'",
+});
+/**
+ * Add custom release tasks
+ */
+gcixProject.addTask("release:common", {
+  steps: [
+    { spawn: "install:ci" },
+    { exec: "rm -fr dist" },
+    { spawn: "bump" },
+    { spawn: "pre-compile" },
+    { spawn: "compile" },
+    { spawn: "package" },
+    { spawn: "unbump" },
+    { spawn: "publish:git" },
+  ],
+});
+gcixProject.addTask("release:pre", {
+  env: {
+    PRERELEASE: "pre",
+  },
+  steps: [{ spawn: "release:common" }],
+});
+gcixProject.addTask("release:tag", {
+  env: {
+    RELEASE: "true",
+  },
+  steps: [{ spawn: "release:common" }],
 });
 gcixProject.synth();

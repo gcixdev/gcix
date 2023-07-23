@@ -236,8 +236,7 @@
       "name": "release",
       "description": "Prepare a release from \"main\" branch",
       "env": {
-        "RELEASE": "true",
-        "PRERELEASE": "pre"
+        "RELEASE": "true"
       },
       "steps": [
         {
@@ -257,6 +256,57 @@
         },
         {
           "spawn": "publish:git"
+        }
+      ]
+    },
+    "release:common": {
+      "name": "release:common",
+      "steps": [
+        {
+          "spawn": "install:ci"
+        },
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "pre-compile"
+        },
+        {
+          "spawn": "compile"
+        },
+        {
+          "spawn": "package"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "spawn": "publish:git"
+        }
+      ]
+    },
+    "release:pre": {
+      "name": "release:pre",
+      "env": {
+        "PRERELEASE": "pre"
+      },
+      "steps": [
+        {
+          "spawn": "release:common"
+        }
+      ]
+    },
+    "release:tag": {
+      "name": "release:tag",
+      "env": {
+        "RELEASE": "true"
+      },
+      "steps": [
+        {
+          "spawn": "release:common"
         }
       ]
     },
