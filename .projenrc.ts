@@ -37,7 +37,7 @@ const gcixProject = new cdk.JsiiProject({
       setupFiles: ["./test/set-env-vars.ts"],
     },
   },
-  releaseTrigger: ReleaseTrigger.manual({ gitPushCommand: "" }),
+  releaseTrigger: ReleaseTrigger.manual(),
   prettier: true,
   eslintOptions: {
     dirs: ["src"],
@@ -78,56 +78,77 @@ gcixProject.addTask("gcix:gen", {
 /**
  * Add custom release tasks
  */
-gcixProject.addTask("release:common", {
+gcixProject.addTask("ci:install:deps", {
+  requiredEnv: ["CI"],
+  description: "Install dependencies inside the CI environment.",
   steps: [
+    { exec: "apt update && apt install -y python3-pip python3-venv jq rsync" },
     { spawn: "install:ci" },
+  ],
+});
+gcixProject.addTask("ci:test", {
+  requiredEnv: ["CI"],
+  description: "Executes Jest tests.",
+  steps: [{ spawn: "ci:install:deps" }, { spawn: "test" }],
+});
+gcixProject.addTask("ci:lint", {
+  requiredEnv: ["CI"],
+  description: "Executes eslint.",
+  steps: [{ spawn: "ci:install:deps" }, { spawn: "eslint" }],
+});
+gcixProject.addTask("ci:publish:git", {
+  description: `Creates a new git tag and generates the CHANGELOG.md from
+  conventional commits`,
+  requiredEnv: ["CI", "CI_COMMIT_REF_NAME"],
+  env: {
+    RELEASE: "true",
+  },
+  steps: [
+    {
+      exec: 'git clone --single-branch --branch "${CI_COMMIT_REF_NAME}" "https://gitlab-ci-token:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"',
+    },
+    { exec: "cd ${CI_COMMIT_SHA}" },
+    {
+      exec: "git checkout -B ${CI_COMMIT_REF_NAME} remotes/origin/${CI_COMMIT_REF_NAME} --",
+    },
+    { exec: 'git config --local user.name "${GITLAB_USER_NAME}"' },
+    { exec: 'git config --local user.email "${GITLAB_USER_EMAIL}"' },
+    { spawn: "ci:install:deps" },
     { exec: "rm -fr dist" },
     { spawn: "bump" },
     { spawn: "pre-compile" },
     { spawn: "compile" },
-    { spawn: "compile" },
-    { spawn: "package" },
+    { spawn: "package-all" },
     { spawn: "unbump" },
     { spawn: "publish:git" },
   ],
 });
-gcixProject.addTask("release:pre", {
-  env: {
-    PRERELEASE: "pre",
-  },
-  steps: [{ spawn: "release:common" }],
-});
-gcixProject.addTask("release:tag", {
-  env: {
-    RELEASE: "true",
-  },
-  steps: [{ spawn: "release:common" }],
-});
-gcixProject.addTask("ci:package", {
+gcixProject.addTask("ci:package-all", {
   description: `Task which will install dependencies from lock, write the
     CI_COMMIT_TAG in package.json, spawns pre-compile, compile and package`,
-  requiredEnv: ["CI"],
+  requiredEnv: ["CI", "CI_COMMIT_TAG"],
   steps: [
-    { exec: "apt update && apt install -y python3-pip python3-venv jq" },
-    { spawn: "install:ci" },
+    { spawn: "ci:install:deps" },
     { exec: "scripts/update_package_json_version.sh" },
     { spawn: "pre-compile" },
     { spawn: "compile" },
     { spawn: "package-all" },
   ],
 });
-gcixProject.addTask("ci:publish-pypi", {
-  description: "Publish produced artifact to PyPi repository.",
-  requiredEnv: ["CI", "CI_COMMIT_TAG", "TWINE_USERNAME", "TWINE_PASSWORD"],
+gcixProject.addTask("ci:publish-all", {
+  description: "Publish produced artifacts to NPMjs and PyPi repository.",
+  requiredEnv: [
+    "CI",
+    "CI_COMMIT_TAG",
+    "NPM_TOKEN",
+    "TWINE_USERNAME",
+    "TWINE_PASSWORD",
+  ],
   steps: [
-    { exec: "apt update && apt install -y python3-pip" },
+    { spawn: "ci:install:deps" },
+    { exec: "npm publish dist/js/*" },
     { exec: "pip install twine" },
     { exec: "twine upload dist/python/*" },
   ],
-});
-gcixProject.addTask("ci:publish-npmjs", {
-  description: "Publish produced artifact to npm registry.",
-  requiredEnv: ["CI", "CI_COMMIT_TAG", "NPM_TOKEN"],
-  exec: "npm publish dist/js/*",
 });
 gcixProject.synth();
