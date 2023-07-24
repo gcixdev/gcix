@@ -9,7 +9,7 @@ const gcixProject = new cdk.JsiiProject({
   description: "GitLab CI X Library (X stands for multilanguage)",
   defaultReleaseBranch: "main",
   jsiiVersion: "~5.0.0",
-  name: "@gcix/gcix",
+  name: "gcix",
   projenrcTs: true,
   repositoryUrl: "https://gitlab.com/gcix/gcix.git",
   docgen: true,
@@ -166,6 +166,7 @@ gcixProject.addTask("ci:publish-all", {
   ],
   steps: [
     { spawn: "ci:install:deps" },
+    { exec: "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}" },
     { exec: "npm publish dist/js/*" },
     { exec: "pip install twine" },
     { exec: "twine upload dist/python/*" },

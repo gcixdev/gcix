@@ -111,6 +111,9 @@
           "spawn": "ci:install:deps"
         },
         {
+          "exec": "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}"
+        },
+        {
           "exec": "npm publish dist/js/*"
         },
         {
