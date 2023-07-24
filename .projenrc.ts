@@ -96,23 +96,43 @@ gcixProject.addTask("ci:lint", {
   description: "Executes eslint.",
   steps: [{ spawn: "ci:install:deps" }, { spawn: "eslint" }],
 });
+gcixProject.addTask("ci:setup:git", {
+  description: "Setup git clone for further building.",
+  requiredEnv: [
+    "CI",
+    "CI_COMMIT_REF_NAME",
+    "CI_COMMIT_SHORT_SHA",
+    "GCIX_PUSH_USER",
+    "GCIX_PUSH_TOKEN",
+    "CI_SERVER_HOST",
+    "CI_PROJECT_PATH",
+    "GITLAB_USER_NAME",
+    "GITLAB_USER_EMAIL",
+  ],
+  steps: [
+    {
+      exec: 'git clone --single-branch --branch "${CI_COMMIT_REF_NAME}" "https://${GCIX_PUSH_USER}:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHORT_SHA}"',
+    },
+    {
+      exec: "cd ${CI_COMMIT_SHORT_SHA} && git checkout -B ${CI_COMMIT_REF_NAME} remotes/origin/${CI_COMMIT_REF_NAME} --",
+    },
+    {
+      exec: 'cd ${CI_COMMIT_SHORT_SHA} && git config --local user.name "${GITLAB_USER_NAME}"',
+    },
+    {
+      exec: 'cd ${CI_COMMIT_SHORT_SHA} && git config --local user.email "${GITLAB_USER_EMAIL}"',
+    },
+  ],
+});
 gcixProject.addTask("ci:publish:git", {
   description: `Creates a new git tag and generates the CHANGELOG.md from
   conventional commits`,
-  requiredEnv: ["CI", "CI_COMMIT_REF_NAME"],
+  requiredEnv: ["CI"],
   env: {
     RELEASE: "true",
   },
   steps: [
-    {
-      exec: 'git clone --single-branch --branch "${CI_COMMIT_REF_NAME}" "https://gitlab-ci-token:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"',
-    },
-    { exec: "cd ${CI_COMMIT_SHA}" },
-    {
-      exec: "git checkout -B ${CI_COMMIT_REF_NAME} remotes/origin/${CI_COMMIT_REF_NAME} --",
-    },
-    { exec: 'git config --local user.name "${GITLAB_USER_NAME}"' },
-    { exec: 'git config --local user.email "${GITLAB_USER_EMAIL}"' },
+    { spawn: "ci:setup:git" },
     { spawn: "ci:install:deps" },
     { exec: "rm -fr dist" },
     { spawn: "bump" },
