@@ -1,0 +1,19 @@
+stages:
+- job1
+- job2
+development-job1:
+  stage: job1
+  script:
+  - job-1-on-development
+development-job2:
+  stage: job2
+  script:
+  - job-2-on-development
+test-job1:
+  stage: job1
+  script:
+  - job-1-on-test
+test-job2:
+  stage: job2
+  script:
+  - job-2-on-test

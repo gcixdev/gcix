@@ -1,0 +1,11 @@
+stages:
+- do_something_development
+- do_something_test
+development-do-something:
+  stage: do_something_development
+  script:
+  - ./do-something-on.sh development
+test-do-something:
+  stage: do_something_test
+  script:
+  - ./do-something-on.sh test
