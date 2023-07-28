@@ -168,3 +168,95 @@ export class Rule implements IRule {
     );
   }
 }
+
+/**
+ * Represents a library of static methods to create rules for GitLab CI/CD
+ * pipeline conditions.
+ */
+export class RuleLib {
+  /**
+   * Creates a rule that evaluates to true if the CI/CD pipeline is running on the specified branch.
+   *
+   * @param branchName - The name of the branch to check.
+   * @returns A `Rule` object representing the condition for the specified branch.
+   */
+  public static onBranch(branchName: string): Rule {
+    return new Rule({ ifStatement: `$CI_COMMIT_BRANCH == "${branchName}"` });
+  }
+
+  /**
+   * Creates a rule that evaluates to true if the CI/CD pipeline is NOT running on the specified branch.
+   *
+   * @param branchName - The name of the branch to check.
+   * @returns A `Rule` object representing the condition for NOT being on the specified branch.
+   */
+  public static notOnBranch(branchName: string): Rule {
+    return new Rule({ ifStatement: `$CI_COMMIT_BRANCH != "${branchName}"` });
+  }
+  /**
+   * Creates a rule that evaluates to true if the CI/CD pipeline is running on the "main" branch.
+   *
+   * @returns A `Rule` object representing the condition for the "main" branch.
+   */
+  public static onMain(): Rule {
+    return RuleLib.onBranch("main");
+  }
+  /**
+   * Creates a rule that evaluates to true if the CI/CD pipeline is NOT running on the "main" branch.
+   *
+   * @returns A `Rule` object representing the condition for NOT being on the "main" branch.
+   */
+  public static notOnMain(): Rule {
+    return RuleLib.notOnBranch("main");
+  }
+  /**
+   * Creates a rule that evaluates to true if the CI/CD pipeline is running on the "master" branch.
+   *
+   * @returns A `Rule` object representing the condition for the "master" branch.
+   */
+  public static onMaster(): Rule {
+    return RuleLib.onBranch("master");
+  }
+  /**
+   * Creates a rule that evaluates to true if the CI/CD pipeline is NOT running on the "master" branch.
+   *
+   * @returns A `Rule` object representing the condition for NOT being on the "master" branch.
+   */
+  public static notOnMaster(): Rule {
+    return RuleLib.notOnBranch("master");
+  }
+  /**
+   * Creates a rule that evaluates to true for merge request events in the CI/CD pipeline.
+   *
+   * @returns A `Rule` object representing the condition for merge request events.
+   */
+  public static onMergeRequestEvents(): Rule {
+    return new Rule({
+      ifStatement: '$CI_PIPELINE_SOURCE == "merge_request_event"',
+    });
+  }
+  /**
+   * Creates a rule that always evaluates to true (success).
+   *
+   * @returns A `Rule` object representing a success condition.
+   */
+  public static onSuccess(): Rule {
+    return new Rule({});
+  }
+  /**
+   * Creates a rule that evaluates to true for pipelines triggered by API or the trigger keyword.
+   *
+   * @returns A `Rule` object representing the condition for pipeline triggers.
+   */
+  public static onPipelineTrigger(): Rule {
+    return new Rule({ ifStatement: '$CI_PIPELINE_SOURCE == "pipeline"' });
+  }
+  /**
+   * Creates a rule that evaluates to true for CI/CD pipelines triggered by tags.
+   *
+   * @returns A `Rule` object representing the condition for tag-based pipelines.
+   */
+  public static onTags(): Rule {
+    return new Rule({ ifStatement: "$CI_COMMIT_TAG" });
+  }
+}

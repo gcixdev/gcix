@@ -4,6 +4,7 @@ import {
   Pipeline,
   Job,
   JobCollection,
+  RuleLib,
 } from "../../../src";
 import { check } from "../../comparison";
 
@@ -155,4 +156,41 @@ test("equality", () => {
   });
   expect(ruleToCompareTo.isEqual(ruleEqualsAsCompareTo)).toBe(true);
   expect(ruleToCompareTo.isEqual(ruleNotEqualsAsCompareTo)).toBe(false);
+});
+
+describe("rule lib", () => {
+  test("on branch", () => {
+    jobFoo.appendRules([RuleLib.onBranch("feature")]);
+  });
+  test("not on branch", () => {
+    jobFoo.appendRules([RuleLib.notOnBranch("not_on_feature")]);
+  });
+  test("on main", () => {
+    jobFoo.appendRules([RuleLib.onMain()]);
+  });
+  test("not on main", () => {
+    jobFoo.appendRules([RuleLib.notOnMain()]);
+  });
+  test("on master", () => {
+    jobFoo.appendRules([RuleLib.onMaster()]);
+  });
+  test("not on master", () => {
+    jobFoo.appendRules([RuleLib.notOnMaster()]);
+  });
+  test("on merge request events", () => {
+    jobFoo.appendRules([RuleLib.onMergeRequestEvents()]);
+  });
+  test("on success", () => {
+    jobFoo.appendRules([RuleLib.onSuccess()]);
+  });
+  test("on pipeline trigger", () => {
+    jobFoo.appendRules([RuleLib.onPipelineTrigger()]);
+  });
+  test("on tags", () => {
+    jobFoo.appendRules([RuleLib.onTags()]);
+  });
+  afterEach(() => {
+    pipeline.addChildren({ jobsOrJobCollections: [jobFoo] });
+    check(pipeline.render(), expect);
+  });
 });
