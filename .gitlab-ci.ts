@@ -30,26 +30,26 @@ pipeline.addChildren({
   jobsOrJobCollections: [testCollection],
 });
 
-if (
-  PredefinedVariables.ciCommitBranch === PredefinedVariables.ciDefaultBranch
-) {
-  pipeline.addChildren({
-    jobsOrJobCollections: [
-      new Job({
-        scripts: [
-          "npx projen ci:setup:git",
-          `cd ${PredefinedVariables.ciCommitShortSha}`,
-          "npx projen ci:publish:git",
-        ],
-        artifacts: new Artifacts({
-          paths: ["lib", ".jsii", "tsconfig.json", "dist/"],
-        }),
-        name: "publish-git",
-        stage: "publish",
-      }),
-    ],
-  });
-}
+// if (
+//   PredefinedVariables.ciCommitBranch === PredefinedVariables.ciDefaultBranch
+// ) {
+//   pipeline.addChildren({
+//     jobsOrJobCollections: [
+//       new Job({
+//         scripts: [
+//           "npx projen ci:setup:git",
+//           `cd ${PredefinedVariables.ciCommitShortSha}`,
+//           "npx projen ci:publish:git",
+//         ],
+//         artifacts: new Artifacts({
+//           paths: ["lib", ".jsii", "tsconfig.json", "dist/"],
+//         }),
+//         name: "publish-git",
+//         stage: "publish",
+//       }),
+//     ],
+//   });
+// }
 
 /**
  * Only add publishCollection if pipeline is running on a tag.
@@ -76,4 +76,5 @@ if (PredefinedVariables.ciCommitTag) {
 
 pipeline.initializeImage("node:18");
 pipeline.addTags(["gcix"]);
+
 pipeline.writeYaml();
