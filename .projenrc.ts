@@ -16,7 +16,13 @@ const gcixProject = new cdk.JsiiProject({
   docgen: true,
   github: false,
   minNodeVersion: "18.0.0",
-  bundledDeps: ["js-yaml", "lodash"],
+  bundledDeps: [
+    "js-yaml",
+    "lodash",
+    "yargs",
+    "@aws-sdk/client-sts",
+    "@aws-sdk/client-cloudformation",
+  ],
   devDeps: [
     "sanitize-filename",
     "ts-node",
@@ -25,7 +31,11 @@ const gcixProject = new cdk.JsiiProject({
     "@types/lodash",
     "@types/js-yaml",
     "@types/jest",
+    "@types/yargs",
   ],
+  bin: {
+    cfnwaiter: "lib/addons/aws/tools/wait-for-cloudformation-stack-ready.js",
+  },
   docsDirectory: "public",
   npmAccess: NpmAccess.PUBLIC,
   publishToPypi: {
@@ -59,7 +69,7 @@ const gcixProject = new cdk.JsiiProject({
 });
 gcixProject.vscode?.settings.addSettings({
   "editor.tabSize": 2,
-  "conventionalCommits.scopes": ["projen"],
+  "conventionalCommits.scopes": ["projen", "cfnwaiter"],
 });
 
 /**

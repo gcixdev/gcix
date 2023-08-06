@@ -5,6 +5,9 @@
     "type": "git",
     "url": "https://gitlab.com/gcix/gcix.git"
   },
+  "bin": {
+    "cfnwaiter": "lib/addons/aws/tools/wait-for-cloudformation-stack-ready.js"
+  },
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
@@ -54,6 +57,7 @@
     "@types/lodash": "^4.14.195",
     "@types/node": "^18",
     "@types/tmp": "^0.2.3",
+    "@types/yargs": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
     "eslint": "^8",
@@ -80,12 +84,18 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.385.0",
+    "@aws-sdk/client-sts": "^3.385.0",
     "js-yaml": "^4.1.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "yargs": "^17.7.2"
   },
   "bundledDependencies": [
+    "@aws-sdk/client-cloudformation",
+    "@aws-sdk/client-sts",
     "js-yaml",
-    "lodash"
+    "lodash",
+    "yargs"
   ],
   "engines": {
     "node": ">= 18.0.0"
