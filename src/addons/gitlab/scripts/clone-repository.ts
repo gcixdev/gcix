@@ -1,0 +1,17 @@
+/**
+ * Clones a repository from a remote Git server using the Git command.
+ *
+ * @param path - The path of the repository to clone. Should start with a forward slash ("/").
+ * @param branch - (Optional) The branch name to clone from the remote repository. Currently, only "main" is supported.
+ * @returns A Git clone command as a string with the provided branch and repository path.
+ */
+export function cloneRepository(path: string, branch?: string): string {
+  if (!path.startsWith("/")) {
+    path = "/" + path;
+  }
+
+  if (!branch) {
+    branch = "main";
+  }
+  return `git clone --branch ${branch} --single-branch https://gitlab-ci-token:\${CI_JOB_TOKEN}@\${CI_SERVER_HOST}${path}.git`;
+}
