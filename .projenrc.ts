@@ -69,7 +69,7 @@ const gcixProject = new cdk.JsiiProject({
 });
 gcixProject.vscode?.settings.addSettings({
   "editor.tabSize": 2,
-  "conventionalCommits.scopes": ["projen", "cfnwaiter"],
+  "conventionalCommits.scopes": ["projen", "cfnwaiter", "core", "addons"],
 });
 
 /**
