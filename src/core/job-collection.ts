@@ -531,7 +531,7 @@ export class JobCollection implements IJobCollection {
         } else {
           childInstanceName = "";
         }
-        childInstanceNames.add(childInstanceName);
+        childInstanceNames.add(childInstanceName.replace(/_/g, "-"));
       }
     }
 
