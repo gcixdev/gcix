@@ -1,4 +1,13 @@
 
+### [0.0.1](https://gitlab.com/gcix/gcix/compare/v0.0.0...v0.0.1) (2023-08-10)
+
+
+### Features
+
+* **addons:** :sparkles: Added CDK Bootstrap addon to bootstrap CDK into an aws account ([6ce196d](https://gitlab.com/gcix/gcix/commit/6ce196d3e0358b1441c76835ba64ca5bec3afa85))
+* **addons:** :sparkles: Added cdk Deploy class. ([5a077f1](https://gitlab.com/gcix/gcix/commit/5a077f1ac032e3105887f16368e37e86694ebcad))
+* **addons:** :sparkles: Added cdk Diff class to addons ([3a9534d](https://gitlab.com/gcix/gcix/commit/3a9534d898985b604dd6f57bb894df1ca7698fb2))
+
 ## 0.0.0 (2023-07-24)
 
 
