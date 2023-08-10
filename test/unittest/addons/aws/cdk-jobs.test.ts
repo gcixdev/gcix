@@ -1,9 +1,13 @@
-import { Bootstrap } from "../../../../src/addons/aws/jobs";
+import { Bootstrap, Diff } from "../../../../src/addons/aws/jobs";
 import { Pipeline } from "../../../../src/core";
 import { check } from "../../../comparison";
 
+let pipeline: Pipeline;
+beforeEach(() => {
+  pipeline = new Pipeline();
+});
+
 test("bootstrap", () => {
-  const pipeline = new Pipeline();
   pipeline.addChildren({
     jobsOrJobCollections: [
       new Bootstrap({
@@ -31,6 +35,24 @@ test("bootstrap", () => {
       }),
     ],
     stage: "tst",
+  });
+  check(pipeline.render(), expect);
+});
+
+test("cdk diff", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Diff({
+        stacks: ["very-important-infrastructure", "another-stack"],
+        context: {
+          key1: "value1",
+          key2: "value2",
+        },
+        diffOptions: "--ignore-errors --json",
+        jobName: "stack-diff",
+        jobStage: "test-stage",
+      }),
+    ],
   });
   check(pipeline.render(), expect);
 });

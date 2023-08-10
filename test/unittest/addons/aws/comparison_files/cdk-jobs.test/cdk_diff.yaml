@@ -1,0 +1,8 @@
+stages:
+- test_stage
+stack-diff-test-stage:
+  stage: test_stage
+  script:
+  - >-
+    cdk diff --ignore-errors --json -c key1=value1 -c key2=value2
+    very-important-infrastructure another-stack
