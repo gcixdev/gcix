@@ -22,24 +22,25 @@ theme:
     - search.suggest
     - search.highlight
     - search.share
+  logo: assets/logo.png
+  favicon: assets/logo.png
   palette:
-    # Palette toggle for automatic mode
-    - media: "(prefers-color-scheme)"
-      toggle:
-        icon: material/brightness-auto
-        name: Switch to light mode
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
+      accent: deep-purple
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      accent: deep-purple
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
+extra_css:
+  - stylesheets/extra.css
 plugins:
   - literate-nav:
       tab_length: 2
@@ -65,6 +66,8 @@ markdown_extensions:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
+      linenums: True
+      linenums_style: table
   - pymdownx.inlinehilite
   - pymdownx.snippets:
       auto_append:
