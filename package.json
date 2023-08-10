@@ -1,5 +1,5 @@
 {
-  "name": "gcix",
+  "name": "@gcix/gcix",
   "description": "GitLab CI X Library (X stands for multilanguage)",
   "repository": {
     "type": "git",
@@ -102,6 +102,9 @@
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.0",
   "jest": {
     "setupFiles": [
