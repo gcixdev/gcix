@@ -1,4 +1,11 @@
 
+### [0.0.2](https://gitlab.com/gcix/gcix/compare/v0.0.1...v0.0.2) (2023-08-10)
+
+
+### Features
+
+* **addons:** :sparkles: Add cdk DiffDeploy class JobCollection and related interfaces. ([6613a3b](https://gitlab.com/gcix/gcix/commit/6613a3b362ab35117a630e2dc3a06b25c0383fd8))
+
 ### [0.0.1](https://gitlab.com/gcix/gcix/compare/v0.0.0...v0.0.1) (2023-08-10)
 
 
