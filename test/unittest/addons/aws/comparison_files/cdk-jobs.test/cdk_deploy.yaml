@@ -1,0 +1,13 @@
+stages:
+- deploy_stage
+stack-deploy-deploy-stage:
+  stage: deploy_stage
+  script:
+  - >-
+    npx --package @gcix/gcix cfnwaiter --stack-names
+    'very-important-infrastructure another-stack' --assume-role myAWSRole
+    --assume-role-account-id 01234567890
+  - >-
+    cdk deploy --require-approval 'never' --strict --verbose --json -c
+    key1=value1 -c key2=value2 --toolkit-stack-name infra-toolkit-stack
+    very-important-infrastructure another-stack

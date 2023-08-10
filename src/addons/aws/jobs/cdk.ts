@@ -231,3 +231,210 @@ export class Diff extends Job implements IDiff {
     return super.render();
   }
 }
+
+/**
+ * Configuration properties for initializing a Deploy instance.
+ */
+export interface DeployProps {
+  /**
+   * An array of stack names to be deployed.
+   */
+  stacks: string[];
+
+  /**
+   * Optional toolkit stack name used for deployment.
+   */
+  toolkitStackName?: string;
+
+  /**
+   * Enable strict deployment mode.
+   */
+  strict?: boolean;
+
+  /**
+   * Wait for stacks to complete deployment.
+   */
+  waitForStack?: boolean;
+
+  /**
+   * AWS assume role for stack waiting.
+   */
+  waitForStackAssumeRole?: string;
+
+  /**
+   * AWS account ID for stack waiting.
+   */
+  waitForStackAccountId?: string;
+
+  /**
+   * Optional deployment options.
+   */
+  deployOptions?: string;
+
+  /**
+   * Optional context values to provide additional information for deployment.
+   */
+  context?: Record<string, string>;
+
+  /**
+   * An optional name for the Deploy job.
+   */
+  jobName?: string;
+
+  /**
+   * An optional stage for the Deploy job.
+   */
+  jobStage?: string;
+}
+
+/**
+ * Represents the interface that a Deploy instance adheres to.
+ */
+export interface IDeploy {
+  /**
+   * An array of stack names to be deployed.
+   */
+  stacks: string[];
+
+  /**
+   * Optional toolkit stack name used for deployment.
+   */
+  toolkitStackName?: string;
+
+  /**
+   * Flag indicating if strict deployment mode is enabled.
+   */
+  strict: boolean;
+
+  /**
+   * Flag indicating if the deployment should wait for stack completion.
+   */
+  waitForStack: boolean;
+
+  /**
+   * AWS assume role for stack waiting.
+   */
+  waitForStackAssumeRole?: string;
+
+  /**
+   * AWS account ID for stack waiting.
+   */
+  waitForStackAccountId?: string;
+
+  /**
+   * Optional deployment options.
+   */
+  deployOptions?: string;
+
+  /**
+   * Optional context values to provide additional information for deployment.
+   */
+  context?: Record<string, string>;
+
+  /**
+   * An optional name for the Deploy job.
+   */
+  jobName?: string;
+
+  /**
+   * An optional stage for the Deploy job.
+   */
+  jobStage?: string;
+}
+
+/**
+ * A class that manages the configuration and rendering of a Deploy job.
+ * Inherits from the base Job class and implements the IDeploy interface.
+ */
+export class Deploy extends Job implements IDeploy {
+  stacks: string[];
+  toolkitStackName?: string;
+  strict: boolean;
+  waitForStack: boolean;
+  waitForStackAssumeRole?: string;
+  waitForStackAccountId?: string;
+  context?: Record<string, string>;
+  deployOptions?: string;
+  jobName: string;
+  jobStage: string;
+
+  /**
+   * Creates an instance of Deploy.
+   * @param props - Configuration properties for the Deploy job.
+   */
+  constructor(props: DeployProps) {
+    const jobName = props.jobName ?? "cdk";
+    const jobStage = props.jobStage ?? "deploy";
+
+    super({ scripts: [], name: jobName, stage: jobStage });
+
+    this.stacks = props.stacks;
+    this.toolkitStackName = props.toolkitStackName;
+    this.strict = props.strict ?? true;
+    this.waitForStack = props.waitForStack ?? true;
+    this.waitForStackAssumeRole = props.waitForStackAssumeRole;
+    this.waitForStackAccountId = props.waitForStackAccountId;
+    this.context = props.context;
+    this.deployOptions = props.deployOptions;
+    this.jobName = jobName;
+    this.jobStage = jobStage;
+  }
+
+  /**
+   * Renders the Deploy job's configuration and scripts.
+   * @returns The rendered configuration and scripts.
+   */
+  render() {
+    const script = [];
+
+    if (this.waitForStack) {
+      const waitForStackOptions: string[] = [];
+      if (!this.waitForStackAssumeRole && this.waitForStackAccountId) {
+        console.warn(
+          "`waitForStackAccountId` has no effect without `waitForStackAssumeRole`",
+        );
+      }
+      if (this.waitForStackAssumeRole) {
+        waitForStackOptions.push(
+          `--assume-role ${this.waitForStackAssumeRole}`,
+        );
+      }
+      if (this.waitForStackAccountId) {
+        waitForStackOptions.push(
+          `--assume-role-account-id ${this.waitForStackAccountId}`,
+        );
+      }
+      const cfnWaiterList = [
+        "npx --package @gcix/gcix cfnwaiter",
+        `--stack-names '${this.stacks.join(" ")}'`,
+      ];
+
+      if (waitForStackOptions.length > 0)
+        cfnWaiterList.push(waitForStackOptions.join(" "));
+
+      this.scripts.push(cfnWaiterList.join(" "));
+    }
+
+    script.push("cdk deploy --require-approval 'never'");
+
+    if (this.strict) script.push("--strict");
+
+    if (this.deployOptions) script.push(this.deployOptions);
+
+    if (this.context && Object.keys(this.context).length) {
+      const formattedContext = Object.entries(this.context).map(
+        ([k, v]) => `-c ${k}=${v}`,
+      );
+      script.push(...formattedContext);
+    }
+
+    if (this.toolkitStackName)
+      script.push(`--toolkit-stack-name ${this.toolkitStackName}`);
+
+    script.push(this.stacks.join(" "));
+
+    this.scripts.push(script.join(" "));
+
+    return super.render();
+  }
+}
