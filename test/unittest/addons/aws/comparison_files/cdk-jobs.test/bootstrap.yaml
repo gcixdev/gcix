@@ -1,0 +1,20 @@
+stages:
+- deploy_dev
+- deployable_tst
+dev-toolkit-stack-deploy:
+  stage: deploy_dev
+  script:
+  - >-
+    cdk bootstrap --toolkit-stack-name my-cdk-toolkit-dev --qualifier
+    beautifulapp aws://1234567890/net-wunderland-1
+  variables:
+    CDK_NEW_BOOTSTRAP: '1'
+tst-bootstrapTest-deployable:
+  stage: deployable_tst
+  script:
+  - >-
+    cdk bootstrap --toolkit-stack-name my-cdk-toolkit-tst --qualifier
+    beautifulapp aws://1234567890/net-wunderland-1 -t ApplicationName=testapp -t
+    Subsystem=testsystem
+  variables:
+    CDK_NEW_BOOTSTRAP: '1'
