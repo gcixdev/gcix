@@ -117,7 +117,7 @@
           "exec": "npm publish dist/js/*"
         },
         {
-          "exec": "pip install twine"
+          "exec": "pip install --break-system-packages twine"
         },
         {
           "exec": "twine upload dist/python/*"

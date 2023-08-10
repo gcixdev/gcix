@@ -179,7 +179,7 @@ gcixProject.addTask("ci:publish-all", {
     { spawn: "ci:install:deps" },
     { exec: "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}" },
     { exec: "npm publish dist/js/*" },
-    { exec: "pip install twine" },
+    { exec: "pip install --break-system-packages twine" },
     { exec: "twine upload dist/python/*" },
   ],
 });
