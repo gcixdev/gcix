@@ -4,7 +4,7 @@ import { Deploy, Diff } from "../jobs";
 /**
  * Configuration properties for initializing a DiffDeploy instance.
  */
-export interface DiffDeployOpts {
+export interface DiffDeployProps {
   /**
    * An array of stack names for which to generate a diff and perform deployment.
    */
@@ -55,7 +55,7 @@ export class DiffDeploy extends JobCollection implements IDiffDeploy {
    * Creates an instance of DiffDeploy.
    * @param props - Configuration properties for the DiffDeploy job collection.
    */
-  constructor(props: DiffDeployOpts) {
+  constructor(props: DiffDeployProps) {
     super();
     this.stacks = props.stacks;
     this.context = props.context;
