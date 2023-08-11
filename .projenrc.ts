@@ -166,19 +166,21 @@ gcixProject.addTask("ci:package-all", {
     { spawn: "package-all" },
   ],
 });
-gcixProject.addTask("ci:publish-all", {
-  description: "Publish produced artifacts to NPMjs and PyPi repository.",
-  requiredEnv: [
-    "CI",
-    "CI_COMMIT_TAG",
-    "NPM_TOKEN",
-    "TWINE_USERNAME",
-    "TWINE_PASSWORD",
-  ],
+gcixProject.addTask("ci:publish:npm", {
+  description: "Publish produced artifacts to NPMjs registry.",
+  requiredEnv: ["CI", "CI_COMMIT_TAG", "NPM_TOKEN"],
   steps: [
     { spawn: "ci:install:deps" },
     { exec: "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}" },
     { exec: "npm publish dist/js/*" },
+  ],
+});
+
+gcixProject.addTask("ci:publish:pypi", {
+  description: "Publish produced artifacts to PyPi repository.",
+  requiredEnv: ["CI", "CI_COMMIT_TAG", "TWINE_USERNAME", "TWINE_PASSWORD"],
+  steps: [
+    { spawn: "ci:install:deps" },
     { exec: "pip install --break-system-packages twine" },
     { exec: "twine upload dist/python/*" },
   ],

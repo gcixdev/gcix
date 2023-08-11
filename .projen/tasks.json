@@ -96,34 +96,6 @@
         }
       ]
     },
-    "ci:publish-all": {
-      "name": "ci:publish-all",
-      "description": "Publish produced artifacts to NPMjs and PyPi repository.",
-      "requiredEnv": [
-        "CI",
-        "CI_COMMIT_TAG",
-        "NPM_TOKEN",
-        "TWINE_USERNAME",
-        "TWINE_PASSWORD"
-      ],
-      "steps": [
-        {
-          "spawn": "ci:install:deps"
-        },
-        {
-          "exec": "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}"
-        },
-        {
-          "exec": "npm publish dist/js/*"
-        },
-        {
-          "exec": "pip install --break-system-packages twine"
-        },
-        {
-          "exec": "twine upload dist/python/*"
-        }
-      ]
-    },
     "ci:publish:git": {
       "name": "ci:publish:git",
       "description": "Creates a new git tag and generates the CHANGELOG.md from\n  conventional commits",
@@ -160,6 +132,47 @@
         },
         {
           "spawn": "publish:git"
+        }
+      ]
+    },
+    "ci:publish:npm": {
+      "name": "ci:publish:npm",
+      "description": "Publish produced artifacts to NPMjs registry.",
+      "requiredEnv": [
+        "CI",
+        "CI_COMMIT_TAG",
+        "NPM_TOKEN"
+      ],
+      "steps": [
+        {
+          "spawn": "ci:install:deps"
+        },
+        {
+          "exec": "npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}"
+        },
+        {
+          "exec": "npm publish dist/js/*"
+        }
+      ]
+    },
+    "ci:publish:pypi": {
+      "name": "ci:publish:pypi",
+      "description": "Publish produced artifacts to PyPi repository.",
+      "requiredEnv": [
+        "CI",
+        "CI_COMMIT_TAG",
+        "TWINE_USERNAME",
+        "TWINE_PASSWORD"
+      ],
+      "steps": [
+        {
+          "spawn": "ci:install:deps"
+        },
+        {
+          "exec": "pip install --break-system-packages twine"
+        },
+        {
+          "exec": "twine upload dist/python/*"
         }
       ]
     },
