@@ -3,7 +3,8 @@ repo_url: https://gitlab.com/gcix/gcix
 repo_name: gcix/gcix
 edit_uri: edit/main/docs/
 site_dir: public/
-
+watch:
+  - README.md
 theme:
   name: material
   icon:

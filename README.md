@@ -1,17 +1,25 @@
-# gcix - Write your Gitlab CI pipelines in X languages
+# gcix - Write your GitLab CI pipelines in X languages
 
-[![pipeline status](https://gitlab.com/gcix/gcix/badges/main/pipeline.svg)](https://gitlab.com/gcix/gcix/-/commits/main)
-[![latest release](https://gitlab.com/gcix/gcix/-/badges/release.svg)](https://gitlab.com/gcix/gcix/-/releases)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/gcix)](https://pypi.org/project/gcix/)
-[![npm](https://img.shields.io/npm/dm/%40gcix/gcix?label=NPM%20downloads)](https://www.npmjs.com/package/@gcix/gcix)
+[![Apache License 2.0](https://img.shields.io/gitlab/license/gcix%2Fgcix)](https://gitlab.com/gcix/gcix/-/blob/main/LICENSE)
 
-The complete documentation is found [here](https://gcix.gitlab.com/gcix/)
+[![GitLab tag (self-managed)](https://img.shields.io/gitlab/v/tag/gcix%2Fgcix?logo=git&color=bright%20green)
+](https://gitlab.com/gcix/gcix/-/tags)
+[![GitLab pipeline status](https://img.shields.io/gitlab/pipeline-status/gcix%2Fgcix?logo=gitlab)
+](https://gitlab.com/gcix/gcix/-/pipelines)
+[![GitLab last commit](https://img.shields.io/gitlab/last-commit/Gcix%2Fgcix?logo=git)](https://gitlab.com/gcix/gcix/-/commits/main/)
+[![GitLab contributors](https://img.shields.io/gitlab/contributors/gcix%2Fgcix?logo=git&color=bright%20green)](https://gitlab.com/gcix/gcix)
 
-The Gitlab CI X Library (*gcix*) is a library to create dynamic pipelines for Gitlab CI.
-<!--
-[User Documentation](https://gcix.gitlab.io/gcix/user/index.html) | [API Reference](https://gcix.gitlab.io/gcix/api/`gcix`/index.html) | [Developer Documentation](https://gcix.gitlab.io/gcix/developer/index.html) | [PyPI](https://pypi.org/project/`gcix`/) | [Docker Hub](https://hub.docker.com/r/thomass/`gcix`) -->
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/gcix?label=PyPI%20Downloads&logo=python&color=blue)](https://pypi.org/project/gcix/)
+[![npm - Downloads](https://img.shields.io/npm/dm/%40gcix/gcix?label=NPM%20downloads&color=blue)](https://www.npmjs.com/package/@gcix/gcix)
+[![Docker Pulls](https://img.shields.io/docker/pulls/gcix/gcix?label=Docker%20Pulls&logo=docker&color=blue)](https://hub.docker.com/r/gcix/gcix)
 
-With the *gcix* you can write your Gitlab CI pipelines in multiple languages.
+![Matrix](https://img.shields.io/matrix/gcix%3Amatrix.org?logo=matrix&label=Matrix)
+
+The complete documentation is found at <https://gcix.gitlab.com/gcix/>
+
+The GitLab CI X Library (*gcix*) is a library to create dynamic pipelines for GitLab CI.
+
+With the *gcix* you can write your GitLab CI pipelines in multiple languages.
 
 ## Supported languages
 
@@ -55,7 +63,7 @@ translated to Typescript.
 
 For a more complex and real world example, just check out our projects [.gitlab-ci.ts][1]. The [.gitlab-ci.ts][1] is the written example of a working *gcix* in Typescript. The Typescript code is getting rendered and stored as an artifact in the pipeline see [generated yaml file][2].
 
-The *gcix* is using the Gitlab feature of [dynamic child pipelines][3]. First the `.gitlab-ci.ts` generates the common Gitlab CI yaml file which is then started as child pipeline. To get the generated pipeline it is necessary to invoke the `.gitlab-ci.ts` with `ts-node`. To get an idea of a [dynamic child pipelines][3] setup, you can have a look into [.gitlab-ci.yml][4].
+The *gcix* is using the GitLab feature of [dynamic child pipelines][3]. First the `.gitlab-ci.ts` generates the common GitLab CI yaml file which is then started as child pipeline. To get the generated pipeline it is necessary to invoke the `.gitlab-ci.ts` with `ts-node`. To get an idea of a [dynamic child pipelines][3] setup, you can have a look into [.gitlab-ci.yml][4].
 
 Creating your pipelines in [any supported programming language](#supported-languages) code allows you all the features of that language, like:
 
@@ -89,12 +97,12 @@ loving this project and is writing weird pipelines that nobody else understands.
 build and test your code and shouldn't be in code too, because then you might have a pipeline that build and test your pipeline code.
 
 All those statements are quite true. However all those statements could be applied to static configuration. We started this project because of
-Gitlab CI yaml files growing over thousands of lines. We tried to implement some logic with clunky rule sets. We tried to re-use code with yaml templates.
+GitLab CI yaml files growing over thousands of lines. We tried to implement some logic with clunky rule sets. We tried to re-use code with yaml templates.
 We tried to write predefined pipelines by using includes. We started to write bash scripts that do bulk loads of work within a job. All in all
 those felt like a bad workaround, while having in mind how much cleaner this might be, writing our pipelines in code. That is why we started
 this project and since using it with great success.
 
-However it is absolutely important to understand the *gcix* as a supplement and not as a substitution to Gitlab CI yaml files. As long you are fine
+However it is absolutely important to understand the *gcix* as a supplement and not as a substitution to GitLab CI yaml files. As long you are fine
 with having a couple of jobs you could easily describe in static configuration, just do it. If you feel that you can't manage the complexity of
 you static yaml configuration and started to build lots of helper scripts, you could consider writing your pipelines in code. This considerations
 should include, if the pipeline code you write is definitely an advantage over the static scripts you had before - and not just for you but also
@@ -104,7 +112,7 @@ The *gcix* should be a choice - not a standard.
 
 ## Thanks
 
-First of all, I have to thank [**Thomas Steinbach**][7] he created the [Gitlab CI Python Library (gcip)][6] and started a great journey with Gitlab CI pipelines as code.
+First of all, I have to thank [**Thomas Steinbach**][7] he created the [GitLab CI Python Library (gcip)][6] and started a great journey with GitLab CI pipelines as code.
 Another thank you goes to the [DB Systel GmbH][8].
 
 ## Author
