@@ -92,7 +92,7 @@ if (PredefinedVariables.ciCommitTag) {
     HTTPS_REMOTE:
       "https://${GCIX_PUSH_USER}:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git",
   });
-  mikePagesJob.assignImage("python:3-alpine");
+  mikePagesJob.assignImage("python:3");
 
   pipeline.addChildren({
     jobsOrJobCollections: [
