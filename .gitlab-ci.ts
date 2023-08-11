@@ -65,13 +65,13 @@ if (PredefinedVariables.ciCommitTag) {
     }),
   });
   const publishNpmJob = new Job({
-    scripts: ["npx projen ci:publish-npm"],
+    scripts: ["npx projen ci:publish:npm"],
     name: "npm",
     stage: "publish",
   }).addNeeds([packageJob]);
 
   const publishPyPiJob = new Job({
-    scripts: ["npx projen ci:publish-pypi"],
+    scripts: ["npx projen ci:publish:pypi"],
     name: "pypi",
     stage: "publish",
   }).addNeeds([packageJob]);
