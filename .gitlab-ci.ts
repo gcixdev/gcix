@@ -64,9 +64,15 @@ if (PredefinedVariables.ciCommitTag) {
       paths: ["lib", ".jsii", "tsconfig.json", "dist/"],
     }),
   });
-  const publishJob = new Job({
-    scripts: ["npx projen ci:publish-all"],
+  const publishNpmJob = new Job({
+    scripts: ["npx projen ci:publish-npm"],
     name: "npm",
+    stage: "publish",
+  }).addNeeds([packageJob]);
+
+  const publishPyPiJob = new Job({
+    scripts: ["npx projen ci:publish-pypi"],
+    name: "pypi",
     stage: "publish",
   }).addNeeds([packageJob]);
 
@@ -89,7 +95,12 @@ if (PredefinedVariables.ciCommitTag) {
   mikePagesJob.assignImage("python:3-alpine");
 
   pipeline.addChildren({
-    jobsOrJobCollections: [packageJob, mikePagesJob],
+    jobsOrJobCollections: [
+      packageJob,
+      publishNpmJob,
+      publishPyPiJob,
+      mikePagesJob,
+    ],
   });
 }
 
