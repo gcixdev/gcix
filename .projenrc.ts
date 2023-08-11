@@ -203,6 +203,7 @@ pythonReqirements.addPackages(
   "mkdocs-git-revision-date-localized-plugin",
   "mkdocs-git-authors-plugin",
   "mkdocs-literate-nav",
+  "mike@1.*",
 );
 
 gcixProject.addTask("docs:dependencies", {
