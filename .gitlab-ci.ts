@@ -79,8 +79,8 @@ if (PredefinedVariables.ciCommitTag) {
   const mikePagesJob = new PagesJob();
   mikePagesJob.appendScripts([
     "pip install --break-system-packages -r requirements.txt",
-    "git config --local user.name $GITLAB_USER_NAME",
-    "git config --local user.email $GITLAB_USER_EMAIL",
+    'git config --local user.name "${GITLAB_USER_NAME}"',
+    'git config --local user.email "${GITLAB_USER_EMAIL}"',
     "git fetch origin $PAGES_BRANCH && git -b checkout $PAGES_BRANCH origin/$PAGES_BRANCH || git checkout $PAGES_BRANCH || echo 'Pages branch not deployed yet.'",
     "git checkout $CI_COMMIT_SHA",
     'mike deploy --rebase --prefix public -r $HTTPS_REMOTE -p -b $PAGES_BRANCH -u $(echo "$CI_COMMIT_TAG" | cut -d. -f1,2) latest',
