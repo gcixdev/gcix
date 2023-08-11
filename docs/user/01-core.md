@@ -1,7 +1,7 @@
 # Core
 
 The *gcix* is a Typescript library designed to facilitate the creation of
-dynamic pipelines for Gitlab CI.
+dynamic pipelines for GitLab CI.
 
 Additionally, it provides examples in both Typescript and Python.
 
@@ -11,7 +11,7 @@ Please select the language in which you want to see the examples.
 
 ## Configuring your project to use *gcix*
 
-Your Gitlab project requires the following two files:
+Your GitLab project requires the following two files:
 
 ```plain
 MyProject
@@ -335,7 +335,7 @@ respective environment.
 ### Reuse collections
 
 Namespacing significantly enhances the reusability of collections.
-You can encapsulate an entire Gitlab CI pipeline within a collection and then
+You can encapsulate an entire GitLab CI pipeline within a collection and then
 reuse that collection for each environment. By repeating the collection within
 a loop for all environments, namespacing ensures that all jobs of the
 collection are populated uniquely for each environment, enabling efficient
@@ -413,7 +413,7 @@ collections, the `stage` property would extend both the `name` and `stage` of
 a job, while the `name` property would only extend the `name` of a job.
 Extending means appending values to the current `name` or `stage` values of a
 job. However, there's no practical reason to solely extend the `stage` of a job
-so that two jobs have distinct stages but unique names. In Gitlab CI, a job
+so that two jobs have distinct stages but unique names. In GitLab CI, a job
 must have a unique name, so extending just the `stage` wouldn't serve any
 purpose. Therefore, the consistent concept of using only the `name` and `stage`
 properties applies to both jobs and collections.
@@ -421,7 +421,7 @@ properties applies to both jobs and collections.
 As for not omitting the `stage` property when creating the jobs, it is because
 of the explanation in the previous paragraph. When creating jobs, we cannot
 directly set the `stage` value. Omitting the `stage` property means leaving it
-unset, which would default the Gitlab CI jobs to the `test` stage. To define a
+unset, which would default the GitLab CI jobs to the `test` stage. To define a
 stage other than `test`, we used the `stage` property. Yes, this implies that
 the job's `name` will include the value of the `stage`. However, this design
 decision clarifies the concept of `name` and `stage` more effectively than
