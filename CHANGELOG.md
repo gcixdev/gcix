@@ -1,4 +1,16 @@
 
+### [0.0.14](https://gitlab.com/gcix/gcix/compare/v0.0.13...v0.0.14) (2023-08-11)
+
+
+### Features
+
+* **addons:** :sparkles: Export addons as submodule. ([033718f](https://gitlab.com/gcix/gcix/commit/033718f4c23ccc60f3fc101d8d5a058c59d8f778))
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixed missing readonly for several non-behavioral interfaces. ([b05956c](https://gitlab.com/gcix/gcix/commit/b05956cf4809b403b712dc9937bc65ef70fe4704))
+
 ### [0.0.13](https://gitlab.com/gcix/gcix/compare/v0.0.12...v0.0.13) (2023-08-11)
 
 ### [0.0.12](https://gitlab.com/gcix/gcix/compare/v0.0.11...v0.0.12) (2023-08-11)
