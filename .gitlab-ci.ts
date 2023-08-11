@@ -94,6 +94,7 @@ if (PredefinedVariables.ciCommitTag) {
     HTTPS_REMOTE:
       "https://${GCIX_PUSH_USER}:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git",
   });
+  mikePagesJob.assignImage("node:18");
 
   pipeline.addChildren({
     jobsOrJobCollections: [
