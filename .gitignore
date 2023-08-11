@@ -30,6 +30,7 @@ jspm_packages/
 .yarn-integrity
 .cache
 generated-config.yml
+__pycache__
 !/.projenrc.js
 /test-reports/
 junit.xml

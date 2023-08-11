@@ -65,7 +65,7 @@ const gcixProject = new cdk.JsiiProject({
     compilerOptions: {},
     include: [".gitlab-ci.ts"],
   },
-  gitignore: ["generated-config.yml"],
+  gitignore: ["generated-config.yml", "__pycache__"],
 });
 gcixProject.vscode?.settings.addSettings({
   "editor.tabSize": 2,
