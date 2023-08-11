@@ -222,7 +222,12 @@ gcixProject.addTask("docs:serve", {
  */
 gcixProject.addTask("docs:api", {
   description: "Generate api documentation with jsii-docgen",
-  exec: "npx jsii-docgen -l typescript -l python --readme false --output ./docs/api/",
+  steps: [
+    { spawn: "compile" },
+    {
+      exec: "npx jsii-docgen -l typescript -l python --readme false --output ./docs/api/",
+    },
+  ],
 });
 gcixProject.addGitIgnore("docs/api/api.*.md");
 gcixProject.synth();
