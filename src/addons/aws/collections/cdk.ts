@@ -8,12 +8,12 @@ export interface DiffDeployOpts {
   /**
    * An array of stack names for which to generate a diff and perform deployment.
    */
-  stacks: string[];
+  readonly stacks: string[];
 
   /**
    * Optional context values to provide additional information for the diff and deployment.
    */
-  context?: Record<string, string>;
+  readonly context?: Record<string, string>;
 }
 
 /**

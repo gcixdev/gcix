@@ -7,37 +7,37 @@ export interface BootstrapProps {
   /**
    * The AWS account ID associated with the Bootstrap configuration.
    */
-  awsAccountId: string;
+  readonly awsAccountId: string;
 
   /**
    * The AWS region in which the Bootstrap will be performed.
    */
-  awsRegion: string;
+  readonly awsRegion: string;
 
   /**
    * The name of the toolkit stack used for Bootstrap.
    */
-  toolkitStackName: string;
+  readonly toolkitStackName: string;
 
   /**
    * The qualifier applied to the Bootstrap.
    */
-  qualifier: string;
+  readonly qualifier: string;
 
   /**
    * Optional resource tags that can be applied during Bootstrap.
    */
-  resourceTags?: { [key: string]: string };
+  readonly resourceTags?: { [key: string]: string };
 
   /**
    * An optional name for the Bootstrap job.
    */
-  jobName?: string;
+  readonly jobName?: string;
 
   /**
    * An optional stage for the Bootstrap job.
    */
-  jobStage?: string;
+  readonly jobStage?: string;
 }
 
 /**
@@ -136,27 +136,27 @@ export interface DiffProps {
   /**
    * An array of stack names for which to generate a diff.
    */
-  stacks: string[];
+  readonly stacks: string[];
 
   /**
    * Optional diff options to customize the diff process.
    */
-  diffOptions?: string;
+  readonly diffOptions?: string;
 
   /**
    * Optional context values to provide additional information for the diff.
    */
-  context?: Record<string, string>;
+  readonly context?: Record<string, string>;
 
   /**
    * An optional name for the Diff job.
    */
-  jobName?: string;
+  readonly jobName?: string;
 
   /**
    * An optional stage for the Diff job.
    */
-  jobStage?: string;
+  readonly jobStage?: string;
 }
 
 /**
@@ -239,52 +239,52 @@ export interface DeployProps {
   /**
    * An array of stack names to be deployed.
    */
-  stacks: string[];
+  readonly stacks: string[];
 
   /**
    * Optional toolkit stack name used for deployment.
    */
-  toolkitStackName?: string;
+  readonly toolkitStackName?: string;
 
   /**
    * Enable strict deployment mode.
    */
-  strict?: boolean;
+  readonly strict?: boolean;
 
   /**
    * Wait for stacks to complete deployment.
    */
-  waitForStack?: boolean;
+  readonly waitForStack?: boolean;
 
   /**
    * AWS assume role for stack waiting.
    */
-  waitForStackAssumeRole?: string;
+  readonly waitForStackAssumeRole?: string;
 
   /**
    * AWS account ID for stack waiting.
    */
-  waitForStackAccountId?: string;
+  readonly waitForStackAccountId?: string;
 
   /**
    * Optional deployment options.
    */
-  deployOptions?: string;
+  readonly deployOptions?: string;
 
   /**
    * Optional context values to provide additional information for deployment.
    */
-  context?: Record<string, string>;
+  readonly context?: Record<string, string>;
 
   /**
    * An optional name for the Deploy job.
    */
-  jobName?: string;
+  readonly jobName?: string;
 
   /**
    * An optional stage for the Deploy job.
    */
-  jobStage?: string;
+  readonly jobStage?: string;
 }
 
 /**
