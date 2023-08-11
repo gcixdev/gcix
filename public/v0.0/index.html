@@ -282,7 +282,7 @@ You're not viewing the latest version.
   
   
     <li class="md-tabs__item">
-      <a href="api/API.typescript.md" class="md-tabs__link">
+      <a href="api/api.typescript.md" class="md-tabs__link">
         API Reference
       </a>
     </li>
@@ -642,7 +642,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="api/API.typescript.md" class="md-nav__link">
+      <a href="api/api.typescript.md" class="md-nav__link">
         Typescript
       </a>
     </li>
@@ -656,7 +656,7 @@ You're not viewing the latest version.
   
   
     <li class="md-nav__item">
-      <a href="api/API.python.md" class="md-nav__link">
+      <a href="api/api.python.md" class="md-nav__link">
         Python
       </a>
     </li>
@@ -791,7 +791,7 @@ You're not viewing the latest version.
   
 
 
-<h1 id="gcix-write-your-gitlab-ci-pipelines-in-x-languages"><abbr title="GitLab CI X Library">gcix</abbr> - Write your GitLab CI pipelines in X languages</h1>
+<h1 id="gcix-write-your-gitlab-ci-pipelines-in-x-languages"><abbr title="GitLab CI X Library">gcix</abbr> - Write your GitLab CI pipelines in X languages<a class="headerlink" href="#gcix-write-your-gitlab-ci-pipelines-in-x-languages" title="Permanent link">&para;</a></h1>
 <p><a href="https://gitlab.com/gcix/gcix/-/blob/main/LICENSE"><img alt="Apache License 2.0" src="https://img.shields.io/gitlab/license/gcix%2Fgcix" /></a></p>
 <p><a href="https://gitlab.com/gcix/gcix/-/tags"><img alt="GitLab tag (self-managed)" src="https://img.shields.io/gitlab/v/tag/gcix%2Fgcix?logo=git&amp;color=bright%20green" />
 </a>
@@ -806,7 +806,7 @@ You're not viewing the latest version.
 <p>The complete documentation is found at <a href="https://gcix.gitlab.com/gcix/">https://gcix.gitlab.com/gcix/</a></p>
 <p>The GitLab CI X Library (<em><abbr title="GitLab CI X Library">gcix</abbr></em>) is a library to create dynamic pipelines for GitLab CI.</p>
 <p>With the <em><abbr title="GitLab CI X Library">gcix</abbr></em> you can write your GitLab CI pipelines in multiple languages.</p>
-<h2 id="supported-languages">Supported languages</h2>
+<h2 id="supported-languages">Supported languages<a class="headerlink" href="#supported-languages" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Typescript/JavaScript (<strong>native</strong>)</li>
 <li>Python</li>
@@ -842,12 +842,12 @@ You're not viewing the latest version.
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="n">pipeline</span><span class="o">.</span><span class="n">add_children</span><span class="p">(</span><span class="n">jobs_or_job_collections</span><span class="o">=</span><span class="p">[</span><span class="n">job</span><span class="p">])</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="n">pipeline</span><span class="o">.</span><span class="n">write_yaml</span><span class="p">()</span>
 </span></code></pre></div></td></tr></table></div>
-<h2 id="intro">Intro</h2>
+<h2 id="intro">Intro<a class="headerlink" href="#intro" title="Permanent link">&para;</a></h2>
 <p>The <em><abbr title="GitLab CI X Library">gcix</abbr></em> is a rewrite of the <em><abbr title="GitLab CI Python Library">gcip</abbr></em>, the reason behind the rewrite is, that I wanted to learn Typescript, and give
 developers the choice to use the language they are familiar with. This is because I chose Typescript and a tool called <a href="https://aws.github.io/jsii/">jsii</a> made by <a href="https://aws.amazon.com/de/"><abbr title="Amazon Web Services">AWS</abbr></a>.
 <em>jsii</em> translates the different language API's to typescript. The user which uses Python is using Pythons syntax, behind the scenes they are getting
 translated to Typescript.</p>
-<h3 id="examples">Examples</h3>
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <p>For a more complex and real world example, just check out our projects <a href="https://gitlab.com/gcix/gcix/-/blob/main/.gitlab-ci.ts">.gitlab-ci.ts</a>. The <a href="https://gitlab.com/gcix/gcix/-/blob/main/.gitlab-ci.ts">.gitlab-ci.ts</a> is the written example of a working <em><abbr title="GitLab CI X Library">gcix</abbr></em> in Typescript. The Typescript code is getting rendered and stored as an artifact in the pipeline see <a href="https://gitlab.com/gcix/gcix/-/jobs/artifacts/main/browse?job=generate-pipeline">generated yaml file</a>.</p>
 <p>The <em><abbr title="GitLab CI X Library">gcix</abbr></em> is using the GitLab feature of <a href="https://docs.gitlab.com/ee/ci/parent_child_pipelines.html#dynamic-child-pipelines">dynamic child pipelines</a>. First the <code>.gitlab-ci.ts</code> generates the common GitLab CI yaml file which is then started as child pipeline. To get the generated pipeline it is necessary to invoke the <code>.gitlab-ci.ts</code> with <code>ts-node</code>. To get an idea of a <a href="https://docs.gitlab.com/ee/ci/parent_child_pipelines.html#dynamic-child-pipelines">dynamic child pipelines</a> setup, you can have a look into <a href="https://gitlab.com/gcix/gcix/-/blob/main/.gitlab-ci.yml">.gitlab-ci.yml</a>.</p>
 <p>Creating your pipelines in <a href="#supported-languages">any supported programming language</a> code allows you all the features of that language, like:</p>
@@ -855,19 +855,19 @@ translated to Typescript.</p>
 <li>re-use code (DRY - Don't repeat yourself)</li>
 <li>use variables, control flow (if-then-else, loops, ...), complex data structures, input/output, error handling, ...</li>
 <li>programming paradigms like object-oriented or functional programming</li>
-<li>use 3rd party libraries in your pipelines</li>
+<li>use 3<sup>rd</sup> party libraries in your pipelines</li>
 <li>test driven development of pipelines with Jest(Typescript), pytest(Python)...</li>
 <li>package management and distribution of your pipeline code</li>
 <li>... anything you can imagine to do with Python code</li>
 </ul>
-<h2 id="documentation">Documentation</h2>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <p>Please read the <a href="https://gcix.gitlab.io/gcix">User Documentation</a> to get a quick introduction into most
 features of the <em><abbr title="GitLab CI X Library">gcix</abbr></em>.</p>
 <p>You can consult the <a href="https://gcix.gitlab.io/gcix/api/">API Reference</a> to get an overview of all classes and methods
 and a deeper view into their parameters.</p>
 <p>For more information on how to create your own library based on <em><abbr title="GitLab CI X Library">gcix</abbr></em>, please read the <a href="https://gcix.gitlab.io/gcix/developer/">Developer Documentation</a>
 to learn about good practices and conventions.</p>
-<h2 id="why-pipelines-as-code">Why pipelines as code?</h2>
+<h2 id="why-pipelines-as-code">Why pipelines as code?<a class="headerlink" href="#why-pipelines-as-code" title="Permanent link">&para;</a></h2>
 <p>There has been a really good discussion on <a href="https://news.ycombinator.com/item?id=26986493#26988105">Hacker News</a> about <em>configuration vs code</em>.
 Comments stating that when struggling around with the limitations of static configuration we start writing pipelines as code, until we hassle
 around with complex code and start re-writing complex pipelines in static configuration and so forth.</p>
@@ -885,12 +885,12 @@ you static yaml configuration and started to build lots of helper scripts, you c
 should include, if the pipeline code you write is definitely an advantage over the static scripts you had before - and not just for you but also
 for your colleagues and the company you are writing the code for.</p>
 <p>The <em><abbr title="GitLab CI X Library">gcix</abbr></em> should be a choice - not a standard.</p>
-<h2 id="thanks">Thanks</h2>
+<h2 id="thanks">Thanks<a class="headerlink" href="#thanks" title="Permanent link">&para;</a></h2>
 <p>First of all, I have to thank <a href="https://gitlab.com/thomassteinbach"><strong>Thomas Steinbach</strong></a> he created the <a href="https://gitlab.com/dbsystel/gitlab-ci-python-library">GitLab CI Python Library (<abbr title="GitLab CI Python Library">gcip</abbr>)</a> and started a great journey with GitLab CI pipelines as code.
 Another thank you goes to the <a href="https://www.dbsystel.de/">DB Systel GmbH</a>.</p>
-<h2 id="author">Author</h2>
+<h2 id="author">Author<a class="headerlink" href="#author" title="Permanent link">&para;</a></h2>
 <p><em><abbr title="GitLab CI X Library">gcix</abbr></em> was created by <a href="https://gitlab.com/dvonessen">Daniel von Eßen</a> in 2023.</p>
-<h2 id="license">License</h2>
+<h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p>The content of this repository is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 license</a>.</p>
 <p>Copyright <a href="https://gitlab.com/dvonessen">Daniel von Eßen</a></p>
 
