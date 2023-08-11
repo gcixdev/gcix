@@ -293,7 +293,7 @@
       "description": "Generate api documentation with jsii-docgen",
       "steps": [
         {
-          "exec": "npx jsii-docgen -l typescript -l python --readme false --split-by-submodule true --output ./docs/api/"
+          "exec": "npx jsii-docgen -l typescript -l python --readme false --output ./docs/api/"
         }
       ]
     },
