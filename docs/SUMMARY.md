@@ -2,5 +2,5 @@
 * [User Documentation](user/)
 * [Developer Documentation](dev/)
 * API Reference
-  * [Typescript](api/API.typescript.md)
-  * [Python](api/API.python.md)
+  * [Typescript](api/api.typescript.md)
+  * [Python](api/api.python.md)
