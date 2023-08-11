@@ -1,4 +1,11 @@
 
+### [0.0.8](https://gitlab.com/gcix/gcix/compare/v0.0.7...v0.0.8) (2023-08-11)
+
+
+### Bug Fixes
+
+* :green_heart: Try to fix the ci system for building pages. ([892c047](https://gitlab.com/gcix/gcix/commit/892c047ba3724e147d8a3e6edd0c7386eafeb952))
+
 ### [0.0.7](https://gitlab.com/gcix/gcix/compare/v0.0.6...v0.0.7) (2023-08-11)
 
 ### [0.0.6](https://gitlab.com/gcix/gcix/compare/v0.0.5...v0.0.6) (2023-08-11)
