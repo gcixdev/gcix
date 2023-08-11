@@ -355,8 +355,8 @@ export class Deploy extends Job implements IDeploy {
   waitForStackAccountId?: string;
   context?: Record<string, string>;
   deployOptions?: string;
-  jobName: string;
-  jobStage: string;
+  jobName?: string;
+  jobStage?: string;
 
   /**
    * Creates an instance of Deploy.
