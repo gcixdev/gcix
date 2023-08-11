@@ -4,6 +4,7 @@ import {
   Job,
   PredefinedVariables,
   Artifacts,
+  PagesJob,
 } from "./src";
 
 const pipeline = new Pipeline();
@@ -69,8 +70,26 @@ if (PredefinedVariables.ciCommitTag) {
     stage: "publish",
   }).addNeeds([packageJob]);
 
+  const mikePagesJob = new PagesJob();
+  mikePagesJob.appendScripts([
+    "pip install --break-system-packages -r requirements.txt",
+    "git config user.name $GITLAB_USER_NAME",
+    "git config user.email $GITLAB_USER_EMAIL",
+    "git fetch origin $PAGES_BRANCH && git -b checkout $PAGES_BRANCH origin/$PAGES_BRANCH || git checkout $PAGES_BRANCH || echo 'Pages branch not deployed yet.'",
+    "git checkout $CI_COMMIT_SHA",
+    'mike deploy --rebase --prefix public -r $HTTPS_REMOTE -p -b $PAGES_BRANCH -u $(echo "$CI_COMMIT_TAG" | cut -d. -f1,2) latest',
+    "mike set-default --rebase --prefix public -r $HTTPS_REMOTE -p -b $PAGES_BRANCH latest",
+    "git checkout $PAGES_BRANCH -- public/",
+  ]);
+  mikePagesJob.addVariables({
+    PAGES_BRANCH: "gl-pages",
+    HTTPS_REMOTE:
+      "https://${GCIX_PUSH_USER}:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git",
+  });
+  mikePagesJob.assignImage("python:3-alpine");
+
   pipeline.addChildren({
-    jobsOrJobCollections: [packageJob, publishJob],
+    jobsOrJobCollections: [packageJob, mikePagesJob],
   });
 }
 
