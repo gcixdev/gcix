@@ -78,11 +78,13 @@ if (PredefinedVariables.ciCommitTag) {
 
   const mikePagesJob = new PagesJob();
   mikePagesJob.appendScripts([
+    "npx projen ci:install:deps",
     "pip install --break-system-packages -r requirements.txt",
     'git config --local user.name "${GITLAB_USER_NAME}"',
     'git config --local user.email "${GITLAB_USER_EMAIL}"',
     "git fetch origin $PAGES_BRANCH && git -b checkout $PAGES_BRANCH origin/$PAGES_BRANCH || git checkout $PAGES_BRANCH || echo 'Pages branch not deployed yet.'",
     "git checkout $CI_COMMIT_SHA",
+    "npx projen docs:api",
     'mike deploy --rebase --prefix public -r $HTTPS_REMOTE -p -b $PAGES_BRANCH -u $(echo "$CI_COMMIT_TAG" | cut -d. -f1,2) latest',
     "mike set-default --rebase --prefix public -r $HTTPS_REMOTE -p -b $PAGES_BRANCH latest",
     "git checkout $PAGES_BRANCH -- public/",
@@ -92,7 +94,6 @@ if (PredefinedVariables.ciCommitTag) {
     HTTPS_REMOTE:
       "https://${GCIX_PUSH_USER}:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git",
   });
-  mikePagesJob.assignImage("python:3");
 
   pipeline.addChildren({
     jobsOrJobCollections: [
