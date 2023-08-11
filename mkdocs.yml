@@ -5,8 +5,12 @@ edit_uri: edit/main/docs/
 site_dir: public/
 watch:
   - README.md
+extra:
+  version:
+    provider: mike
 theme:
   name: material
+  custom_dir: docs/overrides
   icon:
     edit: material/pencil
     view: material/eye
