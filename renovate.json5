@@ -20,6 +20,15 @@
         "minor"
       ],
       "groupName": "devDependencies (non-major)"
+    },
+    {
+      "matchManagers": [
+        "gitlabci"
+      ],
+      "matchPackageNames": [
+        "node"
+      ],
+      "versioning": "node"
     }
   ],
   "ignoreDeps": [

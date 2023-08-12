@@ -67,6 +67,22 @@ const gcixProject = new cdk.JsiiProject({
   },
   gitignore: ["generated-config.yml", "__pycache__"],
   renovatebot: true,
+  renovatebotOptions: {
+    overrideConfig: {
+      packageRules: [
+        {
+          matchDepTypes: ["devDependencies"],
+          matchUpdateTypes: ["patch", "minor"],
+          groupName: "devDependencies (non-major)",
+        },
+        {
+          matchManagers: ["gitlabci"],
+          matchPackageNames: ["node"],
+          versioning: "node",
+        },
+      ],
+    },
+  },
 });
 gcixProject.vscode?.settings.addSettings({
   "editor.tabSize": 2,
