@@ -1,2 +1,2 @@
-export * as aws from "./aws";
-export * as gitlab from "./gitlab";
+export * from "./aws";
+export * from "./gitlab";

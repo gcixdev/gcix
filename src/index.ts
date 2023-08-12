@@ -1,2 +1,2 @@
 export * from "./core";
-export * as addons from "./addons";
+export * from "./addons";
