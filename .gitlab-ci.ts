@@ -23,7 +23,7 @@ const jestJob = new Job({
   stage: "test",
 });
 const testCompileJob = new Job({
-  scripts: ["npx projen", "npx projen compile"],
+  scripts: ["npx projen ci:compile"],
   name: "compile",
   stage: "test",
   artifacts: new Artifacts({
@@ -31,7 +31,7 @@ const testCompileJob = new Job({
   }),
 });
 const testPackageJob = new Job({
-  scripts: ["npx projen", "npx projen package"],
+  scripts: ["npx projen ci:package"],
   name: "package",
   stage: "test",
   needs: [testCompileJob],
