@@ -11,8 +11,10 @@
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
+    "ci:compile": "npx projen ci:compile",
     "ci:install:deps": "npx projen ci:install:deps",
     "ci:lint": "npx projen ci:lint",
+    "ci:package": "npx projen ci:package",
     "ci:package-all": "npx projen ci:package-all",
     "ci:publish:git": "npx projen ci:publish:git",
     "ci:publish:npm": "npx projen ci:publish:npm",

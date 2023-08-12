@@ -41,6 +41,21 @@
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
+    "ci:compile": {
+      "name": "ci:compile",
+      "description": "Compiles the project.",
+      "requiredEnv": [
+        "CI"
+      ],
+      "steps": [
+        {
+          "spawn": "ci:install:deps"
+        },
+        {
+          "spawn": "compile"
+        }
+      ]
+    },
     "ci:install:deps": {
       "name": "ci:install:deps",
       "description": "Install dependencies inside the CI environment.",
@@ -68,6 +83,21 @@
         },
         {
           "spawn": "eslint"
+        }
+      ]
+    },
+    "ci:package": {
+      "name": "ci:package",
+      "description": "packages the project.",
+      "requiredEnv": [
+        "CI"
+      ],
+      "steps": [
+        {
+          "spawn": "ci:install:deps"
+        },
+        {
+          "spawn": "package"
         }
       ]
     },

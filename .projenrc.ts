@@ -124,6 +124,16 @@ gcixProject.addTask("ci:lint", {
   description: "Executes eslint.",
   steps: [{ spawn: "ci:install:deps" }, { spawn: "eslint" }],
 });
+gcixProject.addTask("ci:compile", {
+  requiredEnv: ["CI"],
+  description: "Compiles the project.",
+  steps: [{ spawn: "ci:install:deps" }, { spawn: "compile" }],
+});
+gcixProject.addTask("ci:package", {
+  requiredEnv: ["CI"],
+  description: "packages the project.",
+  steps: [{ spawn: "ci:install:deps" }, { spawn: "package" }],
+});
 gcixProject.addTask("ci:setup:git", {
   description: "Setup git clone for further building.",
   requiredEnv: [
