@@ -14,7 +14,7 @@ const lintJob = new Job({
   name: "lint",
   stage: "test",
 });
-const testJob = new Job({
+const jestJob = new Job({
   scripts: ["npx projen ci:test"],
   artifacts: new Artifacts({
     reports: [{ reportType: "junit", file: "test-reports/junit.xml" }],
@@ -22,9 +22,23 @@ const testJob = new Job({
   name: "jest",
   stage: "test",
 });
+const testCompileJob = new Job({
+  scripts: ["npx projen", "npx projen compile"],
+  name: "compile",
+  stage: "test",
+  artifacts: new Artifacts({
+    paths: [".jsii", "lib"],
+  }),
+});
+const testPackageJob = new Job({
+  scripts: ["npx projen", "npx projen package"],
+  name: "package",
+  stage: "test",
+  needs: [testCompileJob],
+});
 const testCollection = new JobCollection();
 testCollection.addChildren({
-  jobsOrJobCollections: [lintJob, testJob],
+  jobsOrJobCollections: [lintJob, jestJob, testCompileJob, testPackageJob],
 });
 
 pipeline.addChildren({
