@@ -11,6 +11,7 @@
     ".projen/tasks.json",
     ".vscode/settings.json",
     "LICENSE",
+    "renovate.json5",
     "requirements.txt",
     "tsconfig.dev.json"
   ],
