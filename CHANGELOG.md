@@ -1,4 +1,12 @@
 
+### [0.0.17](https://gitlab.com/gcix/gcix/compare/v0.0.16...v0.0.17) (2023-08-12)
+
+
+### Bug Fixes
+
+* :bug: Removed helper export, it is not used to get consumed by users. ([d5393ca](https://gitlab.com/gcix/gcix/commit/d5393ca77c00145a037e82f3effc9ef7c9d546cb))
+* :bug: Removed named exports, it caused problems with api documentation exportation. ([b1bf78a](https://gitlab.com/gcix/gcix/commit/b1bf78a70e7cfea284e5152d326273e19137f82a))
+
 ### [0.0.16](https://gitlab.com/gcix/gcix/compare/v0.0.15...v0.0.16) (2023-08-12)
 
 ### [0.0.15](https://gitlab.com/gcix/gcix/compare/v0.0.14...v0.0.15) (2023-08-12)
