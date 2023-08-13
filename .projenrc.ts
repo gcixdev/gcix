@@ -252,7 +252,8 @@ gcixProject.addTask("docs:api", {
   steps: [
     { spawn: "compile" },
     {
-      exec: "npx jsii-docgen -l typescript -l python --readme false --output ./docs/api/api",
+      //exec: "npx jsii-docgen -l typescript -l python --readme false --output ./docs/api/api",
+      exec: "npx jsii-docgen -l typescript --readme false --output ./docs/api/api",
     },
   ],
 });
