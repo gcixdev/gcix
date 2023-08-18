@@ -77,8 +77,8 @@
     "jsii-pacmak": "^1.87.0",
     "jsii-rosetta": "~5.0.0",
     "npm-check-updates": "^16",
-    "prettier": "^3.0.1",
-    "projen": "^0.72.9",
+    "prettier": "^3.0.2",
+    "projen": "^0.72.15",
     "sanitize-filename": "^1.6.3",
     "standard-version": "^9",
     "tmp": "^0.2.1",
@@ -87,8 +87,8 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@aws-sdk/client-cloudformation": "^3.388.0",
-    "@aws-sdk/client-sts": "^3.388.0",
+    "@aws-sdk/client-cloudformation": "^3.391.0",
+    "@aws-sdk/client-sts": "^3.391.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "yargs": "^17.7.2"
