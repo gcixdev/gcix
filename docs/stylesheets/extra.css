@@ -8,3 +8,8 @@
   --md-primary-fg-color--dark: #292442d4;
   --md-hue: 248;
 }
+
+.md-grid {
+  max-width: 85%;
+  ;
+}
