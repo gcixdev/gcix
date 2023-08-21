@@ -1,4 +1,11 @@
 
+### [0.0.20](https://gitlab.com/gcix/gcix/compare/v0.0.19...v0.0.20) (2023-08-21)
+
+
+### Features
+
+* **addons:** :sparkles: Add Sops.exportDecryptedValues method ([9d86ccb](https://gitlab.com/gcix/gcix/commit/9d86ccbe86a41256ec9d7c0db382dc999c7d1add))
+
 ### [0.0.19](https://gitlab.com/gcix/gcix/compare/v0.0.18...v0.0.19) (2023-08-21)
 
 ### [0.0.18](https://gitlab.com/gcix/gcix/compare/v0.0.17...v0.0.18) (2023-08-21)
