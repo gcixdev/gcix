@@ -13,3 +13,4 @@ export * from "./variables";
 
 export * as aws from "./aws";
 export * as gitlab from "./gitlab";
+export * as security from "./security";
