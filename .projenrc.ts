@@ -34,7 +34,7 @@ const gcixProject = new cdk.JsiiProject({
     "@types/yargs",
   ],
   bin: {
-    cfnwaiter: "lib/addons/aws/tools/wait-for-cloudformation-stack-ready.js",
+    cfnwaiter: "lib/aws/tools/cfnwaiter.js",
   },
   docsDirectory: "public",
   npmAccess: NpmAccess.PUBLIC,

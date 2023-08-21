@@ -6,7 +6,7 @@
     "url": "https://gitlab.com/gcix/gcix.git"
   },
   "bin": {
-    "cfnwaiter": "lib/addons/aws/tools/wait-for-cloudformation-stack-ready.js"
+    "cfnwaiter": "lib/aws/tools/cfnwaiter.js"
   },
   "scripts": {
     "build": "npx projen build",
