@@ -1,4 +1,4 @@
-import { Job } from "../../../core";
+import { Job } from "../";
 
 /**
  * Configuration properties for initializing a Bootstrap instance.

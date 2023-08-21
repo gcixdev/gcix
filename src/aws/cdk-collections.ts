@@ -1,5 +1,5 @@
-import { JobCollection } from "../../../core";
-import { Deploy, Diff } from "../jobs";
+import { Deploy, Diff } from "./";
+import { JobCollection } from "../";
 
 /**
  * Configuration properties for initializing a DiffDeploy instance.

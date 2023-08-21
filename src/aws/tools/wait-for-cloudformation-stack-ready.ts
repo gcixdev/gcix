@@ -11,7 +11,7 @@ import {
   STSClient,
 } from "@aws-sdk/client-sts";
 import * as yargs from "yargs";
-import { sleep } from "../../../helper";
+import { sleep } from "../../helper";
 
 /**
  * Creates a CloudFormation client with the provided AWS credentials.

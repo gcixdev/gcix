@@ -1,12 +1,6 @@
-import { DiffDeploy } from "../../../../src/addons/aws/collections";
-import { cloneRepository } from "../../../../src/addons/gitlab";
-import {
-  Job,
-  JobCollection,
-  Pipeline,
-  Rule,
-  RuleLib,
-} from "../../../../src/core";
+import { Job, JobCollection, Pipeline, Rule, RuleLib } from "../../../../src";
+import { DiffDeploy } from "../../../../src/aws";
+import { GitlabScripts } from "../../../../src/gitlab";
 import { check } from "../../../comparison";
 
 export function myAppDiffDeploy(
@@ -84,7 +78,7 @@ test("full pipeline yaml output", () => {
   const pipeline = new Pipeline();
   pipeline.initializeImage("python:3.10-slim");
   pipeline.prependScripts([
-    cloneRepository("otherproject/configuration"),
+    GitlabScripts.cloneRepository("otherproject/configuration"),
     "./install-dependencies.sh",
   ]);
   pipeline.addTags(["environment-iat"]);

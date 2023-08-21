@@ -1,5 +1,5 @@
-import { Bootstrap, Deploy, Diff } from "../../../../src/addons/aws/jobs";
-import { Pipeline } from "../../../../src/core";
+import { Pipeline } from "../../../../src/";
+import { Bootstrap, Deploy, Diff } from "../../../../src/aws";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;

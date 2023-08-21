@@ -10,3 +10,6 @@ export * from "./pipeline";
 export * from "./rule";
 export * from "./service";
 export * from "./variables";
+
+export * as aws from "./aws";
+export * as gitlab from "./gitlab";
