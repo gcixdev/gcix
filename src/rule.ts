@@ -259,4 +259,6 @@ export class RuleLib {
   public static onTags(): Rule {
     return new Rule({ ifStatement: "$CI_COMMIT_TAG" });
   }
+
+  private constructor() {}
 }
