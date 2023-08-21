@@ -32,6 +32,8 @@ jspm_packages/
 .cache
 generated-config.yml
 __pycache__
+/docs/api/
+!/docs/api/index.md
 !/.projenrc.js
 /test-reports/
 junit.xml

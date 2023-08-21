@@ -65,7 +65,12 @@ const gcixProject = new cdk.JsiiProject({
     compilerOptions: {},
     include: [".gitlab-ci.ts"],
   },
-  gitignore: ["generated-config.yml", "__pycache__"],
+  gitignore: [
+    "generated-config.yml",
+    "__pycache__",
+    "/docs/api/",
+    "!/docs/api/index.md",
+  ],
   renovatebot: true,
   renovatebotOptions: {
     overrideConfig: {

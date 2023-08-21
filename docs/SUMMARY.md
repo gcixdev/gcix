@@ -2,6 +2,7 @@
 * [User Documentation](user/)
 * [Developer Documentation](dev/)
 * API Reference
+  * [Getting Started](api/index.md)
   * Typescript
     * [Core](api/root.typescript.md)
     * Addons
