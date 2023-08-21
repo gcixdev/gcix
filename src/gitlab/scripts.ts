@@ -21,4 +21,6 @@ export class GitlabScripts {
     }
     return `git clone --branch ${branch} --single-branch https://gitlab-ci-token:\${CI_JOB_TOKEN}@\${CI_SERVER_HOST}${path}.git`;
   }
+
+  private constructor() {}
 }
