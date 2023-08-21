@@ -263,7 +263,13 @@ gcixProject.addTask("docs:api", {
   steps: [
     { spawn: "compile" },
     {
-      exec: "for i in root aws gitlab; do npx jsii-docgen --readme false -l typescript -l python --output docs/api/$i --submodule $i; done",
+      exec: "npx jsii-docgen --readme false -l typescript -l python --submodule root --output root",
+    },
+    {
+      exec: "npx jsii-docgen --readme false -l typescript -l python --split-by-submodule",
+    },
+    {
+      exec: 'find . -maxdepth 1 -type f -name "[a-z]*.*.md" -exec mv {} docs/api/ \\;',
     },
   ],
 });
