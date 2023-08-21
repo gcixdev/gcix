@@ -14,7 +14,7 @@
  */
 
 import { IBase, OrderedStringSet, PredefinedVariables, WhenStatement } from ".";
-import { sanitizePath } from "../helper";
+import { sanitizePath } from "./helper";
 
 /**
  * @internal

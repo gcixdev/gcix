@@ -1,5 +1,5 @@
 import { IBase } from ".";
-import { validURL } from "../helper";
+import { validURL } from "./helper";
 
 /**
  * This module represents the Gitlab CI [Include](https://docs.gitlab.com/ee/ci/yaml/#include) keyword.

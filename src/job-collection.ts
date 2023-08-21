@@ -45,7 +45,7 @@ import {
   Need,
   Rule,
 } from ".";
-import { deepcopy } from "../helper";
+import { deepcopy } from "./helper";
 
 export interface ChildDict {
   readonly child: Job | JobCollection;

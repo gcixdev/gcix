@@ -1,6 +1,6 @@
 import { Variables } from ".";
 import { IBase } from "./base";
-import { deepcopy } from "../helper";
+import { deepcopy } from "./helper";
 /**
  * This module represents the Gitlab CI [rules](https://docs.gitlab.com/ee/ci/yaml/#rules) keyword.
  *

@@ -1,4 +1,4 @@
-import { PredefinedVariables } from "../core";
+import { PredefinedVariables } from "../";
 
 /**
  * Sanitizes the given path.

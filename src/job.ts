@@ -103,9 +103,9 @@ import {
   IncludeRemote,
   IncludeTemplate,
   IncludeArtifact,
+  JobCollection,
 } from ".";
-import { JobCollection } from "./job-collection";
-import { deepcopy } from "../helper";
+import { deepcopy } from "./helper";
 
 export interface RenderedJob {}
 

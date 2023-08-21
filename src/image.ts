@@ -1,5 +1,5 @@
 import { IBase } from "./base";
-import { deepcopy } from "../helper";
+import { deepcopy } from "./helper";
 /**
  * This module represents the Gitlab CI [Image](https://docs.gitlab.com/ee/ci/yaml/#image) keyword.
  * Use `Image` to specify a Docker image to use for the `gcix.Job`.
