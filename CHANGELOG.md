@@ -1,4 +1,16 @@
 
+### [0.0.24](https://gitlab.com/gcix/gcix/compare/v0.0.23...v0.0.24) (2023-08-22)
+
+
+### Features
+
+* **addons:** :sparkles: Add AsciiDoctor, Sphinx and Pdoc3 job configuration for generating python documentation. ([4364385](https://gitlab.com/gcix/gcix/commit/43643850c846287a6ca17e3f8f9e610e4e8f4142))
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixed bug in AsciiDoctory interface, properties should not be readonly. ([2993edb](https://gitlab.com/gcix/gcix/commit/2993edb93c2adbc057c692d651c2a1682ba312ee))
+
 ### [0.0.23](https://gitlab.com/gcix/gcix/compare/v0.0.22...v0.0.23) (2023-08-22)
 
 ### [0.0.22](https://gitlab.com/gcix/gcix/compare/v0.0.21...v0.0.22) (2023-08-22)
