@@ -40,11 +40,11 @@ export interface IAsciiDoctor {
   /**
    * Source .adoc files to translate to HTML files.
    */
-  readonly source: string;
+  source: string;
   /**
    * Output HTML file.
    */
-  readonly outFile: string;
+  outFile: string;
 }
 
 /**
