@@ -15,3 +15,4 @@ export * as aws from "./aws";
 export * as gitlab from "./gitlab";
 export * as security from "./security";
 export * as linux from "./linux";
+export * as python from "./python";
