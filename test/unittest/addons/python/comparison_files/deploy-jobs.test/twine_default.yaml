@@ -1,0 +1,10 @@
+stages:
+- deploy
+deploy-twine-deploy:
+  stage: deploy
+  script:
+  - pip3 install --upgrade twine
+  - python3 -m twine upload --non-interactive --disable-progress-bar dist/*
+  variables:
+    TWINE_USERNAME: $TWINE_USERNAME
+    TWINE_PASSWORD: $TWINE_PASSWORD
