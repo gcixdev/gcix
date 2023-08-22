@@ -1,4 +1,16 @@
 
+### [0.0.22](https://gitlab.com/gcix/gcix/compare/v0.0.21...v0.0.22) (2023-08-22)
+
+
+### Features
+
+* :sparkles: Implement isSemver function ([c3a676b](https://gitlab.com/gcix/gcix/commit/c3a676be55b3fcc508e865901c6c56449df329fa))
+* **addons:** :sparkles: Add BdistWheel job configuration for building and packaging. ([1d9106e](https://gitlab.com/gcix/gcix/commit/1d9106e797fc01947da9146a9f474279bfe66d5e))
+* **addons:** :sparkles: Add Flake8, MyPy and Isort job configuration for linting python projects. ([3591c1a](https://gitlab.com/gcix/gcix/commit/3591c1a0bf9b7ab3345ed115b7c8366c39fe88b8))
+* **addons:** :sparkles: Add Scripts class for Linux package install ([526fadc](https://gitlab.com/gcix/gcix/commit/526fadcc81ac3407fe0d99ce51a967b2a003de38))
+* **addons:** :sparkles: Add TwineUpload job configuration for uploading packaged python packages. ([8b7f77d](https://gitlab.com/gcix/gcix/commit/8b7f77d6cad4f0d6dcea3123ca6cc6fdc73deca7))
+* **addons:** :sparkles: Introduce Scripts utility class with pipInstallRequirements method ([84aa175](https://gitlab.com/gcix/gcix/commit/84aa175dc13d9a0e4f73e874583c707d8ab84a2f))
+
 ### [0.0.21](https://gitlab.com/gcix/gcix/compare/v0.0.20...v0.0.21) (2023-08-21)
 
 ### [0.0.20](https://gitlab.com/gcix/gcix/compare/v0.0.19...v0.0.20) (2023-08-21)
