@@ -1,0 +1,18 @@
+stages:
+- build
+sphinx-pages-build:
+  stage: build
+  script:
+  - |-
+    if test -f Pipfile.lock; then
+    pip install pipenv;
+    pipenv install --dev --system;
+    fi;
+    if test -f docs/requirements.txt; then
+    pip install --upgrade -r docs/requirements.txt;
+    fi
+  - sphinx-build -b html -E -a docs public/my-awsome-feature-branch
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - public

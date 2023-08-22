@@ -1,0 +1,20 @@
+stages:
+- build
+pdoc3-pages-build:
+  stage: build
+  script:
+  - pip3 install pdoc3
+  - pdoc3 --html -f --skip-errors --output-dir public gcip
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - public
+userdoc-build:
+  stage: build
+  script:
+  - pip3 install pdoc3
+  - pdoc3 --html -f --skip-errors --output-dir public/user userdoc
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - public

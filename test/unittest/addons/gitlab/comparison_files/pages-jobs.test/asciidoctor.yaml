@@ -1,0 +1,24 @@
+stages:
+- build
+foo-asciidoctor-pages-build:
+  image:
+    name: ruby:3-alpine
+  stage: build
+  script:
+  - gem install asciidoctor
+  - asciidoctor docs/index.adoc -o public/index.html
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - public
+foo-pages-awesome-build:
+  image:
+    name: ruby:3-alpine
+  stage: build
+  script:
+  - gem install asciidoctor
+  - asciidoctor docs/awesome.adoc -o public/awesome.html
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - public
