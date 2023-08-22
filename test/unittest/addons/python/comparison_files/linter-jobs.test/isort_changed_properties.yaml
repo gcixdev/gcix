@@ -1,0 +1,7 @@
+stages:
+- after_lint
+linter-changed-properties-after-lint:
+  stage: after_lint
+  script:
+  - pip3 install --upgrade isort
+  - isort --check .

@@ -1,0 +1,8 @@
+stages:
+- lint
+linter-mypy-lint:
+  stage: lint
+  script:
+  - pip3 freeze | grep -q "^mypy" || pip3 install mypy
+  - yes | mypy --install-types src || true
+  - mypy src

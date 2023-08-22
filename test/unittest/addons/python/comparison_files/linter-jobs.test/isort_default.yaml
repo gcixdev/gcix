@@ -1,0 +1,7 @@
+stages:
+- lint
+linter-isort-lint:
+  stage: lint
+  script:
+  - pip3 install --upgrade isort
+  - isort --check .
