@@ -1,0 +1,33 @@
+stages:
+- after_build
+build-changed-properties-after-build:
+  stage: after_build
+  script:
+  - |-
+    if test -f Pipfile.lock; then
+    pip install pipenv==1.2.3;
+    pipenv install --dev --system;
+    fi;
+    if test -f changed_requirements.txt; then
+    pip install --upgrade -r changed_requirements.txt;
+    fi
+  - >
+    pip list | grep setuptools-git-versioning && if [ -x "$(command -v apk)" ];
+    then apk update && apk add --yes --no-cache git;
+
+    elif [ -x "$(command -v apt-get)" ]; then apt-get update && apt-get install
+    --yes git;
+
+    elif [ -x "$(command -v yum)" ]; then yum install -y git;
+
+    elif [ -x "$(command -v dnf)" ]; then dnf install -y git;
+
+    elif [ -x "$(command -v zypper)" ]; then zypper install -y git;
+
+    else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must
+    manually install: git">&2; fi
+  - python3 setup.py bdist_wheel
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - dist/
