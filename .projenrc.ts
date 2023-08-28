@@ -32,6 +32,8 @@ const gcixProject = new cdk.JsiiProject({
     "@types/js-yaml",
     "@types/jest",
     "@types/yargs",
+    "aws-sdk-client-mock",
+    "aws-sdk-client-mock-jest",
   ],
   bin: {
     cfnwaiter: "lib/aws/tools/cfnwaiter.js",
