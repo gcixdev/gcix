@@ -104,7 +104,7 @@ test("cdk deploy without strict and waitForStack", () => {
 });
 
 test("cdk deploy warning", () => {
-  const spyOn = jest.spyOn(console, "warn");
+  const spyOn = jest.spyOn(console, "warn").mockImplementation(() => {});
   pipeline.addChildren({
     jobsOrJobCollections: [
       new Deploy({
