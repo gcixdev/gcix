@@ -1,0 +1,19 @@
+stages:
+- test
+mirror-test:
+  image:
+    name: alpine/git:latest
+    entrypoint:
+    - ''
+  stage: test
+  script:
+  - set -eo pipefail
+  - mkdir /tmp/repoReplicaUniqueDir
+  - cd /tmp/repoReplicaUniqueDir
+  - git clone -b my_awsome_feature_branch ${CI_REPOSITORY_URL} .
+  - git config --global user.email "maxpower@gcix.net"
+  - git config --global user.name "Max Power"
+  - >-
+    git push --force github.com/gcix/gcix
+    my_awsome_feature_branch:my_awsome_feature_branch
+  - echo "Published code to github.com/gcix/gcix:my_awsome_feature_branch"
