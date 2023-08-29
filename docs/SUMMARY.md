@@ -11,6 +11,8 @@
       * [Security](api/security.typescript.md)
       * [Linux](api/linux.typescript.md)
       * [Python](api/python.typescript.md)
+      * [Container](api/container.typescript.md)
+      * [GIT](api/git.typescript.md)
   * Python
     * [Core](api/root.python.md)
     * Addons
@@ -19,3 +21,5 @@
       * [Security](api/security.python.md)
       * [Linux](api/linux.python.md)
       * [Python](api/python.python.md)
+      * [Container](api/container.python.md)
+      * [GIT](api/git.python.md)
