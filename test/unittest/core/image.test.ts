@@ -1,4 +1,5 @@
 import { Image } from "../../../src/";
+import { check } from "../../comparison";
 
 test("image class only with image", () => {
   const image = new Image({
@@ -68,4 +69,18 @@ test("equality", () => {
 
   expect(imageToCompareTo.isEqual(imageEqualsToCompareTo)).toBe(true);
   expect(imageToCompareTo.isEqual(imageNotEqualsToCompareTo)).toBe(false);
+});
+
+describe("rendered image", () => {
+  test("simple image", () => {
+    check(new Image({ name: "busybox" }).render(), expect);
+  });
+  test("all properties", () => {
+    const image: Image = new Image({
+      name: "alpine",
+      entrypoint: ["/bin/sh", "-c", "echo 'Hello World!"],
+      tag: "3.12",
+    });
+    check(image.render(), expect);
+  });
 });

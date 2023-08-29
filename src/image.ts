@@ -83,8 +83,12 @@ export class Image implements IImage, IBase {
   }
 
   render(): any {
+    let tag: string | undefined;
+    if (this.tag) {
+      tag = `:${this.tag}`;
+    }
     const renderedImage: RenderedImage = {
-      name: this.name + (this.tag || ""),
+      name: this.name + (tag || ""),
       entrypoint: this.entrypoint,
     };
     return renderedImage;

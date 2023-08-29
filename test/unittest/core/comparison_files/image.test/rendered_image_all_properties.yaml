@@ -1,0 +1,5 @@
+name: alpine:3.12
+entrypoint:
+- /bin/sh
+- '-c'
+- echo 'Hello World!
