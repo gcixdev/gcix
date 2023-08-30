@@ -1,0 +1,60 @@
+stages:
+- deploy
+git-mirror-deploy:
+  image:
+    name: alpine/git:latest
+    entrypoint:
+    - ''
+  stage: deploy
+  script:
+  - set -eo pipefail
+  - mkdir /tmp/repoReplicaUniqueDir
+  - cd /tmp/repoReplicaUniqueDir
+  - git clone -b my_awsome_feature_branch ${CI_REPOSITORY_URL} .
+  - git config --global user.email "maxpower@gcix.net"
+  - git config --global user.name "Max Power"
+  - >
+    if [ -x "$(command -v apk)" ]; then apk update && apk add --yes --no-cache
+    curl curl-dev jq;
+
+    elif [ -x "$(command -v apt-get)" ]; then apt-get update && apt-get install
+    --yes curl curl-dev jq;
+
+    elif [ -x "$(command -v yum)" ]; then yum install -y curl curl-dev jq;
+
+    elif [ -x "$(command -v dnf)" ]; then dnf install -y curl curl-dev jq;
+
+    elif [ -x "$(command -v zypper)" ]; then zypper install -y curl curl-dev jq;
+
+    else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must
+    manually install: curl curl-dev jq">&2; fi
+  - >-
+    export AWS_DEFAULT_REGION=$(curl --silent
+    http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r
+    .region)
+  - >
+    if [ -x "$(command -v apk)" ]; then apk update && apk add --yes --no-cache
+    aws-cli;
+
+    elif [ -x "$(command -v apt-get)" ]; then apt-get update && apt-get install
+    --yes aws-cli;
+
+    elif [ -x "$(command -v yum)" ]; then yum install -y aws-cli;
+
+    elif [ -x "$(command -v dnf)" ]; then dnf install -y aws-cli;
+
+    elif [ -x "$(command -v zypper)" ]; then zypper install -y aws-cli;
+
+    else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must
+    manually install: aws-cli">&2; fi
+  - >-
+    GCIP_REMOTE_REPO_URL=$(aws codecommit get-repository --repository-name
+    "path-to-project" --output text --query repositoryMetadata.cloneUrlHttp ||
+    aws codecommit create-repository --repository-name "path-to-project" 
+    --output text --query repositoryMetadata.cloneUrlHttp)
+  - git config --local credential.helper '!aws codecommit credential-helper $@'
+  - git config --local credential.UseHttpPath true
+  - >-
+    git push --force ${GCIP_REMOTE_REPO_URL}
+    my_awsome_feature_branch:my_awsome_feature_branch
+  - echo "Published code to ${GCIP_REMOTE_REPO_URL}:my_awsome_feature_branch"
