@@ -567,7 +567,7 @@
           "exec": "yarn upgrade npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --filter=@types/jest,@types/js-yaml,@types/lodash,@types/node,@types/tmp,@types/yargs,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-sdk-client-mock,aws-sdk-client-mock-jest,eslint-config-prettier,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,prettier,projen,sanitize-filename,standard-version,tmp,ts-jest,ts-node,typescript,@aws-sdk/client-cloudformation,@aws-sdk/client-sts,js-yaml,lodash,yargs"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/jest,@types/js-yaml,@types/lodash,@types/node,@types/tmp,@types/yargs,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,aws-sdk-client-mock,aws-sdk-client-mock-jest,eslint-config-prettier,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,eslint,jest,jest-junit,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,prettier,projen,sanitize-filename,standard-version,tmp,ts-jest,ts-node,typescript,@aws-sdk/client-cloudformation,@aws-sdk/client-sts,js-yaml,lodash,yargs"
         },
         {
           "exec": "yarn install --check-files"
