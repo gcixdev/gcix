@@ -1,4 +1,20 @@
 
+### [0.0.25](https://gitlab.com/gcix/gcix/compare/v0.0.24...v0.0.25) (2023-08-31)
+
+
+### Features
+
+* **addons:** :sparkles: Add Mirror class for repository mirroring. ([69cf4a7](https://gitlab.com/gcix/gcix/commit/69cf4a71147c7bb827f66ebdafa9e7de92dc5c9c))
+* **addons:** :sparkles: Added a new class AWSAccount that provides methods for retrieving AWS Account ID and AWS Region. ([993786f](https://gitlab.com/gcix/gcix/commit/993786f15ea263c75d0b0b9bd945c7636dcc31bc))
+* **addons:** :sparkles: Implement PredefinedImages class for commonly used container images ([c0a9140](https://gitlab.com/gcix/gcix/commit/c0a9140ca2c58b28661d35d1472b57ecc95036a4))
+* **addons:** :sparkles: Introduce MirrorToCodecommit class for Git repository mirroring to Codecommit ([5630f10](https://gitlab.com/gcix/gcix/commit/5630f101aabc1ebb07bc0061238a17a8ea100cbd))
+* **addons:** :sparkles: Introduce Registry class to get registry URLs. ([7fc2a63](https://gitlab.com/gcix/gcix/commit/7fc2a635ca4aa9db0f82c3fc46d1d09a2e620406))
+
+
+### Bug Fixes
+
+* **core:** :bug: Correct missing colon in Image.tag assignment. ([bec6dfa](https://gitlab.com/gcix/gcix/commit/bec6dfa4e1a031ac617af4318f4448a5c620d1b1))
+
 ### [0.0.24](https://gitlab.com/gcix/gcix/compare/v0.0.23...v0.0.24) (2023-08-22)
 
 
