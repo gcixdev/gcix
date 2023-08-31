@@ -121,5 +121,5 @@ if (PredefinedVariables.ciCommitTag) {
 }
 
 pipeline.initializeImage("node:18");
-pipeline.addTags(["gcix"]);
+// pipeline.addTags(["gcix"]);
 pipeline.writeYaml();
