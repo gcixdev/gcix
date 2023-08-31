@@ -1,0 +1,2272 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../container.typescript/">
+      
+      
+        <link rel="next" href="../root.python/">
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.6">
+    
+    
+      
+        <title>GIT - GitLab CI X Library Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0e669242.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git-submodule-wzxhzdk61-submodule-idgcixgcixgit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+You're not viewing the latest version.
+<a href="../../..">
+  <strong>Click here to go to latest.</strong>
+</a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="GitLab CI X Library Documentation" class="md-header__button md-logo" aria-label="GitLab CI X Library Documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GitLab CI X Library Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GIT
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://gitlab.com/gcix/gcix" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    gcix/gcix
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../user/01-core/" class="md-tabs__link">
+          
+  
+  User Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../dev/contribution/CODE_OF_CONDUCT/" class="md-tabs__link">
+          
+  
+  Developer Documentation
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="GitLab CI X Library Documentation" class="md-nav__button md-logo" aria-label="GitLab CI X Library Documentation" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    GitLab CI X Library Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://gitlab.com/gcix/gcix" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    gcix/gcix
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    User Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user/01-core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Developer Documentation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Developer Documentation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Contribution
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Contribution
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/contribution/CODE_OF_CONDUCT/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code of Conduct
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/contribution/CONTRIBUTING/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Contributing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dev/contribution/LICENSE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Apache License 2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    API Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Typescript
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Typescript
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../root.typescript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" checked>
+        
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Addons
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Addons
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws.typescript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gitlab.typescript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GitLab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.typescript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux.typescript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python.typescript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container.typescript/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Container
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    GIT
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    GIT
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    Structs 
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirrorprops" class="md-nav__link">
+    MirrorProps 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes 
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirror" class="md-nav__link">
+    Mirror 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocols" class="md-nav__link">
+    Protocols 
+  </a>
+  
+    <nav class="md-nav" aria-label="Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imirror" class="md-nav__link">
+    IMirror 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../root.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Core
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Addons
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Addons
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AWS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gitlab.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GitLab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Container
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git.python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GIT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#structs" class="md-nav__link">
+    Structs 
+  </a>
+  
+    <nav class="md-nav" aria-label="Structs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirrorprops" class="md-nav__link">
+    MirrorProps 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes 
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mirror" class="md-nav__link">
+    Mirror 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocols" class="md-nav__link">
+    Protocols 
+  </a>
+  
+    <nav class="md-nav" aria-label="Protocols">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#imirror" class="md-nav__link">
+    IMirror 
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://gitlab.com/gcix/gcix/edit/main/docs/api/git.typescript.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+    </a>
+  
+  
+    
+      
+    
+    <a href="https://gitlab.com/gcix/gcix/raw/main/docs/api/git.typescript.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5Z"/></svg>
+    </a>
+  
+
+
+<h1 id="git-submodule-wzxhzdk61-submodule-idgcixgcixgit"><code>git</code> Submodule <a name="<code>git</code> Submodule" id="@gcix/gcix.git"></a><a class="headerlink" href="#git-submodule-wzxhzdk61-submodule-idgcixgcixgit" title="Permanent link">&para;</a></h1>
+<h2 id="structs">Structs <a name="Structs" id="Structs"></a><a class="headerlink" href="#structs" title="Permanent link">&para;</a></h2>
+<h3 id="mirrorprops">MirrorProps <a name="MirrorProps" id="@gcix/gcix.git.MirrorProps"></a><a class="headerlink" href="#mirrorprops" title="Permanent link">&para;</a></h3>
+<h4 id="initializer">Initializer <a name="Initializer" id="@gcix/gcix.git.MirrorProps.Initializer"></a><a class="headerlink" href="#initializer" title="Permanent link">&para;</a></h4>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">git</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@gcix/gcix&#39;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">mirrorProps</span><span class="o">:</span><span class="w"> </span><span class="kt">git.MirrorProps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h4 id="properties">Properties <a name="Properties" id="Properties"></a><a class="headerlink" href="#properties" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.remoteRepository">remoteRepository</a></code></td>
+<td><code>string</code></td>
+<td>The git repository the code of the pipelines repository should be mirrored to.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.gitConfigUserEmail">gitConfigUserEmail</a></code></td>
+<td><code>string</code></td>
+<td>The 'user.email' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_EMAIL.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.gitConfigUserName">gitConfigUserName</a></code></td>
+<td><code>string</code></td>
+<td>The 'user.name' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_NAME.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.jobName">jobName</a></code></td>
+<td><code>string</code></td>
+<td>The name of the Bootstrap job.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.jobStage">jobStage</a></code></td>
+<td><code>string</code></td>
+<td>The stage of the Bootstrap job.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.privateKeyVariable">privateKeyVariable</a></code></td>
+<td><code>string</code></td>
+<td>DO NOT PROVIDE YOUR PRIVATE SSH KEY HERE!!! This parameter takes the name of the Gitlab environment variable, which contains the private ssh key used to push to the remote repository. This one should be created as protected and masked variable in the 'CI/CD' settings of your project.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.runOnlyForRepositoryUrl">runOnlyForRepositoryUrl</a></code></td>
+<td><code>string</code></td>
+<td>When mirroring to a remote Gitlab instance, you don't want to run this mirroring job there again.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.MirrorProps.property.scriptHook">scriptHook</a></code></td>
+<td><code>string[]</code></td>
+<td>This list of strings could contain any commands that should be executed between pulling the current repository and pushing it to the remote.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="remoterepositoryrequired"><code>remoteRepository</code><sup>Required</sup> <a name="remoteRepository" id="@gcix/gcix.git.MirrorProps.property.remoteRepository"></a><a class="headerlink" href="#remoterepositoryrequired" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">remoteRepository</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The git repository the code of the pipelines repository should be mirrored to.</p>
+<hr />
+<h5 id="gitconfiguseremailoptional"><code>gitConfigUserEmail</code><sup>Optional</sup> <a name="gitConfigUserEmail" id="@gcix/gcix.git.MirrorProps.property.gitConfigUserEmail"></a><a class="headerlink" href="#gitconfiguseremailoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">gitConfigUserEmail</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The 'user.email' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_EMAIL.</p>
+<hr />
+<h5 id="gitconfigusernameoptional"><code>gitConfigUserName</code><sup>Optional</sup> <a name="gitConfigUserName" id="@gcix/gcix.git.MirrorProps.property.gitConfigUserName"></a><a class="headerlink" href="#gitconfigusernameoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">gitConfigUserName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The 'user.name' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_NAME.</p>
+<hr />
+<h5 id="jobnameoptional"><code>jobName</code><sup>Optional</sup> <a name="jobName" id="@gcix/gcix.git.MirrorProps.property.jobName"></a><a class="headerlink" href="#jobnameoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">jobName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The name of the Bootstrap job.</p>
+<hr />
+<h5 id="jobstageoptional"><code>jobStage</code><sup>Optional</sup> <a name="jobStage" id="@gcix/gcix.git.MirrorProps.property.jobStage"></a><a class="headerlink" href="#jobstageoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">jobStage</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The stage of the Bootstrap job.</p>
+<hr />
+<h5 id="privatekeyvariableoptional"><code>privateKeyVariable</code><sup>Optional</sup> <a name="privateKeyVariable" id="@gcix/gcix.git.MirrorProps.property.privateKeyVariable"></a><a class="headerlink" href="#privatekeyvariableoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">privateKeyVariable</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>DO NOT PROVIDE YOUR PRIVATE SSH KEY HERE!!! This parameter takes the name of the Gitlab environment variable, which contains the private ssh key used to push to the remote repository. This one should be created as protected and masked variable in the 'CI/CD' settings of your project.</p>
+<hr />
+<h5 id="runonlyforrepositoryurloptional"><code>runOnlyForRepositoryUrl</code><sup>Optional</sup> <a name="runOnlyForRepositoryUrl" id="@gcix/gcix.git.MirrorProps.property.runOnlyForRepositoryUrl"></a><a class="headerlink" href="#runonlyforrepositoryurloptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">runOnlyForRepositoryUrl</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>When mirroring to a remote Gitlab instance, you don't want to run this mirroring job there again.</p>
+<p>With this variable the job only runs, when its
+value matches the CI_REPOSITORY_URL of the current repository.</p>
+<hr />
+<h5 id="scripthookoptional"><code>scriptHook</code><sup>Optional</sup> <a name="scriptHook" id="@gcix/gcix.git.MirrorProps.property.scriptHook"></a><a class="headerlink" href="#scripthookoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">scriptHook</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<p>This list of strings could contain any commands that should be executed between pulling the current repository and pushing it to the remote.</p>
+<p>This hook is mostly meant to be for git configuration commands,
+required to push to the remote repository.</p>
+<hr />
+<h2 id="classes">Classes <a name="Classes" id="Classes"></a><a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
+<h3 id="mirror">Mirror <a name="Mirror" id="@gcix/gcix.git.Mirror"></a><a class="headerlink" href="#mirror" title="Permanent link">&para;</a></h3>
+<ul>
+<li><em>Implements:</em> <a href="#@gcix/gcix.git.IMirror">IMirror</a></li>
+</ul>
+<p>This job clones the CI_COMMIT_REF_NAME of the current repository and forcefully pushes this REF to the <code>remote_repository</code>.</p>
+<p>This subclass of <code>Job</code> will configure following defaults for the superclass:</p>
+<ul>
+<li>name: git-mirror</li>
+<li>stage: deploy</li>
+<li>image: PredefinedImages.ALPINE_GIT</li>
+</ul>
+<h4 id="initializers">Initializers <a name="Initializers" id="@gcix/gcix.git.Mirror.Initializer"></a><a class="headerlink" href="#initializers" title="Permanent link">&para;</a></h4>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">git</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;@gcix/gcix&#39;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="ow">new</span><span class="w"> </span><span class="nx">git</span><span class="p">.</span><span class="nx">Mirror</span><span class="p">(</span><span class="nx">props</span><span class="o">:</span><span class="w"> </span><span class="kt">MirrorProps</span><span class="p">)</span>
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.Initializer.parameter.props">props</a></code></td>
+<td><code><a href="#@gcix/gcix.git.MirrorProps">MirrorProps</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="propsrequired"><code>props</code><sup>Required</sup> <a name="props" id="@gcix/gcix.git.Mirror.Initializer.parameter.props"></a><a class="headerlink" href="#propsrequired" title="Permanent link">&para;</a></h5>
+<ul>
+<li><em>Type:</em> <a href="#@gcix/gcix.git.MirrorProps">MirrorProps</a></li>
+</ul>
+<hr />
+<h4 id="methods">Methods <a name="Methods" id="Methods"></a><a class="headerlink" href="#methods" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.addDependencies">addDependencies</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.addNeeds">addNeeds</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.addParent">addParent</a></code></td>
+<td>This method is called by <code>gcix.JobCollection</code>s when the job is added to that JobCollection.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.addTags">addTags</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.addVariables">addVariables</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.appendRules">appendRules</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.appendScripts">appendScripts</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.assignAllowFailure">assignAllowFailure</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.assignArtifacts">assignArtifacts</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.assignCache">assignCache</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.assignDependencies">assignDependencies</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.assignImage">assignImage</a></code></td>
+<td>Sets the image of this job.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.assignNeeds">assignNeeds</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.assignTags">assignTags</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.copy">copy</a></code></td>
+<td>Returns an independent, deep copy object of this job.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.extendName">extendName</a></code></td>
+<td>This method is used by <code>gcix.JobCollection</code>s to populate the jobs name.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.extendStage">extendStage</a></code></td>
+<td>This method is used by <code>gcix.JobCollection</code>s to populate the jobs name and stage.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.extendStageValue">extendStageValue</a></code></td>
+<td>This method is used by <code>gcix.JobCollection</code>s to populate the jobs stage.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.getAllInstanceNames">getAllInstanceNames</a></code></td>
+<td>Return all instance names from the given child.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.isEqual">isEqual</a></code></td>
+<td><code>isEqual</code> checks if <code>this</code> object is equal to given object.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.prependRules">prependRules</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.prependScripts">prependScripts</a></code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.render">render</a></code></td>
+<td>Returns a representation of any object which implements <code>IBase</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="adddependencies"><code>addDependencies</code> <a name="addDependencies" id="@gcix/gcix.git.Mirror.addDependencies"></a><a class="headerlink" href="#adddependencies" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">addDependencies</span><span class="p">(</span><span class="nx">dependencies</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Need</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="dependenciesrequired"><code>dependencies</code><sup>Required</sup> <a name="dependencies" id="@gcix/gcix.git.Mirror.addDependencies.parameter.dependencies"></a><a class="headerlink" href="#dependenciesrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</li>
+</ul>
+<hr />
+<h5 id="addneeds"><code>addNeeds</code> <a name="addNeeds" id="@gcix/gcix.git.Mirror.addNeeds"></a><a class="headerlink" href="#addneeds" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">addNeeds</span><span class="p">(</span><span class="nx">needs</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Need</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="needsrequired"><code>needs</code><sup>Required</sup> <a name="needs" id="@gcix/gcix.git.Mirror.addNeeds.parameter.needs"></a><a class="headerlink" href="#needsrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</li>
+</ul>
+<hr />
+<h5 id="addparent"><code>addParent</code> <a name="addParent" id="@gcix/gcix.git.Mirror.addParent"></a><a class="headerlink" href="#addparent" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">addParent</span><span class="p">(</span><span class="nx">parent</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span>
+</span></code></pre></div></td></tr></table></div>
+<p>This method is called by <code>gcix.JobCollection</code>s when the job is added to that JobCollection.</p>
+<p>The job needs to know its parents when <code>getAllInstanceNames()</code> is called.</p>
+<h6 id="parentrequired"><code>parent</code><sup>Required</sup> <a name="parent" id="@gcix/gcix.git.Mirror.addParent.parameter.parent"></a><a class="headerlink" href="#parentrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection</li>
+</ul>
+<hr />
+<h5 id="addtags"><code>addTags</code> <a name="addTags" id="@gcix/gcix.git.Mirror.addTags"></a><a class="headerlink" href="#addtags" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">addTags</span><span class="p">(</span><span class="nx">tags</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="tagsrequired"><code>tags</code><sup>Required</sup> <a name="tags" id="@gcix/gcix.git.Mirror.addTags.parameter.tags"></a><a class="headerlink" href="#tagsrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<hr />
+<h5 id="addvariables"><code>addVariables</code> <a name="addVariables" id="@gcix/gcix.git.Mirror.addVariables"></a><a class="headerlink" href="#addvariables" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">addVariables</span><span class="p">(</span><span class="nx">variables</span><span class="o">:</span><span class="w"> </span><span class="p">{[</span><span class="w"> </span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">})</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="variablesrequired"><code>variables</code><sup>Required</sup> <a name="variables" id="@gcix/gcix.git.Mirror.addVariables.parameter.variables"></a><a class="headerlink" href="#variablesrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> {[ key: string ]: string}</li>
+</ul>
+<hr />
+<h5 id="appendrules"><code>appendRules</code> <a name="appendRules" id="@gcix/gcix.git.Mirror.appendRules"></a><a class="headerlink" href="#appendrules" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">appendRules</span><span class="p">(</span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="kt">Rule</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="rulesrequired"><code>rules</code><sup>Required</sup> <a name="rules" id="@gcix/gcix.git.Mirror.appendRules.parameter.rules"></a><a class="headerlink" href="#rulesrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Rule[]</li>
+</ul>
+<hr />
+<h5 id="appendscripts"><code>appendScripts</code> <a name="appendScripts" id="@gcix/gcix.git.Mirror.appendScripts"></a><a class="headerlink" href="#appendscripts" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">appendScripts</span><span class="p">(</span><span class="nx">scripts</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="scriptsrequired"><code>scripts</code><sup>Required</sup> <a name="scripts" id="@gcix/gcix.git.Mirror.appendScripts.parameter.scripts"></a><a class="headerlink" href="#scriptsrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<hr />
+<h5 id="assignallowfailure"><code>assignAllowFailure</code> <a name="assignAllowFailure" id="@gcix/gcix.git.Mirror.assignAllowFailure"></a><a class="headerlink" href="#assignallowfailure" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">assignAllowFailure</span><span class="p">(</span><span class="nx">allowFailure</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">number</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="allowfailurerequired"><code>allowFailure</code><sup>Required</sup> <a name="allowFailure" id="@gcix/gcix.git.Mirror.assignAllowFailure.parameter.allowFailure"></a><a class="headerlink" href="#allowfailurerequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> boolean | number[]</li>
+</ul>
+<hr />
+<h5 id="assignartifacts"><code>assignArtifacts</code> <a name="assignArtifacts" id="@gcix/gcix.git.Mirror.assignArtifacts"></a><a class="headerlink" href="#assignartifacts" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">assignArtifacts</span><span class="p">(</span><span class="nx">artifacts</span><span class="o">:</span><span class="w"> </span><span class="kt">Artifacts</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="artifactsrequired"><code>artifacts</code><sup>Required</sup> <a name="artifacts" id="@gcix/gcix.git.Mirror.assignArtifacts.parameter.artifacts"></a><a class="headerlink" href="#artifactsrequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Artifacts</li>
+</ul>
+<hr />
+<h5 id="assigncache"><code>assignCache</code> <a name="assignCache" id="@gcix/gcix.git.Mirror.assignCache"></a><a class="headerlink" href="#assigncache" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">assignCache</span><span class="p">(</span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="kt">Cache</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="cacherequired"><code>cache</code><sup>Required</sup> <a name="cache" id="@gcix/gcix.git.Mirror.assignCache.parameter.cache"></a><a class="headerlink" href="#cacherequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Cache</li>
+</ul>
+<hr />
+<h5 id="assigndependencies"><code>assignDependencies</code> <a name="assignDependencies" id="@gcix/gcix.git.Mirror.assignDependencies"></a><a class="headerlink" href="#assigndependencies" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">assignDependencies</span><span class="p">(</span><span class="nx">dependencies</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Need</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="dependenciesrequired_1"><code>dependencies</code><sup>Required</sup> <a name="dependencies" id="@gcix/gcix.git.Mirror.assignDependencies.parameter.dependencies"></a><a class="headerlink" href="#dependenciesrequired_1" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</li>
+</ul>
+<hr />
+<h5 id="assignimage"><code>assignImage</code> <a name="assignImage" id="@gcix/gcix.git.Mirror.assignImage"></a><a class="headerlink" href="#assignimage" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">assignImage</span><span class="p">(</span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Image</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Sets the image of this job.</p>
+<p>For a simple container image you can provide the origin of the image.
+If you want to set the entrypoint, you have to provide an Image object instead.</p>
+<p>!! Any previous values will be overwritten.</p>
+<h6 id="imagerequired"><code>image</code><sup>Required</sup> <a name="image" id="@gcix/gcix.git.Mirror.assignImage.parameter.image"></a><a class="headerlink" href="#imagerequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Image</li>
+</ul>
+<hr />
+<h5 id="assignneeds"><code>assignNeeds</code> <a name="assignNeeds" id="@gcix/gcix.git.Mirror.assignNeeds"></a><a class="headerlink" href="#assignneeds" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">assignNeeds</span><span class="p">(</span><span class="nx">needs</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Need</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="needsrequired_1"><code>needs</code><sup>Required</sup> <a name="needs" id="@gcix/gcix.git.Mirror.assignNeeds.parameter.needs"></a><a class="headerlink" href="#needsrequired_1" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</li>
+</ul>
+<hr />
+<h5 id="assigntags"><code>assignTags</code> <a name="assignTags" id="@gcix/gcix.git.Mirror.assignTags"></a><a class="headerlink" href="#assigntags" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">assignTags</span><span class="p">(</span><span class="nx">tags</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="tagsrequired_1"><code>tags</code><sup>Required</sup> <a name="tags" id="@gcix/gcix.git.Mirror.assignTags.parameter.tags"></a><a class="headerlink" href="#tagsrequired_1" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<hr />
+<h5 id="copy"><code>copy</code> <a name="copy" id="@gcix/gcix.git.Mirror.copy"></a><a class="headerlink" href="#copy" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">copy</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Returns an independent, deep copy object of this job.</p>
+<h5 id="extendname"><code>extendName</code> <a name="extendName" id="@gcix/gcix.git.Mirror.extendName"></a><a class="headerlink" href="#extendname" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">extendName</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span>
+</span></code></pre></div></td></tr></table></div>
+<p>This method is used by <code>gcix.JobCollection</code>s to populate the jobs name.</p>
+<h6 id="namerequired"><code>name</code><sup>Required</sup> <a name="name" id="@gcix/gcix.git.Mirror.extendName.parameter.name"></a><a class="headerlink" href="#namerequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr />
+<h5 id="extendstage"><code>extendStage</code> <a name="extendStage" id="@gcix/gcix.git.Mirror.extendStage"></a><a class="headerlink" href="#extendstage" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">extendStage</span><span class="p">(</span><span class="nx">stage</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span>
+</span></code></pre></div></td></tr></table></div>
+<p>This method is used by <code>gcix.JobCollection</code>s to populate the jobs name and stage.</p>
+<h6 id="stagerequired"><code>stage</code><sup>Required</sup> <a name="stage" id="@gcix/gcix.git.Mirror.extendStage.parameter.stage"></a><a class="headerlink" href="#stagerequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr />
+<h5 id="extendstagevalue"><code>extendStageValue</code> <a name="extendStageValue" id="@gcix/gcix.git.Mirror.extendStageValue"></a><a class="headerlink" href="#extendstagevalue" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">extendStageValue</span><span class="p">(</span><span class="nx">stage</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span>
+</span></code></pre></div></td></tr></table></div>
+<p>This method is used by <code>gcix.JobCollection</code>s to populate the jobs stage.</p>
+<h6 id="stagerequired_1"><code>stage</code><sup>Required</sup> <a name="stage" id="@gcix/gcix.git.Mirror.extendStageValue.parameter.stage"></a><a class="headerlink" href="#stagerequired_1" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr />
+<h5 id="getallinstancenames"><code>getAllInstanceNames</code> <a name="getAllInstanceNames" id="@gcix/gcix.git.Mirror.getAllInstanceNames"></a><a class="headerlink" href="#getallinstancenames" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">getAllInstanceNames</span><span class="p">(</span><span class="nx">child?</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">OrderedStringSet</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Return all instance names from the given child.</p>
+<p>That means all combinations of the childs name and stage within this
+sequence and all parent sequences.</p>
+<h6 id="childoptional"><code>child</code><sup>Optional</sup> <a name="child" id="@gcix/gcix.git.Mirror.getAllInstanceNames.parameter.child"></a><a class="headerlink" href="#childoptional" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection</li>
+</ul>
+<hr />
+<h5 id="isequal"><code>isEqual</code> <a name="isEqual" id="@gcix/gcix.git.Mirror.isEqual"></a><a class="headerlink" href="#isequal" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">isEqual</span><span class="p">(</span><span class="nx">comparable</span><span class="o">:</span><span class="w"> </span><span class="kt">IBase</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span>
+</span></code></pre></div></td></tr></table></div>
+<p><code>isEqual</code> checks if <code>this</code> object is equal to given object.</p>
+<h6 id="comparablerequired"><code>comparable</code><sup>Required</sup> <a name="comparable" id="@gcix/gcix.git.Mirror.isEqual.parameter.comparable"></a><a class="headerlink" href="#comparablerequired" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.IBase</li>
+</ul>
+<hr />
+<h5 id="prependrules"><code>prependRules</code> <a name="prependRules" id="@gcix/gcix.git.Mirror.prependRules"></a><a class="headerlink" href="#prependrules" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">prependRules</span><span class="p">(</span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="kt">Rule</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="rulesrequired_1"><code>rules</code><sup>Required</sup> <a name="rules" id="@gcix/gcix.git.Mirror.prependRules.parameter.rules"></a><a class="headerlink" href="#rulesrequired_1" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Rule[]</li>
+</ul>
+<hr />
+<h5 id="prependscripts"><code>prependScripts</code> <a name="prependScripts" id="@gcix/gcix.git.Mirror.prependScripts"></a><a class="headerlink" href="#prependscripts" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">prependScripts</span><span class="p">(</span><span class="nx">scripts</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[])</span><span class="o">:</span><span class="w"> </span><span class="nx">Job</span>
+</span></code></pre></div></td></tr></table></div>
+<h6 id="scriptsrequired_1"><code>scripts</code><sup>Required</sup> <a name="scripts" id="@gcix/gcix.git.Mirror.prependScripts.parameter.scripts"></a><a class="headerlink" href="#scriptsrequired_1" title="Permanent link">&para;</a></h6>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<hr />
+<h5 id="render"><code>render</code> <a name="render" id="@gcix/gcix.git.Mirror.render"></a><a class="headerlink" href="#render" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="k">public</span><span class="w"> </span><span class="nx">render</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">any</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Returns a representation of any object which implements <code>IBase</code>.</p>
+<p>The rendered representation is used by the <code>gcix</code> to dump it
+in YAML format as part of the <code>.gitlab-ci.yml</code> pipeline.</p>
+<h4 id="properties_1">Properties <a name="Properties" id="Properties"></a><a class="headerlink" href="#properties_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.tags">tags</a></code></td>
+<td><code>string[]</code></td>
+<td>Getter method to receive added tags.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.allowFailure">allowFailure</a></code></td>
+<td><code>string | boolean | number[]</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.name">name</a></code></td>
+<td><code>string</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.orderedTags">orderedTags</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.OrderedStringSet</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.parents">parents</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection[]</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.scripts">scripts</a></code></td>
+<td><code>string[]</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.stage">stage</a></code></td>
+<td><code>string</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.artifacts">artifacts</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Artifacts</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.cache">cache</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Cache</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.dependencies">dependencies</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.image">image</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Image</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.needs">needs</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.original">original</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.rules">rules</a></code></td>
+<td><code>@<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Rule[]</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.variables">variables</a></code></td>
+<td><code>{[ key: string ]: string}</code></td>
+<td><em>No description.</em></td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.gitConfigUserEmail">gitConfigUserEmail</a></code></td>
+<td><code>string</code></td>
+<td>The 'user.email' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_EMAIL.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.gitConfigUserName">gitConfigUserName</a></code></td>
+<td><code>string</code></td>
+<td>The 'user.name' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_NAME.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.remoteRepository">remoteRepository</a></code></td>
+<td><code>string</code></td>
+<td>The git repository the code of the pipelines repository should be mirrored to.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.scriptHook">scriptHook</a></code></td>
+<td><code>string[]</code></td>
+<td>This list of strings could contain any commands that should be executed between pulling the current repository and pushing it to the remote.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.privateKeyVariable">privateKeyVariable</a></code></td>
+<td><code>string</code></td>
+<td>DO NOT PROVIDE YOUR PRIVATE SSH KEY HERE!!! This parameter takes the name of the Gitlab environment variable, which contains the private ssh key used to push to the remote repository. This one should be created as protected and masked variable in the 'CI/CD' settings of your project.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.Mirror.property.runOnlyForRepositoryUrl">runOnlyForRepositoryUrl</a></code></td>
+<td><code>string</code></td>
+<td>When mirroring to a remote Gitlab instance, you don't want to run this mirroring job there again.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="tagsrequired_2"><code>tags</code><sup>Required</sup> <a name="tags" id="@gcix/gcix.git.Mirror.property.tags"></a><a class="headerlink" href="#tagsrequired_2" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">tags</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<p>Getter method to receive added tags.</p>
+<hr />
+<h5 id="allowfailurerequired_1"><code>allowFailure</code><sup>Required</sup> <a name="allowFailure" id="@gcix/gcix.git.Mirror.property.allowFailure"></a><a class="headerlink" href="#allowfailurerequired_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">allowFailure</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">number</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string | boolean | number[]</li>
+</ul>
+<hr />
+<h5 id="namerequired_1"><code>name</code><sup>Required</sup> <a name="name" id="@gcix/gcix.git.Mirror.property.name"></a><a class="headerlink" href="#namerequired_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr />
+<h5 id="orderedtagsrequired"><code>orderedTags</code><sup>Required</sup> <a name="orderedTags" id="@gcix/gcix.git.Mirror.property.orderedTags"></a><a class="headerlink" href="#orderedtagsrequired" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">orderedTags</span><span class="o">:</span><span class="w"> </span><span class="kt">OrderedStringSet</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.OrderedStringSet</li>
+</ul>
+<hr />
+<h5 id="parentsrequired"><code>parents</code><sup>Required</sup> <a name="parents" id="@gcix/gcix.git.Mirror.property.parents"></a><a class="headerlink" href="#parentsrequired" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">parents</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection[]</li>
+</ul>
+<hr />
+<h5 id="scriptsrequired_2"><code>scripts</code><sup>Required</sup> <a name="scripts" id="@gcix/gcix.git.Mirror.property.scripts"></a><a class="headerlink" href="#scriptsrequired_2" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">scripts</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<hr />
+<h5 id="stagerequired_2"><code>stage</code><sup>Required</sup> <a name="stage" id="@gcix/gcix.git.Mirror.property.stage"></a><a class="headerlink" href="#stagerequired_2" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">stage</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<hr />
+<h5 id="artifactsoptional"><code>artifacts</code><sup>Optional</sup> <a name="artifacts" id="@gcix/gcix.git.Mirror.property.artifacts"></a><a class="headerlink" href="#artifactsoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">artifacts</span><span class="o">:</span><span class="w"> </span><span class="kt">Artifacts</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Artifacts</li>
+</ul>
+<hr />
+<h5 id="cacheoptional"><code>cache</code><sup>Optional</sup> <a name="cache" id="@gcix/gcix.git.Mirror.property.cache"></a><a class="headerlink" href="#cacheoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">cache</span><span class="o">:</span><span class="w"> </span><span class="kt">Cache</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Cache</li>
+</ul>
+<hr />
+<h5 id="dependenciesoptional"><code>dependencies</code><sup>Optional</sup> <a name="dependencies" id="@gcix/gcix.git.Mirror.property.dependencies"></a><a class="headerlink" href="#dependenciesoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">dependencies</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Need</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</li>
+</ul>
+<hr />
+<h5 id="imageoptional"><code>image</code><sup>Optional</sup> <a name="image" id="@gcix/gcix.git.Mirror.property.image"></a><a class="headerlink" href="#imageoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-43-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="kt">Image</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Image</li>
+</ul>
+<hr />
+<h5 id="needsoptional"><code>needs</code><sup>Optional</sup> <a name="needs" id="@gcix/gcix.git.Mirror.property.needs"></a><a class="headerlink" href="#needsoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-44-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">needs</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">JobCollection</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">Need</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.JobCollection | @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Need[]</li>
+</ul>
+<hr />
+<h5 id="originaloptional"><code>original</code><sup>Optional</sup> <a name="original" id="@gcix/gcix.git.Mirror.property.original"></a><a class="headerlink" href="#originaloptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">original</span><span class="o">:</span><span class="w"> </span><span class="kt">Job</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Job</li>
+</ul>
+<hr />
+<h5 id="rulesoptional"><code>rules</code><sup>Optional</sup> <a name="rules" id="@gcix/gcix.git.Mirror.property.rules"></a><a class="headerlink" href="#rulesoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">rules</span><span class="o">:</span><span class="w"> </span><span class="kt">Rule</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.Rule[]</li>
+</ul>
+<hr />
+<h5 id="variablesoptional"><code>variables</code><sup>Optional</sup> <a name="variables" id="@gcix/gcix.git.Mirror.property.variables"></a><a class="headerlink" href="#variablesoptional" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">variables</span><span class="o">:</span><span class="w"> </span><span class="p">{[</span><span class="w"> </span><span class="nx">key</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">]</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">};</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> {[ key: string ]: string}</li>
+</ul>
+<hr />
+<h5 id="gitconfiguseremailrequired"><code>gitConfigUserEmail</code><sup>Required</sup> <a name="gitConfigUserEmail" id="@gcix/gcix.git.Mirror.property.gitConfigUserEmail"></a><a class="headerlink" href="#gitconfiguseremailrequired" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-48-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">gitConfigUserEmail</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The 'user.email' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_EMAIL.</p>
+<hr />
+<h5 id="gitconfigusernamerequired"><code>gitConfigUserName</code><sup>Required</sup> <a name="gitConfigUserName" id="@gcix/gcix.git.Mirror.property.gitConfigUserName"></a><a class="headerlink" href="#gitconfigusernamerequired" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-49-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">gitConfigUserName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The 'user.name' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_NAME.</p>
+<hr />
+<h5 id="remoterepositoryrequired_1"><code>remoteRepository</code><sup>Required</sup> <a name="remoteRepository" id="@gcix/gcix.git.Mirror.property.remoteRepository"></a><a class="headerlink" href="#remoterepositoryrequired_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-50-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">remoteRepository</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The git repository the code of the pipelines repository should be mirrored to.</p>
+<hr />
+<h5 id="scripthookrequired"><code>scriptHook</code><sup>Required</sup> <a name="scriptHook" id="@gcix/gcix.git.Mirror.property.scriptHook"></a><a class="headerlink" href="#scripthookrequired" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-51-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">scriptHook</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<p>This list of strings could contain any commands that should be executed between pulling the current repository and pushing it to the remote.</p>
+<p>This hook is mostly meant to be for git configuration commands,
+required to push to the remote repository.</p>
+<hr />
+<h5 id="privatekeyvariableoptional_1"><code>privateKeyVariable</code><sup>Optional</sup> <a name="privateKeyVariable" id="@gcix/gcix.git.Mirror.property.privateKeyVariable"></a><a class="headerlink" href="#privatekeyvariableoptional_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-52-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">privateKeyVariable</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>DO NOT PROVIDE YOUR PRIVATE SSH KEY HERE!!! This parameter takes the name of the Gitlab environment variable, which contains the private ssh key used to push to the remote repository. This one should be created as protected and masked variable in the 'CI/CD' settings of your project.</p>
+<hr />
+<h5 id="runonlyforrepositoryurloptional_1"><code>runOnlyForRepositoryUrl</code><sup>Optional</sup> <a name="runOnlyForRepositoryUrl" id="@gcix/gcix.git.Mirror.property.runOnlyForRepositoryUrl"></a><a class="headerlink" href="#runonlyforrepositoryurloptional_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-53-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">runOnlyForRepositoryUrl</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>When mirroring to a remote Gitlab instance, you don't want to run this mirroring job there again.</p>
+<p>With this variable the job only runs, when its
+value matches the CI_REPOSITORY_URL of the current repository.</p>
+<hr />
+<h2 id="protocols">Protocols <a name="Protocols" id="Protocols"></a><a class="headerlink" href="#protocols" title="Permanent link">&para;</a></h2>
+<h3 id="imirror">IMirror <a name="IMirror" id="@gcix/gcix.git.IMirror"></a><a class="headerlink" href="#imirror" title="Permanent link">&para;</a></h3>
+<ul>
+<li><em>Implemented By:</em> @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.aws.MirrorToCodecommit, <a href="#@gcix/gcix.git.Mirror">Mirror</a>, @<abbr title="GitLab CI X Library">gcix</abbr>/<abbr title="GitLab CI X Library">gcix</abbr>.aws.IMirrorToCodecommit, <a href="#@gcix/gcix.git.IMirror">IMirror</a></li>
+</ul>
+<h4 id="properties_2">Properties <a name="Properties" id="Properties"></a><a class="headerlink" href="#properties_2" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code><a href="#@gcix/gcix.git.IMirror.property.gitConfigUserEmail">gitConfigUserEmail</a></code></td>
+<td><code>string</code></td>
+<td>The 'user.email' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_EMAIL.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.IMirror.property.gitConfigUserName">gitConfigUserName</a></code></td>
+<td><code>string</code></td>
+<td>The 'user.name' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_NAME.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.IMirror.property.remoteRepository">remoteRepository</a></code></td>
+<td><code>string</code></td>
+<td>The git repository the code of the pipelines repository should be mirrored to.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.IMirror.property.scriptHook">scriptHook</a></code></td>
+<td><code>string[]</code></td>
+<td>This list of strings could contain any commands that should be executed between pulling the current repository and pushing it to the remote.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.IMirror.property.privateKeyVariable">privateKeyVariable</a></code></td>
+<td><code>string</code></td>
+<td>DO NOT PROVIDE YOUR PRIVATE SSH KEY HERE!!! This parameter takes the name of the Gitlab environment variable, which contains the private ssh key used to push to the remote repository. This one should be created as protected and masked variable in the 'CI/CD' settings of your project.</td>
+</tr>
+<tr>
+<td><code><a href="#@gcix/gcix.git.IMirror.property.runOnlyForRepositoryUrl">runOnlyForRepositoryUrl</a></code></td>
+<td><code>string</code></td>
+<td>When mirroring to a remote Gitlab instance, you don't want to run this mirroring job there again.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="gitconfiguseremailrequired_1"><code>gitConfigUserEmail</code><sup>Required</sup> <a name="gitConfigUserEmail" id="@gcix/gcix.git.IMirror.property.gitConfigUserEmail"></a><a class="headerlink" href="#gitconfiguseremailrequired_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-54-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">gitConfigUserEmail</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The 'user.email' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_EMAIL.</p>
+<hr />
+<h5 id="gitconfigusernamerequired_1"><code>gitConfigUserName</code><sup>Required</sup> <a name="gitConfigUserName" id="@gcix/gcix.git.IMirror.property.gitConfigUserName"></a><a class="headerlink" href="#gitconfigusernamerequired_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-55-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">gitConfigUserName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The 'user.name' with which the commits to the remote repository should be made. Defaults to GITLAB_USER_NAME.</p>
+<hr />
+<h5 id="remoterepositoryrequired_2"><code>remoteRepository</code><sup>Required</sup> <a name="remoteRepository" id="@gcix/gcix.git.IMirror.property.remoteRepository"></a><a class="headerlink" href="#remoterepositoryrequired_2" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">remoteRepository</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>The git repository the code of the pipelines repository should be mirrored to.</p>
+<hr />
+<h5 id="scripthookrequired_1"><code>scriptHook</code><sup>Required</sup> <a name="scriptHook" id="@gcix/gcix.git.IMirror.property.scriptHook"></a><a class="headerlink" href="#scripthookrequired_1" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-57-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">scriptHook</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">[];</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string[]</li>
+</ul>
+<p>This list of strings could contain any commands that should be executed between pulling the current repository and pushing it to the remote.</p>
+<p>This hook is mostly meant to be for git configuration commands,
+required to push to the remote repository.</p>
+<hr />
+<h5 id="privatekeyvariableoptional_2"><code>privateKeyVariable</code><sup>Optional</sup> <a name="privateKeyVariable" id="@gcix/gcix.git.IMirror.property.privateKeyVariable"></a><a class="headerlink" href="#privatekeyvariableoptional_2" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-58-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">privateKeyVariable</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>DO NOT PROVIDE YOUR PRIVATE SSH KEY HERE!!! This parameter takes the name of the Gitlab environment variable, which contains the private ssh key used to push to the remote repository. This one should be created as protected and masked variable in the 'CI/CD' settings of your project.</p>
+<hr />
+<h5 id="runonlyforrepositoryurloptional_2"><code>runOnlyForRepositoryUrl</code><sup>Optional</sup> <a name="runOnlyForRepositoryUrl" id="@gcix/gcix.git.IMirror.property.runOnlyForRepositoryUrl"></a><a class="headerlink" href="#runonlyforrepositoryurloptional_2" title="Permanent link">&para;</a></h5>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1"></a><span class="k">public</span><span class="w"> </span><span class="k">readonly</span><span class="w"> </span><span class="nx">runOnlyForRepositoryUrl</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span></code></pre></div></td></tr></table></div>
+<ul>
+<li><em>Type:</em> string</li>
+</ul>
+<p>When mirroring to a remote Gitlab instance, you don't want to run this mirroring job there again.</p>
+<p>With this variable the job only runs, when its
+value matches the CI_REPOSITORY_URL of the current repository.</p>
+<hr />
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 31, 2023</span>
+      
+        <br>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 31, 2023</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "content.action.edit", "content.action.view", "content.tabs.link", "navigation.instant", "navigation.tracking", "navigation.sections", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.78eede0e.min.js"></script>
+      
+    
+  </body>
+</html>
