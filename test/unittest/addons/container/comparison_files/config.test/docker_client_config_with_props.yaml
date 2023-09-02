@@ -1,0 +1,3 @@
+shell_command:
+- mkdir -p $HOME/.docker
+- echo '{}' > $HOME/.docker/config.json
