@@ -1,4 +1,11 @@
 
+### [0.0.26](https://gitlab.com/gcix/gcix/compare/v0.0.25...v0.0.26) (2023-09-02)
+
+
+### Features
+
+* **addons:** :sparkles: Introduce DockerClientConfig class to configure the docker client. ([ed90929](https://gitlab.com/gcix/gcix/commit/ed909294c902c8dbfde81c47ad2e39942a224602))
+
 ### [0.0.25](https://gitlab.com/gcix/gcix/compare/v0.0.24...v0.0.25) (2023-08-31)
 
 
