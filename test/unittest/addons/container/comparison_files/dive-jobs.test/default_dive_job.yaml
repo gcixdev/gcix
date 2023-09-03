@@ -1,0 +1,51 @@
+stages:
+- check
+- custom_stage
+default-dive-check:
+  image:
+    name: wagoodman/dive:latest
+    entrypoint:
+    - ''
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    dive docker-archive://my/awsome/project/gitlab-ci-project.tar --ci
+    --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
+    /path/to/project/dive.txt
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - dive.txt
+custom-image-and-path-dive-check:
+  image:
+    name: wagoodman/dive:latest
+    entrypoint:
+    - ''
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    dive docker-archive:///absolute/path/image_name.tar --ci
+    --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
+    /path/to/project/dive.txt
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - dive.txt
+custom-settings-custom-name-custom-stage:
+  image:
+    name: wagoodman/dive:latest
+    entrypoint:
+    - ''
+  stage: custom_stage
+  script:
+  - set -eo pipefail
+  - >-
+    dive podman://my/awsome/project/gitlab-ci-project --ci
+    --highestUserWastedPercent "0.1" --highestWastedBytes "0.2"
+    --lowestEfficiency "0.3" --ignore-errors |tee /path/to/project/dive.txt
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - dive.txt
