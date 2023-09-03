@@ -1,4 +1,16 @@
 
+### [0.0.28](https://gitlab.com/gcix/gcix/compare/v0.0.27...v0.0.28) (2023-09-03)
+
+
+### Features
+
+* **addons:** :sparkles: Introduce dive Scan class to check container image efficiency in wasted storage. ([0bad91a](https://gitlab.com/gcix/gcix/commit/0bad91ac4ec5e3eb51b2866d59634728bd8ba2cb))
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixing readonly properties on IScan interface, they all are writeable. ([aa332dd](https://gitlab.com/gcix/gcix/commit/aa332dd53e13a03a7d6212c7e4c5b296cb64cac1))
+
 ### [0.0.27](https://gitlab.com/gcix/gcix/compare/v0.0.26...v0.0.27) (2023-09-03)
 
 
