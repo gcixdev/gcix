@@ -1,4 +1,13 @@
 
+### [0.0.27](https://gitlab.com/gcix/gcix/compare/v0.0.26...v0.0.27) (2023-09-03)
+
+
+### Features
+
+* **addons:** :sparkles: Introduce crane Copy class to copy container images between container registries. ([6220b03](https://gitlab.com/gcix/gcix/commit/6220b03c7e391b235392e65cc8183f5e1338137e))
+* **addons:** :sparkles: Introduce crane Pull class to pull container images from container registries. ([25762c3](https://gitlab.com/gcix/gcix/commit/25762c38454ba7de98002c5d718161c1a2dd9197))
+* **addons:** :sparkles: Introduce crane Push class to created .tar archives as container images to container image registry. ([3432010](https://gitlab.com/gcix/gcix/commit/3432010f39451981404203e8c0ce4e08d978ba38))
+
 ### [0.0.26](https://gitlab.com/gcix/gcix/compare/v0.0.25...v0.0.26) (2023-09-02)
 
 
