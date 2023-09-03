@@ -78,44 +78,44 @@ export interface IScan {
    *
    * @default PredefinedVariables.ciProjectPath
    */
-  readonly imagePath: string;
+  imagePath: string;
   /**
    * Name of the container image to scan, if `source` is `docker-archive`
    * argument gets prefix `.tar`.
    *
    * @default PredefinedVariables.ciProjectName
    */
-  readonly imageName: string;
+  imageName: string;
   /**
    * Highest allowable percentage of bytes wasted
    * (as a ratio between 0-1), otherwise CI validation will fail.
    *
    * @default 0.1
    */
-  readonly highestUserWastedPercent: number;
+  highestUserWastedPercent: number;
   /**
    * Highest allowable bytes wasted, otherwise CI validation will fail.
    */
-  readonly highestWastedBytes?: number;
+  highestWastedBytes?: number;
   /**
    * Lowest allowable image efficiency (as a ratio between 0-1),
    * otherwise CI validation will fail.
    *
    * @default 0.9
    */
-  readonly lowestEfficiency: number;
+  lowestEfficiency: number;
   /**
    * Ignore image parsing errors and run the analysis anyway.
    *
    * @default false
    */
-  readonly ignoreErrors: boolean;
+  ignoreErrors: boolean;
   /**
    * The container engine to fetch the image from.
    * Allowed values: docker, podman, docker-archive
    * @default docker-archive
    */
-  readonly source: "docker" | "podman" | "docker-archive";
+  source: "docker" | "podman" | "docker-archive";
 }
 
 /**
