@@ -26,3 +26,22 @@ test("advanced pytest", () => {
   });
   check(pipeline.render(), expect);
 });
+
+test("simple EvaluateGitTagPep440Conformity", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [new EvaluateGitTagPep440Conformity({})],
+  });
+  check(pipeline.render(), expect);
+});
+
+test("advanced evaluategittagpep440conformity", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new EvaluateGitTagPep440Conformity({
+        jobName: "custom_name",
+        jobStage: "custom_stage",
+      }),
+    ],
+  });
+  check(pipeline.render(), expect);
+});
