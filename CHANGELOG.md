@@ -1,4 +1,13 @@
 
+### [0.0.29](https://gitlab.com/gcix/gcix/compare/v0.0.28...v0.0.29) (2023-09-03)
+
+
+### Features
+
+* **addons:** :sparkles: Added new cli tool `gittagpep440conformity`. ([f455a3e](https://gitlab.com/gcix/gcix/commit/f455a3e89a10dd6aa5fc4e17c11db96e4817ccfe))
+* **addons:** :sparkles: Introduce python EvaluateGitTagPep440Conformity class to to check if CI_COMMIT_TAG environment variable is conform with Python PEP 440. ([3e8503d](https://gitlab.com/gcix/gcix/commit/3e8503d1748dc8d6c1197598542694c1e970e32d))
+* **addons:** :sparkles: Introduce python Pytest class to test python source code. ([a451971](https://gitlab.com/gcix/gcix/commit/a4519719d0db7e9b7c2f8bec8a6f21e34690d2a9))
+
 ### [0.0.28](https://gitlab.com/gcix/gcix/compare/v0.0.27...v0.0.28) (2023-09-03)
 
 
