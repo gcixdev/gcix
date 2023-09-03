@@ -1,5 +1,6 @@
 import { PythonScripts } from "./scripts";
-import { Job } from "../";
+import { Job, RuleLib } from "../";
+import { PredefinedImages } from "../container";
 
 export interface PytestProps {
   /**
@@ -69,6 +70,58 @@ export class Pytest extends Job implements IPytest {
       }),
       this.pytestCommand,
     );
+    return super.render();
+  }
+}
+
+export interface EvaluateGitTagPep440ConformityProps {
+  /**
+   * The name of the Bootstrap job.
+   */
+  readonly jobName?: string;
+  /**
+   * The stage of the Bootstrap job.
+   */
+  readonly jobStage?: string;
+}
+export interface IEvaluateGitTagPep440Conformity {}
+
+/**
+ * Checks if the current pipelines `$CI_COMMIT_TAG` validates to a valid Python
+ * package version according to https://www.python.org/dev/peps/pep-0440
+ *
+ * This job already contains a rule to only run when a `$CI_COMMIT_TAG` is
+ * present (`rules.only_tags()`).
+ *
+ * Runs `pytest` and installs project requirements before
+ * `PythonScripts.pipInstallRequirements`
+ *
+ * - Requires a `requirements.txt` in your project folder containing
+ *   at least `pytest`
+ *
+ * This subclass of `Job` will configure following defaults for the superclass:
+ *
+ * - name: tag-pep440-conformity
+ * - stage: test
+ * - image: PredefinedImages.GCIP
+ * - rules: on_tagsg
+ */
+export class EvaluateGitTagPep440Conformity
+  extends Job
+  implements IEvaluateGitTagPep440Conformity
+{
+  constructor(props: EvaluateGitTagPep440ConformityProps) {
+    super({
+      scripts: [],
+      name: props.jobName ?? "tag-pep440-conformity",
+      stage: props.jobStage ?? "test",
+      rules: [RuleLib.onTags()],
+      image: PredefinedImages.GCIX,
+    });
+  }
+
+  render() {
+    this.scripts.push("npx --package @gcix/gcix gittagpep440conformity");
     return super.render();
   }
 }
