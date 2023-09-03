@@ -1,0 +1,18 @@
+stages:
+- changed_stage
+changed-name-changed-stage:
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint:
+    - ''
+  stage: changed_stage
+  script:
+  - mkdir -p $HOME/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > $HOME/.docker/config.json
+  - crane validate --tarball custom/tar/path/gitlab-ci-project.tar
+  - >-
+    crane push custom/tar/path/gitlab-ci-project.tar
+    quay.io/gitlab-ci-project:feature-1.2.3

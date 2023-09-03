@@ -1,5 +1,10 @@
 import { Pipeline, Image } from "../../../../src";
-import { Registry, Copy, DockerClientConfig } from "../../../../src/container";
+import {
+  Registry,
+  Copy,
+  Push,
+  DockerClientConfig,
+} from "../../../../src/container";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -61,6 +66,75 @@ test("crane copy props", () => {
       new Copy({
         srcRegistry: Registry.QUAY,
         dstRegistry: Registry.GCR,
+        jobName: "changed_name",
+        jobStage: "changed_stage",
+      }),
+    ],
+  });
+  check(pipeline.render(), expect);
+});
+
+test("simple crane push job", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Push({
+        dstRegistry: "index.docker.io",
+      }),
+    ],
+    name: "push_image",
+  });
+  check(pipeline.render(), expect);
+});
+
+test("advanced crane push job", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Push({
+        dstRegistry: "index.docker.io",
+        imageName: "crane",
+        dockerClientConfig: dockerClientConfig,
+      }).assignImage("crane_image:v1.1.2"),
+    ],
+    name: "push_image",
+  });
+  check(pipeline.render(), expect);
+});
+
+test("crane push on main", () => {
+  jest.replaceProperty(process.env, "CI_COMMIT_REF_SLUG", "main");
+  jest.replaceProperty(process.env, "CI_COMMIT_TAG", undefined);
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Push({
+        dstRegistry: Registry.DOCKER,
+      }),
+    ],
+    name: "push_image_with_latest_tag",
+  });
+  check(pipeline.render(), expect);
+});
+
+test("addons container jobs crane push registry", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Push({
+        dstRegistry: Registry.DOCKER,
+        imageName: "crane",
+        dockerClientConfig: dockerClientConfig,
+      }).assignImage("crane_image:v1.1.2"),
+    ],
+    name: "push_image",
+  });
+  check(pipeline.render(), expect);
+});
+
+test("crane push props", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Push({
+        dstRegistry: Registry.QUAY,
+        tarPath: "custom/tar/path",
+        imageTag: "feature-1.2.3",
         jobName: "changed_name",
         jobStage: "changed_stage",
       }),
