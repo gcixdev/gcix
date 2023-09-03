@@ -1,3 +1,4 @@
+import * as path from "path";
 import { DockerClientConfig, PredefinedImages, Registry } from ".";
 import { Job } from "..";
 import { PredefinedVariables } from "../";
@@ -226,6 +227,128 @@ export class Push extends Job implements IPush {
       );
     }
 
+    return super.render();
+  }
+}
+
+export interface PullProps {
+  /**
+   *  Registry URL to pull container image from.
+   */
+  readonly srcRegistry: Registry | string;
+
+  /**
+   * Container image with namespace to pull from `srcRegistry`.
+   * @default PredefinedVariables.ciProjectName
+   */
+  readonly imageName?: string;
+
+  /**
+   * Tag of the image which will be pulled.
+   * @default latest
+   */
+  readonly imageTag?: string;
+
+  /**
+   * Path where to save the container image tarball.
+   * @default PredefinedVariables.ciProjectDir
+   */
+  readonly tarPath?: string;
+
+  /**
+   * Creates the Docker configuration file base on objects settings, to
+   * authenticate against given registries.
+   * @default DockerClientConfig with login to the official Docker Hub
+   * and expecting credentials given as environment variables
+   * `REGISTRY_USER` and `REGISTRY_LOGIN`.
+   */
+  readonly dockerClientConfig?: DockerClientConfig;
+
+  /**
+   * The name of the Bootstrap job.
+   */
+  readonly jobName?: string;
+
+  /**
+   * The stage of the Bootstrap job.
+   */
+  readonly jobStage?: string;
+}
+
+export interface IPull {
+  /**
+   *  Registry URL to pull container image from.
+   */
+  srcRegistry: Registry | string;
+
+  /**
+   * Container image with namespace to pull from `srcRegistry`.
+   * @default PredefinedVariables.ciProjectName
+   */
+  imageName: string;
+
+  /**
+   * Tag of the image which will be pulled.
+   * @default latest
+   */
+  imageTag: string;
+
+  /**
+   * Path where to save the container image tarball.
+   * @default PredefinedVariables.ciProjectDir
+   */
+  tarPath: string;
+
+  /**
+   * Creates the Docker configuration file base on objects settings, to
+   * authenticate against given registries.
+   * @default DockerClientConfig with login to the official Docker Hub
+   * and expecting credentials given as environment variables
+   * `REGISTRY_USER` and `REGISTRY_LOGIN`.
+   */
+  dockerClientConfig: DockerClientConfig;
+}
+
+/**
+ * Creates a job to pull container image from remote container registry with `crane`.
+ *
+ * This subclass of `Job` will configure following defaults for the superclass:
+ *
+ * - name: crane
+ * - stage: pull
+ * - image: PredefinedImages.CRANE
+ *
+ */
+export class Pull extends Job implements IPull {
+  srcRegistry: Registry | string;
+  imageName: string;
+  imageTag: string;
+  tarPath: string;
+  dockerClientConfig: DockerClientConfig;
+
+  constructor(props: PullProps) {
+    super({
+      scripts: [],
+      name: props.jobName ?? "crane",
+      stage: props.jobStage ?? "pull",
+      image: PredefinedImages.CRANE,
+    });
+    this.srcRegistry = props.srcRegistry;
+    this.imageName = props.imageName ?? PredefinedVariables.ciProjectName;
+    this.imageTag = props.imageTag ?? "latest";
+    this.tarPath = props.tarPath ?? PredefinedVariables.ciProjectDir;
+    this.dockerClientConfig =
+      props.dockerClientConfig ??
+      new DockerClientConfig().addAuth(Registry.DOCKER);
+  }
+
+  render() {
+    const imagePath = this.imageName.replace(/\//g, "_");
+    this.scripts.push(...this.dockerClientConfig.shellCommand());
+    this.scripts.push(
+      `mkdir -p ${path.normalize(this.tarPath)}`,
+      `crane pull ${this.srcRegistry}/${this.imageName}:${this.imageTag} ${this.tarPath}/${imagePath}.tar`,
+    );
     return super.render();
   }
 }
