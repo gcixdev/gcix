@@ -1,0 +1,14 @@
+stages:
+- test
+pytest-test:
+  stage: test
+  script:
+  - |-
+    if test -f Pipfile.lock; then
+    pip install pipenv;
+    pipenv install --dev --system;
+    fi;
+    if test -f requirements.txt; then
+    pip install --upgrade -r requirements.txt;
+    fi
+  - pytest

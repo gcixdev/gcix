@@ -1,0 +1,14 @@
+stages:
+- custom_stage
+custom-name-custom-stage:
+  stage: custom_stage
+  script:
+  - |-
+    if test -f Pipfile.lock; then
+    pip install pipenv==1.2.3;
+    pipenv install --dev --system;
+    fi;
+    if test -f requirements.txt; then
+    pip install --upgrade -r requirements.txt;
+    fi
+  - pytest --coverage html
