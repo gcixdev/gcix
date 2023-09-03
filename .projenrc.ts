@@ -37,6 +37,8 @@ const gcixProject = new cdk.JsiiProject({
   ],
   bin: {
     cfnwaiter: "lib/aws/tools/cfnwaiter.js",
+    gittagpep440conformity:
+      "lib/python/tools/evaluate-git-tag-pep440-conformity.js",
   },
   docsDirectory: "public",
   npmAccess: NpmAccess.PUBLIC,

@@ -6,7 +6,8 @@
     "url": "https://gitlab.com/gcix/gcix.git"
   },
   "bin": {
-    "cfnwaiter": "lib/aws/tools/cfnwaiter.js"
+    "cfnwaiter": "lib/aws/tools/cfnwaiter.js",
+    "gittagpep440conformity": "lib/python/tools/evaluate-git-tag-pep440-conformity.js"
   },
   "scripts": {
     "build": "npx projen build",
