@@ -1,0 +1,16 @@
+stages:
+- pull
+crane-pull:
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint:
+    - ''
+  stage: pull
+  script:
+  - mkdir -p $HOME/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > $HOME/.docker/config.json
+  - mkdir -p /path/to/project
+  - crane pull gcr.io/awesome/image:latest /path/to/project/awesome_image.tar

@@ -3,6 +3,7 @@ import {
   Registry,
   Copy,
   Push,
+  Pull,
   DockerClientConfig,
 } from "../../../../src/container";
 import { check } from "../../../comparison";
@@ -134,6 +135,47 @@ test("crane push props", () => {
       new Push({
         dstRegistry: Registry.QUAY,
         tarPath: "custom/tar/path",
+        imageTag: "feature-1.2.3",
+        jobName: "changed_name",
+        jobStage: "changed_stage",
+      }),
+    ],
+  });
+  check(pipeline.render(), expect);
+});
+
+test("crane simple pull", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Pull({
+        srcRegistry: Registry.GCR,
+        imageName: "awesome/image",
+      }),
+    ],
+  });
+  check(pipeline.render(), expect);
+});
+
+test("crane advanced pull", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Pull({
+        srcRegistry: Registry.GCR,
+        dockerClientConfig: dockerClientConfig,
+        imageName: "gcix/gcix",
+        imageTag: "main",
+        tarPath: "test/foo/bar",
+      }),
+    ],
+  });
+  check(pipeline.render(), expect);
+});
+
+test("crane pull props", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      new Pull({
+        srcRegistry: Registry.QUAY,
         imageTag: "feature-1.2.3",
         jobName: "changed_name",
         jobStage: "changed_stage",
