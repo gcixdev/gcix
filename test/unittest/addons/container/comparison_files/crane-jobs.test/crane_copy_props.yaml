@@ -1,0 +1,11 @@
+stages:
+- changed_stage
+changed-name-changed-stage:
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint:
+    - ''
+  stage: changed_stage
+  script:
+  - crane validate --remote quay.io
+  - crane copy quay.io gcr.io

@@ -1,0 +1,18 @@
+stages:
+- deploy
+default-crane-copy-deploy:
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint:
+    - ''
+  stage: deploy
+  script:
+  - crane validate --remote index.docker.io/alpine:3
+  - crane copy index.docker.io/alpine:3 index.docker.io/user/alpine:3
+custom-image-crane-copy-deploy:
+  image:
+    name: index.docker.io/user/crane:latest
+  stage: deploy
+  script:
+  - crane validate --remote quay.io/wagoodman/dive:0.10.0
+  - crane copy quay.io/wagoodman/dive:0.10.0 index.docker.io/user/dive:latest
