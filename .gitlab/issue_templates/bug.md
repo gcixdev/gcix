@@ -1,9 +1,4 @@
-**Title:**
-[Concise, descriptive title summarizing the issue]
-
-**Description:**
-
-## Issue
+# Issue/Bug
 
 [Provide a clear and detailed explanation of the issue or feature request]
 
@@ -38,8 +33,5 @@
 **Related Issues:**
 [Cite any related issues or merge requests]
 
-**Labels:**
-[Apply relevant labels to categorize the issue, e.g., bug, feature, enhancement, etc.]
-
 /label ~bug
-/assign @danielvonessen
+/assign @dvonessen

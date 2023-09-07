@@ -1,9 +1,4 @@
-**Title:**
-[Concise, descriptive title summarizing the feature request]
-
-**Description:**
-
-## Feature Request
+# Feature Request
 
 [Provide a clear and detailed explanation of the new feature you're proposing]
 
@@ -35,4 +30,4 @@
 [Cite any related issues or merge requests]
 
 /label ~feature
-/assign @danielvonessen
+/assign @dvonessen
