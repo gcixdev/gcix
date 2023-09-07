@@ -1,0 +1,14 @@
+stages:
+- build
+- deploy
+docker-build:
+  stage: build
+  script:
+  - docker build -t myspace/myimage:latest .
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ''
+docker-deploy:
+  stage: deploy
+  script:
+  - docker push index.docker.io/v1/myspace/myimage:latest
