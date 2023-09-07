@@ -32,7 +32,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "VERSIONRCOPTIONS": "{\"types\":[{\"type\":\"feat\",\"section\":\"Features\"},{\"type\":\"perf\",\"section\":\"Features\"},{\"type\":\"fix\",\"section\":\"Bug Fixes\"},{\"type\":\"chore\",\"section\":\"Chore\"},{\"type\":\"docs\",\"section\":\"Documentation\"},{\"type\":\"style\",\"section\":\"Chore\"},{\"type\":\"refactor\",\"section\":\"Chore\"},{\"type\":\"test\",\"section\":\"Tests\"}]}"
       },
       "steps": [
         {
@@ -548,7 +549,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "VERSIONRCOPTIONS": "{\"types\":[{\"type\":\"feat\",\"section\":\"Features\"},{\"type\":\"perf\",\"section\":\"Features\"},{\"type\":\"fix\",\"section\":\"Bug Fixes\"},{\"type\":\"chore\",\"section\":\"Chore\"},{\"type\":\"docs\",\"section\":\"Documentation\"},{\"type\":\"style\",\"section\":\"Chore\"},{\"type\":\"refactor\",\"section\":\"Chore\"},{\"type\":\"test\",\"section\":\"Tests\"}]}"
       },
       "steps": [
         {

@@ -97,6 +97,18 @@ const gcixProject = new cdk.JsiiProject({
       ],
     },
   },
+  versionrcOptions: {
+    types: [
+      { type: "feat", section: "Features" },
+      { type: "perf", section: "Features" },
+      { type: "fix", section: "Bug Fixes" },
+      { type: "chore", section: "Chore" },
+      { type: "docs", section: "Documentation" },
+      { type: "style", section: "Chore" },
+      { type: "refactor", section: "Chore" },
+      { type: "test", section: "Tests" },
+    ],
+  },
 });
 gcixProject.vscode?.settings.addSettings({
   "editor.tabSize": 2,
