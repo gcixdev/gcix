@@ -1,0 +1,17 @@
+stages:
+- build
+gcix-kaniko-build:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint:
+    - ''
+  stage: build
+  script:
+  - mkdir -p /kaniko/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$DOCKER_USER\",\"password\":\"$DOCKER_LOGIN\"}}}'
+    > /kaniko/.docker/config.json
+  - >-
+    executor --context /path/to/project --dockerfile /path/to/project/Dockerfile
+    --verbosity info --destination gcix/gcix:11.22.33
