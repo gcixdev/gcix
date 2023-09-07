@@ -1,5 +1,5 @@
 import { Job, JobCollection, Pipeline, Rule, RuleLib } from "../../../../src";
-import { DiffDeploy } from "../../../../src/aws";
+import { CdkDiffDeploy } from "../../../../src/aws";
 import { GitlabScripts } from "../../../../src/gitlab";
 import { check } from "../../../comparison";
 
@@ -7,7 +7,7 @@ export function myAppDiffDeploy(
   environment: string,
   resource: string,
 ): JobCollection {
-  const collection = new DiffDeploy({
+  const collection = new CdkDiffDeploy({
     stacks: [`myapp-${environment}-${resource}`],
   });
   collection.deployJob.toolkitStackName = `application-${environment}-cdk-toolkit`;

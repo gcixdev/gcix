@@ -1,5 +1,8 @@
 import { Pipeline } from "../../../../src";
-import { EvaluateGitTagPep440Conformity, Pytest } from "../../../../src/python";
+import {
+  PythonTestEvaluateGitTagPep440Conformity,
+  PythonTestPytest,
+} from "../../../../src/python";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -9,14 +12,14 @@ beforeEach(() => {
 });
 
 test("simple pytest", () => {
-  pipeline.addChildren({ jobsOrJobCollections: [new Pytest({})] });
+  pipeline.addChildren({ jobsOrJobCollections: [new PythonTestPytest({})] });
   check(pipeline.render(), expect);
 });
 
 test("advanced pytest", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Pytest({
+      new PythonTestPytest({
         jobName: "custom_name",
         jobStage: "custom_stage",
         pipenvVersionSpecifier: "==1.2.3",
@@ -29,7 +32,7 @@ test("advanced pytest", () => {
 
 test("simple EvaluateGitTagPep440Conformity", () => {
   pipeline.addChildren({
-    jobsOrJobCollections: [new EvaluateGitTagPep440Conformity({})],
+    jobsOrJobCollections: [new PythonTestEvaluateGitTagPep440Conformity({})],
   });
   check(pipeline.render(), expect);
 });
@@ -37,7 +40,7 @@ test("simple EvaluateGitTagPep440Conformity", () => {
 test("advanced evaluategittagpep440conformity", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new EvaluateGitTagPep440Conformity({
+      new PythonTestEvaluateGitTagPep440Conformity({
         jobName: "custom_name",
         jobStage: "custom_stage",
       }),

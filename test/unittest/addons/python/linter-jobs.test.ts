@@ -1,5 +1,9 @@
 import { Pipeline } from "../../../../src/";
-import { Flake8, MyPy, Isort } from "../../../../src/python";
+import {
+  PythonLintFlake8,
+  PythonLintMyPy,
+  PythonLintIsort,
+} from "../../../../src/python";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -10,7 +14,7 @@ beforeEach(() => {
 describe("flake8", () => {
   test("default", () => {
     pipeline.addChildren({
-      jobsOrJobCollections: [new Flake8({})],
+      jobsOrJobCollections: [new PythonLintFlake8({})],
       name: "linter",
     });
     check(pipeline.render(), expect);
@@ -18,7 +22,7 @@ describe("flake8", () => {
   test("changed properties", () => {
     pipeline.addChildren({
       jobsOrJobCollections: [
-        new Flake8({
+        new PythonLintFlake8({
           jobName: "changed-properties",
           jobStage: "after-lint",
         }),
@@ -32,7 +36,7 @@ describe("flake8", () => {
 describe("mypy", () => {
   test("default", () => {
     pipeline.addChildren({
-      jobsOrJobCollections: [new MyPy({ packageDir: "src" })],
+      jobsOrJobCollections: [new PythonLintMyPy({ packageDir: "src" })],
       name: "linter",
     });
     check(pipeline.render(), expect);
@@ -40,7 +44,7 @@ describe("mypy", () => {
   test("changed properties", () => {
     pipeline.addChildren({
       jobsOrJobCollections: [
-        new MyPy({
+        new PythonLintMyPy({
           jobName: "changed-properties",
           jobStage: "after-lint",
           myPyOptions: "--custom-option True --another foobar",
@@ -57,7 +61,7 @@ describe("mypy", () => {
 describe("isort", () => {
   test("default", () => {
     pipeline.addChildren({
-      jobsOrJobCollections: [new Isort({})],
+      jobsOrJobCollections: [new PythonLintIsort({})],
       name: "linter",
     });
     check(pipeline.render(), expect);
@@ -65,7 +69,7 @@ describe("isort", () => {
   test("changed properties", () => {
     pipeline.addChildren({
       jobsOrJobCollections: [
-        new Isort({
+        new PythonLintIsort({
           jobName: "changed-properties",
           jobStage: "after-lint",
         }),

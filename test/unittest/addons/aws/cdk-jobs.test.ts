@@ -1,5 +1,5 @@
 import { Pipeline } from "../../../../src/";
-import { Bootstrap, Deploy, Diff } from "../../../../src/aws";
+import { CdkBootstrap, CdkDeploy, CdkDiff } from "../../../../src/aws";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -10,7 +10,7 @@ beforeEach(() => {
 test("bootstrap", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Bootstrap({
+      new CdkBootstrap({
         awsAccountId: "1234567890",
         awsRegion: "net-wunderland-1",
         toolkitStackName: "my-cdk-toolkit-dev",
@@ -21,7 +21,7 @@ test("bootstrap", () => {
   });
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Bootstrap({
+      new CdkBootstrap({
         jobName: "bootstrapTest",
         jobStage: "deployable",
         awsAccountId: "1234567890",
@@ -42,7 +42,7 @@ test("bootstrap", () => {
 test("cdk diff", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Diff({
+      new CdkDiff({
         stacks: ["very-important-infrastructure", "another-stack"],
         context: {
           key1: "value1",
@@ -60,7 +60,7 @@ test("cdk diff", () => {
 test("cdk deploy", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Deploy({
+      new CdkDeploy({
         stacks: ["very-important-infrastructure", "another-stack"],
         context: {
           key1: "value1",
@@ -83,7 +83,7 @@ test("cdk deploy", () => {
 test("cdk deploy without strict and waitForStack", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Deploy({
+      new CdkDeploy({
         stacks: ["very-important-infrastructure", "another-stack"],
         context: {
           key1: "value1",
@@ -107,7 +107,7 @@ test("cdk deploy warning", () => {
   const spyOn = jest.spyOn(console, "warn").mockImplementation(() => {});
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Deploy({
+      new CdkDeploy({
         stacks: ["very-important-infrastructure", "another-stack"],
         waitForStack: true,
         waitForStackAccountId: "01234567890",

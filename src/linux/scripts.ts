@@ -1,4 +1,4 @@
-export interface InstallPackageProps {
+export interface LinuxInstallPackageProps {
   /**
    * A string listing all the packages to be installed, separated by spaces.
    *
@@ -25,7 +25,7 @@ export class LinuxScripts {
    *
    * @returns A shell command to install the specified package(s) using the available package manager.
    */
-  static installPackages(props: InstallPackageProps): string {
+  static installPackages(props: LinuxInstallPackageProps): string {
     const _packages = props.packages.join(" ");
     const _sudo = props.sudo ? "sudo " : "";
 

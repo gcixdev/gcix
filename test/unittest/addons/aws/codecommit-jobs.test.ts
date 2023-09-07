@@ -1,5 +1,5 @@
 import { Pipeline } from "../../../../src";
-import { MirrorToCodecommit } from "../../../../src/aws";
+import { CdkMirrorToCodecommit } from "../../../../src/aws";
 import { check } from "../../../comparison";
 let pipeline: Pipeline;
 
@@ -9,7 +9,7 @@ beforeEach(() => {
 
 test("mirror job", () => {
   pipeline.addChildren({
-    jobsOrJobCollections: [new MirrorToCodecommit({})],
+    jobsOrJobCollections: [new CdkMirrorToCodecommit({})],
   });
   check(pipeline.render(), expect);
 });
@@ -17,7 +17,7 @@ test("mirror job", () => {
 test("mirror job configured", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new MirrorToCodecommit({
+      new CdkMirrorToCodecommit({
         repositoryName: "testrepo",
         infrastructureTags: "foo=bar,max=muster",
       }),
@@ -29,7 +29,7 @@ test("mirror job configured", () => {
 test("mirror job with awsRegion", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new MirrorToCodecommit({
+      new CdkMirrorToCodecommit({
         awsRegion: "eu-west-1",
       }),
     ],
@@ -40,7 +40,7 @@ test("mirror job with awsRegion", () => {
 test("mirror job with mirrorOpts", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new MirrorToCodecommit({
+      new CdkMirrorToCodecommit({
         mirrorOpts: {
           remoteRepository: "https://gitlab.com/gcix/gcix",
           gitConfigUserEmail: "gcix@example.com",

@@ -1,6 +1,6 @@
 import { Job } from "../";
 
-export interface Flake8Props {
+export interface PythonLintFlake8Props {
   /**
    * The name of the job.
    */
@@ -11,7 +11,7 @@ export interface Flake8Props {
   readonly jobStage?: string;
 }
 
-export interface IFlake8 {}
+export interface IPythonLintFlake8 {}
 
 /**
  * Runs:
@@ -25,8 +25,8 @@ export interface IFlake8 {}
  * - name: flake8
  * - stage: lint
  */
-export class Flake8 extends Job implements IFlake8 {
-  constructor(props: Flake8Props) {
+export class PythonLintFlake8 extends Job implements IPythonLintFlake8 {
+  constructor(props: PythonLintFlake8Props) {
     super({
       scripts: ["pip3 install --upgrade flake8", "flake8"],
       name: props.jobName ?? "flake8",
@@ -35,7 +35,7 @@ export class Flake8 extends Job implements IFlake8 {
   }
 }
 
-export interface MyPyProps {
+export interface PythonLintMyPyProps {
   /**
    * The name of the job.
    */
@@ -58,7 +58,7 @@ export interface MyPyProps {
    */
   readonly packageDir: string;
 }
-export interface IMyPy {
+export interface IPythonLintMyPy {
   /**
    * If `mypy` is not already installed, this version will be installed.
    * Installs latest version if `undefined`.
@@ -84,12 +84,12 @@ export interface IMyPy {
  *
  * @returns {Job} - The configured `gcip.Job` instance.
  */
-export class MyPy extends Job implements IMyPy {
+export class PythonLintMyPy extends Job implements IPythonLintMyPy {
   myPyVersion?: string;
   myPyOptions?: string;
   packageDir: string;
 
-  constructor(props: MyPyProps) {
+  constructor(props: PythonLintMyPyProps) {
     super({
       scripts: [""],
       name: props.jobName ?? "mypy",
@@ -116,7 +116,7 @@ export class MyPy extends Job implements IMyPy {
   }
 }
 
-export interface IsortProps {
+export interface PythonLintIsortProps {
   /**
    * The name of the job.
    */
@@ -126,7 +126,7 @@ export interface IsortProps {
    */
   readonly jobStage?: string;
 }
-export interface IIsort {}
+export interface IPythonLintIsort {}
 
 /**
  * Runs:
@@ -141,8 +141,8 @@ export interface IIsort {}
  * - name: isort
  * - stage: lint
  */
-export class Isort extends Job implements IIsort {
-  constructor(props: IsortProps) {
+export class PythonLintIsort extends Job implements IPythonLintIsort {
+  constructor(props: PythonLintIsortProps) {
     super({
       scripts: ["pip3 install --upgrade isort", "isort --check ."],
       name: props.jobName ?? "isort",

@@ -1,5 +1,9 @@
 import { Pipeline } from "../../../../src";
-import { AsciiDoctor, Sphinx, Pdoc3 } from "../../../../src/gitlab";
+import {
+  PagesAsciiDoctor,
+  PagesSphinx,
+  PagesPdoc3,
+} from "../../../../src/gitlab";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -10,8 +14,11 @@ beforeEach(() => {
 test("asciidoctor", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new AsciiDoctor({ source: "docs/index.adoc", outFile: "/index.html" }),
-      new AsciiDoctor({
+      new PagesAsciiDoctor({
+        source: "docs/index.adoc",
+        outFile: "/index.html",
+      }),
+      new PagesAsciiDoctor({
         source: "docs/awesome.adoc",
         outFile: "/awesome.html",
         jobName: "pages_awesome",
@@ -25,8 +32,12 @@ test("asciidoctor", () => {
 test("pdoc3", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Pdoc3({ module: "gcip" }),
-      new Pdoc3({ module: "userdoc", outputPath: "/user", jobName: "userdoc" }),
+      new PagesPdoc3({ module: "gcip" }),
+      new PagesPdoc3({
+        module: "userdoc",
+        outputPath: "/user",
+        jobName: "userdoc",
+      }),
     ],
   });
   check(pipeline.render(), expect);
@@ -34,7 +45,7 @@ test("pdoc3", () => {
 
 test("sphinx", () => {
   pipeline.addChildren({
-    jobsOrJobCollections: [new Sphinx({})],
+    jobsOrJobCollections: [new PagesSphinx({})],
   });
   check(pipeline.render(), expect);
 });

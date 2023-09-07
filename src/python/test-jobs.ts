@@ -2,7 +2,7 @@ import { PythonScripts } from "./scripts";
 import { Job, RuleLib } from "../";
 import { PredefinedImages } from "../container";
 
-export interface PytestProps {
+export interface PythonTestPytestProps {
   /**
    * This argument is only required if you have a custom command
    * to call pytest.
@@ -23,7 +23,7 @@ export interface PytestProps {
   readonly jobStage?: string;
 }
 
-export interface IPytest {
+export interface IPythonTestPytest {
   /**
    * This argument is only required if you have a custom command
    * to call pytest.
@@ -48,11 +48,11 @@ export interface IPytest {
  * - name: pytest
  * - stage: test
  */
-export class Pytest extends Job implements IPytest {
+export class PythonTestPytest extends Job implements IPythonTestPytest {
   pytestCommand: string;
   pipenvVersionSpecifier: string;
 
-  constructor(props: PytestProps) {
+  constructor(props: PythonTestPytestProps) {
     super({
       scripts: [],
       name: props.jobName ?? "pytest",
@@ -74,7 +74,7 @@ export class Pytest extends Job implements IPytest {
   }
 }
 
-export interface EvaluateGitTagPep440ConformityProps {
+export interface PythonTestEvaluateGitTagPep440ConformityProps {
   /**
    * The name of the Bootstrap job.
    */
@@ -84,7 +84,7 @@ export interface EvaluateGitTagPep440ConformityProps {
    */
   readonly jobStage?: string;
 }
-export interface IEvaluateGitTagPep440Conformity {}
+export interface IPythonTestEvaluateGitTagPep440Conformity {}
 
 /**
  * Checks if the current pipelines `$CI_COMMIT_TAG` validates to a valid Python
@@ -106,11 +106,11 @@ export interface IEvaluateGitTagPep440Conformity {}
  * - image: PredefinedImages.GCIP
  * - rules: on_tagsg
  */
-export class EvaluateGitTagPep440Conformity
+export class PythonTestEvaluateGitTagPep440Conformity
   extends Job
-  implements IEvaluateGitTagPep440Conformity
+  implements IPythonTestEvaluateGitTagPep440Conformity
 {
-  constructor(props: EvaluateGitTagPep440ConformityProps) {
+  constructor(props: PythonTestEvaluateGitTagPep440ConformityProps) {
     super({
       scripts: [],
       name: props.jobName ?? "tag-pep440-conformity",

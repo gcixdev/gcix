@@ -3,7 +3,7 @@ import { Job } from "..";
 /**
  * Represents the properties for the `TwineUpload` class.
  */
-export interface TwineUploadProps {
+export interface PythonDeployTwineUploadProps {
   /**
    * The name of the job.
    */
@@ -31,7 +31,7 @@ export interface TwineUploadProps {
   readonly twinePasswordEnvVar?: string;
 }
 
-export interface ITwineUpload {
+export interface IPythonDeployTwineUpload {
   /**
    * The URL to the PyPI repository to which the Python artifacts will be
    * deployed. If `undefined` the package is published to `https://pypi.org`.
@@ -65,12 +65,15 @@ export interface ITwineUpload {
  * - name: twine
  * - stage: deploy
  */
-export class TwineUpload extends Job implements ITwineUpload {
+export class PythonDeployTwineUpload
+  extends Job
+  implements IPythonDeployTwineUpload
+{
   twineRepositoryUrl?: string;
   twineUsernameEnvVar: string;
   twinePasswordEnvVar: string;
 
-  constructor(props: TwineUploadProps) {
+  constructor(props: PythonDeployTwineUploadProps) {
     super({
       scripts: [""],
       name: props.jobName ?? "twine",

@@ -1,5 +1,5 @@
 import { Pipeline } from "../../../../src";
-import { Mirror } from "../../../../src/git";
+import { GitMirror } from "../../../../src/git";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -10,7 +10,7 @@ beforeEach(() => {
 test("mirror job", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Mirror({
+      new GitMirror({
         remoteRepository: "git@myrepo.com:company/gitlab-ci-python-library.git",
       }),
     ],
@@ -21,7 +21,7 @@ test("mirror job", () => {
 test("mirror job configured", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Mirror({
+      new GitMirror({
         remoteRepository: "git@myrepo.com:company/gitlab-ci-python-library.git",
         gitConfigUserEmail: "max@muster.de",
         gitConfigUserName: "Max Power",
@@ -37,7 +37,7 @@ test("mirror job configured", () => {
 test("mirror job with change jobName and jobStage", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new Mirror({
+      new GitMirror({
         remoteRepository: "github.com/gcix/gcix",
         jobName: "mirror",
         jobStage: "test",

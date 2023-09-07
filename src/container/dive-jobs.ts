@@ -16,7 +16,7 @@ function _checkValueBoundaries(validate: number): boolean {
   return true;
 }
 
-export interface ScanProps {
+export interface DiveScanProps {
   /**
    * Path to the image can be either a remote container registry,
    * as well as a local path to an image.
@@ -71,7 +71,7 @@ export interface ScanProps {
   readonly jobStage?: string;
 }
 
-export interface IScan {
+export interface IDiveScan {
   /**
    * Path to the image can be either a remote container registry,
    * as well as a local path to an image.
@@ -135,7 +135,7 @@ export interface IScan {
  * - image: PredefinedImages.DIVE
  * - artifacts: Path 'dive.txt'
  */
-export class Scan extends Job implements IScan {
+export class DiveScan extends Job implements IDiveScan {
   imagePath: string;
   imageName: string;
   highestUserWastedPercent: number;
@@ -143,7 +143,7 @@ export class Scan extends Job implements IScan {
   lowestEfficiency: number;
   ignoreErrors: boolean;
   source: "docker" | "podman" | "docker-archive";
-  constructor(props: ScanProps) {
+  constructor(props: DiveScanProps) {
     super({
       scripts: [],
       name: props.jobName ?? "dive",

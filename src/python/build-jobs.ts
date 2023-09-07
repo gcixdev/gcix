@@ -3,13 +3,13 @@ import { Artifacts } from "..";
 import { Job } from "../job";
 import { LinuxScripts } from "../linux";
 
-export interface BdistWheelProps {
+export interface PythonBuildBdistWheelProps {
   readonly jobName?: string;
   readonly jobStage?: string;
   readonly pipRequirements?: PipInstallRequirementsProps;
 }
 
-export interface IBdistWheel {
+export interface IPythonBuildBdistWheel {
   readonly pipenvVersionSpecifier?: string;
   readonly requirementsFile?: string;
 }
@@ -31,11 +31,14 @@ export interface IBdistWheel {
  * @default to an empty string, indicating
  * installation of the latest version.
  */
-export class BdistWheel extends Job implements IBdistWheel {
+export class PythonBuildBdistWheel
+  extends Job
+  implements IPythonBuildBdistWheel
+{
   public readonly pipenvVersionSpecifier?: string;
   public readonly requirementsFile?: string;
 
-  constructor(props: BdistWheelProps) {
+  constructor(props: PythonBuildBdistWheelProps) {
     super({
       scripts: [""],
       name: props.jobName ?? "bdist_wheel",

@@ -1,5 +1,5 @@
 import { Pipeline } from "../../../../src";
-import { BdistWheel } from "../../../../src/python";
+import { PythonBuildBdistWheel } from "../../../../src/python";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -10,7 +10,7 @@ beforeEach(() => {
 describe("bdist wheel", () => {
   test("default", () => {
     pipeline.addChildren({
-      jobsOrJobCollections: [new BdistWheel({})],
+      jobsOrJobCollections: [new PythonBuildBdistWheel({})],
       name: "build",
     });
     check(pipeline.render(), expect);
@@ -18,7 +18,7 @@ describe("bdist wheel", () => {
   test("changed properties", () => {
     pipeline.addChildren({
       jobsOrJobCollections: [
-        new BdistWheel({
+        new PythonBuildBdistWheel({
           jobName: "changed-properties",
           jobStage: "after-build",
           pipRequirements: {

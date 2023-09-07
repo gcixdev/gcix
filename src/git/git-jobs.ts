@@ -1,7 +1,7 @@
 import { Job, PredefinedVariables, Rule } from "..";
 import { PredefinedImages } from "../container";
 
-export interface MirrorProps {
+export interface GitMirrorProps {
   /**
    * The git repository the code of the pipelines repository should be
    * mirrored to.
@@ -46,7 +46,7 @@ export interface MirrorProps {
    */
   readonly jobStage?: string;
 }
-export interface IMirror {
+export interface IGitMirror {
   /**
    * The git repository the code of the pipelines repository should be
    * mirrored to.
@@ -94,14 +94,14 @@ export interface IMirror {
  * * stage: deploy
  * * image: PredefinedImages.ALPINE_GIT
  */
-export class Mirror extends Job implements IMirror {
+export class GitMirror extends Job implements IGitMirror {
   remoteRepository: string;
   gitConfigUserEmail: string;
   gitConfigUserName: string;
   privateKeyVariable?: string | undefined;
   scriptHook: string[];
   runOnlyForRepositoryUrl?: string | undefined;
-  constructor(props: MirrorProps) {
+  constructor(props: GitMirrorProps) {
     super({
       scripts: [""],
       name: props.jobName ? props.jobName : "git-mirror",

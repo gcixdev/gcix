@@ -1,8 +1,8 @@
 import { PredefinedVariables } from "..";
-import { IMirror, Mirror, MirrorProps } from "../git";
+import { IGitMirror, GitMirror, GitMirrorProps } from "../git";
 import { LinuxScripts } from "../linux";
 
-export interface MirrorToCodecommitProps {
+export interface CdkMirrorToCodecommitProps {
   /**
    * The name of the target Codecommit repository.
    * @default CI_PROJECT_PATH_SLUG.
@@ -23,10 +23,10 @@ export interface MirrorToCodecommitProps {
   /**
    * Options for the upstream Mirror job.
    */
-  readonly mirrorOpts?: MirrorProps;
+  readonly mirrorOpts?: GitMirrorProps;
 }
 
-export interface IMirrorToCodecommit extends IMirror {
+export interface ICdkMirrorToCodecommit extends IGitMirror {
   /**
    * The name of the target Codecommit repository.
    * @default CI_PROJECT_PATH_SLUG.
@@ -60,13 +60,16 @@ export interface IMirrorToCodecommit extends IMirror {
  * You could also limit the resource to `!Sub arn:aws:codecommit:${AWS::Region}:${AWS::AccountId}:<repository-name>`.
  *
  */
-export class MirrorToCodecommit extends Mirror implements IMirrorToCodecommit {
+export class CdkMirrorToCodecommit
+  extends GitMirror
+  implements ICdkMirrorToCodecommit
+{
   repositoryName: string;
   awsRegion?: string;
   infrastructureTags?: string;
-  mirrorOpts?: MirrorProps;
+  mirrorOpts?: GitMirrorProps;
 
-  constructor(props: MirrorToCodecommitProps) {
+  constructor(props: CdkMirrorToCodecommitProps) {
     if (props.mirrorOpts) {
       super(props.mirrorOpts);
     } else {

@@ -3,7 +3,7 @@ import { Job } from "../";
 /**
  * Configuration properties for initializing a Bootstrap instance.
  */
-export interface BootstrapProps {
+export interface CdkBootstrapProps {
   /**
    * The AWS account ID associated with the Bootstrap configuration.
    */
@@ -43,7 +43,7 @@ export interface BootstrapProps {
 /**
  * Represents the interface that a Bootstrap instance adheres to.
  */
-export interface IBootstrap {
+export interface ICdkBootstrap {
   /**
    * The AWS account ID associated with the Bootstrap configuration.
    */
@@ -84,7 +84,7 @@ export interface IBootstrap {
  * Creates an instance of Bootstrap.
  * @param props - Configuration properties for the Bootstrap job.
  */
-export class Bootstrap extends Job implements IBootstrap {
+export class CdkBootstrap extends Job implements ICdkBootstrap {
   awsAccountId: string;
   awsRegion: string;
   toolkitStackName: string;
@@ -93,7 +93,7 @@ export class Bootstrap extends Job implements IBootstrap {
   jobName: string;
   jobStage: string;
 
-  constructor(props: BootstrapProps) {
+  constructor(props: CdkBootstrapProps) {
     const jobName = props.jobName ? props.jobName : "toolkit-stack";
     const jobStage = props.jobStage ? props.jobStage : "deploy";
 
@@ -132,7 +132,7 @@ export class Bootstrap extends Job implements IBootstrap {
 /**
  * Configuration properties for initializing a Diff instance.
  */
-export interface DiffProps {
+export interface CdkDiffProps {
   /**
    * An array of stack names for which to generate a diff.
    */
@@ -162,7 +162,7 @@ export interface DiffProps {
 /**
  * Represents the interface that a Diff instance adheres to.
  */
-export interface IDiff {
+export interface ICdkDiff {
   /**
    * An array of stack names for which to generate a diff.
    */
@@ -193,7 +193,7 @@ export interface IDiff {
  * A class that manages the configuration and rendering of a Diff job.
  * Inherits from the base Job class and implements the IDiff interface.
  */
-export class Diff extends Job implements IDiff {
+export class CdkDiff extends Job implements ICdkDiff {
   stacks: string[];
   diffOptions?: string;
   context?: Record<string, string>;
@@ -204,7 +204,7 @@ export class Diff extends Job implements IDiff {
    * Creates an instance of Diff.
    * @param props - Configuration properties for the Diff job.
    */
-  constructor(props: DiffProps) {
+  constructor(props: CdkDiffProps) {
     super({
       scripts: [],
       name: props.jobName ?? "cdk",
@@ -235,7 +235,7 @@ export class Diff extends Job implements IDiff {
 /**
  * Configuration properties for initializing a Deploy instance.
  */
-export interface DeployProps {
+export interface CdkDeployProps {
   /**
    * An array of stack names to be deployed.
    */
@@ -290,7 +290,7 @@ export interface DeployProps {
 /**
  * Represents the interface that a Deploy instance adheres to.
  */
-export interface IDeploy {
+export interface ICdkDeploy {
   /**
    * An array of stack names to be deployed.
    */
@@ -346,7 +346,7 @@ export interface IDeploy {
  * A class that manages the configuration and rendering of a Deploy job.
  * Inherits from the base Job class and implements the IDeploy interface.
  */
-export class Deploy extends Job implements IDeploy {
+export class CdkDeploy extends Job implements ICdkDeploy {
   stacks: string[];
   toolkitStackName?: string;
   strict: boolean;
@@ -362,7 +362,7 @@ export class Deploy extends Job implements IDeploy {
    * Creates an instance of Deploy.
    * @param props - Configuration properties for the Deploy job.
    */
-  constructor(props: DeployProps) {
+  constructor(props: CdkDeployProps) {
     const jobName = props.jobName ?? "cdk";
     const jobStage = props.jobStage ?? "deploy";
 

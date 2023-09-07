@@ -1,10 +1,10 @@
-import { Deploy, Diff } from "./";
+import { CdkDeploy, CdkDiff } from "./";
 import { JobCollection } from "../";
 
 /**
  * Configuration properties for initializing a DiffDeploy instance.
  */
-export interface DiffDeployProps {
+export interface CdkDiffDeployProps {
   /**
    * An array of stack names for which to generate a diff and perform deployment.
    */
@@ -19,7 +19,7 @@ export interface DiffDeployProps {
 /**
  * Represents the interface that a DiffDeploy instance adheres to.
  */
-export interface IDiffDeploy {
+export interface ICdkDiffDeploy {
   /**
    * An array of stack names for which to generate a diff and perform deployment.
    */
@@ -33,29 +33,29 @@ export interface IDiffDeploy {
   /**
    * The instance of the Diff job associated with this DiffDeploy instance.
    */
-  diffJob: Diff;
+  diffJob: CdkDiff;
 
   /**
    * The instance of the Deploy job associated with this DiffDeploy instance.
    */
-  deployJob: Deploy;
+  deployJob: CdkDeploy;
 }
 
 /**
  * A class that manages the configuration and execution of combined Diff and Deploy operations.
  * Inherits from the base JobCollection class and implements the IDiffDeploy interface.
  */
-export class DiffDeploy extends JobCollection implements IDiffDeploy {
+export class CdkDiffDeploy extends JobCollection implements ICdkDiffDeploy {
   stacks: string[];
   context?: Record<string, string>;
-  diffJob: Diff;
-  deployJob: Deploy;
+  diffJob: CdkDiff;
+  deployJob: CdkDeploy;
 
   /**
    * Creates an instance of DiffDeploy.
    * @param props - Configuration properties for the DiffDeploy job collection.
    */
-  constructor(props: DiffDeployProps) {
+  constructor(props: CdkDiffDeployProps) {
     super();
     this.stacks = props.stacks;
     this.context = props.context;
@@ -63,12 +63,12 @@ export class DiffDeploy extends JobCollection implements IDiffDeploy {
     /**
      * Create and configure the diff job
      */
-    this.diffJob = new Diff({ stacks: this.stacks, context: this.context });
+    this.diffJob = new CdkDiff({ stacks: this.stacks, context: this.context });
 
     /**
      * Create and configure the deploy job
      */
-    this.deployJob = new Deploy({
+    this.deployJob = new CdkDeploy({
       stacks: this.stacks,
       context: this.context,
     });

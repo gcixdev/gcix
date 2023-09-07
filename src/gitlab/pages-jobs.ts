@@ -18,7 +18,7 @@ export function gitlabPagesPath(subPath: string): string {
   return path.join("public", subPath);
 }
 
-export interface AsciiDoctorProps {
+export interface PagesAsciiDoctorProps {
   /**
    * Source .adoc files to translate to HTML files.
    */
@@ -36,7 +36,7 @@ export interface AsciiDoctorProps {
    */
   readonly jobStage?: string;
 }
-export interface IAsciiDoctor {
+export interface IPagesAsciiDoctor {
   /**
    * Source .adoc files to translate to HTML files.
    */
@@ -60,11 +60,11 @@ export interface IAsciiDoctor {
  * - image: ruby:3-alpine
  * - artifacts: Path 'public'
  */
-export class AsciiDoctor extends Job implements IAsciiDoctor {
+export class PagesAsciiDoctor extends Job implements IPagesAsciiDoctor {
   source: string;
   outFile: string;
 
-  constructor(props: AsciiDoctorProps) {
+  constructor(props: PagesAsciiDoctorProps) {
     super({
       scripts: [""],
       name: props.jobName ?? "asciidoctor-pages",
@@ -85,7 +85,7 @@ export class AsciiDoctor extends Job implements IAsciiDoctor {
   }
 }
 
-export interface SphinxProps {
+export interface PagesSphinxProps {
   readonly pip?: PipInstallRequirementsProps;
   /**
    * The name of the job.
@@ -96,7 +96,7 @@ export interface SphinxProps {
    */
   readonly jobStage?: string;
 }
-export interface ISphinx {
+export interface IPagesSphinx {
   pip?: PipInstallRequirementsProps;
 }
 
@@ -115,9 +115,9 @@ export interface ISphinx {
  * - stage: build
  * - artifacts: Path 'public'
  */
-export class Sphinx extends Job implements ISphinx {
+export class PagesSphinx extends Job implements IPagesSphinx {
   pip?: PipInstallRequirementsProps;
-  constructor(props: SphinxProps) {
+  constructor(props: PagesSphinxProps) {
     super({
       scripts: [""],
       name: props.jobName ?? "sphinx-pages",
@@ -142,7 +142,7 @@ export class Sphinx extends Job implements ISphinx {
   }
 }
 
-export interface Pdoc3Props {
+export interface PagesPdoc3Props {
   /**
    * The Python module name. This may be an import path resolvable in the
    * current environment, or a file path to a Python module or package.
@@ -162,7 +162,7 @@ export interface Pdoc3Props {
    */
   readonly jobStage?: string;
 }
-export interface IPdoc3 {
+export interface IPagesPdoc3 {
   /**
    * The Python module name. This may be an import path resolvable in the
    * current environment, or a file path to a Python module or package.
@@ -187,10 +187,10 @@ export interface IPdoc3 {
  * - stage: build
  * - artifacts: Path 'public'
  */
-export class Pdoc3 extends Job implements IPdoc3 {
+export class PagesPdoc3 extends Job implements IPagesPdoc3 {
   module: string;
   outputPath: string;
-  constructor(props: Pdoc3Props) {
+  constructor(props: PagesPdoc3Props) {
     super({
       scripts: [""],
       name: props.jobName ?? "pdoc3-pages",

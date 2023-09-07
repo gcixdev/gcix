@@ -3,7 +3,7 @@ import { DockerClientConfig, PredefinedImages, Registry } from ".";
 import { Job } from "..";
 import { PredefinedVariables } from "../";
 
-export interface CopyProps {
+export interface CraneCopyProps {
   /**
    * Registry URL to copy container image from.
    */
@@ -30,7 +30,7 @@ export interface CopyProps {
    */
   readonly jobStage?: string;
 }
-export interface ICopy {
+export interface ICraneCopy {
   /**
    * Registry URL to copy container image from.
    */
@@ -62,11 +62,11 @@ export interface ICopy {
  * - image: PredefinedImages.CRANE
  *
  */
-export class Copy extends Job implements ICopy {
+export class CraneCopy extends Job implements ICraneCopy {
   srcRegistry: string;
   dstRegistry: string;
   dockerClientConfig?: DockerClientConfig;
-  constructor(props: CopyProps) {
+  constructor(props: CraneCopyProps) {
     super({
       scripts: [],
       name: props.jobName ?? "crane-copy",
@@ -90,7 +90,7 @@ export class Copy extends Job implements ICopy {
   }
 }
 
-export interface PushProps {
+export interface CranePushProps {
   /**
    * Registry URL to copy container image to.
    */
@@ -133,7 +133,7 @@ export interface PushProps {
    */
   readonly jobStage?: string;
 }
-export interface IPush {
+export interface ICranePush {
   /**
    * Registry URL to copy container image to.
    */
@@ -180,14 +180,14 @@ export interface IPush {
  * - image: PredefinedImages.CRANE
  *
  */
-export class Push extends Job implements IPush {
+export class CranePush extends Job implements ICranePush {
   dstRegistry: string;
   tarPath: string;
   imageName: string;
   imageTag: string;
   dockerClientConfig: DockerClientConfig;
 
-  constructor(props: PushProps) {
+  constructor(props: CranePushProps) {
     super({
       scripts: [],
       name: props.jobName ?? "crane-push",
@@ -231,7 +231,7 @@ export class Push extends Job implements IPush {
   }
 }
 
-export interface PullProps {
+export interface CranePullProps {
   /**
    *  Registry URL to pull container image from.
    */
@@ -275,7 +275,7 @@ export interface PullProps {
   readonly jobStage?: string;
 }
 
-export interface IPull {
+export interface ICranePull {
   /**
    *  Registry URL to pull container image from.
    */
@@ -319,14 +319,14 @@ export interface IPull {
  * - image: PredefinedImages.CRANE
  *
  */
-export class Pull extends Job implements IPull {
+export class CranePull extends Job implements ICranePull {
   srcRegistry: Registry | string;
   imageName: string;
   imageTag: string;
   tarPath: string;
   dockerClientConfig: DockerClientConfig;
 
-  constructor(props: PullProps) {
+  constructor(props: CranePullProps) {
     super({
       scripts: [],
       name: props.jobName ?? "crane",

@@ -1,5 +1,5 @@
 import { Pipeline } from "../../../../src/";
-import { TwineUpload } from "../../../../src/python";
+import { PythonDeployTwineUpload } from "../../../../src/python";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -10,7 +10,7 @@ beforeEach(() => {
 describe("twine", () => {
   test("default", () => {
     pipeline.addChildren({
-      jobsOrJobCollections: [new TwineUpload({})],
+      jobsOrJobCollections: [new PythonDeployTwineUpload({})],
       name: "deploy",
     });
     check(pipeline.render(), expect);
@@ -18,7 +18,7 @@ describe("twine", () => {
   test("changed properties", () => {
     pipeline.addChildren({
       jobsOrJobCollections: [
-        new TwineUpload({
+        new PythonDeployTwineUpload({
           jobName: "changed-properties",
           jobStage: "after-deploy",
           twinePasswordEnvVar: "TWINE_CHANGED_PASSWORD",

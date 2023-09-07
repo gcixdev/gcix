@@ -1,5 +1,5 @@
 import { Pipeline } from "../../../../src";
-import { FullStack } from "../../../../src/python";
+import { PythonFullStack } from "../../../../src/python";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
@@ -11,7 +11,7 @@ beforeEach(() => {
 test("simple", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new FullStack({
+      new PythonFullStack({
         twineDevJobProps: {
           twineRepositoryUrl: "https://my.artifactory.net/pypi/dev-repository",
           twineUsernameEnvVar: "ARTIFACTORY_DEV_USER",
@@ -31,7 +31,7 @@ test("simple", () => {
 test("with mypy", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new FullStack({
+      new PythonFullStack({
         twineDevJobProps: {
           twineRepositoryUrl: "https://my.artifactory.net/pypi/dev-repository",
           twineUsernameEnvVar: "ARTIFACTORY_DEV_USER",
@@ -52,7 +52,7 @@ test("with mypy", () => {
 });
 
 test("with custom evaluate git tag pep440 conformity image", () => {
-  const fullStack = new FullStack({
+  const fullStack = new PythonFullStack({
     twineDevJobProps: {
       twineRepositoryUrl: "https://my.artifactory.net/pypi/dev-repository",
       twineUsernameEnvVar: "ARTIFACTORY_DEV_USER",
@@ -76,7 +76,7 @@ test("with custom evaluate git tag pep440 conformity image", () => {
 test("with sphinx", () => {
   pipeline.addChildren({
     jobsOrJobCollections: [
-      new FullStack({
+      new PythonFullStack({
         twineDevJobProps: {
           twineRepositoryUrl: "https://my.artifactory.net/pypi/dev-repository",
           twineUsernameEnvVar: "ARTIFACTORY_DEV_USER",
