@@ -1,0 +1,104 @@
+stages:
+- lint
+- test
+- build
+- deploy
+isort-lint:
+  stage: lint
+  script:
+  - pip3 install --upgrade isort
+  - isort --check .
+flake8-lint:
+  stage: lint
+  script:
+  - pip3 install --upgrade flake8
+  - flake8
+pytest-test:
+  stage: test
+  script:
+  - |-
+    if test -f Pipfile.lock; then
+    pip install pipenv;
+    pipenv install --dev --system;
+    fi;
+    if test -f requirements.txt; then
+    pip install --upgrade -r requirements.txt;
+    fi
+  - pytest
+tag-pep440-conformity-test:
+  image:
+    name: gcix/gcix:latest
+    entrypoint:
+    - ''
+  stage: test
+  script:
+  - npx --package @gcix/gcix gittagpep440conformity
+  rules:
+  - if: $CI_COMMIT_TAG
+    when: on_success
+    allow_failure: false
+bdist-wheel-build:
+  stage: build
+  script:
+  - |-
+    if test -f Pipfile.lock; then
+    pip install pipenv;
+    pipenv install --dev --system;
+    fi;
+    if test -f requirements.txt; then
+    pip install --upgrade -r requirements.txt;
+    fi
+  - >
+    pip list | grep setuptools-git-versioning && if [ -x "$(command -v apk)" ];
+    then apk update && apk add --yes --no-cache git;
+
+    elif [ -x "$(command -v apt-get)" ]; then apt-get update && apt-get install
+    --yes git;
+
+    elif [ -x "$(command -v yum)" ]; then yum install -y git;
+
+    elif [ -x "$(command -v dnf)" ]; then dnf install -y git;
+
+    elif [ -x "$(command -v zypper)" ]; then zypper install -y git;
+
+    else echo "FAILED TO INSTALL PACKAGE: Package manager not found. You must
+    manually install: git">&2; fi
+  - python3 setup.py bdist_wheel
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - dist/
+mypy-lint:
+  stage: lint
+  script:
+  - pip3 freeze | grep -q "^mypy" || pip3 install mypy
+  - yes | mypy --install-types test_package_dir || true
+  - mypy test_package_dir
+dev-twine-deploy:
+  stage: deploy
+  script:
+  - pip3 install --upgrade twine
+  - python3 -m twine upload --non-interactive --disable-progress-bar dist/*
+  variables:
+    TWINE_USERNAME: $ARTIFACTORY_DEV_USER
+    TWINE_PASSWORD: $ARTIFACTORY_DEV_PASSWORD
+    TWINE_REPOSITORY_URL: https://my.artifactory.net/pypi/dev-repository
+  rules:
+  - if: $CI_COMMIT_TAG
+    when: never
+    allow_failure: false
+  - when: on_success
+    allow_failure: false
+stable-twine-deploy:
+  stage: deploy
+  script:
+  - pip3 install --upgrade twine
+  - python3 -m twine upload --non-interactive --disable-progress-bar dist/*
+  variables:
+    TWINE_USERNAME: $ARTIFACTORY_PROD_USER
+    TWINE_PASSWORD: $ARTIFACTORY_PROD_PASSWORD
+    TWINE_REPOSITORY_URL: https://my.artifactory.net/pypi/prod-repository
+  rules:
+  - if: $CI_COMMIT_TAG
+    when: on_success
+    allow_failure: false
