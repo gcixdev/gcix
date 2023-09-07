@@ -24,7 +24,7 @@ The following behaviors are considered unacceptable and will not be tolerated wi
 If you experience or witness behavior that violates this Code of Conduct, please follow these steps:
 
 1. Notify the individual that their behavior is inappropriate and ask them to stop.
-2. If the behavior continues or you are uncomfortable addressing it directly, report the incident to the project maintainers at [gcix@vonessen.eu](mailto:gcix@vonessen.eu).
+2. If the behavior continues or you are uncomfortable addressing it directly, report the incident to the project maintainers at [gcix@gcix.dev](mailto:gcix@gcix.dev).
 3. Provide details of the incident, including date, time, individuals involved, and a description of what occurred.
 
 ## Consequences
