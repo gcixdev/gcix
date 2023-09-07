@@ -1,4 +1,12 @@
 
+### [0.0.31](https://gitlab.com/gcix/gcix/compare/v0.0.30...v0.0.31) (2023-09-07)
+
+
+### Chore
+
+* **projen:** :wrench: Added some useful metadata to projen, that will allow users to have a better way to get in touch with the project. ([58be440](https://gitlab.com/gcix/gcix/commit/58be440252f655e6daea03ec733ef5fdbc6c5b25))
+* **projen:** :wrench: Added versionrcOptions to create changelog entries for all conventional commits. ([ded3c0e](https://gitlab.com/gcix/gcix/commit/ded3c0e82b9e5814e4d71d12608a8c8b64fe7105))
+
 ### [0.0.30](https://gitlab.com/gcix/gcix/compare/v0.0.29...v0.0.30) (2023-09-07)
 
 ### [0.0.29](https://gitlab.com/gcix/gcix/compare/v0.0.28...v0.0.29) (2023-09-03)
