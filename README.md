@@ -15,7 +15,7 @@
 
 ![Matrix](https://img.shields.io/matrix/gcix%3Amatrix.org?logo=matrix&label=Matrix)
 
-The complete documentation is found at <https://gcix.gitlab.io/gcix/>
+The complete documentation is found at <https://docs.gcix.dev>
 
 The GitLab CI X Library (*gcix*) is a library to create dynamic pipelines for GitLab CI.
 
@@ -136,7 +136,7 @@ Copyright [Daniel von Eßen][9]
 [9]: https://gitlab.com/dvonessen
 [10]: https://aws.github.io/jsii/
 [11]: https://aws.amazon.com/de/
-[12]: https://gcix.gitlab.io/gcix
-[13]: https://gcix.gitlab.io/gcix/api/
-[14]: https://gcix.gitlab.io/gcix/developer/
+[12]: https://docs.gcix.dev
+[13]: https://docs.gcix.dev/api/
+[14]: https://docs.gcix.dev/developer/
 [15]: http://www.apache.org/licenses/LICENSE-2.0
