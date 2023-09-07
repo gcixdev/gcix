@@ -1,4 +1,23 @@
 
+### [0.0.32](https://gitlab.com/gcix/gcix/compare/v0.0.31...v0.0.32) (2023-09-07)
+
+
+### Features
+
+* **addons:** :sparkles: Introduce python FullStack class to allow a collection to test, build and deploy a python project. ([f0846f2](https://gitlab.com/gcix/gcix/commit/f0846f29b2bd68f8fdf6f1b287a713d219898368))
+
+
+### Tests
+
+* **addons:** :white_check_mark: Add tests for python FullStack class. ([20ffdf7](https://gitlab.com/gcix/gcix/commit/20ffdf7ba127c65602322bec2c3aa6a196698cb2))
+
+
+### Chore
+
+* :wrench: Added bug and feature request issue templates. ([e883e50](https://gitlab.com/gcix/gcix/commit/e883e50ec42e4e5f8d19791cd8e14b9d82abfb59))
+* :wrench: Fixed some issues with the issue/bug and feature request templates. ([2eb323b](https://gitlab.com/gcix/gcix/commit/2eb323bd328071a5ca830435966bd2a56e9910c0))
+* **addons:** :truck: Renamed all classes and prefixed them according to their addon domain. This was necessary to prevent name clashing of exports. ([1815b30](https://gitlab.com/gcix/gcix/commit/1815b3017ff0571e62ba602a8a66dec05669eea1))
+
 ### [0.0.31](https://gitlab.com/gcix/gcix/compare/v0.0.30...v0.0.31) (2023-09-07)
 
 
