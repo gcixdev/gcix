@@ -103,15 +103,28 @@
     "lodash",
     "yargs"
   ],
+  "keywords": [
+    "ci",
+    "gcip",
+    "gcix",
+    "gitlab",
+    "gitlab-ci",
+    "jsii"
+  ],
   "engines": {
     "node": ">= 18.0.0"
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
+  "homepage": "https://docs.gcix.dev",
   "publishConfig": {
     "access": "public"
   },
   "version": "0.0.0",
+  "bugs": {
+    "email": "bug@gcix.dev",
+    "url": "https://gitlab.com/gcix/gcix/-/issues/new"
+  },
   "jest": {
     "setupFiles": [
       "./test/set-env-vars.ts"
