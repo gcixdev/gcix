@@ -1,0 +1,107 @@
+stages:
+- build
+- check
+- deploy
+kaniko-build:
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint:
+    - ''
+  stage: build
+  script:
+  - mkdir -p /kaniko/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > /kaniko/.docker/config.json
+  - mkdir -p image
+  - >-
+    executor --context /path/to/project --dockerfile /path/to/project/Dockerfile
+    --verbosity info --tarPath image/gitlab-ci-project.tar --no-push --build-arg
+    "first_arg=foo" --build-arg "second_arg=bar" --destination
+    index.docker.io/gitlab-ci-project:11.22.33
+  cache:
+    paths:
+    - ./image
+    key: my-awsome-feature-branch-11-22-33
+dive-check:
+  image:
+    name: wagoodman/dive:latest
+    entrypoint:
+    - ''
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    dive docker-archive://./image/gitlab-ci-project.tar --ci
+    --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
+    /path/to/project/dive.txt
+  cache:
+    paths:
+    - ./image
+    key: my-awsome-feature-branch-11-22-33
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - dive.txt
+trivy-check:
+  image:
+    name: custom/trivy:v1.2.3
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    trivy image --input ./image/gitlab-ci-project.tar --no-progress --format
+    table --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --vuln-type os,library
+    |tee /path/to/project/trivy.txt
+  - trivy --version
+  cache:
+    paths:
+    - ./image
+    key: my-awsome-feature-branch-11-22-33
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - trivy.txt
+trivyignore-check:
+  image:
+    name: busybox:latest
+  allow_failure:
+    exit_codes:
+    - 1
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    test -f /path/to/project/.trivyignore || { echo
+    "/path/to/project/.trivyignore does not exists."; exit 0; }
+  - >-
+    grep -vE '^ *(#.*)?$' /path/to/project/.trivyignore || { echo
+    '/path/to/project/.trivyignore found but empty.'; exit 0; }
+  - >-
+    echo "/path/to/project/.trivyignore not empty. Please check your
+    vulnerabilities!"; exit 1;
+  cache:
+    paths:
+    - ./image
+    key: my-awsome-feature-branch-11-22-33
+crane-push-deploy:
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint:
+    - ''
+  stage: deploy
+  script:
+  - mkdir -p $HOME/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > $HOME/.docker/config.json
+  - crane validate --tarball ./image/gitlab-ci-project.tar
+  - >-
+    crane push ./image/gitlab-ci-project.tar
+    index.docker.io/gitlab-ci-project:11.22.33
+  cache:
+    paths:
+    - ./image
+    key: my-awsome-feature-branch-11-22-33
