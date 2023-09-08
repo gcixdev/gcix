@@ -1,0 +1,20 @@
+stages:
+- check
+trivyignore-check:
+  image:
+    name: busybox:latest
+  allow_failure:
+    exit_codes:
+    - 1
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    test -f /path/to/project/.trivyignore || { echo
+    "/path/to/project/.trivyignore does not exists."; exit 0; }
+  - >-
+    grep -vE '^ *(#.*)?$' /path/to/project/.trivyignore || { echo
+    '/path/to/project/.trivyignore found but empty.'; exit 0; }
+  - >-
+    echo "/path/to/project/.trivyignore not empty. Please check your
+    vulnerabilities!"; exit 1;

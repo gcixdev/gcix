@@ -1,0 +1,19 @@
+stages:
+- check
+advanced-scan-trivy-check:
+  image:
+    name: aquasec/trivy:latest
+    entrypoint:
+    - ''
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    trivy image --input /foo/bar/baz/custom_image.tar --no-progress --format
+    json --severity MEDIUM,HIGH,CRITICAL --vuln-type os,library --list-all-pkgs
+    |tee /path/to/project/trivy.txt
+  - trivy --version
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - trivy.txt
