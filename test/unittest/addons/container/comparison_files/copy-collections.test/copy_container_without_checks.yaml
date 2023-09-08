@@ -1,0 +1,61 @@
+stages:
+- pull
+- check
+- deploy
+crane-pull:
+  image:
+    name: custom/crane:1.2.1
+  stage: pull
+  script:
+  - mkdir -p $HOME/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > $HOME/.docker/config.json
+  - mkdir -p image
+  - crane pull index.docker.io/busybox:latest ./image/busybox.tar
+  cache:
+    paths:
+    - ./image
+    key: 12345busyboxlatest
+trivyignore-check:
+  image:
+    name: busybox:latest
+  allow_failure:
+    exit_codes:
+    - 1
+  stage: check
+  script:
+  - set -eo pipefail
+  - >-
+    test -f /path/to/project/.trivyignore || { echo
+    "/path/to/project/.trivyignore does not exists."; exit 0; }
+  - >-
+    grep -vE '^ *(#.*)?$' /path/to/project/.trivyignore || { echo
+    '/path/to/project/.trivyignore found but empty.'; exit 0; }
+  - >-
+    echo "/path/to/project/.trivyignore not empty. Please check your
+    vulnerabilities!"; exit 1;
+  cache:
+    paths:
+    - ./image
+    key: 12345busyboxlatest
+crane-push-deploy:
+  image:
+    name: custom/crane:1.2.1
+  needs:
+  - job: crane-pull
+    artifacts: true
+  stage: deploy
+  script:
+  - mkdir -p $HOME/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > $HOME/.docker/config.json
+  - crane validate --tarball ./image/busybox.tar
+  - crane push ./image/busybox.tar quay.io/busybox:11.22.33
+  cache:
+    paths:
+    - ./image
+    key: 12345busyboxlatest

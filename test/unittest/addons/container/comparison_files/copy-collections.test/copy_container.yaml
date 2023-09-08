@@ -1,0 +1,115 @@
+stages:
+- pull_container
+- check_container
+- deploy_container
+container-crane-pull:
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint:
+    - ''
+  needs:
+  - job: container-crane-pull
+    artifacts: true
+  stage: pull_container
+  script:
+  - mkdir -p $HOME/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"},\"1234567890123.dkr.ecr.eu-central-1.amazonaws.com\":{\"username\":\"$ecr-login\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > $HOME/.docker/config.json
+  - mkdir -p image
+  - crane pull index.docker.io/gcix:0.10.0 ./image/gcix.tar
+  cache:
+    paths:
+    - ./image
+    key: 12345gcix0-10-0
+container-dive-check:
+  image:
+    name: wagoodman/dive:latest
+    entrypoint:
+    - ''
+  stage: check_container
+  script:
+  - set -eo pipefail
+  - >-
+    dive docker-archive://./image/gcix.tar --ci --highestUserWastedPercent "0.1"
+    --lowestEfficiency "0.9" |tee /path/to/project/dive.txt
+  cache:
+    paths:
+    - ./image
+    key: 12345gcix0-10-0
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - dive.txt
+container-trivy-check:
+  image:
+    name: custom/trivy:v1.2.3
+  needs:
+  - job: container-crane-pull
+    artifacts: true
+  stage: check_container
+  script:
+  - set -eo pipefail
+  - >-
+    trivy image --input ./image/gcix.tar --no-progress --format table --severity
+    UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --vuln-type os,library |tee
+    /path/to/project/trivy.txt
+  - trivy --version
+  cache:
+    paths:
+    - ./image
+    key: 12345gcix0-10-0
+  artifacts:
+    name: ci_job_name-my-awsome-feature-branch
+    paths:
+    - trivy.txt
+container-trivyignore-check:
+  image:
+    name: busybox:latest
+  allow_failure:
+    exit_codes:
+    - 1
+  stage: check_container
+  script:
+  - set -eo pipefail
+  - >-
+    test -f /path/to/project/.trivyignore || { echo
+    "/path/to/project/.trivyignore does not exists."; exit 0; }
+  - >-
+    grep -vE '^ *(#.*)?$' /path/to/project/.trivyignore || { echo
+    '/path/to/project/.trivyignore found but empty.'; exit 0; }
+  - >-
+    echo "/path/to/project/.trivyignore not empty. Please check your
+    vulnerabilities!"; exit 1;
+  cache:
+    paths:
+    - ./image
+    key: 12345gcix0-10-0
+container-crane-push-deploy:
+  image:
+    name: gcr.io/go-containerregistry/crane:debug
+    entrypoint:
+    - ''
+  needs:
+  - job: container-crane-pull
+    artifacts: true
+  - job: container-dive-check
+    artifacts: true
+  - job: container-trivy-check
+    artifacts: true
+  stage: deploy_container
+  script:
+  - mkdir -p $HOME/.docker
+  - >-
+    echo
+    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"},\"1234567890123.dkr.ecr.eu-central-1.amazonaws.com\":{\"username\":\"$ecr-login\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    > $HOME/.docker/config.json
+  - crane validate --tarball ./image/gcix.tar
+  - >-
+    crane push ./image/gcix.tar
+    1234567890123.dkr.ecr.eu-central-1.amazonaws.com/gcix:11.22.33
+  cache:
+    paths:
+    - ./image
+    key: 12345gcix0-10-0
