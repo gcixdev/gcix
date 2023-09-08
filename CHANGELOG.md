@@ -1,4 +1,11 @@
 
+### [0.0.36](https://gitlab.com/gcix/gcix/compare/v0.0.35...v0.0.36) (2023-09-08)
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixed wrong named cfnwaiter.ts. ([bd98b20](https://gitlab.com/gcix/gcix/commit/bd98b2066060aeed5f0c345e48949648e20843d0))
+
 ### [0.0.35](https://gitlab.com/gcix/gcix/compare/v0.0.34...v0.0.35) (2023-09-08)
 
 
