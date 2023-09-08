@@ -217,7 +217,7 @@ gcixProject.addTask("ci:publish:git", {
 gcixProject.addTask("ci:package-all", {
   description: `Task which will install dependencies from lock, write the
     CI_COMMIT_TAG in package.json, spawns pre-compile, compile and package`,
-  requiredEnv: ["CI", "CI_COMMIT_TAG"],
+  requiredEnv: ["CI"],
   steps: [
     { spawn: "ci:install:deps" },
     { exec: "scripts/update_package_json_version.sh" },

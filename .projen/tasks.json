@@ -109,8 +109,7 @@
       "name": "ci:package-all",
       "description": "Task which will install dependencies from lock, write the\n    CI_COMMIT_TAG in package.json, spawns pre-compile, compile and package",
       "requiredEnv": [
-        "CI",
-        "CI_COMMIT_TAG"
+        "CI"
       ],
       "steps": [
         {
