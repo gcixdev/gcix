@@ -1,4 +1,11 @@
 
+### [0.0.35](https://gitlab.com/gcix/gcix/compare/v0.0.34...v0.0.35) (2023-09-08)
+
+
+### Chore
+
+* **deps:** :arrow_up: Updated dependencies. ([c900cfb](https://gitlab.com/gcix/gcix/commit/c900cfbd462f80d46e67122fa66bdd08d2c4ad6b))
+
 ### [0.0.34](https://gitlab.com/gcix/gcix/compare/v0.0.33...v0.0.34) (2023-09-08)
 
 
