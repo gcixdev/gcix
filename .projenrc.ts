@@ -219,6 +219,7 @@ gcixProject.addTask("ci:package-all", {
   requiredEnv: ["CI", "CI_COMMIT_TAG"],
   steps: [
     { spawn: "ci:install:deps" },
+    { exec: "pip install -U setuptools" },
     { exec: "scripts/update_package_json_version.sh" },
     { spawn: "pre-compile" },
     { spawn: "compile" },

@@ -114,6 +114,9 @@
           "spawn": "ci:install:deps"
         },
         {
+          "exec": "pip install -U setuptools"
+        },
+        {
           "exec": "scripts/update_package_json_version.sh"
         },
         {
