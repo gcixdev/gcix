@@ -1,4 +1,29 @@
 
+### [0.0.33](https://gitlab.com/gcix/gcix/compare/v0.0.32...v0.0.33) (2023-09-08)
+
+
+### Features
+
+* **addons:** :sparkles: Introduce container BuildContainerCollection class which builds,checks, and pushes a new container image. ([01eb92f](https://gitlab.com/gcix/gcix/commit/01eb92f2a22f831889afd8a36791c2fc66049bf3))
+* **addons:** :sparkles: Introduce container CopyContainerCollection class which pulls, checks, and pushes a new container image to a registry. ([2c4a8cf](https://gitlab.com/gcix/gcix/commit/2c4a8cf52c74c85f23aae098add284a4ca7ed7cd))
+* **addons:** :sparkles: Introduce container DockerBuild class to build and/or push a container image. ([528cbe9](https://gitlab.com/gcix/gcix/commit/528cbe94ed819de0308b7ccf2bdd9ee2822cefe6))
+* **addons:** :sparkles: Introduce container KanikoExecute class to build and/or push a container image. ([e405aff](https://gitlab.com/gcix/gcix/commit/e405aff079d3d27817b0b8031129380eed98998e))
+* **addons:** :sparkles: Introduce container TrivyScanLocalImage and TrivyIgnoreFileCheck to scan container images for vulnerabilities. ([efd0035](https://gitlab.com/gcix/gcix/commit/efd0035368a97b2580f06dbe120db13a6a78ed74))
+
+
+### Bug Fixes
+
+* **addons:** :bug: Add missing Registry type for srcRegistry and dstRegistry properties. ([528077d](https://gitlab.com/gcix/gcix/commit/528077d7ec63d127287b0e2425bcae8bf166e6a8))
+
+
+### Tests
+
+* **addons:** :white_check_mark: Add tests for container BuildContainerCollection class. ([c9771db](https://gitlab.com/gcix/gcix/commit/c9771db1a11d286ffcc1b8ee8579a2d66ed458f5))
+* **addons:** :white_check_mark: Add tests for container CopyContainerCollection class. ([e7ad6bb](https://gitlab.com/gcix/gcix/commit/e7ad6bb47bb5297459aa9afc45512adc23b9be0b))
+* **addons:** :white_check_mark: Add tests for container DockerBuild class. ([8326660](https://gitlab.com/gcix/gcix/commit/8326660007587a7e4e60f9734790c9aabd56a4fe))
+* **addons:** :white_check_mark: Add tests for container KanikoExecute class. ([5c67580](https://gitlab.com/gcix/gcix/commit/5c675809197b1e2a6fc7df9bfc8242e22f2ee553))
+* **addons:** :white_check_mark: Add tests for container TrivyScanLocalImage and TrivyIgnoreFileCheck classes. ([de4f7cc](https://gitlab.com/gcix/gcix/commit/de4f7cce18dd9b86bb4aeeaab879acfe3ff10fd7))
+
 ### [0.0.32](https://gitlab.com/gcix/gcix/compare/v0.0.31...v0.0.32) (2023-09-07)
 
 
