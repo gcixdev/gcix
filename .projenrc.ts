@@ -143,6 +143,7 @@ gcixProject.addTask("ci:install:deps", {
   description: "Install dependencies inside the CI environment.",
   steps: [
     { exec: "apt update && apt install -y python3-pip python3-venv jq rsync" },
+    { exec: "pip install -U setuptools" },
     { spawn: "install:ci" },
   ],
 });
@@ -219,7 +220,6 @@ gcixProject.addTask("ci:package-all", {
   requiredEnv: ["CI", "CI_COMMIT_TAG"],
   steps: [
     { spawn: "ci:install:deps" },
-    { exec: "pip install -U setuptools" },
     { exec: "scripts/update_package_json_version.sh" },
     { spawn: "pre-compile" },
     { spawn: "compile" },
