@@ -7,12 +7,12 @@ export interface CraneCopyProps {
   /**
    * Registry URL to copy container image from.
    */
-  readonly srcRegistry: string;
+  readonly srcRegistry: Registry | string;
 
   /**
    * Registry URL to copy container image to.
    */
-  readonly dstRegistry: string;
+  readonly dstRegistry: Registry | string;
 
   /**
    * Creates the Docker configuration file base on objects settings,
@@ -34,12 +34,12 @@ export interface ICraneCopy {
   /**
    * Registry URL to copy container image from.
    */
-  srcRegistry: string;
+  srcRegistry: Registry | string;
 
   /**
    * Registry URL to copy container image to.
    */
-  dstRegistry: string;
+  dstRegistry: Registry | string;
 
   /**
    * Creates the Docker configuration file base on objects settings,
@@ -63,8 +63,8 @@ export interface ICraneCopy {
  *
  */
 export class CraneCopy extends Job implements ICraneCopy {
-  srcRegistry: string;
-  dstRegistry: string;
+  srcRegistry: Registry | string;
+  dstRegistry: Registry | string;
   dockerClientConfig?: DockerClientConfig;
   constructor(props: CraneCopyProps) {
     super({
@@ -94,7 +94,7 @@ export interface CranePushProps {
   /**
    * Registry URL to copy container image to.
    */
-  readonly dstRegistry: string;
+  readonly dstRegistry: Registry | string;
 
   /**
    * Path where to find the container image tarball.
@@ -137,7 +137,7 @@ export interface ICranePush {
   /**
    * Registry URL to copy container image to.
    */
-  dstRegistry: string;
+  dstRegistry: Registry | string;
 
   /**
    * Path where to find the container image tarball.
@@ -181,7 +181,7 @@ export interface ICranePush {
  *
  */
 export class CranePush extends Job implements ICranePush {
-  dstRegistry: string;
+  dstRegistry: Registry | string;
   tarPath: string;
   imageName: string;
   imageTag: string;
