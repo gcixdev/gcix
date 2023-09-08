@@ -50,7 +50,7 @@ export function getCloudFormationClient(
  * @param stackNames - An array of CloudFormation stack names to check.
  * @returns A boolean indicating whether any of the stacks are still in progress.
  */
-export async function cnfWaiter(
+export async function cfnWaiter(
   cfnClient: CloudFormationClient,
   stackNames: string[],
 ): Promise<boolean> {
@@ -189,7 +189,7 @@ export async function main() {
   console.log(`waiting for stacks to complete: ${stackNames}`);
 
   // Continuously monitor the status of CloudFormation stacks until all operations are complete.
-  while (await cnfWaiter(cfnClient, stackNames)) {
+  while (await cfnWaiter(cfnClient, stackNames)) {
     // If any of the stacks in the "stackNames" array are still in progress,
     // log a message indicating that we are waiting for them to complete.
     console.log(
