@@ -1,4 +1,11 @@
 
+### [0.0.34](https://gitlab.com/gcix/gcix/compare/v0.0.33...v0.0.34) (2023-09-08)
+
+
+### Bug Fixes
+
+* **cfnwaiter:** :bug: Renamed cfnWaiter.ts to cfnwaiter.ts, it was a mistake that cfnwaiter was with a capital W. ([945100b](https://gitlab.com/gcix/gcix/commit/945100b4d5245c456b126b91245e1f1639b32ada))
+
 ### [0.0.33](https://gitlab.com/gcix/gcix/compare/v0.0.32...v0.0.33) (2023-09-08)
 
 
