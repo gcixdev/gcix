@@ -36,6 +36,11 @@ const testPackageJob = new Job({
   stage: "test",
   needs: [testCompileJob],
 });
+// Changing the node version here to 18.3
+// fixes the issue which doesn't package
+// @aws-sdk/util-utf8-browser
+// see https://github.com/aws/jsii/issues/4178
+testPackageJob.assignImage("node:18.13");
 const testCollection = new JobCollection();
 testCollection.addChildren({
   jobsOrJobCollections: [lintJob, jestJob, testCompileJob, testPackageJob],
@@ -78,6 +83,12 @@ if (PredefinedVariables.ciCommitTag) {
       paths: ["lib", ".jsii", "tsconfig.json", "dist/"],
     }),
   });
+  // Changing the node version here to 18.3
+  // fixes the issue which doesn't package
+  // @aws-sdk/util-utf8-browser
+  // see https://github.com/aws/jsii/issues/4178
+  packageJob.assignImage("node:18.13");
+
   const publishNpmJob = new Job({
     scripts: ["npx projen ci:publish:npm"],
     name: "npm",
