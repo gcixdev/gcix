@@ -7,3 +7,4 @@ export * from "./docker-jobs";
 export * from "./kaniko-jobs";
 export * from "./trivy-jobs";
 export * from "./build-collections";
+export * from "./copy-collections";
