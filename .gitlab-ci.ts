@@ -31,7 +31,7 @@ const testCompileJob = new Job({
   }),
 });
 const testPackageJob = new Job({
-  scripts: ["npx projen ci:package"],
+  scripts: ["npx projen ci:package-all"],
   name: "package",
   stage: "test",
   needs: [testCompileJob],
