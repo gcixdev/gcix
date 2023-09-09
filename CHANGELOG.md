@@ -1,4 +1,14 @@
 
+### [0.0.37](https://gitlab.com/gcix/gcix/compare/v0.0.36...v0.0.37) (2023-09-09)
+
+
+### Chore
+
+* :wrench: Added check in update_package_json_version.sh script if CI_COMMIT_TAG env var is not set and exit ([f3890c5](https://gitlab.com/gcix/gcix/commit/f3890c5b752bb74babc1c51bf0c4c2ad3351bce6))
+* **projen:** :wrench: Added that if pip install fails, trying to use --break-system-packages. ([6dff2d0](https://gitlab.com/gcix/gcix/commit/6dff2d02d899156a692a999afca19fa76b79c53a))
+* **projen:** :wrench: Removed requiredEnv CI_COMMIT_TAG from ci:package-all task. ([87c2877](https://gitlab.com/gcix/gcix/commit/87c2877a08dd80c0129a17de459858880d8ebe98))
+* **projen:** :wrench: Upgrade setuptools while packaging. ([32131d3](https://gitlab.com/gcix/gcix/commit/32131d37dc49b3e65ecde206f605913b884fe6f1))
+
 ### [0.0.36](https://gitlab.com/gcix/gcix/compare/v0.0.35...v0.0.36) (2023-09-08)
 
 
