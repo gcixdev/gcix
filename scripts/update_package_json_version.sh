@@ -9,6 +9,12 @@ if [[ -n "$DEBUG" ]]; then
   set -x
 fi
 
+if [ -z "$CI_COMMIT_TAG" ]; then
+  echo "This build is not associated with a Git tag."
+  echo "No changes are made to the package.json version."
+  exit 0
+fi
+
 # Get the current version from package.json
 current_version=$(jq -r '.version' package.json)
 
