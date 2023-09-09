@@ -143,7 +143,6 @@ gcixProject.addTask("ci:install:deps", {
   description: "Install dependencies inside the CI environment.",
   steps: [
     { exec: "apt update && apt install -y python3-pip python3-venv jq rsync" },
-    { exec: "pip install -U --break-system-packages setuptools" },
     { spawn: "install:ci" },
   ],
 });
@@ -220,6 +219,9 @@ gcixProject.addTask("ci:package-all", {
   requiredEnv: ["CI"],
   steps: [
     { spawn: "ci:install:deps" },
+    {
+      exec: "pip install -U setuptools || pip install -U --break-system-packages setuptools",
+    },
     { exec: "scripts/update_package_json_version.sh" },
     { spawn: "pre-compile" },
     { spawn: "compile" },
@@ -241,7 +243,9 @@ gcixProject.addTask("ci:publish:pypi", {
   requiredEnv: ["CI", "CI_COMMIT_TAG", "TWINE_USERNAME", "TWINE_PASSWORD"],
   steps: [
     { spawn: "ci:install:deps" },
-    { exec: "pip install --break-system-packages twine" },
+    {
+      exec: "pip install -U twine || pip install --break-system-packages -U twine",
+    },
     { exec: "twine upload dist/python/*" },
   ],
 });
