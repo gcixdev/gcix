@@ -1,5 +1,5 @@
+import { gitlabPagesPath } from ".";
 import { Artifacts, Job } from "..";
-import { gitlabPagesPath } from "../gitlab";
 
 export interface PagesAsciiDoctorProps {
   /**

@@ -13,9 +13,10 @@ import {
   PythonTestEvaluateGitTagPep440ConformityProps,
   PythonLintFlake8Props,
   PythonTestPytest,
+  PagesSphinx,
+  PagesSphinxProps,
 } from ".";
 import { RuleLib, JobCollection } from "../";
-import { PagesSphinx, PagesSphinxProps } from "../pages";
 
 export interface PythonFullStackProps {
   readonly twineProdJobProps: PythonDeployTwineUploadProps;
