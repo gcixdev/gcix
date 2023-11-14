@@ -1,4 +1,11 @@
 
+### [0.0.38](https://gitlab.com/gcix/gcix/compare/v0.0.37...v0.0.38) (2023-11-14)
+
+
+### Bug Fixes
+
+* **addons:** :ambulance: Fixed circular dependency in python when importing pages and corresponding jobs from python src into gitlab. ([e31d0c2](https://gitlab.com/gcix/gcix/commit/e31d0c2d999086a159ac65da15fec1c8689effe4))
+
 ### [0.0.37](https://gitlab.com/gcix/gcix/compare/v0.0.36...v0.0.37) (2023-09-09)
 
 
