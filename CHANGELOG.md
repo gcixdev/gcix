@@ -1,4 +1,11 @@
 
+### [0.0.39](https://gitlab.com/gcix/gcix/compare/v0.0.38...v0.0.39) (2023-11-14)
+
+
+### Bug Fixes
+
+* **addons:** :ambulance: Second try to get circular dependency between ts and python right. ([729b6e6](https://gitlab.com/gcix/gcix/commit/729b6e6f6cf0c0431b07e7f95456fdb3afad2e45))
+
 ### [0.0.38](https://gitlab.com/gcix/gcix/compare/v0.0.37...v0.0.38) (2023-11-14)
 
 
