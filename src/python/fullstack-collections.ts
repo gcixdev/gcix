@@ -15,7 +15,7 @@ import {
   PythonTestPytest,
 } from ".";
 import { RuleLib, JobCollection } from "../";
-import { PagesSphinx, PagesSphinxProps } from "../gitlab";
+import { PagesSphinx, PagesSphinxProps } from "../pages";
 
 export interface PythonFullStackProps {
   readonly twineProdJobProps: PythonDeployTwineUploadProps;

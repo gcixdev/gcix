@@ -18,3 +18,4 @@ export * as linux from "./linux";
 export * as python from "./python";
 export * as container from "./container";
 export * as git from "./git";
+export * as pages from "./pages";

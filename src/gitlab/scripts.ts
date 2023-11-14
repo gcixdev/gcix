@@ -1,3 +1,5 @@
+import * as _path from "path";
+
 /**
  * GitlabScripts Class Documentation
  *
@@ -23,4 +25,20 @@ export class GitlabScripts {
   }
 
   private constructor() {}
+}
+
+/**
+ * Ensures `subpath` is a subpath under `./public`.
+ * @param subPath path which will be sanitized and appended to `./public`
+ * @returns path `public/${subPath}`
+ */
+export function gitlabPagesPath(subPath: string): string {
+  if (subPath !== "") {
+    subPath = _path.normalize(subPath);
+
+    if (_path.isAbsolute(subPath)) {
+      subPath = subPath.replace(/\//, "");
+    }
+  }
+  return _path.join("public", subPath);
 }

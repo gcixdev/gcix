@@ -3,7 +3,7 @@ import {
   PagesAsciiDoctor,
   PagesSphinx,
   PagesPdoc3,
-} from "../../../../src/gitlab";
+} from "../../../../src/pages";
 import { check } from "../../../comparison";
 
 let pipeline: Pipeline;
