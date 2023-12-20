@@ -102,15 +102,18 @@ if (PredefinedVariables.ciCommitTag) {
     stage: "publish",
   }).addNeeds([packageJob]);
 
-  const typescriptContainerBuild = new BuildGitlabContainerCollection({jobStage: "ts-ctr-img"})
-  typescriptContainerBuild.kanikoExecuteJob.buildTarget = "ts"
-  typescriptContainerBuild.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
-  typescriptContainerBuild.addNeeds([packageJob])
-
-  const pythonContainerBuild = new BuildGitlabContainerCollection({jobStage: "py-ctr-img"})
-  pythonContainerBuild.kanikoExecuteJob.buildTarget = "py"
-  typescriptContainerBuild.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
-  pythonContainerBuild.addNeeds([packageJob])
+  for(const target of ["ts", "py"]){
+    let build = new BuildGitlabContainerCollection({})
+    build.kanikoExecuteJob.buildTarget = target
+    build.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
+    build.addNeeds([packageJob])
+    pipeline.addChildren({
+      jobsOrJobCollections: [
+        build
+      ],
+      name: `${target}-ctr-img`
+    })
+  }
 
   const mikePagesJob = new PagesJob();
   mikePagesJob.appendScripts([
@@ -135,8 +138,6 @@ if (PredefinedVariables.ciCommitTag) {
   pipeline.addChildren({
     jobsOrJobCollections: [
       packageJob,
-      typescriptContainerBuild,
-      pythonContainerBuild,
       publishNpmJob,
       publishPyPiJob,
       mikePagesJob,
