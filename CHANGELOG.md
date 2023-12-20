@@ -1,4 +1,11 @@
 
+### [0.0.46](https://gitlab.com/gcix/gcix/compare/v0.0.45...v0.0.46) (2023-12-20)
+
+
+### Bug Fixes
+
+* :ci: Fixed order of stages. ([3383c3f](https://gitlab.com/gcix/gcix/commit/3383c3f22732f26fb4ac358ff4d68afa1d4d8f61))
+
 ### [0.0.45](https://gitlab.com/gcix/gcix/compare/v0.0.44...v0.0.45) (2023-12-20)
 
 
