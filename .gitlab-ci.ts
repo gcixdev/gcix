@@ -102,12 +102,12 @@ if (PredefinedVariables.ciCommitTag) {
     stage: "publish",
   }).addNeeds([packageJob]);
 
-  const typescriptContainerBuild = new BuildGitlabContainerCollection({})
+  const typescriptContainerBuild = new BuildGitlabContainerCollection({jobStage: "ts-ctr-img"})
   typescriptContainerBuild.kanikoExecuteJob.buildTarget = "ts"
   typescriptContainerBuild.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
   typescriptContainerBuild.addNeeds([packageJob])
 
-  const pythonContainerBuild = new BuildGitlabContainerCollection({})
+  const pythonContainerBuild = new BuildGitlabContainerCollection({jobStage: "py-ctr-img"})
   pythonContainerBuild.kanikoExecuteJob.buildTarget = "py"
   typescriptContainerBuild.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
   pythonContainerBuild.addNeeds([packageJob])
