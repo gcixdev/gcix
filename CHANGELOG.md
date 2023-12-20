@@ -1,4 +1,11 @@
 
+### [0.0.40](https://gitlab.com/gcix/gcix/compare/v0.0.39...v0.0.40) (2023-12-20)
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixed json escaping in DockerClientConfig. ([b8363c2](https://gitlab.com/gcix/gcix/commit/b8363c22ea732fd3f7180cbf9767e9e8639331ca))
+
 ### [0.0.39](https://gitlab.com/gcix/gcix/compare/v0.0.38...v0.0.39) (2023-11-14)
 
 
