@@ -1,4 +1,11 @@
 
+### [0.0.41](https://gitlab.com/gcix/gcix/compare/v0.0.40...v0.0.41) (2023-12-20)
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixed another escaping problem in DockerClientConfig class. ([2a97122](https://gitlab.com/gcix/gcix/commit/2a97122ffe889552429e88b6661871113acf010b))
+
 ### [0.0.40](https://gitlab.com/gcix/gcix/compare/v0.0.39...v0.0.40) (2023-12-20)
 
 
