@@ -10,3 +10,4 @@ process.env.CI_JOB_NAME = "ci_job_name";
 process.env.GITLAB_USER_EMAIL = "maxpower@gcix.net";
 process.env.GITLAB_USER_NAME = "Max Power";
 process.env.CI_PROJECT_PATH_SLUG = "path-to-project";
+process.env.CI_REGISTRY = "registry.gitlab.com";

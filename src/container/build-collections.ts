@@ -16,10 +16,10 @@ export interface BuildContainerCollectionProps {
    * with credentials.
    * @default Registry.DOCKER
    */
-  readonly registry: Registry | string;
+  readonly registry?: Registry | string;
   /**
    * Image name with stage in the registry. e.g. username/imageName.
-   * @default PredefinedVariables.ciProjectDir
+   * @default PredefinedVariables.ciProjectName
    */
   readonly imageName?: string;
   /**
@@ -244,5 +244,42 @@ export class BuildContainerCollection
     });
     if (this.doCranePush)
       this.addChildren({ jobsOrJobCollections: [this.cranePushJob] });
+  }
+}
+
+/**
+ * BuildGitlabContainerCollection class.
+ *
+ * Orchestrates a GitLab-specific CI/CD pipeline for building, scanning,
+ * and pushing container images. Extends the BuildContainerCollection class.
+ * Handles GitLab-specific configurations, such as image name, registry,
+ * and Docker client authentication.
+ *
+ * @class BuildGitlabContainerCollection
+ * @extends {BuildContainerCollection}
+ */
+export class BuildGitlabContainerCollection extends BuildContainerCollection {
+  /**
+   * Constructor for BuildGitlabContainerCollection.
+   * Overrides the parent constructor to handle GitLab-specific configurations.
+   * Throws an error if the `CI_REGISTRY` environment variable is not set.
+   * Initializes Docker client authentication using CI_REGISTRY_USER and CI_REGISTRY_PASSWORD.
+   *
+   * @param {BuildContainerCollectionProps} props - Configuration properties for the collection.
+   * @throws {Error} Throws an error if CI_REGISTRY environment variable is not set.
+   */
+  constructor(props: BuildContainerCollectionProps) {
+    const _props = { ...props };
+    if (!PredefinedVariables.ciRegistry) {
+      throw new Error("CI_REGISTRY environment variable not set!");
+    }
+    _props.imageName = props.imageName ?? PredefinedVariables.ciProjectPath;
+    _props.registry = props.registry ?? PredefinedVariables.ciRegistry;
+    (_props.dockerClientConfig = new DockerClientConfig().addAuth(
+      PredefinedVariables.ciRegistry,
+      "CI_REGISTRY_USER",
+      "CI_REGISTRY_PASSWORD",
+    )),
+      super(_props);
   }
 }

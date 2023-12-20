@@ -3,6 +3,7 @@ import {
   DockerClientConfig,
   Registry,
   BuildContainerCollection,
+  BuildGitlabContainerCollection,
 } from "../../../../src/container";
 import { check } from "../../../comparison";
 
@@ -37,5 +38,12 @@ test("build container collection with customized jobs", () => {
   fcs.trivyScanLocalImageJob.assignImage("custom/trivy:v1.2.3");
   fcs.kanikoExecuteJob.buildArgs = { first_arg: "foo", second_arg: "bar" };
   pipeline.addChildren({ jobsOrJobCollections: [fcs] });
+  check(pipeline.render(), expect);
+});
+
+test("build gitlab container collection", () => {
+  pipeline.addChildren({
+    jobsOrJobCollections: [new BuildGitlabContainerCollection({})],
+  });
   check(pipeline.render(), expect);
 });
