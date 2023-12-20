@@ -102,6 +102,14 @@ if (PredefinedVariables.ciCommitTag) {
     stage: "publish",
   }).addNeeds([packageJob]);
 
+  pipeline.addChildren({
+    jobsOrJobCollections: [
+      packageJob,
+      publishNpmJob,
+      publishPyPiJob,
+    ],
+  });
+
   for(const target of ["ts", "py"]){
     let build = new BuildGitlabContainerCollection({})
     build.kanikoExecuteJob.buildTarget = target
@@ -111,7 +119,8 @@ if (PredefinedVariables.ciCommitTag) {
       jobsOrJobCollections: [
         build
       ],
-      name: `${target}-ctr-img`
+      name: `${target}-ctr-img`,
+      stage: "publish"
     })
   }
 
@@ -137,9 +146,6 @@ if (PredefinedVariables.ciCommitTag) {
 
   pipeline.addChildren({
     jobsOrJobCollections: [
-      packageJob,
-      publishNpmJob,
-      publishPyPiJob,
       mikePagesJob,
     ],
   });
