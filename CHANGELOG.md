@@ -1,4 +1,11 @@
 
+### [0.0.42](https://gitlab.com/gcix/gcix/compare/v0.0.41...v0.0.42) (2023-12-20)
+
+
+### Features
+
+* **addons:** :sparkles: Added BuildGitlabContainerCollection class. ([fdb060f](https://gitlab.com/gcix/gcix/commit/fdb060fb06026a31f7cef063cfd77e4dc2494c1c))
+
 ### [0.0.41](https://gitlab.com/gcix/gcix/compare/v0.0.40...v0.0.41) (2023-12-20)
 
 
