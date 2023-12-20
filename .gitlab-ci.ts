@@ -6,6 +6,7 @@ import {
   Artifacts,
   PagesJob,
 } from "./src";
+import { BuildGitlabContainerCollection } from "./src/container";
 
 const pipeline = new Pipeline();
 
@@ -101,6 +102,16 @@ if (PredefinedVariables.ciCommitTag) {
     stage: "publish",
   }).addNeeds([packageJob]);
 
+  const typescriptContainerBuild = new BuildGitlabContainerCollection({})
+  typescriptContainerBuild.kanikoExecuteJob.buildTarget = "ts"
+  typescriptContainerBuild.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
+  typescriptContainerBuild.addNeeds([packageJob])
+
+  const pythonContainerBuild = new BuildGitlabContainerCollection({})
+  pythonContainerBuild.kanikoExecuteJob.buildTarget = "py"
+  typescriptContainerBuild.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
+  pythonContainerBuild.addNeeds([packageJob])
+
   const mikePagesJob = new PagesJob();
   mikePagesJob.appendScripts([
     "npx projen ci:install:deps",
@@ -124,6 +135,8 @@ if (PredefinedVariables.ciCommitTag) {
   pipeline.addChildren({
     jobsOrJobCollections: [
       packageJob,
+      typescriptContainerBuild,
+      pythonContainerBuild,
       publishNpmJob,
       publishPyPiJob,
       mikePagesJob,
