@@ -144,8 +144,8 @@ export class DockerClientConfig implements IDockerClientConfig {
     }
     const compose = {
       [registry]: {
-        username: `$${usernameEnvVar}`,
-        password: `$${passwordEnvVar}`,
+        username: `'$${usernameEnvVar}'`,
+        password: `'$${passwordEnvVar}'`,
       },
     };
 
