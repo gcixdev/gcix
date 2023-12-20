@@ -1,4 +1,11 @@
 
+### [0.0.43](https://gitlab.com/gcix/gcix/compare/v0.0.42...v0.0.43) (2023-12-20)
+
+
+### Features
+
+* **container:** :construction: Added container image build for python and typescript images. ([8da1b0e](https://gitlab.com/gcix/gcix/commit/8da1b0e30d90b274337e318bca995a0721b7c961))
+
 ### [0.0.42](https://gitlab.com/gcix/gcix/compare/v0.0.41...v0.0.42) (2023-12-20)
 
 
