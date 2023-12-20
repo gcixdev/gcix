@@ -10,7 +10,7 @@ simple-kaniko-build:
   - mkdir -p /kaniko/.docker
   - >-
     echo
-    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    '{"auths":{"https://index.docker.io/v1/":{"username":"$REGISTRY_USERNAME","password":"$REGISTRY_PASSWORD"}}}'
     > /kaniko/.docker/config.json
   - >-
     executor --context /path/to/project --dockerfile /path/to/project/Dockerfile

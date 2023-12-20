@@ -187,9 +187,7 @@ export class DockerClientConfig implements IDockerClientConfig {
   shellCommand(): string[] {
     const script = [
       `mkdir -p ${path.dirname(this.configFilePath)}`,
-      `echo '${JSON.stringify(this.config).replace(/"/g, '\\"')}' > ${
-        this.configFilePath
-      }`,
+      `echo '${JSON.stringify(this.config)}' > ${this.configFilePath}`,
     ];
     return script;
   }

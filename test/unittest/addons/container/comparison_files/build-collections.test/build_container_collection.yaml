@@ -11,7 +11,7 @@ kaniko-build:
   script:
   - mkdir -p /kaniko/.docker
   - >-
-    echo '{\"credHelpers\":{\"quay.io\":\"quay-login\"}}' >
+    echo '{"credHelpers":{"quay.io":"quay-login"}}' >
     /kaniko/.docker/config.json
   - mkdir -p image
   - >-
@@ -93,9 +93,7 @@ crane-push-deploy:
   stage: deploy
   script:
   - mkdir -p $HOME/.docker
-  - >-
-    echo '{\"credHelpers\":{\"quay.io\":\"quay-login\"}}' >
-    $HOME/.docker/config.json
+  - echo '{"credHelpers":{"quay.io":"quay-login"}}' > $HOME/.docker/config.json
   - crane validate --tarball ./image/gitlab-ci-project.tar
   - crane push ./image/gitlab-ci-project.tar quay.io/gitlab-ci-project:11.22.33
   cache:

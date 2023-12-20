@@ -15,7 +15,7 @@ container-crane-pull:
   - mkdir -p $HOME/.docker
   - >-
     echo
-    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"},\"1234567890123.dkr.ecr.eu-central-1.amazonaws.com\":{\"username\":\"$ecr-login\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    '{"auths":{"https://index.docker.io/v1/":{"username":"$REGISTRY_USERNAME","password":"$REGISTRY_PASSWORD"},"1234567890123.dkr.ecr.eu-central-1.amazonaws.com":{"username":"$ecr-login","password":"$REGISTRY_PASSWORD"}}}'
     > $HOME/.docker/config.json
   - mkdir -p image
   - crane pull index.docker.io/gcix:0.10.0 ./image/gcix.tar
@@ -103,7 +103,7 @@ container-crane-push-deploy:
   - mkdir -p $HOME/.docker
   - >-
     echo
-    '{\"auths\":{\"https://index.docker.io/v1/\":{\"username\":\"$REGISTRY_USERNAME\",\"password\":\"$REGISTRY_PASSWORD\"},\"1234567890123.dkr.ecr.eu-central-1.amazonaws.com\":{\"username\":\"$ecr-login\",\"password\":\"$REGISTRY_PASSWORD\"}}}'
+    '{"auths":{"https://index.docker.io/v1/":{"username":"$REGISTRY_USERNAME","password":"$REGISTRY_PASSWORD"},"1234567890123.dkr.ecr.eu-central-1.amazonaws.com":{"username":"$ecr-login","password":"$REGISTRY_PASSWORD"}}}'
     > $HOME/.docker/config.json
   - crane validate --tarball ./image/gcix.tar
   - >-
