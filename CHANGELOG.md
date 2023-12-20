@@ -1,4 +1,11 @@
 
+### [0.0.45](https://gitlab.com/gcix/gcix/compare/v0.0.44...v0.0.45) (2023-12-20)
+
+
+### Bug Fixes
+
+* :ci: Dubplicate jobName for container image builds second try :-). ([23d000b](https://gitlab.com/gcix/gcix/commit/23d000b51c5c14b96c1b68676c6890280c1c3fe7))
+
 ### [0.0.44](https://gitlab.com/gcix/gcix/compare/v0.0.43...v0.0.44) (2023-12-20)
 
 
