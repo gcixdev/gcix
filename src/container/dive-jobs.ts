@@ -186,17 +186,17 @@ export class DiveScan extends Job implements IDiveScan {
     if (this.imagePath.endsWith("/")) {
       this.imagePath = this.imagePath.slice(0, -1);
     }
-
+    let imagePath = "";
     if (this.source === "docker-archive") {
-      this.imageName = `${this.imageName}.tar`.replace(/\//g, "_");
+      imagePath =
+        path.join(
+          this.imagePath,
+          this.imageName.replace(/\//g, "_"),
+          this.imageTag,
+        ) + ".tar";
+    } else {
+      imagePath = this.imageName;
     }
-
-    const imagePath =
-      path.join(
-        this.imagePath,
-        this.imageName.replace(/\//g, "_"),
-        this.imageTag,
-      ) + ".tar";
 
     const diverCommand = ["dive", `${this.source}://${imagePath}`, "--ci"];
 

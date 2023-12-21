@@ -32,7 +32,7 @@ dive-check:
   script:
   - set -eo pipefail
   - >-
-    dive docker-archive://image/my_awsome_project.tar/11.22.33.tar --ci
+    dive docker-archive://image/my_awsome_project/11.22.33.tar --ci
     --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
     /path/to/project/dive.txt
   cache:
