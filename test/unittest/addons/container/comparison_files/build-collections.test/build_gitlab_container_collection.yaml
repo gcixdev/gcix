@@ -14,7 +14,7 @@ kaniko-build:
     echo
     '{"auths":{"registry.gitlab.com":{"username":"'$CI_REGISTRY_USER'","password":"'$CI_REGISTRY_PASSWORD'"}}}'
     > /kaniko/.docker/config.json
-  - mkdir -p image
+  - mkdir -p image/my_awsome_project
   - >-
     executor --context /path/to/project --dockerfile /path/to/project/Dockerfile
     --verbosity info --tarPath image/my_awsome_project/11.22.33.tar --no-push

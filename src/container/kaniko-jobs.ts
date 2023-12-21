@@ -208,7 +208,7 @@ export class KanikoExecute extends Job implements IKanikoExecute {
           this.imageName.replace(/\//g, "_"),
           this.imageTag,
         ) + ".tar";
-      this.scripts.push(`mkdir -p ${this.tarPath}`);
+      this.scripts.push(`mkdir -p ${path.dirname(imagePath)}`);
       executorCmd.push(`--tarPath ${imagePath}`);
     }
 

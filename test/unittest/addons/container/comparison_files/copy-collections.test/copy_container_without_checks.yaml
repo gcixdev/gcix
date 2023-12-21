@@ -12,7 +12,7 @@ crane-pull:
     echo
     '{"auths":{"https://index.docker.io/v1/":{"username":"'$REGISTRY_USERNAME'","password":"'$REGISTRY_PASSWORD'"}}}'
     > $HOME/.docker/config.json
-  - mkdir -p image
+  - mkdir -p image/busybox
   - crane pull index.docker.io/busybox:latest image/busybox/latest.tar
   cache:
     paths:

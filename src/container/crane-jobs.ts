@@ -355,7 +355,7 @@ export class CranePull extends Job implements ICranePull {
       ) + ".tar";
     this.scripts.push(...this.dockerClientConfig.shellCommand());
     this.scripts.push(
-      `mkdir -p ${path.normalize(this.tarPath)}`,
+      `mkdir -p ${path.dirname(imagePath)}`,
       `crane pull ${this.srcRegistry}/${this.imageName}:${this.imageTag} ${imagePath}`,
     );
     return super.render();

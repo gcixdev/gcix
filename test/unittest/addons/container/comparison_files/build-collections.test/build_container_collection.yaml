@@ -13,7 +13,7 @@ kaniko-build:
   - >-
     echo '{"credHelpers":{"quay.io":"quay-login"}}' >
     /kaniko/.docker/config.json
-  - mkdir -p image
+  - mkdir -p image/gitlab-ci-project
   - >-
     executor --context /path/to/project --dockerfile /path/to/project/Dockerfile
     --verbosity info --tarPath image/gitlab-ci-project/11.22.33.tar --no-push
