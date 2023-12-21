@@ -1,4 +1,11 @@
 
+### [0.0.47](https://gitlab.com/gcix/gcix/compare/v0.0.46...v0.0.47) (2023-12-21)
+
+
+### Features
+
+* **addons:** :sparkles: All container jobs and collections are producing a distinct container imagePath/tarPath which contains the imageTag as well. ([d40112a](https://gitlab.com/gcix/gcix/commit/d40112aab1701b2cbca9eec305fbcb054c8843d9))
+
 ### [0.0.46](https://gitlab.com/gcix/gcix/compare/v0.0.45...v0.0.46) (2023-12-20)
 
 
