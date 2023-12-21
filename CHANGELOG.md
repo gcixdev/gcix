@@ -1,4 +1,11 @@
 
+### [0.0.49](https://gitlab.com/gcix/gcix/compare/v0.0.48...v0.0.49) (2023-12-21)
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixed imagePath for dive jobs. ([889ac5e](https://gitlab.com/gcix/gcix/commit/889ac5e894d9fc6a3a1c16578a77798bdbcb8c4d))
+
 ### [0.0.48](https://gitlab.com/gcix/gcix/compare/v0.0.47...v0.0.48) (2023-12-21)
 
 
