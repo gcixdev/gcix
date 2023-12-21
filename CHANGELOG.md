@@ -1,4 +1,11 @@
 
+### [0.0.48](https://gitlab.com/gcix/gcix/compare/v0.0.47...v0.0.48) (2023-12-21)
+
+
+### Bug Fixes
+
+* **addons:** :bug: Fixed bug where kaniko and crane jobs are not creating container image directory. ([c383893](https://gitlab.com/gcix/gcix/commit/c38389373872298feb4a081b38cca634a186a1e6))
+
 ### [0.0.47](https://gitlab.com/gcix/gcix/compare/v0.0.46...v0.0.47) (2023-12-21)
 
 
