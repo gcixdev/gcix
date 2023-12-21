@@ -13,4 +13,4 @@ crane-pull:
     '{"auths":{"https://index.docker.io/v1/":{"username":"'$REGISTRY_USERNAME'","password":"'$REGISTRY_PASSWORD'"}},"credHelpers":{"0132456789.dkr.eu-central-1.amazonaws.com":"ecr-login"}}'
     > $HOME/.docker/config.json
   - mkdir -p test/foo/bar
-  - crane pull gcr.io/gcix/gcix:main test/foo/bar/gcix_gcix.tar
+  - crane pull gcr.io/gcix/gcix:main test/foo/bar/gcix_gcix/main.tar

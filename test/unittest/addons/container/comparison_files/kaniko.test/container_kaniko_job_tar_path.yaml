@@ -15,5 +15,5 @@ kaniko-build:
   - mkdir -p tar/path/for/image
   - >-
     executor --context /path/to/project --dockerfile /path/to/project/Dockerfile
-    --verbosity info --tarPath tar/path/for/image/gitlab-ci-project.tar
+    --verbosity info --tarPath tar/path/for/image/gitlab-ci-project/11.22.33.tar
     --no-push --destination gitlab-ci-project:11.22.33

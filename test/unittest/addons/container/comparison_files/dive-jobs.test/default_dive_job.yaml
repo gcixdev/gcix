@@ -10,8 +10,8 @@ default-dive-check:
   script:
   - set -eo pipefail
   - >-
-    dive docker-archive://my/awsome/project/gitlab-ci-project.tar --ci
-    --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
+    dive docker-archive://my/awsome/project/gitlab-ci-project.tar/11.22.33.tar
+    --ci --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
     /path/to/project/dive.txt
   artifacts:
     name: ci_job_name-my-awsome-feature-branch
@@ -26,7 +26,7 @@ custom-image-and-path-dive-check:
   script:
   - set -eo pipefail
   - >-
-    dive docker-archive:///absolute/path/image_name.tar --ci
+    dive docker-archive:///absolute/path/image_name.tar/11.22.33.tar --ci
     --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
     /path/to/project/dive.txt
   artifacts:
@@ -42,7 +42,7 @@ custom-settings-custom-name-custom-stage:
   script:
   - set -eo pipefail
   - >-
-    dive podman://my/awsome/project/gitlab-ci-project --ci
+    dive podman://my/awsome/project/gitlab-ci-project/11.22.33.tar --ci
     --highestUserWastedPercent "0.1" --highestWastedBytes "0.2"
     --lowestEfficiency "0.3" --ignore-errors |tee /path/to/project/dive.txt
   artifacts:

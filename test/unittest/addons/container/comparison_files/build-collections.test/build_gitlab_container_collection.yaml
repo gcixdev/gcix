@@ -17,7 +17,7 @@ kaniko-build:
   - mkdir -p image
   - >-
     executor --context /path/to/project --dockerfile /path/to/project/Dockerfile
-    --verbosity info --tarPath image/my_awsome_project.tar --no-push
+    --verbosity info --tarPath image/my_awsome_project/11.22.33.tar --no-push
     --destination registry.gitlab.com/my/awsome/project:11.22.33
   cache:
     paths:
@@ -32,7 +32,7 @@ dive-check:
   script:
   - set -eo pipefail
   - >-
-    dive docker-archive://./image/my_awsome_project.tar --ci
+    dive docker-archive://image/my_awsome_project.tar/11.22.33.tar --ci
     --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
     /path/to/project/dive.txt
   cache:
@@ -52,9 +52,9 @@ trivy-check:
   script:
   - set -eo pipefail
   - >-
-    trivy image --input ./image/my_awsome_project.tar --no-progress --format
-    table --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --vuln-type os,library
-    |tee /path/to/project/trivy.txt
+    trivy image --input image/my_awsome_project/11.22.33.tar --no-progress
+    --format table --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --vuln-type
+    os,library |tee /path/to/project/trivy.txt
   - trivy --version
   cache:
     paths:
@@ -98,9 +98,9 @@ crane-push-deploy:
     echo
     '{"auths":{"registry.gitlab.com":{"username":"'$CI_REGISTRY_USER'","password":"'$CI_REGISTRY_PASSWORD'"}}}'
     > $HOME/.docker/config.json
-  - crane validate --tarball ./image/my_awsome_project.tar
+  - crane validate --tarball image/my_awsome_project/11.22.33.tar
   - >-
-    crane push ./image/my_awsome_project.tar
+    crane push image/my_awsome_project/11.22.33.tar
     registry.gitlab.com/my/awsome/project:11.22.33
   cache:
     paths:

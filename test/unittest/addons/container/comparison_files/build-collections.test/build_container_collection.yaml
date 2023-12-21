@@ -16,7 +16,7 @@ kaniko-build:
   - mkdir -p image
   - >-
     executor --context /path/to/project --dockerfile /path/to/project/Dockerfile
-    --verbosity info --tarPath image/gitlab-ci-project.tar --no-push
+    --verbosity info --tarPath image/gitlab-ci-project/11.22.33.tar --no-push
     --destination quay.io/gitlab-ci-project:11.22.33
   cache:
     paths:
@@ -31,7 +31,7 @@ dive-check:
   script:
   - set -eo pipefail
   - >-
-    dive docker-archive://./image/gitlab-ci-project.tar --ci
+    dive docker-archive://image/gitlab-ci-project.tar/11.22.33.tar --ci
     --highestUserWastedPercent "0.1" --lowestEfficiency "0.9" |tee
     /path/to/project/dive.txt
   cache:
@@ -51,9 +51,9 @@ trivy-check:
   script:
   - set -eo pipefail
   - >-
-    trivy image --input ./image/gitlab-ci-project.tar --no-progress --format
-    table --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --vuln-type os,library
-    |tee /path/to/project/trivy.txt
+    trivy image --input image/gitlab-ci-project/11.22.33.tar --no-progress
+    --format table --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --vuln-type
+    os,library |tee /path/to/project/trivy.txt
   - trivy --version
   cache:
     paths:
@@ -94,8 +94,10 @@ crane-push-deploy:
   script:
   - mkdir -p $HOME/.docker
   - echo '{"credHelpers":{"quay.io":"quay-login"}}' > $HOME/.docker/config.json
-  - crane validate --tarball ./image/gitlab-ci-project.tar
-  - crane push ./image/gitlab-ci-project.tar quay.io/gitlab-ci-project:11.22.33
+  - crane validate --tarball image/gitlab-ci-project/11.22.33.tar
+  - >-
+    crane push image/gitlab-ci-project/11.22.33.tar
+    quay.io/gitlab-ci-project:11.22.33
   cache:
     paths:
     - ./image

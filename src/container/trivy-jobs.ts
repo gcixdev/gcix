@@ -14,6 +14,12 @@ export interface TrivyScanLocalImageProps {
    */
   readonly imageName?: string;
   /**
+   * The tag the image will be tagged with.
+   * @default PredefinedVariables.CI_COMMIT_REF_NAME
+   * @default PredefinedVariables.CI_COMMIT_TAG
+   */
+  readonly imageTag?: string;
+  /**
    * Scan output format, possible values (table, json).
    * @default "table"
    */
@@ -64,6 +70,12 @@ export interface ITrivyScanLocalImage {
    */
   imageName: string;
   /**
+   * The tag the image will be tagged with.
+   * @default PredefinedVariables.CI_COMMIT_REF_NAME
+   * @default PredefinedVariables.CI_COMMIT_TAG
+   */
+  imageTag: string;
+  /**
    * Scan output format, possible values (table, json).
    * @default "table"
    */
@@ -109,6 +121,7 @@ export interface ITrivyScanLocalImage {
 export class TrivyScanLocalImage extends Job implements ITrivyScanLocalImage {
   imagePath: string;
   imageName: string;
+  imageTag: string;
   outputFormat: "table" | "json";
   severity: string;
   debug: boolean;
@@ -133,12 +146,28 @@ export class TrivyScanLocalImage extends Job implements ITrivyScanLocalImage {
     this.vulnerabilityTypes = props.vulnerabilityTypes ?? "os,library";
     this.exitIfVulnerable = props.exitIfVulnerable ?? false;
     this.trivyConfig = props.trivyConfig;
+
+    if (props.imageTag) {
+      this.imageTag = props.imageTag;
+    } else {
+      if (PredefinedVariables.ciCommitTag) {
+        this.imageTag = PredefinedVariables.ciCommitTag;
+      } else {
+        this.imageTag = PredefinedVariables.ciCommitRefSlug;
+      }
+    }
   }
 
   render() {
+    const imagePath =
+      path.join(
+        this.imagePath,
+        this.imageName.replace(/\//g, "_"),
+        this.imageTag,
+      ) + ".tar";
     const trivyCmd = [
       "trivy image",
-      `--input ${this.imagePath}/${this.imageName}.tar`,
+      `--input ${imagePath}`,
       "--no-progress",
       `--format ${this.outputFormat}`,
       `--severity ${this.severity}`,

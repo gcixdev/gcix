@@ -212,18 +212,22 @@ export class CranePush extends Job implements ICranePush {
   }
 
   render() {
-    const imagePath = this.imageName.replace(/\//g, "_");
-
+    const imagePath =
+      path.join(
+        this.tarPath,
+        this.imageName.replace(/\//g, "_"),
+        this.imageTag,
+      ) + ".tar";
     this.scripts.push(...this.dockerClientConfig.shellCommand());
 
     this.scripts.push(
-      `crane validate --tarball ${this.tarPath}/${imagePath}.tar`,
-      `crane push ${this.tarPath}/${imagePath}.tar ${this.dstRegistry}/${this.imageName}:${this.imageTag}`,
+      `crane validate --tarball ${imagePath}`,
+      `crane push ${imagePath} ${this.dstRegistry}/${this.imageName}:${this.imageTag}`,
     );
 
     if (["main", "master"].includes(this.imageTag)) {
       this.scripts.push(
-        `crane push ${this.tarPath}/${imagePath}.tar ${this.dstRegistry}/${this.imageName}:latest`,
+        `crane push ${imagePath} ${this.dstRegistry}/${this.imageName}:latest`,
       );
     }
 
@@ -343,11 +347,16 @@ export class CranePull extends Job implements ICranePull {
   }
 
   render() {
-    const imagePath = this.imageName.replace(/\//g, "_");
+    const imagePath =
+      path.join(
+        this.tarPath,
+        this.imageName.replace(/\//g, "_"),
+        this.imageTag,
+      ) + ".tar";
     this.scripts.push(...this.dockerClientConfig.shellCommand());
     this.scripts.push(
       `mkdir -p ${path.normalize(this.tarPath)}`,
-      `crane pull ${this.srcRegistry}/${this.imageName}:${this.imageTag} ${this.tarPath}/${imagePath}.tar`,
+      `crane pull ${this.srcRegistry}/${this.imageName}:${this.imageTag} ${imagePath}`,
     );
     return super.render();
   }

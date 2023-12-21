@@ -12,7 +12,7 @@ changed-name-changed-stage:
     echo
     '{"auths":{"https://index.docker.io/v1/":{"username":"'$REGISTRY_USERNAME'","password":"'$REGISTRY_PASSWORD'"}}}'
     > $HOME/.docker/config.json
-  - crane validate --tarball custom/tar/path/gitlab-ci-project.tar
+  - crane validate --tarball custom/tar/path/gitlab-ci-project/feature-1.2.3.tar
   - >-
-    crane push custom/tar/path/gitlab-ci-project.tar
+    crane push custom/tar/path/gitlab-ci-project/feature-1.2.3.tar
     quay.io/gitlab-ci-project:feature-1.2.3

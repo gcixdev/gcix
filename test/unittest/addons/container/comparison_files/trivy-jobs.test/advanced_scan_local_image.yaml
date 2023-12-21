@@ -9,9 +9,9 @@ advanced-scan-trivy-check:
   script:
   - set -eo pipefail
   - >-
-    trivy image --input /foo/bar/baz/custom_image.tar --no-progress --format
-    json --severity MEDIUM,HIGH,CRITICAL --vuln-type os,library --list-all-pkgs
-    |tee /path/to/project/trivy.txt
+    trivy image --input /foo/bar/baz/custom_image/11.22.33.tar --no-progress
+    --format json --severity MEDIUM,HIGH,CRITICAL --vuln-type os,library
+    --list-all-pkgs |tee /path/to/project/trivy.txt
   - trivy --version
   artifacts:
     name: ci_job_name-my-awsome-feature-branch

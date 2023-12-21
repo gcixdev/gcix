@@ -12,10 +12,10 @@ push-image-with-latest-tag-crane-push-deploy:
     echo
     '{"auths":{"https://index.docker.io/v1/":{"username":"'$REGISTRY_USERNAME'","password":"'$REGISTRY_PASSWORD'"}}}'
     > $HOME/.docker/config.json
-  - crane validate --tarball /path/to/project/gitlab-ci-project.tar
+  - crane validate --tarball /path/to/project/gitlab-ci-project/main.tar
   - >-
-    crane push /path/to/project/gitlab-ci-project.tar
+    crane push /path/to/project/gitlab-ci-project/main.tar
     index.docker.io/gitlab-ci-project:main
   - >-
-    crane push /path/to/project/gitlab-ci-project.tar
+    crane push /path/to/project/gitlab-ci-project/main.tar
     index.docker.io/gitlab-ci-project:latest

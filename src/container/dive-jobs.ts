@@ -1,3 +1,4 @@
+import * as path from "path";
 import { PredefinedImages } from "./images";
 import { Artifacts, Job, PredefinedVariables } from "..";
 
@@ -31,6 +32,12 @@ export interface DiveScanProps {
    * @default PredefinedVariables.ciProjectName
    */
   readonly imageName?: string;
+  /**
+   * The tag the image will be tagged with.
+   * @default PredefinedVariables.ciCommitRefName
+   * @default PredefinedVariables.ciCommitTag
+   */
+  readonly imageTag?: string;
   /**
    * Highest allowable percentage of bytes wasted
    * (as a ratio between 0-1), otherwise CI validation will fail.
@@ -87,6 +94,12 @@ export interface IDiveScan {
    */
   imageName: string;
   /**
+   * The tag the image will be tagged with.
+   * @default PredefinedVariables.ciCommitRefName
+   * @default PredefinedVariables.ciCommitTag
+   */
+  imageTag: string;
+  /**
    * Highest allowable percentage of bytes wasted
    * (as a ratio between 0-1), otherwise CI validation will fail.
    *
@@ -138,6 +151,7 @@ export interface IDiveScan {
 export class DiveScan extends Job implements IDiveScan {
   imagePath: string;
   imageName: string;
+  imageTag: string;
   highestUserWastedPercent: number;
   highestWastedBytes?: number;
   lowestEfficiency: number;
@@ -158,6 +172,14 @@ export class DiveScan extends Job implements IDiveScan {
     this.lowestEfficiency = props.lowestEfficiency ?? 0.9;
     this.ignoreErrors = props.ignoreErrors ?? false;
     this.source = props.source ?? "docker-archive";
+
+    if (props.imageTag) {
+      this.imageTag = props.imageTag;
+    } else if (PredefinedVariables.ciCommitTag) {
+      this.imageTag = PredefinedVariables.ciCommitTag;
+    } else {
+      this.imageTag = PredefinedVariables.ciCommitRefSlug;
+    }
   }
 
   render() {
@@ -169,11 +191,14 @@ export class DiveScan extends Job implements IDiveScan {
       this.imageName = `${this.imageName}.tar`.replace(/\//g, "_");
     }
 
-    const diverCommand = [
-      "dive",
-      `${this.source}://${this.imagePath}/${this.imageName}`,
-      "--ci",
-    ];
+    const imagePath =
+      path.join(
+        this.imagePath,
+        this.imageName.replace(/\//g, "_"),
+        this.imageTag,
+      ) + ".tar";
+
+    const diverCommand = ["dive", `${this.source}://${imagePath}`, "--ci"];
 
     if (_checkValueBoundaries(this.highestUserWastedPercent)) {
       diverCommand.push(

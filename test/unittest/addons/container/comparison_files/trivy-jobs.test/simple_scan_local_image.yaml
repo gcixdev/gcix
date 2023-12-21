@@ -9,9 +9,9 @@ simple-scan-trivy-check:
   script:
   - set -eo pipefail
   - >-
-    trivy image --input /path/to/project/gitlab-ci-project.tar --no-progress
-    --format table --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --vuln-type
-    os,library |tee /path/to/project/trivy.txt
+    trivy image --input /path/to/project/gitlab-ci-project/11.22.33.tar
+    --no-progress --format table --severity UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL
+    --vuln-type os,library |tee /path/to/project/trivy.txt
   - trivy --version
   artifacts:
     name: ci_job_name-my-awsome-feature-branch

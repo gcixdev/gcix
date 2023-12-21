@@ -202,13 +202,14 @@ export class KanikoExecute extends Job implements IKanikoExecute {
     ];
 
     if (this.tarPath) {
-      this.scripts.push(`mkdir -p ${this.tarPath}`);
-      executorCmd.push(
-        `--tarPath ${path.join(
+      const imagePath =
+        path.join(
           this.tarPath,
           this.imageName.replace(/\//g, "_"),
-        )}.tar`,
-      );
+          this.imageTag,
+        ) + ".tar";
+      this.scripts.push(`mkdir -p ${this.tarPath}`);
+      executorCmd.push(`--tarPath ${imagePath}`);
     }
 
     // Disable push to registries.

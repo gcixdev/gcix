@@ -15,4 +15,4 @@ changed-name-changed-stage:
   - mkdir -p /path/to/project
   - >-
     crane pull quay.io/gitlab-ci-project:feature-1.2.3
-    /path/to/project/gitlab-ci-project.tar
+    /path/to/project/gitlab-ci-project/feature-1.2.3.tar

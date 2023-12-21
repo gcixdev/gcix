@@ -10,5 +10,7 @@ push-image-crane-push-deploy:
     echo
     '{"auths":{"https://index.docker.io/v1/":{"username":"'$REGISTRY_USERNAME'","password":"'$REGISTRY_PASSWORD'"}},"credHelpers":{"0132456789.dkr.eu-central-1.amazonaws.com":"ecr-login"}}'
     > $HOME/.docker/config.json
-  - crane validate --tarball /path/to/project/crane.tar
-  - crane push /path/to/project/crane.tar index.docker.io/crane:11.22.33
+  - crane validate --tarball /path/to/project/crane/11.22.33.tar
+  - >-
+    crane push /path/to/project/crane/11.22.33.tar
+    index.docker.io/crane:11.22.33
