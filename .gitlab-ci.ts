@@ -6,7 +6,7 @@ import {
   Artifacts,
   PagesJob,
 } from "./src";
-import { BuildGitlabContainerCollection } from "./src/container";
+import { BuildGitlabContainerCollection, CranePush, Registry } from "./src/container";
 
 const pipeline = new Pipeline();
 
@@ -114,7 +114,28 @@ if (PredefinedVariables.ciCommitTag) {
     let build = new BuildGitlabContainerCollection({})
     build.kanikoExecuteJob.buildTarget = target
     build.kanikoExecuteJob.dockerfile = "docker/Dockerfile"
+    build.dockerClientConfig.addAuth(
+      Registry.DOCKER,
+      "DOCKER_HUB_USERNAME",
+      "DOCKER_HUB_TOKEN"
+    )
     build.addNeeds([packageJob])
+
+    const pushToDockerHub = new CranePush({
+      dstRegistry: Registry.DOCKER,
+      imageName: build.cranePushJob.imageName,
+      imageTag: build.cranePushJob.imageTag,
+      tarPath: build.cranePushJob.tarPath,
+      dockerClientConfig: build.cranePushJob.dockerClientConfig,
+      jobName: "push-docker-hub"
+    })
+
+    build.addChildren({
+      jobsOrJobCollections: [
+        pushToDockerHub
+      ],
+    })
+
     pipeline.addChildren({
       jobsOrJobCollections: [
         build
