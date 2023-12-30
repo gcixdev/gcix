@@ -1,4 +1,11 @@
 
+### [0.0.50](https://gitlab.com/gcix/gcix/compare/v0.0.49...v0.0.50) (2023-12-30)
+
+
+### Features
+
+* :sparkles: Added docker hub container push. ([15cab53](https://gitlab.com/gcix/gcix/commit/15cab5388702837b7b9c45c929b49f21bd1c6941))
+
 ### [0.0.49](https://gitlab.com/gcix/gcix/compare/v0.0.48...v0.0.49) (2023-12-21)
 
 
