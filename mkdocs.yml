@@ -73,6 +73,7 @@ plugins:
       fallback_to_empty: false
       sort_authors_by: contribution
       authorship_threshold_percent: 10
+  - privacy
 markdown_extensions:
   - abbr
   - attr_list
