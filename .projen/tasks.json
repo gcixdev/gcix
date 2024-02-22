@@ -479,7 +479,7 @@
           "builtin": "release/tag-version"
         },
         {
-          "exec": "git push --follow-tags origin && git push -o ci.skip origin main"
+          "exec": "git push -o ci.skip origin main && git push --tags origin "
         }
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
