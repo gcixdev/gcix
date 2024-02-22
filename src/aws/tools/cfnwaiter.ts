@@ -3,6 +3,7 @@ import {
   paginateListStacks,
   CloudFormationClient,
   DescribeStacksCommand,
+  StackStatus,
 } from "@aws-sdk/client-cloudformation";
 import {
   AssumeRoleCommand,
@@ -66,7 +67,7 @@ export async function cfnWaiter(
     for (const describedStack of describedStacks.Stacks || []) {
       if (
         describedStack.StackStatus &&
-        describedStack.StackStatus === "IN_PROGRESS"
+        describedStack.StackStatus.includes("IN_PROGRESS")
       ) {
         return true;
       }
@@ -138,27 +139,27 @@ export async function main() {
   const cfnClient = getCloudFormationClient(credentials);
 
   const stackStatusFilter = [
-    "CREATE_IN_PROGRESS",
-    "CREATE_FAILED",
-    "CREATE_COMPLETE",
-    "ROLLBACK_IN_PROGRESS",
-    "ROLLBACK_FAILED",
-    "ROLLBACK_COMPLETE",
-    "DELETE_IN_PROGRESS",
-    "DELETE_FAILED",
-    "UPDATE_IN_PROGRESS",
-    "UPDATE_COMPLETE_CLEANUP_IN_PROGRESS",
-    "UPDATE_COMPLETE",
-    "UPDATE_ROLLBACK_IN_PROGRESS",
-    "UPDATE_ROLLBACK_FAILED",
-    "UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS",
-    "UPDATE_ROLLBACK_COMPLETE",
-    "REVIEW_IN_PROGRESS",
-    "IMPORT_IN_PROGRESS",
-    "IMPORT_COMPLETE",
-    "IMPORT_ROLLBACK_IN_PROGRESS",
-    "IMPORT_ROLLBACK_FAILED",
-    "IMPORT_ROLLBACK_COMPLETE",
+    StackStatus.CREATE_IN_PROGRESS,
+    StackStatus.CREATE_FAILED,
+    StackStatus.CREATE_COMPLETE,
+    StackStatus.ROLLBACK_IN_PROGRESS,
+    StackStatus.ROLLBACK_FAILED,
+    StackStatus.ROLLBACK_COMPLETE,
+    StackStatus.DELETE_IN_PROGRESS,
+    StackStatus.DELETE_FAILED,
+    StackStatus.UPDATE_IN_PROGRESS,
+    StackStatus.UPDATE_COMPLETE_CLEANUP_IN_PROGRESS,
+    StackStatus.UPDATE_COMPLETE,
+    StackStatus.UPDATE_ROLLBACK_IN_PROGRESS,
+    StackStatus.UPDATE_ROLLBACK_FAILED,
+    StackStatus.UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS,
+    StackStatus.UPDATE_ROLLBACK_COMPLETE,
+    StackStatus.REVIEW_IN_PROGRESS,
+    StackStatus.IMPORT_IN_PROGRESS,
+    StackStatus.IMPORT_COMPLETE,
+    StackStatus.IMPORT_ROLLBACK_IN_PROGRESS,
+    StackStatus.IMPORT_ROLLBACK_FAILED,
+    StackStatus.IMPORT_ROLLBACK_COMPLETE,
   ];
 
   // Build a list of CloudFormation stack names that match the provided patterns.
