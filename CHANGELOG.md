@@ -1,4 +1,11 @@
 
+### [0.0.51](https://gitlab.com/gcix/gcix/compare/v0.0.50...v0.0.51) (2024-02-22)
+
+
+### Chore
+
+* **deps:** update dependency jsii-docgen to v10 ([f1a9133](https://gitlab.com/gcix/gcix/commit/f1a9133cd8edbdd054ee1005d43632d6fcae608a))
+
 ### [0.0.50](https://gitlab.com/gcix/gcix/compare/v0.0.49...v0.0.50) (2023-12-30)
 
 
