@@ -4,4 +4,4 @@ mkdocs-macros-plugin
 mkdocs-git-revision-date-localized-plugin
 mkdocs-git-authors-plugin
 mkdocs-literate-nav
-mike>=2.0.0, <2.1.0
+mike>=2.0.0, <3.0.0

@@ -5,7 +5,7 @@
   ],
   "extends": [
     ":preserveSemverRanges",
-    "config:base",
+    "config:recommended",
     "group:allNonMajor",
     "group:recommended",
     "group:monorepos"
@@ -35,11 +35,11 @@
     "@types/node",
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
+    "constructs",
     "eslint",
     "jest-junit",
     "jsii-rosetta",
     "jsii",
-    "npm-check-updates",
     "standard-version",
     "projen"
   ]
