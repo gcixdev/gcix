@@ -1,4 +1,11 @@
 
+### [0.0.53](https://gitlab.com/gcix/gcix/compare/v0.0.52...v0.0.53) (2024-02-22)
+
+
+### Features
+
+* Create a rerelease based on v0.0.52 release. ([430d8e6](https://gitlab.com/gcix/gcix/commit/430d8e600ba084008f91af2a3ef8a65e56ca466c))
+
 ### [0.0.52](https://gitlab.com/gcix/gcix/compare/v0.0.51...v0.0.52) (2024-02-22)
 
 
