@@ -14,7 +14,7 @@ const gcixProject = new cdk.JsiiProject({
   bugsUrl: "https://gitlab.com/gcix/gcix/-/issues/new",
   repository: "https://gitlab.com/gcix/gcix.git",
   defaultReleaseBranch: "main",
-  jsiiVersion: "~5.0.0",
+  jsiiVersion: "~5.3.0",
   name: "@gcix/gcix",
   projenrcTs: true,
   repositoryUrl: "https://gitlab.com/gcix/gcix.git",
