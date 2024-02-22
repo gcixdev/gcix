@@ -1,17 +1,4 @@
 
-### [0.0.52](https://gitlab.com/gcix/gcix/compare/v0.0.51...v0.0.52) (2024-02-22)
-
-
-### Bug Fixes
-
-* **cfnwaiter:** :bug: Fixed wrong types in cfnwaiter script. ([eef78fe](https://gitlab.com/gcix/gcix/commit/eef78fe8b8cbd8727f07f4b8a9a9cc253f0247a7))
-
-
-### Chore
-
-* **deps:** lock file maintenance ([f223214](https://gitlab.com/gcix/gcix/commit/f2232144b5d40b403bd701c61d4ae1d9b13180cb))
-* **deps:** update dependency eslint-config-prettier to v9 ([4645a38](https://gitlab.com/gcix/gcix/commit/4645a381f69072151d57b5590f1d66dde116e403))
-
 ### [0.0.51](https://gitlab.com/gcix/gcix/compare/v0.0.50...v0.0.51) (2024-02-22)
 
 
@@ -418,4 +405,3 @@
 * :truck: Renamed all static methods in PredefinedVariables class to match camel case style, that allow compiling and packaging. ([0af172c](https://gitlab.com/gcix/gcix/commit/0af172c2ad4376c03fa646bb8e64cff1efca7610))
 * **job:** :bug: Fixed various bugs in job.ts and job-collection.ts ([1d0dab9](https://gitlab.com/gcix/gcix/commit/1d0dab9baf14f7a1bdb9a6255b9e58b22ec3216e))
 * **pipeline:** :bug: Do not sortKeys and use now flow style when generated-config.yml is written to disk from pipeline. ([2389b82](https://gitlab.com/gcix/gcix/commit/2389b82693ed5b08bff593ec3a010776cee63b4a))
-
