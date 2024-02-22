@@ -20,6 +20,7 @@ theme:
     - content.action.edit
     - content.action.view
     - content.tabs.link
+    - content.tooltips
     - navigation.instant
     - navigation.tracking
     - navigation.sections
