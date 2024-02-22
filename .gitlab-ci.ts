@@ -154,8 +154,8 @@ if (PredefinedVariables.ciCommitTag) {
     "git fetch origin $PAGES_BRANCH && git checkout -b $PAGES_BRANCH origin/$PAGES_BRANCH || git checkout $PAGES_BRANCH || echo 'Pages branch not deployed yet.'",
     "git checkout $CI_COMMIT_SHA",
     "npx projen docs:api",
-    'mike deploy --rebase --prefix public -r $HTTPS_REMOTE -p -b $PAGES_BRANCH -u $(echo "$CI_COMMIT_TAG" | cut -d. -f1,2) latest',
-    "mike set-default --rebase --prefix public -r $HTTPS_REMOTE -p -b $PAGES_BRANCH latest",
+    'mike deploy --deploy-prefix public --remote $HTTPS_REMOTE --push --branch $PAGES_BRANCH --update-aliases $(echo "$CI_COMMIT_TAG" | cut -d. -f1,2) latest',
+    "mike set-default --deploy-prefix public --remote $HTTPS_REMOTE --push --branch $PAGES_BRANCH latest",
     "git checkout $PAGES_BRANCH -- public/",
   ]);
   mikePagesJob.addVariables({
