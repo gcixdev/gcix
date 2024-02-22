@@ -1,4 +1,17 @@
 
+### [0.0.52](https://gitlab.com/gcix/gcix/compare/v0.0.51...v0.0.52) (2024-02-22)
+
+
+### Bug Fixes
+
+* **cfnwaiter:** :bug: Fixed wrong types in cfnwaiter script. ([eef78fe](https://gitlab.com/gcix/gcix/commit/eef78fe8b8cbd8727f07f4b8a9a9cc253f0247a7))
+
+
+### Chore
+
+* **deps:** lock file maintenance ([f223214](https://gitlab.com/gcix/gcix/commit/f2232144b5d40b403bd701c61d4ae1d9b13180cb))
+* **deps:** update dependency eslint-config-prettier to v9 ([4645a38](https://gitlab.com/gcix/gcix/commit/4645a381f69072151d57b5590f1d66dde116e403))
+
 ### [0.0.51](https://gitlab.com/gcix/gcix/compare/v0.0.50...v0.0.51) (2024-02-22)
 
 
