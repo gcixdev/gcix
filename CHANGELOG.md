@@ -1,4 +1,11 @@
 
+### [0.0.54](https://gitlab.com/gcix/gcix/compare/v0.0.53...v0.0.54) (2024-02-22)
+
+
+### Features
+
+* Only run pipeline on git tag if release is triggerd and not on main. ([cba4b1b](https://gitlab.com/gcix/gcix/commit/cba4b1b65affba6c0c1e5eaaf9eee6cbfc7ed6c3))
+
 ### [0.0.53](https://gitlab.com/gcix/gcix/compare/v0.0.52...v0.0.53) (2024-02-22)
 
 
