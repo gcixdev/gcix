@@ -41,7 +41,7 @@ const testPackageJob = new Job({
 // fixes the issue which doesn't package
 // @aws-sdk/util-utf8-browser
 // see https://github.com/aws/jsii/issues/4178
-testPackageJob.assignImage("node:18.13");
+testPackageJob.assignImage("node:20");
 const testCollection = new JobCollection();
 testCollection.addChildren({
   jobsOrJobCollections: [lintJob, jestJob, testCompileJob, testPackageJob],
@@ -88,7 +88,7 @@ if (PredefinedVariables.ciCommitTag) {
   // fixes the issue which doesn't package
   // @aws-sdk/util-utf8-browser
   // see https://github.com/aws/jsii/issues/4178
-  packageJob.assignImage("node:18.13");
+  packageJob.assignImage("node:20");
 
   const publishNpmJob = new Job({
     scripts: ["npx projen ci:publish:npm"],
@@ -163,7 +163,7 @@ if (PredefinedVariables.ciCommitTag) {
     HTTPS_REMOTE:
       "https://${GCIX_PUSH_USER}:${GCIX_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git",
   });
-  mikePagesJob.assignImage("node:18");
+  mikePagesJob.assignImage("node:20");
 
   pipeline.addChildren({
     jobsOrJobCollections: [
@@ -172,6 +172,6 @@ if (PredefinedVariables.ciCommitTag) {
   });
 }
 
-pipeline.initializeImage("node:18");
+pipeline.initializeImage("node:20");
 pipeline.addTags(["gcix"]);
 pipeline.writeYaml();

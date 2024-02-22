@@ -1,7 +1,7 @@
 ---
 generate-pipeline:
   stage: build
-  image: node:18
+  image: node:20
   script:
     - npx projen install:ci
     - npx ts-node .gitlab-ci.ts

@@ -20,7 +20,7 @@ const gcixProject = new cdk.JsiiProject({
   repositoryUrl: "https://gitlab.com/gcix/gcix.git",
   docgen: true,
   github: false,
-  minNodeVersion: "18.0.0",
+  minNodeVersion: "20.0.0",
   bundledDeps: [
     "js-yaml",
     "lodash",
