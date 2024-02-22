@@ -55,8 +55,10 @@ plugins:
         - de
   - macros
   - git-revision-date-localized:
+      enabled: !ENV [CI, false]
       enable_creation_date: true
   - git-authors:
+      enabled: !ENV [CI, false]
       show_contribution: true
       show_line_count: true
       show_email_address: true
