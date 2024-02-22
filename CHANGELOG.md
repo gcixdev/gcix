@@ -1,4 +1,6 @@
 
+### [0.0.55](https://gitlab.com/gcix/gcix/compare/v0.0.54...v0.0.55) (2024-02-22)
+
 ### [0.0.54](https://gitlab.com/gcix/gcix/compare/v0.0.53...v0.0.54) (2024-02-22)
 
 
