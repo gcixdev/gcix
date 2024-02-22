@@ -1,4 +1,38 @@
 
+### [0.0.52](https://gitlab.com/gcix/gcix/compare/v0.0.51...v0.0.52) (2024-02-22)
+
+
+### Features
+
+* Increased node lts version to v20. ([e9767c0](https://gitlab.com/gcix/gcix/commit/e9767c0f2419d2caeb32d9380f0af6a4f51a21df))
+
+
+### Bug Fixes
+
+* **cfnwaiter:** :bug: Fixed wrong types in cfnwaiter script. ([eef78fe](https://gitlab.com/gcix/gcix/commit/eef78fe8b8cbd8727f07f4b8a9a9cc253f0247a7))
+
+
+### Documentation
+
+* :memo: Migrate to material.extensions.emoji from materialx.emoji. ([dfccd42](https://gitlab.com/gcix/gcix/commit/dfccd428215f180a80b87118cd7e8490384c0930))
+* Added automatically detect colorscheme from os by default. ([62d0b40](https://gitlab.com/gcix/gcix/commit/62d0b40d3679f39bb018573f717acfcfdb4eb765))
+* Only render/generate git information in CI system. ([0b10970](https://gitlab.com/gcix/gcix/commit/0b10970919c810cbf65377af9fc9760e1ea0ff1e))
+* Use better tooltips. ([b1ad16a](https://gitlab.com/gcix/gcix/commit/b1ad16af918fd551a3aacafd55654afc6ce0bdfb))
+* Use Materials privacy plugin. ([ee912be](https://gitlab.com/gcix/gcix/commit/ee912be32d8bfc37a0963dd3eea1a5c4a96376f2))
+* Using gitlab icon for repository view. ([88941e0](https://gitlab.com/gcix/gcix/commit/88941e02b3149a1baf4f9902e3198b22f419a51d))
+
+
+### Chore
+
+* **deps:** :arrow_up: Updated dependencies. ([9df961d](https://gitlab.com/gcix/gcix/commit/9df961d8ee299a41505a898e08749f3e7d0d456d))
+* **deps:** :arrow_up: Upgraded jsii dependency ([af27667](https://gitlab.com/gcix/gcix/commit/af27667ce52790e81b37448c17a295f4734ad98c))
+* **deps:** lock file maintenance ([f223214](https://gitlab.com/gcix/gcix/commit/f2232144b5d40b403bd701c61d4ae1d9b13180cb))
+* **deps:** update dependency eslint-config-prettier to v9 ([4645a38](https://gitlab.com/gcix/gcix/commit/4645a381f69072151d57b5590f1d66dde116e403))
+* **deps:** update dependency mike to v2 ([093d0a6](https://gitlab.com/gcix/gcix/commit/093d0a6ed46c45f67364c3390590acb2222bd488))
+* Migrated to mike version 2.x ([9990adc](https://gitlab.com/gcix/gcix/commit/9990adcc795ea59e4d562d82467eedab60c381bf))
+* **release:** 0.0.52 ([055c8a8](https://gitlab.com/gcix/gcix/commit/055c8a8cc8f07b2ed0634d32bac2056e171ac498))
+* Trying a rerelease of v0.0.52 ([dfd9fce](https://gitlab.com/gcix/gcix/commit/dfd9fce04d389d5d09e0a01af6592e61be055541))
+
 ### [0.0.51](https://gitlab.com/gcix/gcix/compare/v0.0.50...v0.0.51) (2024-02-22)
 
 
