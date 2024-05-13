@@ -1,4 +1,12 @@
 
+### [0.0.56](https://gitlab.com/gcix/gcix/compare/v0.0.55...v0.0.56) (2024-05-13)
+
+
+### Chore
+
+* **deps:** lock file maintenance ([231bd1d](https://gitlab.com/gcix/gcix/commit/231bd1d8db43d9292122b3e36982d9747fc814d8))
+* **deps:** update aws-sdk-client-mock monorepo to v4 ([d3ec909](https://gitlab.com/gcix/gcix/commit/d3ec909137c821f32b4c3e91f8bc965a7c277784))
+
 ### [0.0.55](https://gitlab.com/gcix/gcix/compare/v0.0.54...v0.0.55) (2024-02-22)
 
 ### [0.0.54](https://gitlab.com/gcix/gcix/compare/v0.0.53...v0.0.54) (2024-02-22)
