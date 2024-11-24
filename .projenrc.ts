@@ -58,7 +58,8 @@ const gcixProject = new cdk.JsiiProject({
     },
   },
   releaseTrigger: ReleaseTrigger.manual({
-    gitPushCommand: "git push -o ci.skip origin main && git push --tags origin "
+    gitPushCommand:
+      "git push -o ci.skip origin main && git push --tags origin ",
   }),
   prettier: true,
   eslintOptions: {

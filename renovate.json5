@@ -35,12 +35,13 @@
     "@types/node",
     "@typescript-eslint/eslint-plugin",
     "@typescript-eslint/parser",
+    "commit-and-tag-version",
     "constructs",
     "eslint",
     "jest-junit",
+    "jsii-docgen",
     "jsii-rosetta",
     "jsii",
-    "standard-version",
     "projen"
   ]
 }
